@@ -16,16 +16,27 @@
 > * All project phases are to be submitted to this GitHub repository. You should modify this README file to reflect the different phases of the project. In addition, you should regularly hold sprint meetings with your group. You will need to hold two to three scrum/check-in meetings with your lab TA/reader at different times in addition to the final demo.
 
 ## Project Description
- > Your project description should summarize the project you are proposing. Be sure to include:
- > * Why is it important or interesting to you?
- > * What languages/tools/technologies do you plan to use? (This list may change over the course of the project)
- > * What will be the input/output of your project?
- > * What are the features that the project provides?
- > This description should be in enough detail that the TA/instructor can determine the complexity of the project and if it is sufficient for the team members to complete in the time allotted. 
- > 
- > You also need to set up an empty project board using GitHub projects (board view with columns for a scrum board). Make sure you add the board under your project repository. You should also add a `Product Backlog` and an `In testing` column. Please also rename the `TODO` column to `Sprint Backlog` and the `In Progress` column to `In Development`. All columns should be in the right order.
-> 
-> Finally, one member from your team needs to submit the Project Group Signups form (link available on Canvas) to provide a link to your team's project repository before the deadline for this porposal phase.
+> Important/Interesting:
+> * We are able to combine elements of storytelling, game design, and OOP into a personally loved project. We want to be able to think like programmers and game designers, taking into account the compelling narrative and a smoother gameplay, for our users!
+> Languages/Tools/Technologies:
+> * C++
+> * VSCode
+> * Github
+> * qt GUI
+> Input/Output of Project:
+> * Keyboard input, terminal output
+> * Optional: User .txt file input for character files, and option to output their character information to a .txt file as well
+> * Ex of a .txt file input/output:
+>    * Annie (name)
+>    * 18 (level)
+>    * Mage (class: type)
+>    * 19000 (gold)
+>    * 126 (hp)
+>    * 350 (max hp)
+>    * 12 (breakpoint to mark progress through game)
+> Features:
+> * Option to save character and continue gameplay from where it is saved
+
  > ## Phase II
  > In addition to completing the "User Interface Specification" and "Class Diagram" sections below, you will need to:
  > * Create an "Epic" (note) for each feature. Place these epics in the `Product Backlog` column
