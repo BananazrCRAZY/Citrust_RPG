@@ -28,3 +28,20 @@ Important/Interesting:
 * Option to save character and continue gameplay from where it is saved
 * Preset decisions and consequences that the player chooses
 * Turn based battle system
+
+# Phase 2
+## User Interface Specification: 
+* Navigation Diagram:
+* Screen Layout: https://docs.google.com/presentation/d/113KIpqxjZn-ZylGX6MBx2rM3WvERidij8RLd5BcQcd8/edit?usp=sharing
+* Screen Layout Description:
+  * Title Screen: has three options, with “New Game” - prompts to Orange Creation screen, “Load” - prompts user to pick a save file, and “Quit”, which exits out of the UI
+  * Orange Creation: prompts user to enter name, and “Next” which would go into story mode
+  * Load: Prompts user to pick one out of 3 save files
+  * Prologue/Epilogue: Tells story of Orange being bullied by the different Fruit Bosses, with “Next” prompting a shift into a “Tutorial Boss fight”
+  * Tutorial Boss Fight: general layout of all boss fights, just cut and insert specific boss. Players have option on a turn-based system of 2 types of attacks, a basic attack (requires no skill points charge_, or a skill attack (pick one of 2, either requires the same # of skill points)
+  * Shop Screen: Displays 6 shop items and their visuals + descriptions (will be finalized later)
+## UML Diagram
+* UML Diagram: https://drive.google.com/file/d/1euJCQomQhLoey8pglOfzLNkVippZvsMd/view?usp=sharing
+* UML Descriptions:
+* 
+
