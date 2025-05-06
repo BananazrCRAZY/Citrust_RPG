@@ -42,10 +42,7 @@ Important/Interesting:
   * Shop Screen: Displays 6 shop items and their visuals + descriptions (will be finalized later)
 ## UML Diagram
 * UML Diagram: https://drive.google.com/file/d/1euJCQomQhLoey8pglOfzLNkVippZvsMd/view?usp=sharing
-## UML Descriptions
-
-# Classes
-
+## UML Class Descriptions
 Game
   * - saveFile: string
     * Txt file name the contains game save data
@@ -223,7 +220,7 @@ Status
   * + resetStatus(): void
     * Changes turns = defaultTurns
 
-# Compositions and Aggregation
+## Compositions and Aggregation
   * Item
     * Boss comp
     * Player aggregation
