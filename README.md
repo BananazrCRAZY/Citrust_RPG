@@ -32,12 +32,12 @@ progress: 12
 * Preset decisions and consequences that the player chooses
 * Turn based battle system
 
-## User Interface Specification: 
 ## Navigation Diagram  
-- **Screen Layout:** [View Presentation](https://docs.google.com/presentation/d/113KIpqxjZn-ZylGX6MBx2rM3WvERidij8RLd5BcQcd8/edit?usp=sharing)
+<p align="center"><img src="https://github.com/user-attachments/assets/d8d62409-2685-4d92-b59b-edddf6708117" alt="User Navigation Diagram" width = "700"</p>
 
 ---
-
+## Screen Layouts
+- **Screen Layout:** [View Presentation](https://docs.google.com/presentation/d/113KIpqxjZn-ZylGX6MBx2rM3WvERidij8RLd5BcQcd8/edit?usp=sharing)
 ## Screen Layout Description
 
 ### Title Screen
