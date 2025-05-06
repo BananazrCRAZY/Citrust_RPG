@@ -29,7 +29,6 @@ Important/Interesting:
 * Preset decisions and consequences that the player chooses
 * Turn based battle system
 
-# Phase 2
 ## User Interface Specification: 
 * Navigation Diagram:
 * Screen Layout: https://docs.google.com/presentation/d/113KIpqxjZn-ZylGX6MBx2rM3WvERidij8RLd5BcQcd8/edit?usp=sharing
