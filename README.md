@@ -326,8 +326,15 @@ progress: 12
       <summary>
         Example
       </summary>
-      We have 3 items total, but we want `item[0]` to have a probability of appearing in the shop of 25%. So, we set `showProbability to $\frac{2}{3}$. The equation is `showProbability` = 1/(total items) * showProbabilitytotalProbabilities + 1/(total items) * showProbability = 1/3 * 2/31/3 + 1/3 + 1/3 * 2/3 = 25% while the other items have 75/2%. 
+      
+      We have 3 items total, but we want `item[0]` to have a probability of appearing in the shop of 25%. So, we set `showProbability` to $\frac{2}{3}$. The equation is:
+
+      ![image](https://github.com/user-attachments/assets/1e9597a1-5480-4864-9dc4-c518efbba42e)
+
+
       </details>
+      
+  **Methods:**
   * `use(target: Fruit): void`
   * `setCooldown(change: int): void`
     * Will be used in `Player.endOfTurn()`
@@ -340,23 +347,26 @@ progress: 12
       Status
     </strong>
   </summary>
-  * - name: string
-  * - description: string
-  * - defaultTurns: int
-  * - turns: int
-  * - hpChange: double 
-  * - maxHpChange: double
-  * - attackChange: double 
-  * - defenseChange: double 
-  * - citrusArtsChange: double 
-  * - citrusResChange: double
-  * - critRateChange: int 
-  * - critDmgChange: double
-  * - rechargeCountChange: int
-  * - turnChange: int
-  * + decreaseTurn(): void
-  * + resetStatus(): void
-    * Changes turns = defaultTurns
+  
+  * `name: string`
+  * `description: string`
+  * `defaultTurns: int`
+  * `turns: int`
+  * `hpChange: double`
+  * `maxHpChange: edouble`
+  * `attackChange: double`
+  * `defenseChange: double`
+  * `artsChange: double`
+  * `resChange: double`
+  * `critRateChange: double`
+  * `critDmgChange: double`
+  * `rechargeCountChange: int`
+  * `turnChange: int`
+
+  **Methods:**
+  * `decreaseTurn(): void`
+  * `resetStatus(): void`
+    * Changes turns = `defaultTurns`
 </details>
 
 ## Compositions and Aggregation
