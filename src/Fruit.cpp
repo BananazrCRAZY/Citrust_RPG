@@ -5,28 +5,46 @@
 
 using std::cerr;
 
-Fruit::Fruit(string file) : fileName(file) {
-    std::ifstream iFile(fileName);
-    if (!iFile.good()) {
-        cerr << "Error with file fstream" << std::endl;
-        exit(1);
-    }
+Fruit::Fruit(string file) : 
+    fileName(file), 
+    maxHpAdd(0), 
+    attackAdd(0),
+    defenseAdd(0),
+    citrusArtsAdd(0),
+    citrusResAdd(0),
+    critRateAdd(0),
+    critDmgAdd(0),
+    rechargeCount(2),
+    turn(1)
+    {
+        std::ifstream iFile(fileName);
+        if (!iFile.good()) {
+            cerr << "Error with file fstream" << std::endl;
+            exit(1);
+        }
 
-    getline(iFile, name);
-    iFile >> level;
-    iFile >> hp;
-    iFile >> baseMaxHp;
-    iFile >> baseAttack;
-    iFile >> baseDefense;
-    iFile >> baseCitrusArts;
-    iFile >> baseCitrusRes;
-    iFile >> baseCritRate;
-    iFile >> baseCritDmg;
-}
+        getline(iFile, name);
+        iFile >> level;
+        iFile >> hp;
+        iFile >> baseMaxHp;
+        maxHpTotal = baseMaxHp;
+        iFile >> baseAttack;
+        attackTotal = baseAttack;
+        iFile >> baseDefense;
+        defenseTotal = baseDefense;
+        iFile >> baseCitrusArts;
+        citrusArtsTotal = baseCitrusArts;
+        iFile >> baseCitrusRes;
+        citrusResTotal = baseCitrusRes;
+        iFile >> baseCritRate;
+        critRateTotal = baseCritRate;
+        iFile >> baseCritDmg;
+        critDmgTotal = baseCritDmg;
+    }
 
 int Fruit::basicAttack(Fruit* target) {
     int damage = target->getDefense() - attackTotal;
-    if (damage > 0) return 0;
+    if (damage >= 0) return 0;
     target->setHp(damage);
     return -1 * damage;
 }
@@ -34,6 +52,11 @@ int Fruit::basicAttack(Fruit* target) {
 void Fruit::setMaxHpAdd(int change) {
     maxHpAdd += change;
     maxHpTotal += change;
+}
+
+void Fruit::setAttackAdd(int change) {
+    attackAdd += change;
+    attackTotal += change;
 }
 
 void Fruit::setDefenseAdd(int change) {
