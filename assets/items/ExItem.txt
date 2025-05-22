@@ -1,0 +1,8 @@
+name: string
+description: string
+cost: int
+consumable: bool
+uses: int
+cooldownDefault: int
+showProbability: int
+statusFile: string
