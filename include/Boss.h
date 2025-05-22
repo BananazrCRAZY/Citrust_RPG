@@ -6,14 +6,15 @@
 using std::string;
 
 class Boss : public Fruit {
-    //Item* itemDrop;
-    int bossAttackCharge;
-    string itemFile;
+    protected:
+        //Item* itemDrop;
+        int bossAttackCharge;
+        string itemFile;
 
     public:
         Boss(string, string);
-        int specialAttack(Fruit*);
-        void bossAttack(Fruit*);
+        virtual int specialAttack(Fruit*) = 0;
+        virtual int bossAttack(Fruit*) = 0;
         int getBossAttackCharge() { return bossAttackCharge; }
         void setBossAttackCharge(int change) { bossAttackCharge += change; }
         //Item* getItem() { return itemDrop; }

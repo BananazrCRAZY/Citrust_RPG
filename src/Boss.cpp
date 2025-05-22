@@ -16,14 +16,6 @@ Boss::Boss(string mainFile, string itemF) : Fruit(mainFile), itemFile(itemF) {
     // need to finish when item implemented
 }
 
-int Boss::specialAttack(Fruit* target) {
-    return 0;
-}
-
-void Boss::bossAttack(Fruit* target) {
-
-}
-
 void Boss::endOfTurn() {
 
 }
