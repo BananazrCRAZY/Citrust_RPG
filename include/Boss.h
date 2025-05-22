@@ -8,9 +8,10 @@ using std::string;
 class Boss : public Fruit {
     //Item* itemDrop;
     int bossAttackCharge;
+    string itemFile;
 
     public:
-        Boss(string file);
+        Boss(string, string);
         int specialAttack(Fruit*);
         void bossAttack(Fruit*);
         int getBossAttackCharge() { return bossAttackCharge; }

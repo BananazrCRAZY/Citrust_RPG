@@ -41,9 +41,11 @@ class Fruit {
         Fruit(string);
         int basicAttack(Fruit*);
         virtual int specialAttack(Fruit*) = 0;
+        string getName() { return name; }
         int getLevel() { return level; }
         int getMaxHp() { return maxHpTotal; }
         int getHp() { return hp; }
+        int getAttack() { return attackTotal; }
         int getDefense() { return defenseTotal; }
         int getCitrusArts() { return citrusArtsTotal; }
         int getCitrusRes() { return citrusResTotal; }
@@ -53,6 +55,7 @@ class Fruit {
         int getTurn() { return turn; }
         void setMaxHpAdd(int);
         void setHp(int change) { hp += change; }
+        void setAttackAdd(int);
         void setDefenseAdd(int);
         void setCitrusArtsAdd(int);
         void setCitrusResAdd(int);
