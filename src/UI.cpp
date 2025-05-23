@@ -72,3 +72,5 @@ int UI::playerAction(Player* player) {
         if (input == 5 && input2 == 1) return 13;
     }
 }
+
+void UI::print(string o) { cout << o << " "; }

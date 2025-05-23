@@ -15,7 +15,8 @@ Status::Status(
   double critRateChange = 0.0,
   double critDamageChange = 0.0,
   int rechargeCountChange = 0,
-  int turnChange = 0
+  int turnChange = 0,
+  bool isBossStatus = false
 ) : name(name), 
   description(description), 
   defaultTurns(defaultTurns), 
@@ -30,7 +31,8 @@ Status::Status(
   critRateChange(critRateChange), 
   critDamageChange(critDamageChange), 
   rechargeCountChange(rechargeCountChange), 
-  turnChange(turnChange) { }
+  turnChange(turnChange),
+  isBossStatus(isBossStatus) { }
 
 void Status::decreaseTurn() { if (turns > 0) --turns; }
 
@@ -50,4 +52,4 @@ double Status::getCritRateChange() const { return critRateChange; }
 double Status::getCritDamageChange() const { return critDamageChange; }
 int Status::getRechargeCountChange() const { return rechargeCountChange; }
 int Status::getTurnChange() const { return turnChange; }
-bool Status::isBossStatus() const { return isBossStatus; }
+bool Status::isBossStatusTF() const { return isBossStatus; }

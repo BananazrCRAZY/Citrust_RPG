@@ -51,7 +51,7 @@ Boss::Boss(string mainFile, string itemF) : Fruit(mainFile), itemFile(itemF) {
     iFile >> turnChange;
     iFile.close();
 
-    Status* stat = new Status(statusName, statusDesc, defaultTurns, percentBased, hpChange, maxHpChange, attackChange, defenseChange, artsChange, resChange, critRateChange, critDamageChange, rechargeCountChange, turnChange);
+    Status* stat = new Status(statusName, statusDesc, defaultTurns, percentBased, hpChange, maxHpChange, attackChange, defenseChange, artsChange, resChange, critRateChange, critDamageChange, rechargeCountChange, turnChange, false);
     itemDrop = new Item(itemName, itemDesc, cost, cooldownDefault, stat, appearanceProb, isConsumable);
 }
 

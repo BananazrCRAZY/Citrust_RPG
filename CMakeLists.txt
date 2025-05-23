@@ -23,5 +23,9 @@ add_executable(runTests
     tests/FruitTest.cpp
 )
 
+add_executable(runGame
+    src/main.cpp
+)
+
 # Link everything
 target_link_libraries(runTests FruitLib gtest gtest_main pthread)

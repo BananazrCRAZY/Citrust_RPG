@@ -38,7 +38,8 @@ class Status {
     double critRateChange = 0.0,
     double critDamageChange = 0.0,
     int rechargeCountChange = 0,
-    int turnChange = 0
+    int turnChange = 0,
+    bool isBossStatus = false
   );
 
   void decreaseTurn();
@@ -59,5 +60,5 @@ class Status {
   double getCritDamageChange() const;
   int getRechargeCountChange() const;
   int getTurnChange() const;
-  bool isBossStatus() const;
+  bool isBossStatusTF() const;
 };

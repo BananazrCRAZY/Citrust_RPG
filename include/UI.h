@@ -11,5 +11,5 @@ class UI {
         int startMenu();
         void printDialogue(string);
         int playerAction(Player*);
-        void print(string o) { cout << o << " "; }
+        void print(string o);
 };
