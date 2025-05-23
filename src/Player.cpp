@@ -65,20 +65,6 @@ bool Player::useItem(Fruit* target, unsigned itemIndex) {
     cycleThroughEffects();
 }
 
-// goes through effects and add to recharge, does not check dead
-int Player::endOfTurn() {
-    for (int i = 0; i < effects.size(); i++) {
-        if (effects.at(i)->getTurns() == 0) {
-            removeStats(effects.at(i));
-            effects.at(i)->resetStatus();
-            effects.erase(effects.begin()+i);
-        }
-        effects.at(i)->decreaseTurn();
-    }
-    rechargeCount++;
-    return 1;
-}
-
 void Player::savePlayer() {
     std::ofstream oFile(fileName);
     if (!oFile.good()) {

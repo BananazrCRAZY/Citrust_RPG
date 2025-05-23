@@ -184,3 +184,17 @@ void Fruit::cycleThroughEffects() {
     for (int i = 0; i < effects.size(); i++) removeStats(effects.at(i));
     for (int i = 0; i < effects.size(); i++) addStats(effects.at(i));
 }
+
+// goes through effects and add to recharge, does not check dead
+int Fruit::endOfTurn() {
+    for (int i = 0; i < effects.size(); i++) {
+        if (effects.at(i)->getTurns() == 0) {
+            removeStats(effects.at(i));
+            effects.at(i)->resetStatus();
+            effects.erase(effects.begin()+i);
+        }
+        effects.at(i)->decreaseTurn();
+    }
+    rechargeCount++;
+    return 1;
+}

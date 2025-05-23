@@ -19,7 +19,3 @@ int Boss::specialAttack(Fruit* target) {
     target->setHp(-1*damage);
     return damage;
 }
-
-int Boss::endOfTurn() {
-
-}
