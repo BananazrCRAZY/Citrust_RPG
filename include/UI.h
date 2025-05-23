@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "Player.h"
 
 using std::string;
 
@@ -9,4 +10,6 @@ class UI {
         UI() : input(0) {}
         int startMenu();
         void printDialogue(string);
+        int playerAction(Player*);
+        void print(string o) { cout << o << " "; }
 };

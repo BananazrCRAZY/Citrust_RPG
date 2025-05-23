@@ -17,12 +17,11 @@ Boss::Boss(string mainFile, string itemF) : Fruit(mainFile), itemFile(itemF) {
     }
 
     string itemName, itemDesc, statusFile;
-    int cost, cooldownDefault, appearanceProb, isConsumable, uses;
+    int cost, cooldownDefault, appearanceProb, isConsumable;
     getline(iFile, itemName);
     getline(iFile, itemDesc);
     iFile >> cost;
     iFile >> isConsumable;
-    iFile >> uses;
     iFile >> cooldownDefault;
     iFile >> appearanceProb;
     iFile >> statusFile;
@@ -53,7 +52,16 @@ Boss::Boss(string mainFile, string itemF) : Fruit(mainFile), itemFile(itemF) {
     iFile.close();
 
     Status* stat = new Status(statusName, statusDesc, defaultTurns, percentBased, hpChange, maxHpChange, attackChange, defenseChange, artsChange, resChange, critRateChange, critDamageChange, rechargeCountChange, turnChange);
-    itemDrop = new Item(itemName, itemDesc, cost, uses, cooldownDefault, stat, appearanceProb, isConsumable);
+    itemDrop = new Item(itemName, itemDesc, cost, cooldownDefault, stat, appearanceProb, isConsumable);
+}
+
+int Boss::specialAttack(Fruit* target) {
+    int damage = attackTotal * 2;
+    if (checkIfCrit()) damage = damage * (critDmgTotal/100 + 1);
+    damage  = damage - target->getDefense();
+    if (damage <= 0) return 0;
+    target->setHp(-1*damage);
+    return damage;
 }
 
 int Boss::endOfTurn() {

@@ -10,7 +10,6 @@ class Item {
   string name;
   string description;
   int cost;
-  int uses;
   int cooldownDefault;
   int cooldown;
   Status* effect;
@@ -23,14 +22,13 @@ class Item {
     string name,
     string description,
     int cost = 0,
-    int uses = 1,
     int cooldownDefault = 1,
     Status* effect,
     double appearanceProbability = 0.15,
     bool isConsumable = false
   );
 
-  void use(Fruit& target);
+  void use(Fruit* target);
   void changeCooldown(int change);
 
   // Getters

@@ -2,8 +2,13 @@
 #include <iostream>
 #include <fstream>
 #include <stdexcept>
+#include <cstdlib>
+#include <ctime>
 
 using std::cerr;
+using std::srand;
+using std::rand;
+using std::time;
 
 Fruit::Fruit(string file) : 
     fileName(file), 
@@ -43,10 +48,12 @@ Fruit::Fruit(string file) :
     }
 
 int Fruit::basicAttack(Fruit* target) {
-    int damage = target->getDefense() - attackTotal;
-    if (damage >= 0) return 0;
-    target->setHp(damage);
-    return -1 * damage;
+    int damage = attackTotal;
+    if (checkIfCrit()) damage = damage * (critDmgTotal/100 + 1);
+    damage  = damage - target->getDefense();
+    if (damage <= 0) return 0;
+    target->setHp(-1*damage);
+    return damage;
 }
 
 void Fruit::setMaxHpAdd(int change) {
@@ -82,6 +89,12 @@ void Fruit::setCritRateAdd(int change) {
 void Fruit::setCritDmgAdd(double change) {
     critDmgAdd += change;
     critDmgTotal += change;
+}
+
+bool Fruit::checkIfCrit() {
+    srand(time(0));
+    if (((rand() % 100) + 1) > critRateTotal) return false;
+    return true;
 }
 
 bool Fruit::isDead() const {

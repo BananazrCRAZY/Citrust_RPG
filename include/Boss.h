@@ -13,8 +13,7 @@ class Boss : public Fruit {
 
     public:
         Boss(string, string);
-        virtual int specialAttack(Fruit*) = 0;
-        virtual int bossAttack(Fruit*) = 0;
+        virtual int specialAttack(Fruit*);
         int getBossAttackCharge() { return bossAttackCharge; }
         void setBossAttackCharge(int change) { bossAttackCharge += change; }
         Item* getItem() { return itemDrop; }

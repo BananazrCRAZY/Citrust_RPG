@@ -2,7 +2,6 @@ shop item2
 testing shop item2
 200
 0
-10
 2
 100
 assets/status/TestItem1Status.txt

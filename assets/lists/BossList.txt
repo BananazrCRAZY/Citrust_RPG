@@ -1,0 +1,2 @@
+assets/bosses/Pear.txt
+assets/bosses/Apple.txt

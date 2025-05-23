@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Boss.h"
+#include "Apple.h"
 #include "UI.h"
 #include <fstream>
 #include <iostream>
@@ -58,7 +59,7 @@ int Game::gameLoop() {
             case 2:
                 ui.printDialogue(getDialogueFile());
                 // when creating a boss use getBossFile() to get the path
-                // apple here
+                Apple* apple = new Apple(getBossFile(), "assets/items/bossItems/TestBossItem.txt");
             default:
                 return -1;
         }
@@ -114,11 +115,38 @@ int Game::battleLoop(Boss* boss) {
 
 int Game::playerTurn(Boss* boss) {
     // loops until input
-    int input = 0;
-    while (1) {
-        if (input == 0) player->basicAttack(boss);
-        if (input == 1) player->specialAttack(boss);
-        // use item requires another input
+    int input = ui.playerAction(player);
+    switch (input) {
+        case 0:
+            player->basicAttack(boss);
+        case 1:
+            player->specialAttack(boss);
+        case 2:
+            player->useItem(player, 0);
+        case 3:
+            player->useItem(player, 1);
+        case 4:
+            player->useItem(player, 2);
+        case 5:
+            player->useItem(player, 3);
+        case 6:
+            player->useItem(player, 4);
+        case 7:
+            player->useItem(player, 5);
+        case 8:
+            player->useItem(boss, 0);
+        case 9:
+            player->useItem(boss, 1);
+        case 10:
+            player->useItem(boss, 2);
+        case 11:
+            player->useItem(boss, 3);
+        case 12:
+            player->useItem(boss, 4);
+        case 13:
+            player->useItem(boss, 5);
+        default:
+            player->basicAttack(boss);
     }
 }
 

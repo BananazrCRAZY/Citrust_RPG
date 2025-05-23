@@ -26,8 +26,8 @@ int Item::getCost() const { return cost; }
 int Item::getCooldown() const { return cooldown; }
 double Item::getAppearanceProbabiity() const { return appearanceProbability; }
 
-void Item::use(Fruit& target) {
-  target.addEffect(effect);
+void Item::use(Fruit* target) {
+  target->addEffect(effect);
 }
 
 void Item::changeCooldown(int change) {
