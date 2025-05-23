@@ -17,5 +17,4 @@ class Boss : public Fruit {
         int getBossAttackCharge() { return bossAttackCharge; }
         void setBossAttackCharge(int change) { bossAttackCharge += change; }
         Item* getItem() { return itemDrop; }
-        int endOfTurn();
 };
