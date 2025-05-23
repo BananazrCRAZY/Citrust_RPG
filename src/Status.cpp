@@ -1,20 +1,38 @@
-#include "../include/Status.h"
+#include "Status.h"
+#include <fstream>
+#include <iostream>
+#include <stdexcept>
 
-Status::Status(
-  string name,
-  string description,
-  int defaultTurns = 1,
-  int turns = 1,
-  double hpChange = 0.0,
-  double maxHpChange = 0.0,
-  double attackChange = 0.0,
-  double artsChange = 0.0,
-  double resChange = 0.0,
-  double critRateChange = 0.0,
-  double critDamageChange = 0.0,
-  int rechargeCountChange = 0,
-  int turnChange = 0
-) : name(name), description(description), defaultTurns(defaultTurns), turns(turns), hpChange(hpChange), maxHpChange(maxHpChange), attackChange(attackChange), artsChange(artsChange), resChange(resChange), critRateChange(critRateChange), critDamageChange(critDamageChange), rechargeCountChange(rechargeCountChange), turnChange(turnChange) { }
+using std::ifstream;
+using std::cerr;
+
+Status::Status(string file) {
+  ifstream iFile(file);
+  if (!iFile.good()) {
+    cerr << "Error with file fstream" << std::endl;
+    exit(1);
+  }
+
+  getline(iFile, name);
+  getline(iFile, description);
+  iFile >> defaultTurns;
+  iFile >> percentBased;
+  iFile >> hpChange;
+  iFile >> maxHpChange;
+  iFile >> attackChange;
+  iFile >> defenseChange;
+  iFile >> artsChange;
+  iFile >> resChange;
+  iFile >> critRateChange;
+  iFile >> critDamageChange;
+  iFile >> rechargeCountChange;
+  iFile >> turnChange;
+  if (!iFile.good()) {
+    cerr << "Error with file fstream" << std::endl;
+    exit(1);
+  }
+  iFile.close();
+}
 
 void Status::decreaseTurn() { if (turns > 0) --turns; }
 
@@ -22,7 +40,6 @@ void Status::resetStatus() { turns = defaultTurns; }
 
 string Status::getName() const { return name; }
 string Status::getDescription() const { return description; }
-int Status::getDefaultTurns() const { return defaultTurns; }
 int Status::getTurns() const { return turns; }
 double Status::getHpChange() const { return hpChange; }
 double Status::getMaxHpChange() const { return maxHpChange; }
@@ -34,4 +51,4 @@ double Status::getCritRateChange() const { return critRateChange; }
 double Status::getCritDamageChange() const { return critDamageChange; }
 int Status::getRechargeCountChange() const { return rechargeCountChange; }
 int Status::getTurnChange() const { return turnChange; }
-bool Status::isBossStatus() const { return isBossStatus; }
+bool Status::isBossStatusTF() const { return isBossStatus; }
