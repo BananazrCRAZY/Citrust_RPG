@@ -33,11 +33,11 @@ void Player::levelUp() {
 }
 
 bool Player::useItem(Fruit* target, int itemIndex) {
-    return 1;
+    battleItems.at(itemIndex)->use(target);
 }
 
-void Player::endOfTurn() {
-
+int Player::endOfTurn() {
+    return 1;
 }
 
 void Player::savePlayer() {
@@ -57,4 +57,5 @@ void Player::savePlayer() {
     oFile << baseRes << '\n';
     oFile << baseCritRate << '\n';
     oFile << baseCritDmg;
+    oFile.close();
 }

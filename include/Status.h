@@ -8,6 +8,7 @@ class Status {
   string name;
   string description;
   int defaultTurns;
+  bool percentBased;
   int turns;
   double hpChange;
   double maxHpChange;
@@ -26,16 +27,19 @@ class Status {
     string name,
     string description,
     int defaultTurns = 1,
+    bool percentBased = false,
     int turns = 1,
     double hpChange = 0.0,
     double maxHpChange = 0.0,
     double attackChange = 0.0,
+    double defenseChange = 0,
     double artsChange = 0.0,
     double resChange = 0.0,
     double critRateChange = 0.0,
     double critDamageChange = 0.0,
     int rechargeCountChange = 0,
-    int turnChange = 0
+    int turnChange = 0,
+    bool isBossStatus = false
   );
 
   void decreaseTurn();
@@ -56,5 +60,5 @@ class Status {
   double getCritDamageChange() const;
   int getRechargeCountChange() const;
   int getTurnChange() const;
-  bool isBossStatus() const;
+  bool isBossStatusTF() const;
 };
