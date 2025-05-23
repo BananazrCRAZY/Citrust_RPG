@@ -113,10 +113,10 @@ progress: 12
 
 ## UML Diagram
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/85e9e2dc-d1e9-40ed-9839-9b41ca72efe2" alt="UML Diagram" width="700"/>
+  <img src="https://github.com/user-attachments/assets/b9e7bfbb-47cf-4702-8149-1e35d4dc8be3" alt="UML Diagram" width="700"/>
 </p>
 
-## UML Class Descriptions
+## UML Class Descriptions (work in progress)
 
 <details>
   <summary>
