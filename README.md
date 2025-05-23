@@ -116,6 +116,26 @@ progress: 12
   <img src="https://github.com/user-attachments/assets/b9e7bfbb-47cf-4702-8149-1e35d4dc8be3" alt="UML Diagram" width="700"/>
 </p>
 
+## SOLID Principle Description
+### Single Responsibility Principle
+* All the functions within Fruit, Boss, Player, Item, and Status have the single responsibility principle in mind.
+* We need to edit Game and UI with this principle in mind.
+
+### Open/Closed Principle
+* When resetting status and cycling through items we don’t have specific implementation for each item
+
+### Liskov Substitution 
+* Fruit class implemented in Game.cpp uses Fruit*. Inputting Boss* and Player* into a Fruit* does not break the code.
+
+### Interface segregation
+* We created a UI class for all user interface
+* All classes the output use UI
+
+### Dependency Inversion
+* Shop purchaseItem() function relies on abstraction of the Fruit class
+* This way it can take either Player or Boss items
+
+
 ## UML Class Descriptions (work in progress)
 
 <details>
