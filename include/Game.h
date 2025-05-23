@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "Player.h"
+#include "Boss.h"
 //#include "Shop.h"
 
 using std::string;
@@ -11,12 +12,14 @@ class Game {
     int calories;
     Player* player;
     //Shop* shop;
+    string bossList;
 
     public:
         Game(string);
         int gameLoop();
-        int battleLoop();
-        int playerTurn();
+        string getBossFile();
+        int battleLoop(Boss*);
+        int playerTurn(Boss*);
         int enemyTurn();
         void turnReset();
         int deathCheck();
