@@ -1,0 +1,14 @@
+normal item status
+shop item status flat
+0
+0
+10
+10
+10
+10
+10
+10
+10
+10
+0
+0

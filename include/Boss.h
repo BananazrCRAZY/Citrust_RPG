@@ -1,13 +1,13 @@
 #pragma once
 #include "Fruit.h"
-//#include "Item.h"
+#include "Item.h"
 #include <string>
 
 using std::string;
 
 class Boss : public Fruit {
     protected:
-        //Item* itemDrop;
+        Item* itemDrop;
         int bossAttackCharge;
         string itemFile;
 
@@ -17,6 +17,6 @@ class Boss : public Fruit {
         virtual int bossAttack(Fruit*) = 0;
         int getBossAttackCharge() { return bossAttackCharge; }
         void setBossAttackCharge(int change) { bossAttackCharge += change; }
-        //Item* getItem() { return itemDrop; }
+        Item* getItem() { return itemDrop; }
         int endOfTurn();
 };

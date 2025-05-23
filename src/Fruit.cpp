@@ -84,7 +84,7 @@ void Fruit::setCritDmgAdd(double change) {
     critDmgTotal += change;
 }
 
-bool Fruit::dead() {
+bool Fruit::isDead() const {
     if (hp <= 0) return true;
     return false;
 }

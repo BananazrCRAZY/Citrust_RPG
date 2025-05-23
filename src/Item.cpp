@@ -1,15 +1,24 @@
-#include "../include/Item.h"
+#include "Item.h"
 
 Item::Item(
     string name,
     string description,
-    int cost = 0,
-    int cooldown = 1,
+    int cost,
+    int uses,
+    int cooldown,
     Status* effect,
-    double appearanceProbability = 0.15,
-    bool isConsumable = false
-  ) :
-  name(name), description(description), cost(cost), cooldown(cooldown), effect(effect), appearanceProbability(appearanceProbability), isConsumable(isConsumable) { }
+    double appearanceProbability,
+    bool isConsumable
+) :
+  name(name),
+  description(description),
+  cost(cost),
+  uses(uses),
+  cooldownDefault(cooldown),
+  cooldown(0),
+  effect(effect),
+  appearanceProbability(appearanceProbability),
+  isConsumable(isConsumable) { }
 
 string Item::getName() const { return name; }
 string Item::getDescription() const { return description; }
@@ -27,4 +36,4 @@ void Item::changeCooldown(int change) {
 
 int Item::getRemainingUses() const { return remainingUses; }
 
-bool Item::isConsumable() const { return isConsumable; }
+bool Item::isConsumableTrue() const { return isConsumable; }

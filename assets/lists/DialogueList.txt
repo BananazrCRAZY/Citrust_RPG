@@ -1,0 +1,2 @@
+assets/dialogue/Dialogue1.txt
+assets/dialogue/Dialogue2.txt

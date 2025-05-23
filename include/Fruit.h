@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
-//#include "Status.h"
+#include "Status.h"
 
 using std::string;
 using std::vector;
@@ -35,24 +35,24 @@ class Fruit {
         double critDmgTotal;
         int rechargeCount;
         int turn;
-        //vector<Status*> effects;
+        vector<Status*> effects;
 
     public:
         Fruit(string);
         int basicAttack(Fruit*);
         virtual int specialAttack(Fruit*) = 0;
         string getName() { return name; }
-        int getLevel() { return level; }
-        int getMaxHp() { return maxHpTotal; }
-        int getHp() { return hp; }
-        int getAttack() { return attackTotal; }
-        int getDefense() { return defenseTotal; }
-        int getArts() { return ArtsTotal; }
-        int getRes() { return ResTotal; }
-        int getCritRate() { return critRateTotal; }
-        int getCritDmg() { return critDmgTotal; }
-        int getRechargeCount() { return rechargeCount; }
-        int getTurn() { return turn; }
+        int getLevel() const { return level; }
+        int getMaxHp() const { return maxHpTotal; }
+        int getHp() const { return hp; }
+        int getAttack() const { return attackTotal; }
+        int getDefense() const { return defenseTotal; }
+        int getArts() const { return ArtsTotal; }
+        int getRes() const { return ResTotal; }
+        int getCritRate() const { return critRateTotal; }
+        int getCritDmg() const { return critDmgTotal; }
+        int getRechargeCount() const { return rechargeCount; }
+        int getTurn() const { return turn; }
         void setMaxHpAdd(int);
         void setHp(int change) { hp += change; }
         void setAttackAdd(int);
@@ -63,7 +63,7 @@ class Fruit {
         void setCritDmgAdd(double);
         void setRechargeCount(int change) { rechargeCount += change; }
         void setTurn(int change) { turn += change; }
-        //void addEffect(Status* effect) { effects.push_back(effect); }
-        bool dead();
+        void addEffect(Status* effect) { effects.push_back(effect); }
+        bool isDead() const;
         virtual int endOfTurn() = 0;
 };

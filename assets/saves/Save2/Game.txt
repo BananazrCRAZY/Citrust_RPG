@@ -1,0 +1,6 @@
+0
+0
+assets/saves/Save2/Player.txt
+assets/saves/Save2/ShopList.txt
+assets/lists/BossList.txt
+assets/lists/DialogueList.txt

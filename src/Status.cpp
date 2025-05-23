@@ -4,17 +4,33 @@ Status::Status(
   string name,
   string description,
   int defaultTurns = 1,
-  int turns = 1,
+  bool percentBased = false,
+  int turns = 0,
   double hpChange = 0.0,
   double maxHpChange = 0.0,
   double attackChange = 0.0,
+  double defenseChange = 0,
   double artsChange = 0.0,
   double resChange = 0.0,
   double critRateChange = 0.0,
   double critDamageChange = 0.0,
   int rechargeCountChange = 0,
   int turnChange = 0
-) : name(name), description(description), defaultTurns(defaultTurns), turns(turns), hpChange(hpChange), maxHpChange(maxHpChange), attackChange(attackChange), artsChange(artsChange), resChange(resChange), critRateChange(critRateChange), critDamageChange(critDamageChange), rechargeCountChange(rechargeCountChange), turnChange(turnChange) { }
+) : name(name), 
+  description(description), 
+  defaultTurns(defaultTurns), 
+  percentBased(percentBased), 
+  turns(0), 
+  hpChange(hpChange), 
+  maxHpChange(maxHpChange), 
+  attackChange(attackChange), 
+  defenseChange(defenseChange), 
+  artsChange(artsChange), 
+  resChange(resChange), 
+  critRateChange(critRateChange), 
+  critDamageChange(critDamageChange), 
+  rechargeCountChange(rechargeCountChange), 
+  turnChange(turnChange) { }
 
 void Status::decreaseTurn() { if (turns > 0) --turns; }
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "Status.h"
+#include "Fruit.h"
 
 using std::string;
 
@@ -9,6 +10,8 @@ class Item {
   string name;
   string description;
   int cost;
+  int uses;
+  int cooldownDefault;
   int cooldown;
   Status* effect;
   double appearanceProbability;
@@ -20,7 +23,8 @@ class Item {
     string name,
     string description,
     int cost = 0,
-    int cooldown = 1,
+    int uses = 1,
+    int cooldownDefault = 1,
     Status* effect,
     double appearanceProbability = 0.15,
     bool isConsumable = false
@@ -37,5 +41,5 @@ class Item {
   int getCooldown() const;
   double getAppearanceProbabiity() const;
   int getRemainingUses() const;
-  bool isConsumable() const;
+  bool isConsumableTrue() const;
 };
