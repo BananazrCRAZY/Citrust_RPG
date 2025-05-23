@@ -24,12 +24,10 @@ Player::Player(string file, string itemFile) : Fruit(file),  inventoryList(itemF
         }
 
         item = new Item(output);
-        if (unequipped) {
-
-        } else {
-
-        }
+        if (unequipped) items.push_back(item);
+        else battleItems.push_back(item);
     }
+    iFile.close();
 }
 
 int Player::specialAttack(Fruit* target) {
@@ -37,6 +35,8 @@ int Player::specialAttack(Fruit* target) {
 }
 
 void Player::levelUp() {
+    // removing then adding again bc %based items
+    for (int i = 0; i < battleItems.size(); i++) removeStats(battleItems.at(i)->getStatus());
     level++;
     hp += 100;
     baseMaxHp += 100;
@@ -53,13 +53,29 @@ void Player::levelUp() {
     critRateTotal += 10;
     baseCritDmg += 20;
     critDmgTotal += 20;
+    for (int i = 0; i < battleItems.size(); i++) addStats(battleItems.at(i)->getStatus());
 }
 
-bool Player::useItem(Fruit* target, int itemIndex) {
+bool Player::useItem(Fruit* target, unsigned itemIndex) {
+    if (itemIndex > (battleItems.size()-1)) {
+        cerr << "Error useItem index problem" << std::endl;
+        exit(1);
+    }
     battleItems.at(itemIndex)->use(target);
+    cycleThroughEffects();
 }
 
+// goes through effects and add to recharge, does not check dead
 int Player::endOfTurn() {
+    for (int i = 0; i < effects.size(); i++) {
+        if (effects.at(i)->getTurns() == 0) {
+            removeStats(effects.at(i));
+            effects.at(i)->resetStatus();
+            effects.erase(effects.begin()+i);
+        }
+        effects.at(i)->decreaseTurn();
+    }
+    rechargeCount++;
     return 1;
 }
 
@@ -98,12 +114,22 @@ void Player::savePlayer() {
     oFile.close();
 }
 
-void Player::removeItem(int index) {
+void Player::removeItem(unsigned index) {
+    if (index > (battleItems.size()-1)) {
+        cerr << "Error removeItem index problem" << std::endl;
+        exit(1);
+    }
+    removeStats(battleItems.at(index)->getStatus());
     items.push_back(battleItems.at(index));
     battleItems.erase(battleItems.begin() + index);
 }
 
-void Player::addItem(int index) {
+void Player::addItem(unsigned index) {
+    if (index > (items.size()-1)) {
+        cerr << "Error addItem index problem" << std::endl;
+        exit(1);
+    }
+    addStats(items.at(index)->getStatus());
     battleItems.push_back(items.at(index));
     items.erase(items.begin() + index);
 }

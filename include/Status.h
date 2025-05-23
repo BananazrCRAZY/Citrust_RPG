@@ -8,8 +8,8 @@ class Status {
   string name;
   string description;
   int defaultTurns;
-  bool percentBased;
   int turns;
+  bool percentBased;
   double hpChange;
   double maxHpChange;
   double attackChange;
@@ -31,7 +31,6 @@ class Status {
   // Getters
   string getName() const;
   string getDescription() const;
-  int getDefaultTurns() const;
   int getTurns() const;
   double getHpChange() const;
   double getMaxHpChange() const;
@@ -44,4 +43,5 @@ class Status {
   int getRechargeCountChange() const;
   int getTurnChange() const;
   bool isBossStatusTF() const;
+  bool isPercentBased() const { return percentBased; }
 };

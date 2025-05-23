@@ -31,4 +31,5 @@ class Item {
   int getCooldown() const;
   double getAppearanceProbabiity() const;
   bool isConsumableTrue() const;
+  Status* getStatus() const { return effect; }
 };

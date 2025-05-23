@@ -16,9 +16,9 @@ class Player : public Fruit {
         Player(string, string);
         int specialAttack(Fruit*);
         void levelUp();
-        bool useItem(Fruit*, int);
+        bool useItem(Fruit*, unsigned);
         int endOfTurn();
         void savePlayer();
-        void removeItem(int index);
-        void addItem(int index);
+        void removeItem(unsigned);
+        void addItem(unsigned);
 };

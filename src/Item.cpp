@@ -22,6 +22,10 @@ Item::Item(string file) : file(file) {
   string statusFile = "";
   iFile >> statusFile;
   effect = new Status(statusFile);
+  if (!iFile.good()) {
+    cerr << "Error with file fstream" << std::endl;
+    exit(1);
+  }
   iFile.close();
 }
 

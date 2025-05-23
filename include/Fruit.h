@@ -37,6 +37,9 @@ class Fruit {
         int turn;
         vector<Status*> effects;
         bool checkIfCrit();
+        void removeStats(Status*);
+        void addStats(Status*);
+        void cycleThroughEffects();
 
     public:
         Fruit(string);
@@ -64,7 +67,7 @@ class Fruit {
         void setCritDmgAdd(double);
         void setRechargeCount(int change) { rechargeCount += change; }
         void setTurn(int change) { turn += change; }
-        void addEffect(Status* effect) { effects.push_back(effect); }
+        void addEffect(Status*);
         bool isDead() const;
-        virtual int endOfTurn() = 0;
+        virtual int endOfTurn();
 };
