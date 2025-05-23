@@ -33,7 +33,7 @@ progress: 12
 * Turn based battle system
 
 ## Navigation Diagram  
-<p align="center"><img src="https://github.com/user-attachments/assets/d8d62409-2685-4d92-b59b-edddf6708117" alt="User Navigation Diagram" width = "700"</p>
+<p align="center"><img src="https://github.com/user-attachments/assets/62b97016-9f46-4ad0-a2b8-6814a4da05d1" width = "700"</p>
 
 ---
 ## Screen Layouts
