@@ -64,5 +64,6 @@ class Fruit {
         void setRechargeCount(int change) { rechargeCount += change; }
         void setTurn(int change) { turn += change; }
         //void addEffect(Status* effect) { effects.push_back(effect); }
-        void endOfTurn();
+        bool dead();
+        virtual int endOfTurn() = 0;
 };

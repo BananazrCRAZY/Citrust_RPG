@@ -16,6 +16,6 @@ Boss::Boss(string mainFile, string itemF) : Fruit(mainFile), itemFile(itemF) {
     // need to finish when item implemented
 }
 
-void Boss::endOfTurn() {
+int Boss::endOfTurn() {
 
 }

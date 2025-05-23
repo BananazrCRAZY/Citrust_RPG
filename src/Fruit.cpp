@@ -84,9 +84,7 @@ void Fruit::setCritDmgAdd(double change) {
     critDmgTotal += change;
 }
 
-void Fruit::endOfTurn() {
-    // for (int i = 0; i < effects.size(); i++) {
-
-    // }
-    rechargeCount++;
+bool Fruit::dead() {
+    if (hp <= 0) return true;
+    return false;
 }

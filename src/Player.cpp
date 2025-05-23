@@ -36,8 +36,8 @@ bool Player::useItem(Fruit* target, int itemIndex) {
     return 1;
 }
 
-void Player::endOfTurn() {
-
+int Player::endOfTurn() {
+    return 1;
 }
 
 void Player::savePlayer() {
