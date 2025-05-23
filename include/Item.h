@@ -12,6 +12,7 @@ class Item {
   int cooldown;
   Status* effect;
   double appearanceProbability;
+  int remainingUses;
 
  public:
   Item(
@@ -33,4 +34,5 @@ class Item {
   int getCost() const;
   int getCooldown() const;
   double getAppearanceProbabiity() const;
+  int getRemainingUses() const;
 };

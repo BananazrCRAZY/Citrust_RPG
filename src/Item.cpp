@@ -23,3 +23,5 @@ void Item::use(Fruit& target) {
 void Item::changeCooldown(int change) {
   this->cooldown += change;
 }
+
+int Item::getRemainingUses() const { return remainingUses; }
