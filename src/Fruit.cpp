@@ -10,8 +10,8 @@ Fruit::Fruit(string file) :
     maxHpAdd(0), 
     attackAdd(0),
     defenseAdd(0),
-    citrusArtsAdd(0),
-    citrusResAdd(0),
+    ArtsAdd(0),
+    ResAdd(0),
     critRateAdd(0),
     critDmgAdd(0),
     rechargeCount(2),
@@ -32,10 +32,10 @@ Fruit::Fruit(string file) :
         attackTotal = baseAttack;
         iFile >> baseDefense;
         defenseTotal = baseDefense;
-        iFile >> baseCitrusArts;
-        citrusArtsTotal = baseCitrusArts;
-        iFile >> baseCitrusRes;
-        citrusResTotal = baseCitrusRes;
+        iFile >> baseArts;
+        ArtsTotal = baseArts;
+        iFile >> baseRes;
+        ResTotal = baseRes;
         iFile >> baseCritRate;
         critRateTotal = baseCritRate;
         iFile >> baseCritDmg;
@@ -64,14 +64,14 @@ void Fruit::setDefenseAdd(int change) {
     defenseTotal += change;
 }
 
-void Fruit::setCitrusArtsAdd(int change) {
-    citrusArtsAdd += change;
-    citrusArtsTotal += change;
+void Fruit::setArtsAdd(int change) {
+    ArtsAdd += change;
+    ArtsTotal += change;
 }
 
-void Fruit::setCitrusResAdd(int change) {
-    citrusResAdd += change;
-    citrusResTotal += change;
+void Fruit::setResAdd(int change) {
+    ResAdd += change;
+    ResTotal += change;
 }
 
 void Fruit::setCritRateAdd(int change) {

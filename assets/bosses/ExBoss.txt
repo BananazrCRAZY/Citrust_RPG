@@ -4,8 +4,8 @@ hp
 baseMaxHp
 baseAttack
 baseDefense
-baseCitrusArts
-baseCitrusRes
+baseArts
+baseRes
 baseCritRate
 baseCritDmg
 bossItem: string

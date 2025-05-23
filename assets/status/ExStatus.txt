@@ -6,8 +6,8 @@ hpChange: double
 maxHpChange: double
 attackChange: double
 defenseChange: double
-citrusArtsChange: double
-citrusResChange: double
+ArtsChange: double
+ResChange: double
 critRateChange: int
 critDmgChange: double
 rechargeCountChange: int

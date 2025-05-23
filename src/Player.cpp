@@ -22,10 +22,10 @@ void Player::levelUp() {
     attackTotal += 50;
     baseDefense += 25;
     defenseTotal += 25;
-    baseCitrusArts += 50;
-    citrusArtsTotal += 50;
-    baseCitrusRes += 25;
-    citrusResTotal += 25;
+    baseArts += 50;
+    ArtsTotal += 50;
+    baseRes += 25;
+    ResTotal += 25;
     baseCritRate += 10;
     critRateTotal += 10;
     baseCritDmg += 20;
@@ -53,8 +53,8 @@ void Player::savePlayer() {
     oFile << baseMaxHp << '\n';
     oFile << baseAttack << '\n';
     oFile << baseDefense << '\n';
-    oFile << baseCitrusArts << '\n';
-    oFile << baseCitrusRes << '\n';
+    oFile << baseArts << '\n';
+    oFile << baseRes << '\n';
     oFile << baseCritRate << '\n';
     oFile << baseCritDmg;
 }

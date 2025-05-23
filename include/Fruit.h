@@ -15,22 +15,22 @@ class Fruit {
         int baseMaxHp;
         int baseAttack;
         int baseDefense;
-        int baseCitrusArts;
-        int baseCitrusRes;
+        int baseArts;
+        int baseRes;
         int baseCritRate;
         double baseCritDmg;
         int maxHpAdd;
         int attackAdd;
         int defenseAdd;
-        int citrusArtsAdd;
-        int citrusResAdd;
+        int ArtsAdd;
+        int ResAdd;
         int critRateAdd;
         double critDmgAdd;
         int maxHpTotal;
         int attackTotal;
         int defenseTotal;
-        int citrusArtsTotal;
-        int citrusResTotal;
+        int ArtsTotal;
+        int ResTotal;
         int critRateTotal;
         double critDmgTotal;
         int rechargeCount;
@@ -47,8 +47,8 @@ class Fruit {
         int getHp() { return hp; }
         int getAttack() { return attackTotal; }
         int getDefense() { return defenseTotal; }
-        int getCitrusArts() { return citrusArtsTotal; }
-        int getCitrusRes() { return citrusResTotal; }
+        int getArts() { return ArtsTotal; }
+        int getRes() { return ResTotal; }
         int getCritRate() { return critRateTotal; }
         int getCritDmg() { return critDmgTotal; }
         int getRechargeCount() { return rechargeCount; }
@@ -57,8 +57,8 @@ class Fruit {
         void setHp(int change) { hp += change; }
         void setAttackAdd(int);
         void setDefenseAdd(int);
-        void setCitrusArtsAdd(int);
-        void setCitrusResAdd(int);
+        void setArtsAdd(int);
+        void setResAdd(int);
         void setCritRateAdd(int);
         void setCritDmgAdd(double);
         void setRechargeCount(int change) { rechargeCount += change; }
