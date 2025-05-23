@@ -6,9 +6,10 @@ Item::Item(
     int cost = 0,
     int cooldown = 1,
     Status* effect,
-    double appearanceProbability = 0.15
+    double appearanceProbability = 0.15,
+    bool isConsumable = false
   ) :
-  name(name), description(description), cost(cost), cooldown(cooldown), effect(effect), appearanceProbability(appearanceProbability) { }
+  name(name), description(description), cost(cost), cooldown(cooldown), effect(effect), appearanceProbability(appearanceProbability), isConsumable(isConsumable) { }
 
 string Item::getName() const { return name; }
 string Item::getDescription() const { return description; }
@@ -25,3 +26,5 @@ void Item::changeCooldown(int change) {
 }
 
 int Item::getRemainingUses() const { return remainingUses; }
+
+bool Item::isConsumable() const { return isConsumable; }

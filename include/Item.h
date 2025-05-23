@@ -13,6 +13,7 @@ class Item {
   Status* effect;
   double appearanceProbability;
   int remainingUses;
+  bool isConsumable;
 
  public:
   Item(
@@ -21,7 +22,8 @@ class Item {
     int cost = 0,
     int cooldown = 1,
     Status* effect,
-    double appearanceProbability = 0.15
+    double appearanceProbability = 0.15,
+    bool isConsumable = false
   );
 
   void use(Fruit& target);
@@ -35,4 +37,5 @@ class Item {
   int getCooldown() const;
   double getAppearanceProbabiity() const;
   int getRemainingUses() const;
+  bool isConsumable() const;
 };
