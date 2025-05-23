@@ -34,3 +34,4 @@ double Status::getCritRateChange() const { return critRateChange; }
 double Status::getCritDamageChange() const { return critDamageChange; }
 int Status::getRechargeCountChange() const { return rechargeCountChange; }
 int Status::getTurnChange() const { return turnChange; }
+bool Status::isBossStatus() const { return isBossStatus; }

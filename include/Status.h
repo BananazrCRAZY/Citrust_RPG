@@ -19,6 +19,7 @@ class Status {
   double critDamageChange;
   int rechargeCountChange;
   int turnChange;
+  bool isBossStatus;
 
  public:
   Status(
@@ -55,4 +56,5 @@ class Status {
   double getCritDamageChange() const;
   int getRechargeCountChange() const;
   int getTurnChange() const;
+  bool isBossStatus() const;
 };
