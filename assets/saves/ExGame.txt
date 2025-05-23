@@ -1,0 +1,5 @@
+savePoint: int
+calories: int
+PlayerSave: string
+Shop: string
+Bosses: string

@@ -1,0 +1,11 @@
+name
+level
+hp
+baseMaxHp
+baseAttack
+baseDefense
+baseArts
+baseRes
+baseCritRate
+baseCritDmg
+bossItem: string
