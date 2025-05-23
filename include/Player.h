@@ -12,13 +12,15 @@ class Player : public Fruit {
     vector<Item*> items;
     vector<Item*> battleItems;
     UI ui;
+    string inventoryList;
 
     public:
-        Player(string file);
+        Player(string, string);
         int specialAttack(Fruit*);
         void levelUp();
         bool useItem(Fruit*, int);
         void printItems();
-        int endOfTurn();
         void savePlayer();
+        void removeItem(unsigned);
+        void addItem(unsigned);
 };

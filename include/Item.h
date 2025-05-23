@@ -7,6 +7,7 @@ using std::string;
 
 class Item {
  private:
+  string file;
   string name;
   string description;
   int cost;
@@ -14,30 +15,21 @@ class Item {
   int cooldown;
   Status* effect;
   double appearanceProbability;
-  int remainingUses;
   bool isConsumable;
 
  public:
-  Item(
-    string name,
-    string description,
-    int cost = 0,
-    int cooldownDefault = 1,
-    Status* effect,
-    double appearanceProbability = 0.15,
-    bool isConsumable = false
-  );
+  Item(string);
 
   void use(Fruit* target);
   void changeCooldown(int change);
 
   // Getters
-
+  string getFile() const { return file; }
   string getName() const;
   string getDescription() const;
   int getCost() const;
   int getCooldown() const;
   double getAppearanceProbabiity() const;
-  int getRemainingUses() const;
   bool isConsumableTrue() const;
+  Status* getStatus() const { return effect; }
 };
