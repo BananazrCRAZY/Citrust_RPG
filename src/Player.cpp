@@ -7,7 +7,30 @@
 using std::string;
 using std::cerr;
 
-Player::Player(string file) : Fruit(file) {}
+Player::Player(string file, string itemFile) : Fruit(file),  inventoryList(itemFile) {
+    std::ifstream iFile(itemFile);
+    if (!iFile.good()) {
+        cerr << "Error with file fstream" << std::endl;
+        exit(1);
+    }
+
+    string output = "";
+    bool unequipped = false;
+    Item* item;
+    while(iFile >> output) {
+        if (output == "unequipped") {
+            unequipped = true;
+            continue;
+        }
+
+        item = new Item(output);
+        if (unequipped) {
+
+        } else {
+
+        }
+    }
+}
 
 int Player::specialAttack(Fruit* target) {
     return -1;
@@ -58,4 +81,29 @@ void Player::savePlayer() {
     oFile << baseCritRate << '\n';
     oFile << baseCritDmg;
     oFile.close();
+
+    oFile.open(inventoryList);
+    if (!oFile.good()) {
+        cerr << "Error with file ostream" << std::endl;
+        exit(1);
+    }
+
+    for (int i = 0; i < battleItems.size(); i++) {
+        oFile << battleItems.at(i)->getFile() << '\n';
+    }
+    oFile << 'unequipped\n';
+    for (int i = 0; i < items.size(); i++) {
+        oFile << items.at(i)->getFile() << '\n';
+    }
+    oFile.close();
+}
+
+void Player::removeItem(int index) {
+    items.push_back(battleItems.at(index));
+    battleItems.erase(battleItems.begin() + index);
+}
+
+void Player::addItem(int index) {
+    battleItems.push_back(items.at(index));
+    items.erase(items.begin() + index);
 }

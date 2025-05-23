@@ -9,7 +9,6 @@ class Boss : public Fruit {
     protected:
         Item* itemDrop;
         int bossAttackCharge;
-        string itemFile;
 
     public:
         Boss(string, string);

@@ -1,22 +1,29 @@
 #include "Item.h"
+#include <fstream>
+#include <iostream>
+#include <stdexcept>
 
-Item::Item(
-    string name,
-    string description,
-    int cost,
-    int cooldown,
-    Status* effect,
-    double appearanceProbability,
-    bool isConsumable
-) :
-  name(name),
-  description(description),
-  cost(cost),
-  cooldownDefault(cooldown),
-  cooldown(0),
-  effect(effect),
-  appearanceProbability(appearanceProbability),
-  isConsumable(isConsumable) { }
+using std::ifstream;
+using std::cerr;
+
+Item::Item(string file) : file(file) {
+  ifstream iFile(file);
+  if (!iFile.good()) {
+    cerr << "Error with file fstream" << std::endl;
+    exit(1);
+  }
+
+  getline(iFile, name);
+  getline(iFile, description);
+  iFile >> cost;
+  iFile >> isConsumable;
+  iFile >> cooldownDefault;
+  iFile >> appearanceProbability;
+  string statusFile = "";
+  iFile >> statusFile;
+  effect = new Status(statusFile);
+  iFile.close();
+}
 
 string Item::getName() const { return name; }
 string Item::getDescription() const { return description; }
@@ -31,7 +38,5 @@ void Item::use(Fruit* target) {
 void Item::changeCooldown(int change) {
   this->cooldown += change;
 }
-
-int Item::getRemainingUses() const { return remainingUses; }
 
 bool Item::isConsumableTrue() const { return isConsumable; }

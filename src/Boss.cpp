@@ -9,51 +9,7 @@ using std::cerr;
 using std::string;
 using std::ifstream;
 
-Boss::Boss(string mainFile, string itemF) : Fruit(mainFile), itemFile(itemF) {
-    ifstream iFile(itemFile);
-    if (!iFile.good()) {
-        cerr << "Error with file fstream" << std::endl;
-        exit(1);
-    }
-
-    string itemName, itemDesc, statusFile;
-    int cost, cooldownDefault, appearanceProb, isConsumable;
-    getline(iFile, itemName);
-    getline(iFile, itemDesc);
-    iFile >> cost;
-    iFile >> isConsumable;
-    iFile >> cooldownDefault;
-    iFile >> appearanceProb;
-    iFile >> statusFile;
-    iFile.close();
-    
-    iFile.open(statusFile);
-    if (!iFile.good()) {
-        cerr << "Error with file fstream" << std::endl;
-        exit(1);
-    }
-
-    string statusName, statusDesc;
-    int defaultTurns, percentBased, hpChange, maxHpChange, attackChange, defenseChange, artsChange, resChange, critRateChange, critDamageChange, rechargeCountChange, turnChange;
-    getline(iFile, statusName);
-    getline(iFile, statusDesc);
-    iFile >> defaultTurns;
-    iFile >> percentBased;
-    iFile >> hpChange;
-    iFile >> maxHpChange;
-    iFile >> attackChange;
-    iFile >> defenseChange;
-    iFile >> artsChange;
-    iFile >> resChange;
-    iFile >> critRateChange;
-    iFile >> critDamageChange;
-    iFile >> rechargeCountChange;
-    iFile >> turnChange;
-    iFile.close();
-
-    Status* stat = new Status(statusName, statusDesc, defaultTurns, percentBased, hpChange, maxHpChange, attackChange, defenseChange, artsChange, resChange, critRateChange, critDamageChange, rechargeCountChange, turnChange, false);
-    itemDrop = new Item(itemName, itemDesc, cost, cooldownDefault, stat, appearanceProb, isConsumable);
-}
+Boss::Boss(string mainFile, string itemF) : Fruit(mainFile), itemDrop(new Item(itemF)) {}
 
 int Boss::specialAttack(Fruit* target) {
     int damage = attackTotal * 2;

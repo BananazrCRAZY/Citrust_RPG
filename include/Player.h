@@ -10,12 +10,15 @@ using std::string;
 class Player : public Fruit {
     vector<Item*> items;
     vector<Item*> battleItems;
+    string inventoryList;
 
     public:
-        Player(string file);
+        Player(string, string);
         int specialAttack(Fruit*);
         void levelUp();
         bool useItem(Fruit*, int);
         int endOfTurn();
         void savePlayer();
+        void removeItem(int index);
+        void addItem(int index);
 };

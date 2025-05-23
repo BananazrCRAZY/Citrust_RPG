@@ -23,24 +23,7 @@ class Status {
   bool isBossStatus;
 
  public:
-  Status(
-    string name,
-    string description,
-    int defaultTurns = 1,
-    bool percentBased = false,
-    int turns = 1,
-    double hpChange = 0.0,
-    double maxHpChange = 0.0,
-    double attackChange = 0.0,
-    double defenseChange = 0,
-    double artsChange = 0.0,
-    double resChange = 0.0,
-    double critRateChange = 0.0,
-    double critDamageChange = 0.0,
-    int rechargeCountChange = 0,
-    int turnChange = 0,
-    bool isBossStatus = false
-  );
+  Status(string);
 
   void decreaseTurn();
   void resetStatus();
