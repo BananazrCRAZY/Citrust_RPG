@@ -1,0 +1,7 @@
+Medium Vitamin C
+A package of Vitamin C tablets. One tablet a day keeps the bad fruits away.
+150
+1
+3
+30
+../status/RestorationB.txt

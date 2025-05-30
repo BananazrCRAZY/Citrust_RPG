@@ -1,0 +1,14 @@
+Amplification
+Increases ATK and Arts ATK by 100%. Lasts 2 turns. Grants the player 1 extra turn after the current turn ends.
+2
+1
+0
+0
+100
+0
+100
+0
+0
+0
+0
+1

@@ -1,0 +1,14 @@
+Restoration γ
+Immediately heals 35% of Max HP, and increases Max HP by 10%. Lasts 2 turns.
+0
+1
+35
+10
+0
+0
+0
+0
+0
+0
+0
+0

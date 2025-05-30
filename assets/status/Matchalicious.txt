@@ -1,0 +1,14 @@
+Matchalicious
+Increases ATK and Arts ATK by 5%, and increases Max HP by 5%.
+0
+0
+0
+5
+5
+0
+5
+0
+0
+0
+0
+0

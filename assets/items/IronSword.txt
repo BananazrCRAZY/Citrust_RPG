@@ -1,0 +1,7 @@
+Iron Sword
+A basic sword made of iron.
+100
+0
+0
+80
+../status/AttackUpA.txt

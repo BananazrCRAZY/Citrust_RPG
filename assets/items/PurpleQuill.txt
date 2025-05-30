@@ -1,0 +1,7 @@
+Purple Quill
+A purple plume that reminds you of a certain underworld dweller.
+175
+1
+4
+20
+../status/Resurgence.txt

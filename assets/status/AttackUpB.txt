@@ -1,0 +1,14 @@
+ATK Up β
+Increases ATK by 25% and increases CRIT Rate by 30%
+0
+1
+0
+0
+25
+0
+0
+0
+30
+0
+0
+0

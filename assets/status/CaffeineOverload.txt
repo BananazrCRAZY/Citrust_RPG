@@ -1,0 +1,14 @@
+Caffeine Overload
+Immediately grants the player 2 extra turns after the current turn ends, and gives 2 more skill points, but decreases Max HP and DEF by 30% and RES by 10 (cannot go below 0). Lasts 3 turns.
+3
+1
+0
+-30
+0
+-30
+0
+-10
+0
+0
+2
+2
