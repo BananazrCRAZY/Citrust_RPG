@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "Stat.h"
 #include "Status.h"
 
 using std::string;
@@ -12,63 +13,51 @@ class Fruit {
         string name;
         int level;
         int hp;
-        int baseMaxHp;
-        int baseAttack;
-        int baseDefense;
-        int baseArts;
-        int baseRes;
-        int baseCritRate;
-        double baseCritDmg;
-        int maxHpAdd;
-        int attackAdd;
-        int defenseAdd;
-        int ArtsAdd;
-        int ResAdd;
-        int critRateAdd;
-        double critDmgAdd;
-        int maxHpTotal;
-        int attackTotal;
-        int defenseTotal;
-        int ArtsTotal;
-        int ResTotal;
-        int critRateTotal;
-        double critDmgTotal;
+        Stat* maxHp;
+        Stat* attack;
+        Stat* defense;
+        Stat* arts;
+        Stat* res;
+        Stat* critRate;
+        Stat* critDmg;
         int rechargeCount;
         int turn;
         vector<Status*> effects;
         bool checkIfCrit();
         void removeStats(Status*);
         void addStats(Status*);
-        void cycleThroughEffects();
+        void clearStats();
 
     public:
         Fruit(string);
-        int basicAttack(Fruit*);
-        virtual int specialAttack(Fruit*) = 0;
+        ~Fruit();
+        string basicAttack(Fruit*);
+        virtual string specialAttack(Fruit*) = 0;
         string getName() { return name; }
         int getLevel() const { return level; }
-        int getMaxHp() const { return maxHpTotal; }
+        int getMaxHp() const { return maxHp->getTotal(); }
         int getHp() const { return hp; }
-        int getAttack() const { return attackTotal; }
-        int getDefense() const { return defenseTotal; }
-        int getArts() const { return ArtsTotal; }
-        int getRes() const { return ResTotal; }
-        int getCritRate() const { return critRateTotal; }
-        int getCritDmg() const { return critDmgTotal; }
+        int getAttack() const { return attack->getTotal(); }
+        int getDefense() const { return defense->getTotal(); }
+        int getArts() const { return arts->getTotal(); }
+        int getRes() const { return res->getTotal(); }
+        int getCritRate() const { return critRate->getTotal(); }
+        int getCritDmg() const { return critDmg->getTotal(); }
         int getRechargeCount() const { return rechargeCount; }
         int getTurn() const { return turn; }
-        void setMaxHpAdd(int);
+        void setMaxHpAdd(int change) { maxHp->add(change); }
         void setHp(int change) { hp += change; }
-        void setAttackAdd(int);
-        void setDefenseAdd(int);
-        void setArtsAdd(int);
-        void setResAdd(int);
-        void setCritRateAdd(int);
-        void setCritDmgAdd(double);
+        void setAttackAdd(int change) { attack->add(change); }
+        void setDefenseAdd(int change) { defense->add(change); }
+        void setArtsAdd(int change) { arts->add(change); }
+        void setResAdd(int change) { res->add(change); }
+        void setCritRateAdd(int change) { critRate->add(change); }
+        void setCritDmgAdd(int change) { critDmg->add(change); }
         void setRechargeCount(int change) { rechargeCount += change; }
         void setTurn(int change) { turn += change; }
         bool checkIfCrit();
         void addEffect(Status*);
         bool isDead() const;
         virtual int endOfTurn();
+        void clearStatus();
 };

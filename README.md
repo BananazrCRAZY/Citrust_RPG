@@ -33,7 +33,7 @@ progress: 12
 * Turn based battle system
 
 ## Navigation Diagram  
-<p align="center"><img src="https://github.com/user-attachments/assets/d8d62409-2685-4d92-b59b-edddf6708117" alt="User Navigation Diagram" width = "700"</p>
+<p align="center"><img src="https://github.com/user-attachments/assets/62b97016-9f46-4ad0-a2b8-6814a4da05d1" width = "700"</p>
 
 ---
 ## Screen Layouts
@@ -113,10 +113,30 @@ progress: 12
 
 ## UML Diagram
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/85e9e2dc-d1e9-40ed-9839-9b41ca72efe2" alt="UML Diagram" width="700"/>
+  <img src="https://github.com/user-attachments/assets/b9e7bfbb-47cf-4702-8149-1e35d4dc8be3" alt="UML Diagram" width="700"/>
 </p>
 
-## UML Class Descriptions
+## SOLID Principle Description
+### Single Responsibility Principle
+* All the functions within Fruit, Boss, Player, Item, and Status have the single responsibility principle in mind.
+* We need to edit Game and UI with this principle in mind.
+
+### Open/Closed Principle
+* When resetting status and cycling through items we don’t have specific implementation for each item
+
+### Liskov Substitution 
+* Fruit class implemented in Game.cpp uses Fruit*. Inputting Boss* and Player* into a Fruit* does not break the code.
+
+### Interface segregation
+* We created a UI class for all user interface
+* All classes the output use UI
+
+### Dependency Inversion
+* Shop purchaseItem() function relies on abstraction of the Fruit class
+* This way it can take either Player or Boss items
+
+
+## UML Class Descriptions (work in progress)
 
 <details>
   <summary>
