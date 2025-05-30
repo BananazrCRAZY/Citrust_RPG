@@ -14,14 +14,15 @@ class Game {
     //Shop* shop;
     string bossList;
     string dialogueList;
-    UI ui;
 
     public:
         Game() {}
         void openFile(string);
         void runGame() {
             startGame();
-            player->setName(ui.orangeCreate());
+            // get ui to send name
+            string inputName;
+            player->setName(inputName);
             gameLoop();
         }
         void startGame();
@@ -29,7 +30,7 @@ class Game {
         void loadShop();
         string getBossFile() const;
         string getDialogueFile() const;
-        string battleLoop(Boss*);
+        int battleLoop(Boss*);
         int playerTurn(Boss*);
         int enemyTurn(Boss*);
         void turnReset();

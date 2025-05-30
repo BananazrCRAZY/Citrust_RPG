@@ -31,7 +31,8 @@ void Game::openFile(string file) {
 }
 
 void Game::startGame() {
-    int input = ui.startMenu();
+    // need ui input
+    int input;
     switch (input) {    
         case 0:
             exit(0);
@@ -59,7 +60,7 @@ void Game::startGame() {
 
 int Game::gameLoop() {
     while (savePoint < 10) {
-        ui.printDialogue(getDialogueFile());
+        // need ui to print file called by getDialogueFile()
         if (savePoint != 0) {
             Boss* boss;
             switch (savePoint) {
@@ -73,7 +74,14 @@ int Game::gameLoop() {
                     exit(1);
             }
             // put boss into battle loop
-            battleLoop(boss);
+            // battleResult: -1 is a loss, if positive then it's the number of cycles
+            int battleResult = battleLoop(boss);
+            if (battleResult == -1) {
+                // load lose 
+            } if (battleResult > 0) {
+                int addCalories = player->getLevel() * 500 / battleResult;
+                calories += addCalories;
+            }
         }
         loadShop();
         savePoint++;
@@ -120,21 +128,28 @@ string Game::getDialogueFile() const {
     return dialogueFile;
 }
 
-string Game::battleLoop(Boss* boss) {
-    bool battling = true;
-    while (battling) {
+int Game::battleLoop(Boss* boss) {
+    int battleCycle = 1;
+    while (true) {
         while (player->getTurn() > 0) {
             playerTurn(boss);
+            if (player->isDead()) return -1;
+            if (boss->isDead()) return battleCycle;
+            player->endOfTurn();
         }
-        if (player->isDead()) return 
         while (boss->getTurn() > 0) {
             enemyTurn(boss);
+            if (player->isDead()) return -1;
+            if (boss->isDead()) return battleCycle;
+            boss->endOfTurn();
         }
+        battleCycle++;
     }
 }
 
 int Game::playerTurn(Boss* boss) {
-    int input = ui.playerAction(player);
+    // get input from ui
+    int input;
     switch (input) {
         case 0:
             player->basicAttack(boss);

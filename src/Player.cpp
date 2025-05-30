@@ -42,12 +42,6 @@ void Player::levelUp() {
     // add to base stats here
 }
 
-void Player::printItems() {
-    for (int i = 0; i < battleItems.size(); i++) {
-        if (battleItems.at(i)->isConsumableTrue()) ui.print(battleItems.at(i)->getName());
-    }
-}
-
 string Player::useItem(Fruit* target, unsigned itemIndex) {
     if (itemIndex > (battleItems.size()-1)) {
         cerr << "Error useItem index problem" << std::endl;
