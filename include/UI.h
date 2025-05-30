@@ -12,4 +12,5 @@ class UI {
         void printDialogue(string);
         int playerAction(Player*);
         void print(string o);
+        string orangeCreate();
 };

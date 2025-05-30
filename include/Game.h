@@ -20,15 +20,20 @@ class Game {
     public:
         Game() {}
         void openFile(string);
+        void runGame() {
+            startGame();
+            player->setName(ui.orangeCreate());
+            gameLoop();
+        }
         void startGame();
         int gameLoop();
+        void loadShop();
         string getBossFile() const;
         string getDialogueFile() const;
         int battleLoop(Boss*);
         int playerTurn(Boss*);
-        int enemyTurn();
+        int enemyTurn(Boss*);
         void turnReset();
         int deathCheck();
-        void loadShop();
         void saveGame();
 };

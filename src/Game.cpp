@@ -10,6 +10,7 @@
 using std::cerr;
 using std::string;
 using std::ifstream;
+using std::endl;
 
 void Game::openFile(string file) {
     gameFile = file;
@@ -21,52 +22,72 @@ void Game::openFile(string file) {
 
     iFile >> savePoint;
     iFile >> calories;
-    string outFile = "";
-    iFile >> outFile;
-    player = new Player(outFile);
-    iFile >> outFile;
-    //shop = new Shop(outFile);
+    string playerFile, playerItemsFile, shopFile;
+    iFile >> playerFile;
+    iFile >> playerItemsFile;
+    player = new Player(playerFile, playerItemsFile);
+    iFile >> shopFile;
+    //shop = new Shop(shopFile);
     iFile >> bossList;
     iFile >> dialogueList;
 }
 
 void Game::startGame() {
     int input = ui.startMenu();
-    switch (input) {
+    switch (input) {    
         case 0:
             exit(0);
         case 1:
-        case 2:
+            // new game
             openFile("assets/saves/Save1/Game.txt");
+            break;
+        case 2:
+            // load save 1
+            openFile("assets/saves/Save1/Game.txt");
+            break;
         case 3:
+            // load save 2
             openFile("assets/saves/Save2/Game.txt");
+            break;
         case 4:
-            openFile("assets/saves/Save2/Game.txt");
+            // load save 3
+            openFile("assets/saves/Save3/Game.txt");
+            break;
         default:
-            exit(0);
+            cerr << "Game start input error" << endl;
+            exit(1);
     }
-    gameLoop();
 }
 
 int Game::gameLoop() {
-    while (savePoint < 100) {
-        switch (savePoint) {
-            case 0:
-                ui.printDialogue(getDialogueFile());
-            case 1:
-                ui.printDialogue(getDialogueFile());
-                // create pear boss here
-            case 2:
-                ui.printDialogue(getDialogueFile());
-                // when creating a boss use getBossFile() to get the path
-                Apple* apple = new Apple(getBossFile(), "assets/items/bossItems/TestBossItem.txt");
-            default:
-                return -1;
+    while (savePoint < 10) {
+        ui.printDialogue(getDialogueFile());
+        if (savePoint != 0) {
+            Boss* boss;
+            switch (savePoint) {
+                case 1:
+                    // create boss here, use getBossFile and hard code item
+                    break;
+                case 2:
+                    break;
+                default:
+                    cerr << "Game loop input error" << endl;
+                    exit(1);
+            }
+            // put boss into battle loop
+            battleLoop(boss);
         }
+        loadShop();
         savePoint++;
-        saveGame();
     }
     return 1;
+}
+
+void Game::loadShop() {
+    int input;
+    while (input != 0) {
+
+    }
 }
 
 string Game::getBossFile() const {
@@ -102,19 +123,18 @@ string Game::getDialogueFile() const {
 }
 
 int Game::battleLoop(Boss* boss) {
-
-    while (1) {
+    bool battling = true;
+    while (battling) {
         if (player->getTurn() > 0) {
             playerTurn(boss);
         }
         if (boss->getTurn() > 0) {
-            enemyTurn();
+            enemyTurn(boss);
         }
     }
 }
 
 int Game::playerTurn(Boss* boss) {
-    // loops until input
     int input = ui.playerAction(player);
     switch (input) {
         case 0:
@@ -146,12 +166,15 @@ int Game::playerTurn(Boss* boss) {
         case 13:
             player->useItem(boss, 5);
         default:
-            player->basicAttack(boss);
+            cerr << "Player turn input error" << endl;
+            exit(1);
     }
 }
 
-int Game::enemyTurn() {
+int Game::enemyTurn(Boss* boss) {
+    if (boss->getBossAttackCharge() == ) {
 
+    }
 }
 
 void Game::turnReset() {
@@ -168,7 +191,7 @@ void Game::loadShop() {
 void Game::saveGame() {
     std::ofstream oFile(gameFile);
     if (!oFile.good()) {
-        cerr << "Error with file ostream" << std::endl;
+        cerr << "Error with file ostream" << endl;
         exit(1);
     }
 

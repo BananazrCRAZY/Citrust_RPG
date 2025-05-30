@@ -23,4 +23,5 @@ class Player : public Fruit {
         void savePlayer();
         void removeItem(unsigned);
         void addItem(unsigned);
+        void setName(string newName) { name = newName; }
 };
