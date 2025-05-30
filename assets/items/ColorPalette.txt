@@ -1,0 +1,7 @@
+Color Palette
+Contains colors the naked eye is unable to see. However, holding it gives the eye the ability to see these unusual colors.
+125
+0
+0
+50
+../status/ArtsUpB.txt

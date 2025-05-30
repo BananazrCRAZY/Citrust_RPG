@@ -1,0 +1,7 @@
+Blender Knives
+Extremely fast rotating knives meant to be put in a blender. No one knows who took them out.
+300
+0
+0
+10
+../status/AttackUpY.txt

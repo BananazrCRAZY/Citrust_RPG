@@ -1,0 +1,7 @@
+Orange Scented Perfume
+One spray will make you smell like oranges for at least 2 days.
+100
+0
+0
+30
+../status/OrangeScent.txt

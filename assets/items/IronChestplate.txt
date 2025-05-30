@@ -1,0 +1,7 @@
+Iron Chestplate
+A basic chestplate made of iron.
+50
+0
+0
+100
+../status/ProtectionA.txt

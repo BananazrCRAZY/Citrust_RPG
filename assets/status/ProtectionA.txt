@@ -1,0 +1,14 @@
+Protection α
+Increases Max HP by 10% and DEF by 5%.
+0
+1
+0
+10
+0
+5
+0
+0
+0
+0
+0
+0

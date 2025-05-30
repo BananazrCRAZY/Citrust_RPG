@@ -1,7 +1,0 @@
-name: string
-description: string
-cost: int
-consumable: bool
-cooldownDefault: int
-showProbability: int
-statusFile: string
