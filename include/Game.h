@@ -3,7 +3,6 @@
 #include "Player.h"
 #include "Boss.h"
 //#include "Shop.h"
-#include "UI.h"
 
 using std::string;
 
@@ -30,7 +29,7 @@ class Game {
         void loadShop();
         string getBossFile() const;
         string getDialogueFile() const;
-        int battleLoop(Boss*);
+        string battleLoop(Boss*);
         int playerTurn(Boss*);
         int enemyTurn(Boss*);
         void turnReset();

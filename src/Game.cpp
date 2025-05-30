@@ -1,7 +1,5 @@
 #include "Game.h"
 #include "Boss.h"
-#include "Apple.h"
-#include "UI.h"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -122,13 +120,14 @@ string Game::getDialogueFile() const {
     return dialogueFile;
 }
 
-int Game::battleLoop(Boss* boss) {
+string Game::battleLoop(Boss* boss) {
     bool battling = true;
     while (battling) {
-        if (player->getTurn() > 0) {
+        while (player->getTurn() > 0) {
             playerTurn(boss);
         }
-        if (boss->getTurn() > 0) {
+        if (player->isDead()) return 
+        while (boss->getTurn() > 0) {
             enemyTurn(boss);
         }
     }
