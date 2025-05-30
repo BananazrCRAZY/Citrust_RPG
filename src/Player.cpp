@@ -30,30 +30,16 @@ Player::Player(string file, string itemFile) : Fruit(file),  inventoryList(itemF
     iFile.close();
 }
 
-int Player::specialAttack(Fruit* target) {
-    return -1;
+string Player::specialAttack(Fruit* target) {
+    // sebastian implement this
+    return "-1";
 }
 
 void Player::levelUp() {
     // removing then adding again bc %based items
-    for (int i = 0; i < battleItems.size(); i++) removeStats(battleItems.at(i)->getStatus());
+    clearStats();
     level++;
-    hp += 100;
-    baseMaxHp += 100;
-    maxHpTotal += 100;
-    baseAttack += 50;
-    attackTotal += 50;
-    baseDefense += 25;
-    defenseTotal += 25;
-    baseArts += 50;
-    ArtsTotal += 50;
-    baseRes += 25;
-    ResTotal += 25;
-    baseCritRate += 10;
-    critRateTotal += 10;
-    baseCritDmg += 20;
-    critDmgTotal += 20;
-    for (int i = 0; i < battleItems.size(); i++) addStats(battleItems.at(i)->getStatus());
+    // add to base stats here
 }
 
 bool Player::useItem(Fruit* target, unsigned itemIndex) {
@@ -62,7 +48,6 @@ bool Player::useItem(Fruit* target, unsigned itemIndex) {
         exit(1);
     }
     battleItems.at(itemIndex)->use(target);
-    cycleThroughEffects();
 }
 
 void Player::savePlayer() {
@@ -72,16 +57,17 @@ void Player::savePlayer() {
         exit(1);
     }
 
+    // need to fix if there is overflow
     oFile << name << '\n';
     oFile << level << '\n';
     oFile << hp << '\n';
-    oFile << baseMaxHp << '\n';
-    oFile << baseAttack << '\n';
-    oFile << baseDefense << '\n';
-    oFile << baseArts << '\n';
-    oFile << baseRes << '\n';
-    oFile << baseCritRate << '\n';
-    oFile << baseCritDmg;
+    oFile << maxHp->getBase() << '\n';
+    oFile << attack->getBase() << '\n';
+    oFile << defense->getBase() << '\n';
+    oFile << arts->getBase() << '\n';
+    oFile << res->getBase() << '\n';
+    oFile << critRate->getBase() << '\n';
+    oFile << critDmg->getBase();
     oFile.close();
 
     oFile.open(inventoryList);
