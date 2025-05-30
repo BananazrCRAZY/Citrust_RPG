@@ -5,3 +5,4 @@ consumable: bool
 cooldownDefault: int
 showProbability: int
 statusFile: string
+iconFile: string
