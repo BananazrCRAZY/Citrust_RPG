@@ -1,0 +1,7 @@
+Honey Tea
+Hot tea made from water, honey, and a lemon.
+150
+0
+0
+40
+../status/HoneyGoodness.txt

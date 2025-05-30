@@ -1,0 +1,7 @@
+Cooling Fan
+A tempting purchase on a hot day.
+100
+0
+0
+50
+../status/Chill.txt

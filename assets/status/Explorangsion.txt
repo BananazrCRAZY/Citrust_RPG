@@ -1,0 +1,14 @@
+Explorangsion
+Increases ATK by 100% and CRIT Rate by 100%. Lasts 1 turn.
+1
+1
+0
+0
+100
+0
+0
+0
+100
+0
+0
+0
