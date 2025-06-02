@@ -9,15 +9,19 @@ using std::vector;
 
 class Shop {
  private:
+  const unsigned MAX_NUM_ITEMS_IN_SHOP = 6;
+  unsigned itemsInShop;
   string itemsFile;
-  vector<Item> allItems;
-  vector<Item> itemsForSale;
+  vector<Item*> allItems;
+  vector<Item*> itemsForSale;
 
  public:
-  void purchaseItem(Fruit* player, int itemIndex);
+  Shop(string& pathToItemsList);
+  int purchaseItem(Fruit* player, int itemIndex);
   void resetShop();
   void saveShop();
 
  private:
-  void loadAllItems();
+  void populateShop();
+  int getRandomNumber(int max) const;  // Generates a random integer in [1, max]
 };
