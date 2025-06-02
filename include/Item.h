@@ -7,7 +7,7 @@ using std::string;
 
 class Item {
  private:
-  string file;
+  string filePath;
   string name;
   string description;
   int cost;
@@ -24,7 +24,7 @@ class Item {
   void changeCooldown(int change);
 
   // Getters
-  string getFile() const { return file; }
+  string getFilePath() const { return filePath; }
   string getName() const;
   string getDescription() const;
   int getCost() const;
