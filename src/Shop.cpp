@@ -1,4 +1,5 @@
 #include "Shop.h"
+#include "Player.h"
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
@@ -30,7 +31,7 @@ Shop::~Shop() {
   for (Item* item : allItems) delete item;
 }
 
-int Shop::purchaseItem(Fruit* player, int itemIndex) {
+int Shop::purchaseItem(Player* player, int itemIndex) {
   player->newItem(itemsForSale.at(itemIndex));
   return itemsForSale.at(itemIndex)->getCost();
 }

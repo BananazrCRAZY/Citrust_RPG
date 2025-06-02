@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Boss.h"
+#include "Shop.h"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -20,12 +21,11 @@ void Game::openFile(string file) {
 
     iFile >> savePoint;
     iFile >> calories;
-    string playerFile, playerItemsFile, shopFile;
     iFile >> playerFile;
     iFile >> playerItemsFile;
     player = new Player(playerFile, playerItemsFile);
     iFile >> shopFile;
-    //shop = new Shop(shopFile);
+    shop = new Shop(shopFile);
     iFile >> bossList;
     iFile >> dialogueList;
 }
@@ -61,6 +61,7 @@ void Game::startGame() {
 int Game::gameLoop() {
     while (savePoint < 10) {
         // need ui to print file called by getDialogueFile()
+        
         if (savePoint != 0) {
             Boss* boss;
             switch (savePoint) {
@@ -73,7 +74,6 @@ int Game::gameLoop() {
                     cerr << "Game loop input error" << endl;
                     exit(1);
             }
-            // put boss into battle loop
             // battleResult: -1 is a loss, if positive then it's the number of cycles
             int battleResult = battleLoop(boss);
             if (battleResult == -1) {
@@ -84,17 +84,16 @@ int Game::gameLoop() {
                 calories += addCalories;
             }
         }
+        // figure out how to display all objects in shop
         loadShop();
         savePoint++;
+        saveGame();
     }
     return 1;
 }
 
 void Game::loadShop() {
-    int input;
-    while (input != 0) {
-
-    }
+    shop
 }
 
 string Game::getBossFile() const {
@@ -148,75 +147,74 @@ int Game::battleLoop(Boss* boss) {
     }
 }
 
-int Game::playerTurn(Boss* boss) {
+void Game::playerTurn(Boss* boss) {
     // get input from ui
     int input;
+    string print;
     switch (input) {
         case 0:
-            player->basicAttack(boss);
+            print = player->basicAttack(boss);
             break;
         case 1:
-            player->specialAttack(boss);
+            print = player->specialAttack(boss);
             break;
         case 2:
-            player->useItem(player, 0);
+            print = player->useItem(player, 0);
             break;
         case 3:
-            player->useItem(player, 1);
+            print = player->useItem(player, 1);
             break;
         case 4:
-            player->useItem(player, 2);
+            print = player->useItem(player, 2);
             break;
         case 5:
-            player->useItem(player, 3);
+            print = player->useItem(player, 3);
             break;
         case 6:
-            player->useItem(player, 4);
+            print = player->useItem(player, 4);
             break;
         case 7:
-            player->useItem(player, 5);
+            print = player->useItem(player, 5);
             break;
         case 8:
-            player->useItem(boss, 0);
+            print = player->useItem(boss, 0);
             break;
         case 9:
-            player->useItem(boss, 1);
+            print = player->useItem(boss, 1);
             break;
         case 10:
-            player->useItem(boss, 2);
+            print = player->useItem(boss, 2);
             break;
         case 11:
-            player->useItem(boss, 3);
+            print = player->useItem(boss, 3);
             break;
         case 12:
-            player->useItem(boss, 4);
+            print = player->useItem(boss, 4);
             break;
         case 13:
-            player->useItem(boss, 5);
+            print = player->useItem(boss, 5);
             break;
         default:
             cerr << "Player turn input error" << endl;
             exit(1);
     }
+    // print out string here
+
 }
 
-int Game::enemyTurn(Boss* boss) {
-    if (boss->getBossAttackCharge() == ) {
-
+void Game::enemyTurn(Boss* boss) {
+    string printThis;
+    if (boss->getBossAttackCharge() >= boss->getRequiredBossCharge()) {
+        printThis = boss->bossAttack(player);   
+    } else if (boss->getRechargeCount() >= 1) {
+        printThis = boss->specialAttack(player);
+    } else {
+        printThis = boss->basicAttack(player);
     }
-}
-
-void Game::turnReset() {
+    // print here
 
 }
 
-int Game::deathCheck() {
-
-}
-
-void Game::loadShop() {
-
-}
 void Game::saveGame() {
     std::ofstream oFile(gameFile);
     if (!oFile.good()) {
@@ -226,4 +224,9 @@ void Game::saveGame() {
 
     oFile << savePoint << '\n';
     oFile << calories << "              \n";
+    oFile << playerFile << '\n';
+    oFile << playerItemsFile << '\n';
+    oFile << shopFile << '\n';
+    oFile << bossList << '\n';
+    oFile << dialogueList << '\n';
 }

@@ -14,6 +14,7 @@ class Player : public Fruit {
 
     public:
         Player(string, string);
+        ~Player();
         string specialAttack(Fruit*);
         void levelUp();
         string useItem(Fruit*, unsigned);

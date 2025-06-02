@@ -30,7 +30,7 @@ class Fruit {
 
     public:
         Fruit(string);
-        ~Fruit();
+        virtual ~Fruit();
         string basicAttack(Fruit*);
         virtual string specialAttack(Fruit*) = 0;
         string getName() { return name; }
@@ -58,6 +58,6 @@ class Fruit {
         bool checkIfCrit();
         void addEffect(Status*);
         bool isDead() const;
-        virtual int endOfTurn();
+        void endOfTurn();
         void clearStatus();
 };

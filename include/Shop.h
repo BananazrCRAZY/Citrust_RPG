@@ -19,7 +19,7 @@ class Shop {
 
  public:
   Shop(string& pathToItemsList);
-  int purchaseItem(Fruit* player, int itemIndex);
+  int purchaseItem(Player* player, int itemIndex);
   void resetShop();
   void saveShop();
 

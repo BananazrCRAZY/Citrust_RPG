@@ -126,7 +126,7 @@ void Fruit::addEffect(Status* effect) {
 }
 
 // goes through effects and add to recharge, does not check dead
-int Fruit::endOfTurn() {
+void Fruit::endOfTurn() {
     for (int i = 0; i < effects.size(); i++) {
         if (effects.at(i)->getTurns() == 0) {
             removeStats(effects.at(i));
@@ -136,7 +136,6 @@ int Fruit::endOfTurn() {
         effects.at(i)->decreaseTurn();
     }
     rechargeCount++;
-    return 1;
 }
 
 void Fruit::clearStats() {

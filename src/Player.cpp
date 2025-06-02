@@ -30,9 +30,14 @@ Player::Player(string file, string itemFile) : Fruit(file),  inventoryList(itemF
     iFile.close();
 }
 
+Player::~Player() {
+    for (int i = 0; i < battleItems.size(); i++) delete battleItems.at(i);
+    for (int i = 0; i < items.size(); i++) delete items.at(i);
+}
+
 string Player::specialAttack(Fruit* target) {
     // sebastian implement this
-    return "-1";
+    return name + " did ???";
 }
 
 void Player::levelUp() {
@@ -70,18 +75,18 @@ void Player::savePlayer() {
     oFile << critDmg->getBase();
     oFile.close();
 
-    oFile.open(inventoryList);
+    oFile.open(inventoryList, std::ios::trunc);
     if (!oFile.good()) {
         cerr << "Error with file ostream" << std::endl;
         exit(1);
     }
 
     for (int i = 0; i < battleItems.size(); i++) {
-        oFile << battleItems.at(i)->getFile() << '\n';
+        oFile << battleItems.at(i)->getFilePath() << '\n';
     }
     oFile << 'unequipped\n';
     for (int i = 0; i < items.size(); i++) {
-        oFile << items.at(i)->getFile() << '\n';
+        oFile << items.at(i)->getFilePath() << '\n';
     }
     oFile.close();
 }
