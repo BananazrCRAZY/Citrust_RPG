@@ -57,13 +57,13 @@ void Shop::saveShop() {
   ifstream originalList("assets/listOfItems.txt");
   if (!originalList.is_open()) {
     cerr << "Couldn't open master item list file." << std::endl;
-    return;
+    exit(1);
   }
 
   ofstream unseenFile("assets/saves/Save1/Shop.txt", std::ios::trunc);  // std::ios::trunc clears the file after opening it
   if (!unseenFile.is_open()) {
     cerr << "Couldn't open or create unseen items save file." << std::endl;
-    return;
+    exit(1);
   }
 
   string line;
