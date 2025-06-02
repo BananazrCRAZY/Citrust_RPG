@@ -79,7 +79,8 @@ int Game::gameLoop() {
             if (battleResult == -1) {
                 // load lose 
             } if (battleResult > 0) {
-                int addCalories = player->getLevel() * 500 / battleResult;
+                int addCalories = player->getLevel() * 1000 / battleResult;
+                if (addCalories < 75) addCalories = 75;
                 calories += addCalories;
             }
         }
@@ -153,12 +154,16 @@ int Game::playerTurn(Boss* boss) {
     switch (input) {
         case 0:
             player->basicAttack(boss);
+            break;
         case 1:
             player->specialAttack(boss);
+            break;
         case 2:
             player->useItem(player, 0);
+            break;
         case 3:
             player->useItem(player, 1);
+            break;
         case 4:
             player->useItem(player, 2);
         case 5:

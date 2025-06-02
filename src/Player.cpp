@@ -52,13 +52,12 @@ string Player::useItem(Fruit* target, unsigned itemIndex) {
 }
 
 void Player::savePlayer() {
-    std::ofstream oFile(fileName);
+    std::ofstream oFile(fileName, std::ios::trunc);
     if (!oFile.good()) {
         cerr << "Error with file ostream" << std::endl;
         exit(1);
     }
 
-    // need to fix if there is overflow
     oFile << name << '\n';
     oFile << level << '\n';
     oFile << hp << '\n';
