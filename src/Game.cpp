@@ -166,24 +166,34 @@ int Game::playerTurn(Boss* boss) {
             break;
         case 4:
             player->useItem(player, 2);
+            break;
         case 5:
             player->useItem(player, 3);
+            break;
         case 6:
             player->useItem(player, 4);
+            break;
         case 7:
             player->useItem(player, 5);
+            break;
         case 8:
             player->useItem(boss, 0);
+            break;
         case 9:
             player->useItem(boss, 1);
+            break;
         case 10:
             player->useItem(boss, 2);
+            break;
         case 11:
             player->useItem(boss, 3);
+            break;
         case 12:
             player->useItem(boss, 4);
+            break;
         case 13:
             player->useItem(boss, 5);
+            break;
         default:
             cerr << "Player turn input error" << endl;
             exit(1);
