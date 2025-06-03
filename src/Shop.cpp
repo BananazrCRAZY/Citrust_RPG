@@ -13,15 +13,15 @@ using std::cerr;
 using std::endl;
 using std::string;
 
-Shop::Shop(string& pathToItemsList) : itemsFile(pathToItemsList){
+Shop::Shop(const string& pathToItemsList) : itemsFile(pathToItemsList){
   ifstream iFile(pathToItemsList);
   if(!iFile.good()) {
-    cerr << "Error with the file stream in Shop" << endl;
+    cerr << "Error with the Shop file stream" << endl;
     exit(1);
   }
 
   string itemFile;
-  while(iFile >> itemFile) {
+  while(getline(iFile, itemFile)) {
     Item* newItem = new Item(itemFile);
     allItems.push_back(newItem);
   }
@@ -32,16 +32,29 @@ Shop::~Shop() {
 }
 
 string Shop::purchaseItem(Player* player, int itemIndex) {
+  if(itemIndex > itemsForSale.size()-1 || itemIndex < 0) {
+    cerr << "Error: purchaseItem itemIndex is out of range" << endl;
+    exit(1);
+  }
   player->newItem(itemsForSale.at(itemIndex));
   return "You bought " + itemsForSale.at(itemIndex)->getName() + "!";
+}
+int Shop::getItemPrice(unsigned index) {
+  if (index > itemsForSale.size()-1) {
+    cerr << "Error: getItemPrice itemIndex is out of range" << endl;
+    exit(1);
+  }
+  return itemsForSale.at(index)->getCost();
 }
 
 void Shop::populateShop() {
   assert(itemsInShop == 0);  // Shop must be empty beforehand
   while (itemsInShop != 6) {
-    Item* selectedItem = allItems.at(getRandomIndex(allItems.size()));  // Select a random item from allItems
+    int randomIndex = getRandomIndex(allItems.size());
+    Item* selectedItem = allItems.at(randomIndex);  // Select a random item from allItems
     if (getRandomNumber(100) <= selectedItem->getAppearanceProbabiity()) {  // RNG to see if that selected item makes it in the shop
       itemsForSale.push_back(selectedItem);
+      allItems.erase(allItems.begin()+randomIndex);
       itemsInShop++;
       shownItems.insert(selectedItem->getFilePath());
     }

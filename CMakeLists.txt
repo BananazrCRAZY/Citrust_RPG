@@ -6,7 +6,10 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
 
 # Include the include directory
-include_directories(include)
+include_directories(include
+  ${CMAKE_SOURCE_DIR}/test/lib/googletest/include/
+  ${CMAKE_SOURCE_DIR}/test/lib/googlemock/include/
+)
 
 # Add GoogleTest (correct path from root)
 add_subdirectory(tests/googletest)
@@ -26,6 +29,7 @@ add_executable(runTests
     tests/StatTest.cpp
     tests/ItemTest.cpp
     tests/StatusTest.cpp
+    tests/ShopTest.cpp
 )
 
 # add_executable(runGame

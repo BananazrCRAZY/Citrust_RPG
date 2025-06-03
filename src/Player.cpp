@@ -7,7 +7,7 @@
 using std::string;
 using std::cerr;
 
-Player::Player(string file, string itemFile) : Fruit(file),  inventoryList(itemFile) {
+Player::Player(const string& file, const string& itemFile) : Fruit(file),  inventoryList(itemFile) {
     std::ifstream iFile(itemFile);
     if (!iFile.good()) {
         cerr << "Error with Inventory list file fstream" << std::endl;
@@ -74,7 +74,7 @@ void Player::savePlayer() {
     oFile << arts->getBase() << '\n';
     oFile << res->getBase() << '\n';
     oFile << critRate->getBase() << '\n';
-    oFile << critDmg->getBase();
+    oFile << critDmg->getBase() << '\n';
     oFile.close();
 
     oFile.open(inventoryList, std::ios::trunc);

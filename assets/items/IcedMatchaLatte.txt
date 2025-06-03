@@ -4,4 +4,4 @@ Expensive matcha imports results in this heavenly drink.
 0
 0
 100
-../status/Matchalicious.txt
+assets/status/Matchalicious.txt

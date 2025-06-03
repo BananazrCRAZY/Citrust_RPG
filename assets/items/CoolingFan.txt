@@ -4,4 +4,4 @@ A tempting purchase on a hot day.
 0
 0
 50
-../status/Chill.txt
+assets/status/Chill.txt

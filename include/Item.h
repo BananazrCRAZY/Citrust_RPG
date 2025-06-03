@@ -18,7 +18,7 @@ class Item {
   bool isConsumable;
 
  public:
-  Item(string);
+  Item(const string&);
   ~Item();
   void use(Fruit* target);
   void decreaseCooldown();

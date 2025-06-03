@@ -29,7 +29,7 @@ class Fruit {
         void clearStats();
 
     public:
-        Fruit(string);
+        Fruit(const string&);
         virtual ~Fruit();
         string basicAttack(Fruit*);
         virtual string specialAttack(Fruit*) = 0;

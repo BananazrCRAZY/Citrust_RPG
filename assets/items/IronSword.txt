@@ -4,4 +4,4 @@ A basic sword made of iron.
 0
 0
 80
-../status/AttackUpA.txt
+assets/status/AttackUpA.txt

@@ -11,7 +11,7 @@ using std::srand;
 using std::rand;
 using std::time;
 
-Fruit::Fruit(string file) : 
+Fruit::Fruit(const string& file) : 
     fileName(file),
     rechargeCount(2),
     turn(1)
@@ -80,43 +80,39 @@ bool Fruit::isDead() const {
 
 void Fruit::removeStats(Status* status) {
     if (status->isPercentBased()) {
-        maxHp->add(-1 * status->getMaxHpChange() * maxHp->getBase());
-        attack->add(-1 * status->getAttackChange() * attack->getBase());
-        defense->add(-1 * status->getDefenseChange() * defense->getBase());
-        arts->add(-1 * status->getArtsChange() * arts->getBase());
-        res->add(-1 * status->getResChange() * res->getBase());
-        critRate->add(-1 * status->getCritRateChange() * critRate->getBase());
-        critDmg->add(-1 * status->getCritDamageChange() * critDmg->getBase());
+        maxHp->add(-1 * status->getMaxHpChange()/100 * maxHp->getBase());
+        attack->add(-1 * status->getAttackChange()/100 * attack->getBase());
+        defense->add(-1 * status->getDefenseChange()/100 * defense->getBase());
+        arts->add(-1 * status->getArtsChange()/100 * arts->getBase());
+        res->add(-1 * status->getResChange()/100 * res->getBase());
     } else {
         maxHp->add(-1 * status->getMaxHpChange());
         attack->add(-1 * status->getAttackChange());
         defense->add(-1 * status->getDefenseChange());
         arts->add(-1 * status->getArtsChange());
         res->add(-1 * status->getResChange());
-        critRate->add(-1 * status->getCritRateChange());
-        critDmg->add(-1 * status->getCritDamageChange());
     }
+    critRate->add(-1 * status->getCritRateChange());
+    critDmg->add(-1 * status->getCritDamageChange());
     if (hp > maxHp->getTotal()) hp = maxHp->getTotal();
 }
 
 void Fruit::addStats(Status* status) {
     if (status->isPercentBased()) {
-        maxHp->add(status->getMaxHpChange() * maxHp->getBase());
-        attack->add(status->getAttackChange() * attack->getBase());
-        defense->add(status->getDefenseChange() * defense->getBase());
-        arts->add(status->getArtsChange() * arts->getBase());
-        res->add(status->getResChange() * res->getBase());
-        critRate->add(status->getCritRateChange() * critRate->getBase());
-        critDmg->add(status->getCritDamageChange() * critDmg->getBase());
+        maxHp->add(status->getMaxHpChange()/100 * maxHp->getBase());
+        attack->add(status->getAttackChange()/100 * attack->getBase());
+        defense->add(status->getDefenseChange()/100 * defense->getBase());
+        arts->add(status->getArtsChange()/100 * arts->getBase());
+        res->add(status->getResChange()/100 * res->getBase());
     } else {
         maxHp->add(status->getMaxHpChange());
         attack->add(status->getAttackChange());
         defense->add(status->getDefenseChange());
         arts->add(status->getArtsChange());
         res->add(status->getResChange());
-        critRate->add(status->getCritRateChange());
-        critDmg->add(status->getCritDamageChange());
     }
+    critRate->add(status->getCritRateChange());
+    critDmg->add(status->getCritDamageChange());
     if (hp > maxHp->getTotal()) hp = maxHp->getTotal();
 }
 
@@ -152,4 +148,6 @@ void Fruit::clearStats() {
 void Fruit::clearStatus() {
     clearStats();
     effects.clear();
+    rechargeCount = 2;
+    turn = 1;
 }

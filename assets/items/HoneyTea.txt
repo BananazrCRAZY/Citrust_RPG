@@ -4,4 +4,4 @@ Hot tea made from water, honey, and a lemon.
 0
 0
 40
-../status/HoneyGoodness.txt
+assets/status/HoneyGoodness.txt

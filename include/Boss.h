@@ -12,7 +12,7 @@ class Boss : public Fruit {
         int requiredBossCharge;
 
     public:
-        Boss(string mainFile, string itemF, int requiredCharge) : Fruit(mainFile), itemDrop(new Item(itemF)), requiredBossCharge(requiredCharge) {}
+        Boss(const string& mainFile, const string& itemF, int requiredCharge) : Fruit(mainFile), itemDrop(new Item(itemF)), requiredBossCharge(requiredCharge) {}
         virtual string specialAttack(Fruit*) = 0;
         virtual string bossAttack(Fruit*) = 0;
         int getBossAttackCharge() { return bossAttackCharge; }

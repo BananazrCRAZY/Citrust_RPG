@@ -4,4 +4,4 @@ The shell of a peanut who passed away in battle eons ago.
 0
 0
 40
-../status/ProtectionB.txt
+assets/status/ProtectionB.txt

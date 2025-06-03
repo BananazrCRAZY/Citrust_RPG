@@ -4,4 +4,4 @@ One spray will make you smell like oranges for at least 2 days.
 0
 0
 30
-../status/OrangeScent.txt
+assets/status/OrangeScent.txt

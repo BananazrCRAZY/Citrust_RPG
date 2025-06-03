@@ -4,4 +4,4 @@ A throwable hand grenade that explodes with orange juice and leaves a cloud of t
 1
 5
 10
-../status/Explorangsion.txt
+assets/status/Explorangsion.txt

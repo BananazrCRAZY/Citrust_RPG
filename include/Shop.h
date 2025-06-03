@@ -18,12 +18,12 @@ class Shop {
   std::unordered_set<std::string> shownItems;  // Set of all items shown in the shop.
 
  public:
-  Shop(string& pathToItemsList);
+  Shop(const string& pathToItemsList);
   ~Shop();
   string purchaseItem(Player* player, int itemIndex);
   void resetShop();
   void saveShop();
-  int getItemPrice(unsigned index) { return itemsForSale.at(index)->getCost(); }
+  int getItemPrice(unsigned index);
 
  private:
   void populateShop();

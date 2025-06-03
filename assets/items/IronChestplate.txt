@@ -4,4 +4,4 @@ A basic chestplate made of iron.
 0
 0
 100
-../status/ProtectionA.txt
+assets/status/ProtectionA.txt

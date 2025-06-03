@@ -13,7 +13,7 @@ class Player : public Fruit {
     string inventoryList;
 
     public:
-        Player(string, string);
+        Player(const string&, const string&);
         ~Player();
         string specialAttack(Fruit*);
         void levelUp();
@@ -21,7 +21,7 @@ class Player : public Fruit {
         void savePlayer();
         void unequipItem(unsigned);
         void equipItem(unsigned);
-        void setName(string newName) { name = newName; }
+        void setName(const string& newName) { name = newName; }
         Item* getBattleItem(int i) const { return battleItems.at(i); }
         Item* getInventoryItem(int i) const { return items.at(i); }
         void newItem(Item* item) { items.push_back(item); }

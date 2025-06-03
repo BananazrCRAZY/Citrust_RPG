@@ -4,4 +4,4 @@ Only able to be carried by the strongest of men.
 1
 10
 10
-../status/ImpenetrableBarrier.txt
+assets/status/ImpenetrableBarrier.txt

@@ -4,4 +4,4 @@ Health supplies to bring with you on the go. Includes bandages and food.
 0
 0
 20
-../status/ProtectionY
+assets/status/ProtectionY.txt

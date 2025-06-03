@@ -4,4 +4,4 @@ Holding it gives you the feeling of some otherworldly energy
 0
 0
 90
-../status/ArtsUpA.txt
+assets/status/ArtsUpA.txt

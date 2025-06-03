@@ -4,4 +4,4 @@ Disappear among the sea of butterflies, Illusions of the past!
 1
 7
 15
-../status/Amplification.txt
+assets/status/Amplification.txt

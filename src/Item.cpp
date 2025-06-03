@@ -6,7 +6,7 @@
 using std::ifstream;
 using std::cerr;
 
-Item::Item(string file) : filePath(file), cooldown(0) {
+Item::Item(const string& file) : filePath(file), cooldown(0) {
   ifstream iFile(file);
   if (!iFile.good()) {
     cerr << "Error with item file fstream" << std::endl;

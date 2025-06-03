@@ -275,7 +275,7 @@ void Game::saveGame() {
     }
 
     oFile << savePoint << '\n';
-    oFile << calories << "              \n";
+    oFile << calories << '\n';
     oFile << playerFile << '\n';
     oFile << playerItemsFile << '\n';
     oFile << shopFile << '\n';

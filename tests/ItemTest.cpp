@@ -37,27 +37,41 @@ TEST(ItemTests, constructorPass) {
     EXPECT_EQ(s.getTurnChange(), item.getStatus()->getTurnChange());
 }
 
-TEST(ItemTests, decreaseCoolDownTest) {
+TEST(ItemTests, decreaseCoolDownTestOne) {
     Item item("assets/items/TestItem1.txt");
+    item.decreaseCooldown();
+    EXPECT_EQ(item.getCooldown(), -1);
+}
+
+TEST(ItemTests, decreaseCoolDownTestTwo) {
+    Item item("assets/items/TestItem1.txt");
+    item.decreaseCooldown();
+    item.decreaseCooldown();
+    EXPECT_EQ(item.getCooldown(), -2);
+}
+
+TEST(ItemTests, decreaseCooldownAfterUse) {
+    Item item("assets/items/TestItem1.txt");
+    Player* p = new Player("assets/saves/testSave/TestPlayer.txt", "assets/saves/testSave/TestInventoryList.txt");
+    item.use(p);
     item.decreaseCooldown();
     EXPECT_EQ(item.getCooldown(), -1);
 }
 
 TEST(ItemTests, useTest) {
     Item item("assets/items/TestItem1.txt");
-    Player* p = new Player("assets/saves/Save1/Player.txt", "assets/saves/Save1/InventoryList.txt");
-    item.decreaseCooldown();
+    Player* p = new Player("assets/saves/testSave/TestPlayer.txt", "assets/saves/testSave/TestInventoryList.txt");
     item.use(p);
     EXPECT_EQ(item.getCooldown(), 0);
 
-    EXPECT_EQ(p.getHp(), 4);
-    EXPECT_EQ(p.getMaxHp(), 5);
-    EXPECT_EQ(p.getAttack(), 6);
-    EXPECT_EQ(p.getDefense(), 7);
-    EXPECT_EQ(p.getArts(), 8);
-    EXPECT_EQ(p.getRes(), 9);
-    EXPECT_EQ(p.getCritRate(), 10);
-    EXPECT_EQ(p.getCritDmg(), 11);
-    EXPECT_EQ(p.getRechargeCount(), 3);
-    EXPECT_EQ(p.getTurn(), 2);
+    EXPECT_EQ(p->getHp(), 100);
+    EXPECT_EQ(p->getMaxHp(), 100);
+    EXPECT_EQ(p->getAttack(), 70);
+    EXPECT_EQ(p->getDefense(), 25);
+    EXPECT_EQ(p->getArts(), 50);
+    EXPECT_EQ(p->getRes(), 25);
+    EXPECT_EQ(p->getCritRate(), 50);
+    EXPECT_EQ(p->getCritDmg(), 70);
+    EXPECT_EQ(p->getRechargeCount(), 2);
+    EXPECT_EQ(p->getTurn(), 1);
 }

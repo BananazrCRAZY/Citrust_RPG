@@ -33,13 +33,20 @@ TEST(StatusTests, decreaseTurnTest) {
     EXPECT_EQ(s.getTurns(), -1);
 }
 
+TEST(StatusTests, resetDecreaseTurns) {
+    Status s("assets/status/TestStatus.txt");
+    s.resetStatusTurns();
+    s.decreaseTurn();
+    EXPECT_EQ(s.getTurns(), -1);
+}
+
 TEST(StatusTests, resetStatusTurns) {
     Status s("assets/status/TestStatus.txt");
     s.resetStatusTurns();
     EXPECT_EQ(s.getTurns(), 0);
 }
 
-TEST(StatusTests, resetStatusTurnsSubFirst) {
+TEST(StatusTests, decreaseResetTurns) {
     Status s("assets/status/TestStatus.txt");
     s.decreaseTurn();
     s.resetStatusTurns();

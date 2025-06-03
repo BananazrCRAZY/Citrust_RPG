@@ -4,4 +4,4 @@ A place for you to sit down when you're vulnurable after a long day of work.
 0
 0
 30
-../status/Comfort.txt
+assets/status/Comfort.txt
