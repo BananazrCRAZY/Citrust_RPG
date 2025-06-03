@@ -11,6 +11,11 @@ using std::string;
 using std::ifstream;
 using std::endl;
 
+void Game::resetGame() {
+    delete player;
+    delete shop;
+}
+
 void Game::openFile(string file) {
     gameFile = file;
     ifstream iFile(gameFile);
@@ -58,7 +63,7 @@ void Game::startGame() {
     }
 }
 
-int Game::gameLoop() {
+void Game::gameLoop() {
     while (savePoint < 10) {
         // need ui to print file called by getDialogueFile()
         
@@ -66,9 +71,11 @@ int Game::gameLoop() {
             Boss* boss;
             switch (savePoint) {
                 case 1:
-                    // create boss here, use getBossFile and hard code item
+                    // create boss here, use getBossFile and hard code item and required charge
                     break;
                 case 2:
+                    break;
+                case 9:
                     break;
                 default:
                     cerr << "Game loop input error" << endl;
@@ -76,8 +83,10 @@ int Game::gameLoop() {
             }
             // battleResult: -1 is a loss, if positive then it's the number of cycles
             int battleResult = battleLoop(boss);
+            player->newItem(boss->getItem());
+            delete boss;
             if (battleResult == -1) {
-                // load lose 
+                loadLose();
             } if (battleResult > 0) {
                 int addCalories = player->getLevel() * 1000 / battleResult;
                 if (addCalories < 75) addCalories = 75;
@@ -85,15 +94,58 @@ int Game::gameLoop() {
             }
         }
         // figure out how to display all objects in shop
-        loadShop();
+        loadInterlude();
         savePoint++;
         saveGame();
     }
-    return 1;
 }
 
-void Game::loadShop() {
-    shop
+void Game::loadInterlude() {
+    shop->resetShop();
+    string printThis;
+    while (1) {
+        // get input from intermediate screen
+        int input;
+        switch (input) {
+            case 0:
+                return;
+            case 1:
+                printThis = checkBuyItem(0);
+                break;
+            case 2:
+                printThis = checkBuyItem(1);
+                break;
+            case 3:
+                printThis = checkBuyItem(2);
+                break;
+            case 4:
+                printThis = checkBuyItem(3);
+                break;
+            case 5:
+                printThis = checkBuyItem(4);
+                break;
+            case 6:
+                printThis = checkBuyItem(5);
+                break;
+            case 7:
+            // not sure how to equip and unequip items
+            default:
+                cerr << "Shop loop input error" << endl;
+                exit(1);
+        }
+        // print here
+
+    }
+}
+
+void Game::loadEndOfGame() {
+    resetGame();
+    // have the ui end game screen here
+}
+
+void Game::loadLose() {
+    resetGame();
+    // have ui load lose screen
 }
 
 string Game::getBossFile() const {
@@ -229,4 +281,11 @@ void Game::saveGame() {
     oFile << shopFile << '\n';
     oFile << bossList << '\n';
     oFile << dialogueList << '\n';
+
+    shop->saveShop();
+}
+
+string Game::checkBuyItem(int index) {
+    if (shop->getItemPrice(index) > calories) return "You cannot buy this. You are missing " + std::to_string(shop->getItemPrice(0)-calories) + " calories.";
+    return shop->purchaseItem(player, index);
 }

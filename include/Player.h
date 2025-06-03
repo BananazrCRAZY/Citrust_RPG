@@ -19,9 +19,10 @@ class Player : public Fruit {
         void levelUp();
         string useItem(Fruit*, unsigned);
         void savePlayer();
-        void removeItem(unsigned);
-        void addItem(unsigned);
+        void unequipItem(unsigned);
+        void equipItem(unsigned);
         void setName(string newName) { name = newName; }
         Item* getBattleItem(int i) const { return battleItems.at(i); }
         Item* getInventoryItem(int i) const { return items.at(i); }
+        void newItem(Item* item) { items.push_back(item); }
 };

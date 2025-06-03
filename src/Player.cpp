@@ -91,7 +91,7 @@ void Player::savePlayer() {
     oFile.close();
 }
 
-void Player::removeItem(unsigned index) {
+void Player::unequipItem(unsigned index) {
     if (index > (battleItems.size()-1)) {
         cerr << "Error removeItem index problem" << std::endl;
         exit(1);
@@ -101,7 +101,7 @@ void Player::removeItem(unsigned index) {
     battleItems.erase(battleItems.begin() + index);
 }
 
-void Player::addItem(unsigned index) {
+void Player::equipItem(unsigned index) {
     if (index > (items.size()-1)) {
         cerr << "Error addItem index problem" << std::endl;
         exit(1);

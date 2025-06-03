@@ -31,9 +31,9 @@ Shop::~Shop() {
   for (Item* item : allItems) delete item;
 }
 
-int Shop::purchaseItem(Player* player, int itemIndex) {
+string Shop::purchaseItem(Player* player, int itemIndex) {
   player->newItem(itemsForSale.at(itemIndex));
-  return itemsForSale.at(itemIndex)->getCost();
+  return "You bought " + itemsForSale.at(itemIndex)->getName() + "!";
 }
 
 void Shop::populateShop() {

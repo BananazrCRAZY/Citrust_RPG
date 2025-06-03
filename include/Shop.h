@@ -19,9 +19,10 @@ class Shop {
 
  public:
   Shop(string& pathToItemsList);
-  int purchaseItem(Player* player, int itemIndex);
+  string purchaseItem(Player* player, int itemIndex);
   void resetShop();
   void saveShop();
+  int getItemPrice(unsigned index) { return itemsForSale.at(index)->getCost(); }
 
  private:
   void populateShop();

@@ -19,8 +19,10 @@ class Game {
     string shopFile;
 
     void startGame();
-    int gameLoop();
-    void loadShop();
+    void gameLoop();
+    void loadInterlude();
+    void loadEndOfGame();
+    void loadLose();
     void saveGame();
     string getBossFile() const;
     string getDialogueFile() const;
@@ -28,14 +30,18 @@ class Game {
     void playerTurn(Boss*);
     void enemyTurn(Boss*);
     void openFile(string);
+    string checkBuyItem(int);
+    void resetGame();
 
     public:
         Game() {}
+        ~Game() { resetGame(); }
         void runGame() {
             startGame();
             // get ui to send name
             string inputName;
             player->setName(inputName);
             gameLoop();
+            loadEndOfGame();
         }
 };
