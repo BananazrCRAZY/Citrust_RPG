@@ -1,7 +1,7 @@
-shop item
-testing shop item
-100
-1
-2
-100
-assets/status/TestItem1Status.txt
+test name
+test description
+300
+0
+0
+10
+assets/status/AttackUpY.txt

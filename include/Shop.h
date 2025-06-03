@@ -19,6 +19,7 @@ class Shop {
 
  public:
   Shop(string& pathToItemsList);
+  ~Shop();
   string purchaseItem(Player* player, int itemIndex);
   void resetShop();
   void saveShop();

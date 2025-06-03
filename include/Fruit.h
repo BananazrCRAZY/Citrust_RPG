@@ -55,7 +55,6 @@ class Fruit {
         void setCritDmgAdd(int change) { critDmg->add(change); }
         void setRechargeCount(int change) { rechargeCount += change; }
         void setTurn(int change) { turn += change; }
-        bool checkIfCrit();
         void addEffect(Status*);
         bool isDead() const;
         void endOfTurn();

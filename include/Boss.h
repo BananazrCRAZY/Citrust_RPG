@@ -19,4 +19,8 @@ class Boss : public Fruit {
         void setBossAttackCharge(int change) { bossAttackCharge += change; }
         Item* getItem() { return itemDrop; }
         int getRequiredBossCharge() { return requiredBossCharge; }
+        void endOfTurn() {
+            Fruit::endOfTurn();
+            bossAttackCharge++;
+        }
 };

@@ -10,7 +10,7 @@ using std::cerr;
 Player::Player(string file, string itemFile) : Fruit(file),  inventoryList(itemFile) {
     std::ifstream iFile(itemFile);
     if (!iFile.good()) {
-        cerr << "Error with file fstream" << std::endl;
+        cerr << "Error with Inventory list file fstream" << std::endl;
         exit(1);
     }
 
@@ -52,6 +52,8 @@ string Player::useItem(Fruit* target, unsigned itemIndex) {
         cerr << "Error useItem index problem" << std::endl;
         exit(1);
     }
+    if (!battleItems.at(itemIndex)->isConsumableTrue()) return "This is not a consumable.";
+    if (battleItems.at(itemIndex)->getCooldown() > 0) return "Item is on cooldown.";
     battleItems.at(itemIndex)->use(target);
     return name + " used " + battleItems.at(itemIndex)->getName() + " on " + target->getName() + ".";
 }
@@ -59,7 +61,7 @@ string Player::useItem(Fruit* target, unsigned itemIndex) {
 void Player::savePlayer() {
     std::ofstream oFile(fileName, std::ios::trunc);
     if (!oFile.good()) {
-        cerr << "Error with file ostream" << std::endl;
+        cerr << "Error with saving Fruit file ostream" << std::endl;
         exit(1);
     }
 
@@ -77,14 +79,14 @@ void Player::savePlayer() {
 
     oFile.open(inventoryList, std::ios::trunc);
     if (!oFile.good()) {
-        cerr << "Error with file ostream" << std::endl;
+        cerr << "Error with saving Inventory list file ostream" << std::endl;
         exit(1);
     }
 
     for (int i = 0; i < battleItems.size(); i++) {
         oFile << battleItems.at(i)->getFilePath() << '\n';
     }
-    oFile << 'unequipped\n';
+    oFile << "unequipped\n";
     for (int i = 0; i < items.size(); i++) {
         oFile << items.at(i)->getFilePath() << '\n';
     }

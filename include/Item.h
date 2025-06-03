@@ -19,9 +19,9 @@ class Item {
 
  public:
   Item(string);
-
+  ~Item();
   void use(Fruit* target);
-  void changeCooldown(int change);
+  void decreaseCooldown();
 
   // Getters
   string getFilePath() const { return filePath; }

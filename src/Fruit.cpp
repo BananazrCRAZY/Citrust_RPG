@@ -18,7 +18,7 @@ Fruit::Fruit(string file) :
     {
         std::ifstream iFile(fileName);
         if (!iFile.good()) {
-            cerr << "Error with file fstream" << std::endl;
+            cerr << "Error with opening Fruit file fstream" << std::endl;
             exit(1);
         }
 
@@ -42,7 +42,7 @@ Fruit::Fruit(string file) :
         critDmg = new Stat(output);
 
         if (!iFile.good()) {
-            cerr << "Error with file fstream" << std::endl;
+            cerr << "Error with Fruit file format fstream" << std::endl;
             exit(1);
         }
         iFile.close();
@@ -130,7 +130,7 @@ void Fruit::endOfTurn() {
     for (int i = 0; i < effects.size(); i++) {
         if (effects.at(i)->getTurns() == 0) {
             removeStats(effects.at(i));
-            effects.at(i)->resetStatus();
+            effects.at(i)->resetStatusTurns();
             effects.erase(effects.begin()+i);
         }
         effects.at(i)->decreaseTurn();
@@ -146,6 +146,7 @@ void Fruit::clearStats() {
     res->removeAdd();
     critRate->removeAdd();
     critDmg->removeAdd();
+    if (hp > maxHp->getTotal()) hp = maxHp->getTotal();
 }
 
 void Fruit::clearStatus() {

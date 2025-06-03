@@ -6,10 +6,10 @@
 using std::ifstream;
 using std::cerr;
 
-Item::Item(string file) : filePath(file) {
+Item::Item(string file) : filePath(file), cooldown(0) {
   ifstream iFile(file);
   if (!iFile.good()) {
-    cerr << "Error with file fstream" << std::endl;
+    cerr << "Error with item file fstream" << std::endl;
     exit(1);
   }
 
@@ -19,14 +19,22 @@ Item::Item(string file) : filePath(file) {
   iFile >> isConsumable;
   iFile >> cooldownDefault;
   iFile >> appearanceProbability;
-  string statusFile = "";
+  string statusFile;
   iFile >> statusFile;
+  if (!iFile.good()) {
+    cerr << "Error with item file format fstream" << std::endl;
+    exit(1);
+  }
   effect = new Status(statusFile);
   if (!iFile.good()) {
-    cerr << "Error with file fstream" << std::endl;
+    cerr << "Error with item file format fstream" << std::endl;
     exit(1);
   }
   iFile.close();
+}
+
+Item::~Item() {
+  delete effect;
 }
 
 string Item::getName() const { return name; }
@@ -37,10 +45,11 @@ double Item::getAppearanceProbabiity() const { return appearanceProbability; }
 
 void Item::use(Fruit* target) {
   target->addEffect(effect);
+  cooldown = cooldownDefault;
 }
 
-void Item::changeCooldown(int change) {
-  this->cooldown += change;
+void Item::decreaseCooldown() {
+  cooldown--;
 }
 
 bool Item::isConsumableTrue() const { return isConsumable; }

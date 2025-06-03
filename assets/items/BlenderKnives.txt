@@ -4,4 +4,4 @@ Extremely fast rotating knives meant to be put in a blender. No one knows who to
 0
 0
 10
-../status/AttackUpY.txt
+assets/status/AttackUpY.txt

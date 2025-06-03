@@ -15,17 +15,22 @@ add_subdirectory(tests/googletest)
 add_library(FruitLib
     src/Fruit.cpp
     src/Player.cpp
-    src/Boss.cpp    
+    src/Item.cpp
+    src/Shop.cpp
+    src/Status.cpp
 )
 
 # Add the test executable
 add_executable(runTests
     tests/FruitTest.cpp
+    tests/StatTest.cpp
+    tests/ItemTest.cpp
+    tests/StatusTest.cpp
 )
 
-add_executable(runGame
-    src/main.cpp
-)
+# add_executable(runGame
+#     src/main.cpp
+# )
 
 # Link everything
 target_link_libraries(runTests FruitLib gtest gtest_main pthread)

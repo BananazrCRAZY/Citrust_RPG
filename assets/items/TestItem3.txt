@@ -1,7 +1,0 @@
-shop item3
-testing shop item3
-300
-1
-2
-100
-assets/status/TestItem1Status.txt
