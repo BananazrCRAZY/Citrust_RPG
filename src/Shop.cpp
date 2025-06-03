@@ -13,8 +13,8 @@ using std::cerr;
 using std::endl;
 using std::string;
 
-Shop::Shop(const string& pathToItemsList) : itemsFile(pathToItemsList){
-  ifstream iFile(pathToItemsList);
+Shop::Shop(const string& pathToItemsList) : itemsFile(pathToItemsList), itemsInShop(0) {
+  ifstream iFile(itemsFile);
   if(!iFile.good()) {
     cerr << "Error with the Shop file stream" << endl;
     exit(1);
@@ -32,15 +32,18 @@ Shop::~Shop() {
 }
 
 string Shop::purchaseItem(Player* player, int itemIndex) {
-  if(itemIndex > itemsForSale.size()-1 || itemIndex < 0) {
+  if(itemIndex > (itemsForSale.size()-1) || itemIndex < 0) {
     cerr << "Error: purchaseItem itemIndex is out of range" << endl;
     exit(1);
   }
   player->newItem(itemsForSale.at(itemIndex));
-  return "You bought " + itemsForSale.at(itemIndex)->getName() + "!";
+  string returnLine = "You bought " + itemsForSale.at(itemIndex)->getName() + "!";
+  itemsForSale.at(itemIndex) = nullptr;
+  return returnLine;
 }
+
 int Shop::getItemPrice(unsigned index) {
-  if (index > itemsForSale.size()-1) {
+  if (index > (itemsForSale.size()-1)) {
     cerr << "Error: getItemPrice itemIndex is out of range" << endl;
     exit(1);
   }
@@ -56,7 +59,6 @@ void Shop::populateShop() {
       itemsForSale.push_back(selectedItem);
       allItems.erase(allItems.begin()+randomIndex);
       itemsInShop++;
-      shownItems.insert(selectedItem->getFilePath());
     }
   }
 }
@@ -68,27 +70,18 @@ void Shop::resetShop() {
 }
 
 void Shop::saveShop() {
-  ifstream originalList("assets/listOfItems.txt");
-  if (!originalList.is_open()) {
+  for (int i = 0; i < itemsInShop; i++) if (itemsForSale.at(i) != nullptr) allItems.push_back(itemsForSale.at(i));
+
+  ofstream oFile(itemsFile);
+  if (!oFile.good()) {
     cerr << "Couldn't open master item list file." << std::endl;
     exit(1);
   }
 
-  ofstream unseenFile("assets/saves/Save1/Shop.txt", std::ios::trunc);  // std::ios::trunc clears the file after opening it
-  if (!unseenFile.is_open()) {
-    cerr << "Couldn't open or create unseen items save file." << std::endl;
-    exit(1);
+  for (int i = 0; i < allItems.size(); i++) {
+    oFile << allItems.at(i)->getFilePath() << '\n';
   }
-
-  string line;
-  while (std::getline(originalList, line)) {
-    if (shownItems.find(line) == shownItems.end()) {  // If the line is NOT in the set (if the iterator from find() is not the end)
-      unseenFile << line << '\n';
-    }
-  }
-
-  unseenFile.close();
-  originalList.close();
+  oFile.close();
 }
 
 int Shop::getRandomIndex(int max) const {

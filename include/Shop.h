@@ -15,7 +15,6 @@ class Shop {
   string itemsFile;
   vector<Item*> allItems;
   vector<Item*> itemsForSale;
-  std::unordered_set<std::string> shownItems;  // Set of all items shown in the shop.
 
  public:
   Shop(const string& pathToItemsList);

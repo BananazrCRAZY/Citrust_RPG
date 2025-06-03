@@ -283,6 +283,7 @@ void Game::saveGame() {
     oFile << dialogueList << '\n';
 
     shop->saveShop();
+    player->savePlayer();
 }
 
 string Game::checkBuyItem(int index) {

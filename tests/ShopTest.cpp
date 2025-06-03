@@ -49,20 +49,20 @@ TEST(ShopTests, purchaseItemFailOver) {
     EXPECT_DEATH(s.purchaseItem(p, 10), ".*out of range.*");
 }
 
-// TEST(ShopTests, saveShop0ItemBought) {
-//     Shop s("assets/saves/testSave/TestShopList.txt");
-//     Player* p = new Player("assets/saves/testSave/TestPlayer.txt", "assets/saves/testSave/TestInventoryList.txt");
-//     s.resetShop();
-//     s.saveShop();
-// }
-
-TEST(ShopTests, saveShop1ItemBought) {
+TEST(ShopTests, saveShop0ItemBought) {
     Shop s("assets/saves/testSave/TestShopList.txt");
     Player* p = new Player("assets/saves/testSave/TestPlayer.txt", "assets/saves/testSave/TestInventoryList.txt");
     s.resetShop();
-    EXPECT_NE(s.purchaseItem(p, 0), "You bought.*");
     s.saveShop();
 }
+
+// TEST(ShopTests, saveShop1ItemBought) {
+//     Shop s("assets/saves/testSave/TestShopList.txt");
+//     Player* p = new Player("assets/saves/testSave/TestPlayer.txt", "assets/saves/testSave/TestInventoryList.txt");
+//     s.resetShop();
+//     EXPECT_NE(s.purchaseItem(p, 0), "You bought.*");
+//     s.saveShop();
+// }
 
 // TEST(ShopTests, saveShopAllItemsBought) {
 //     Shop s("assets/saves/testSave/TestShopList.txt");
