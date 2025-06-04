@@ -35,16 +35,33 @@ Player::~Player() {
     for (int i = 0; i < items.size(); i++) delete items.at(i);
 }
 
+// Deals Physical DMG and Arts DMG equal to ATK and Arts ATK respectively. Damage dealt is counted as once instance of damage. However, each type of damage has its own chance to crit.
 string Player::specialAttack(Fruit* target) {
-    // sebastian implement this
-    return name + " did ???";
+  int physDmg = attack->getTotal();
+  int artsDmg = arts->getTotal();
+  if (checkIfCrit()) {
+    physDmg *= (critDmg->getTotal()/100 + 1);
+    artsDmg *= (critDmg->getTotal()/100 + 1);
+  }
+  physDmg -= target->getDefense();
+  artsDmg *= 1 - (target->getRes()/100);
+  int damageDealt = physDmg + artsDmg;
+  if (damageDealt <= 0) return name + " did 0 damage.";
+  target->setHp(-1 * damageDealt);
+
+  return name + " did " + std::to_string(damageDealt) + " damage.";
 }
 
 void Player::levelUp() {
-    // removing then adding again bc %based items
+    // Remove added stats and then readd them because of percent-based items
     clearStats();
     level++;
-    // add to base stats here
+    hp += 250;
+    maxHp->addBase(250);
+    attack->addBase(125);
+    arts->addBase(115);
+    defense->addBase(50);
+    reAddStats();
 }
 
 string Player::useItem(Fruit* target, unsigned itemIndex) {

@@ -26,7 +26,9 @@ class Fruit {
         bool checkIfCrit();
         void removeStats(Status*);
         void addStats(Status*);
-        void clearStats();
+        
+        void clearStats();  // called by levelUp()
+        void reAddStats();  // called by levelUp()
 
     public:
         Fruit(const string&);

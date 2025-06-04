@@ -144,6 +144,12 @@ void Fruit::clearStats() {
     if (hp > maxHp->getTotal()) hp = maxHp->getTotal();
 }
 
+void Fruit::reAddStats() {
+  for (unsigned i = 0; i < effects.size(); ++i) {
+    addStats(effects.at(i));
+  }
+}
+
 void Fruit::clearStatus() {
     clearStats();
     effects.clear();
