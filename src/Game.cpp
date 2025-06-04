@@ -11,6 +11,16 @@ using std::string;
 using std::ifstream;
 using std::endl;
 
+void Game::runGame() {
+    startGame();
+    if (savePoint == 0) {  // get ui to send name
+        string inputName;
+        player->setName(inputName);
+    }
+    gameLoop();
+    loadEndOfGame();
+}
+
 void Game::resetGame() {
     delete player;
     delete shop;
@@ -140,12 +150,28 @@ void Game::loadInterlude() {
 
 void Game::loadEndOfGame() {
     resetGame();
-    // have the ui end game screen here
+    // have the ui end game screen here and get input
+    switch(input) {
+        case 0:
+            exit(1);
+        case 1:
+            startGame();
+            break;
+        default:
+    }
 }
 
 void Game::loadLose() {
     resetGame();
-    // have ui load lose screen
+    // have ui load lose screen and get input
+    switch(input) {
+        case 0:
+            exit(1);
+        case 1:
+            startGame();
+            break;
+        default:
+    }
 }
 
 string Game::getBossFile() const {
@@ -255,13 +281,15 @@ void Game::playerTurn(Boss* boss) {
 }
 
 void Game::enemyTurn(Boss* boss) {
-    string printThis;
-    if (boss->getBossAttackCharge() >= boss->getRequiredBossCharge()) {
-        printThis = boss->bossAttack(player);   
-    } else if (boss->getRechargeCount() >= 1) {
-        printThis = boss->specialAttack(player);
+    string printThis = "";
+    if (boss->getBossAbilityCharge() >= boss->getRequiredBossCharge()) {
+        printThis += boss->bossAbility() + '\n';   
+    }
+    
+    if (boss->getRechargeCount() >= 1) {
+        printThis += boss->specialAttack(player);
     } else {
-        printThis = boss->basicAttack(player);
+        printThis += boss->basicAttack(player);
     }
     // print here
 

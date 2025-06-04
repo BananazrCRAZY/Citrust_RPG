@@ -84,14 +84,13 @@ void Fruit::removeStats(Status* status) {
         attack->add(-1 * status->getAttackChange()/100 * attack->getBase());
         defense->add(-1 * status->getDefenseChange()/100 * defense->getBase());
         arts->add(-1 * status->getArtsChange()/100 * arts->getBase());
-        res->add(-1 * status->getResChange()/100 * res->getBase());
     } else {
         maxHp->add(-1 * status->getMaxHpChange());
         attack->add(-1 * status->getAttackChange());
         defense->add(-1 * status->getDefenseChange());
         arts->add(-1 * status->getArtsChange());
-        res->add(-1 * status->getResChange());
     }
+    res->add(-1 * status->getResChange());
     critRate->add(-1 * status->getCritRateChange());
     critDmg->add(-1 * status->getCritDamageChange());
     if (hp > maxHp->getTotal()) hp = maxHp->getTotal();
@@ -103,14 +102,13 @@ void Fruit::addStats(Status* status) {
         attack->add(status->getAttackChange()/100 * attack->getBase());
         defense->add(status->getDefenseChange()/100 * defense->getBase());
         arts->add(status->getArtsChange()/100 * arts->getBase());
-        res->add(status->getResChange()/100 * res->getBase());
     } else {
         maxHp->add(status->getMaxHpChange());
         attack->add(status->getAttackChange());
         defense->add(status->getDefenseChange());
         arts->add(status->getArtsChange());
-        res->add(status->getResChange());
     }
+    res->add(status->getResChange());
     critRate->add(status->getCritRateChange());
     critDmg->add(status->getCritDamageChange());
     if (hp > maxHp->getTotal()) hp = maxHp->getTotal();

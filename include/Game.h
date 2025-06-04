@@ -36,12 +36,5 @@ class Game {
     public:
         Game() {}
         ~Game() { resetGame(); }
-        void runGame() {
-            startGame();
-            // get ui to send name
-            string inputName;
-            player->setName(inputName);
-            gameLoop();
-            loadEndOfGame();
-        }
+        void runGame();
 };

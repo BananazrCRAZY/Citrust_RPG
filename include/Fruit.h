@@ -46,7 +46,10 @@ class Fruit {
         int getRechargeCount() const { return rechargeCount; }
         int getTurn() const { return turn; }
         void setMaxHpAdd(int change) { maxHp->add(change); }
-        void setHp(int change) { hp += change; }
+        void setHp(int change) {
+            hp += change;
+            if (hp > maxHp->getTotal()) hp = maxHp->getTotal();
+        }
         void setAttackAdd(int change) { attack->add(change); }
         void setDefenseAdd(int change) { defense->add(change); }
         void setArtsAdd(int change) { arts->add(change); }

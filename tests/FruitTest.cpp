@@ -162,6 +162,23 @@ TEST(PlayerTests, constructorTestPass) {
 //     EXPECT_EQ(p.getCritDmg(), 30);
 // }
 
+TEST(PlayerTests, saveNoChange) {
+    Player p1("assets/saves/testSave/TestPlayer.txt", "assets/saves/testSave/TestInventoryList.txt");
+    p1.savePlayer();
+    Player p("assets/saves/testSave/TestPlayer.txt", "assets/saves/testSave/TestInventoryList.txt");
+
+    EXPECT_EQ(p.getName(), "bob Johnson");
+    EXPECT_EQ(p.getLevel(), 1);
+    EXPECT_EQ(p.getHp(), 100);
+    EXPECT_EQ(p.getMaxHp(), 100);
+    EXPECT_EQ(p.getAttack(), 50);
+    EXPECT_EQ(p.getDefense(), 25);
+    EXPECT_EQ(p.getArts(), 50);
+    EXPECT_EQ(p.getRes(), 25);
+    EXPECT_EQ(p.getCritRate(), 10);
+    EXPECT_EQ(p.getCritDmg(), 50);
+}
+
 // needs level up
 // TEST(PlayerTests, saveTest) {
 //     Player p1("assets/saves/Save1/Player.txt", "assets/saves/Save1/InventoryList.txt");
