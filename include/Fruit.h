@@ -45,7 +45,11 @@ class Fruit {
         int getCritDmg() const { return critDmg->getTotal(); }
         int getRechargeCount() const { return rechargeCount; }
         int getTurn() const { return turn; }
-        void setMaxHpAdd(int change) { maxHp->add(change); }
+        void setMaxHpAdd(int change) {
+            maxHp->add(change);
+            if (change > 0) setHp(change);
+            if (hp > maxHp->getTotal()) hp = maxHp->getTotal();
+        }
         void setHp(int change) {
             hp += change;
             if (hp > maxHp->getTotal()) hp = maxHp->getTotal();
@@ -56,7 +60,10 @@ class Fruit {
         void setResAdd(int change) { res->add(change); }
         void setCritRateAdd(int change) { critRate->add(change); }
         void setCritDmgAdd(int change) { critDmg->add(change); }
-        void setRechargeCount(int change) { rechargeCount += change; }
+        void setRechargeCount(int change) {
+            rechargeCount += change;
+            if (rechargeCount < 0) rechargeCount = 0;
+        }
         void setTurn(int change) { turn += change; }
         void addEffect(Status*);
         bool isDead() const;

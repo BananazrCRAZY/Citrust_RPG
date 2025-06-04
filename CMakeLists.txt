@@ -37,4 +37,4 @@ add_executable(runTests
 # )
 
 # Link everything
-target_link_libraries(runTests FruitLib gtest gtest_main pthread)
+target_link_libraries(runTests FruitLib gtest gmock gtest_main pthread)

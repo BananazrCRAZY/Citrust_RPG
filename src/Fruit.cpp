@@ -127,6 +127,7 @@ void Fruit::endOfTurn() {
             effects.at(i)->resetStatusTurns();
             effects.erase(effects.begin()+i);
         }
+        setHp(effects.at(i)->getHpChange());
         effects.at(i)->decreaseTurn();
     }
     rechargeCount++;

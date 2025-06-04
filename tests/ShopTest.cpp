@@ -1,6 +1,9 @@
 #include "gtest/gtest.h"
+#include "gmock/gmock.h"
 #include "Shop.h"
 #include <vector>
+
+using testing::Contains;
 
 TEST(ShopTests, constructorFailFile) {
     EXPECT_DEATH(Shop s(""), ".*Shop file.*");
@@ -27,12 +30,13 @@ TEST(ShopTests, getItemPriceOver) {
 TEST(ShopTests, getItemPricePass) {
     Shop s("assets/saves/testSave/TestShopList.txt");
     s.resetShop();
-    EXPECT_TRUE(s.getItemPrice(0) == 100 || s.getItemPrice(0) == 125 || s.getItemPrice(0) == 200 || s.getItemPrice(0) == 250 || s.getItemPrice(0) == 300);
-    EXPECT_TRUE(s.getItemPrice(1) == 100 || s.getItemPrice(1) == 125 || s.getItemPrice(1) == 200 || s.getItemPrice(1) == 250 || s.getItemPrice(1) == 300);
-    EXPECT_TRUE(s.getItemPrice(2) == 100 || s.getItemPrice(2) == 125 || s.getItemPrice(2) == 200 || s.getItemPrice(2) == 250 || s.getItemPrice(2) == 300);
-    EXPECT_TRUE(s.getItemPrice(3) == 100 || s.getItemPrice(3) == 125 || s.getItemPrice(3) == 200 || s.getItemPrice(3) == 250 || s.getItemPrice(3) == 300);
-    EXPECT_TRUE(s.getItemPrice(4) == 100 || s.getItemPrice(4) == 125 || s.getItemPrice(4) == 200 || s.getItemPrice(4) == 250 || s.getItemPrice(4) == 300);
-    EXPECT_TRUE(s.getItemPrice(5) == 100 || s.getItemPrice(5) == 125 || s.getItemPrice(5) == 200 || s.getItemPrice(5) == 250 || s.getItemPrice(5) == 300);
+    std::vector<int> expectedVal = {100, 125, 200, 250, 300};
+    EXPECT_THAT(expectedVal, Contains(s.getItemPrice(0)));
+    EXPECT_THAT(expectedVal, Contains(s.getItemPrice(1)));
+    EXPECT_THAT(expectedVal, Contains(s.getItemPrice(2)));
+    EXPECT_THAT(expectedVal, Contains(s.getItemPrice(3)));
+    EXPECT_THAT(expectedVal, Contains(s.getItemPrice(4)));
+    EXPECT_THAT(expectedVal, Contains(s.getItemPrice(5)));
 }
 
 TEST(ShopTests, purchaseItemFailNegative) {

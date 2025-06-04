@@ -13,9 +13,34 @@ TEST(FruitTests, constructorFailFormat) {
     EXPECT_DEATH(Player p("assets/saves/testSave/TestPlayerFail.txt", "assets/saves/Save1/InventoryList.txt"), ".*file format.*");
 }
 
-TEST(FruitTests, setTestsPositive) {
+TEST(FruitTests, setTestsPositiveNoHp) {
     Player p("assets/saves/testSave/TestPlayer.txt", "assets/saves/testSave/TestInventoryList.txt");
 
+    p.setMaxHpAdd(1);
+    p.setAttackAdd(1);
+    p.setDefenseAdd(1);
+    p.setArtsAdd(1);
+    p.setResAdd(1);
+    p.setCritRateAdd(1);
+    p.setCritDmgAdd(1);
+    p.setRechargeCount(1);
+    p.setTurn(1);
+
+    EXPECT_EQ(p.getHp(), 101);
+    EXPECT_EQ(p.getMaxHp(), 101);
+    EXPECT_EQ(p.getAttack(), 51);
+    EXPECT_EQ(p.getDefense(), 26);
+    EXPECT_EQ(p.getArts(), 51);
+    EXPECT_EQ(p.getRes(), 26);
+    EXPECT_EQ(p.getCritRate(), 11);
+    EXPECT_EQ(p.getCritDmg(), 51);
+    EXPECT_EQ(p.getRechargeCount(), 3);
+    EXPECT_EQ(p.getTurn(), 2);
+}
+
+TEST(FruitTests, setTestsPositiveHpFirst) {
+    Player p("assets/saves/testSave/TestPlayer.txt", "assets/saves/testSave/TestInventoryList.txt");
+    
     p.setHp(1);
     p.setMaxHpAdd(1);
     p.setAttackAdd(1);
