@@ -16,7 +16,6 @@ lib/
 *.out
 
 CMakeFiles/
-Makefile
 CMakeCache.txt
 cmake_install.cmake
 tests/googletest/
