@@ -4,7 +4,7 @@ bin/
 lib/
 
 # IDE specific files
-.vscode/
+# .vscode/
 .idea/
 *.suo
 *.user
