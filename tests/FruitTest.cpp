@@ -6,11 +6,11 @@
 using std::string;
 
 TEST(FruitTests, constructorFailFile) {
-    EXPECT_DEATH(Player p("", "assets/saves/Save1/InventoryList.txt"), ".*Fruit file.*");
+    EXPECT_DEATH(Player p("", "assets/saves/testSave/TestInventoryList.txt"), ".*Fruit file.*");
 }
 
 TEST(FruitTests, constructorFailFormat) {
-    EXPECT_DEATH(Player p("assets/saves/testSave/TestPlayerFail.txt", "assets/saves/Save1/InventoryList.txt"), ".*file format.*");
+    EXPECT_DEATH(Player p("assets/saves/testSave/TestPlayerFail.txt", "assets/saves/testSave/TestInventoryList.txt"), ".*file format.*");
 }
 
 TEST(FruitTests, setTestsPositiveNoHp) {
@@ -65,7 +65,7 @@ TEST(FruitTests, setTestsPositiveHpFirst) {
 }
 
 TEST(FruitTests, setTestsZero) {
-    Player p("assets/saves/Save1/Player.txt", "assets/saves/Save1/InventoryList.txt");
+    Player p("assets/saves/testSave/TestPlayer.txt", "assets/saves/testSave/TestInventoryList.txt");
 
     p.setHp(0);
     p.setMaxHpAdd(0);
@@ -75,23 +75,19 @@ TEST(FruitTests, setTestsZero) {
     p.setResAdd(0);
     p.setCritRateAdd(0);
     p.setCritDmgAdd(0);
-    p.setRechargeCount(0);
-    p.setTurn(0);
 
-    EXPECT_EQ(p.getHp(), 3);
-    EXPECT_EQ(p.getMaxHp(), 4);
-    EXPECT_EQ(p.getAttack(), 5);
-    EXPECT_EQ(p.getDefense(), 6);
-    EXPECT_EQ(p.getArts(), 7);
-    EXPECT_EQ(p.getRes(), 8);
-    EXPECT_EQ(p.getCritRate(), 9);
-    EXPECT_EQ(p.getCritDmg(), 10);
-    EXPECT_EQ(p.getRechargeCount(), 2);
-    EXPECT_EQ(p.getTurn(), 1);
+    EXPECT_EQ(p.getHp(), 100);
+    EXPECT_EQ(p.getMaxHp(), 100);
+    EXPECT_EQ(p.getAttack(), 50);
+    EXPECT_EQ(p.getDefense(), 25);
+    EXPECT_EQ(p.getArts(), 50);
+    EXPECT_EQ(p.getRes(), 25);
+    EXPECT_EQ(p.getCritRate(), 10);
+    EXPECT_EQ(p.getCritDmg(), 50);
 }
 
 TEST(FruitTests, setTestsNegative) {
-    Player p("assets/saves/Save1/Player.txt", "assets/saves/Save1/InventoryList.txt");
+    Player p("assets/saves/testSave/TestPlayer.txt", "assets/saves/testSave/TestInventoryList.txt");
 
     p.setHp(-1);
     p.setMaxHpAdd(-1);
@@ -104,20 +100,43 @@ TEST(FruitTests, setTestsNegative) {
     p.setRechargeCount(-1);
     p.setTurn(-1);
 
-    EXPECT_EQ(p.getHp(), 2);
-    EXPECT_EQ(p.getMaxHp(), 3);
-    EXPECT_EQ(p.getAttack(), 4);
-    EXPECT_EQ(p.getDefense(), 5);
-    EXPECT_EQ(p.getArts(), 6);
-    EXPECT_EQ(p.getRes(), 7);
-    EXPECT_EQ(p.getCritRate(), 8);
-    EXPECT_EQ(p.getCritDmg(), 9);
+    EXPECT_EQ(p.getHp(), 99);
+    EXPECT_EQ(p.getMaxHp(), 99);
+    EXPECT_EQ(p.getAttack(), 49);
+    EXPECT_EQ(p.getDefense(), 24);
+    EXPECT_EQ(p.getArts(), 49);
+    EXPECT_EQ(p.getRes(), 24);
+    EXPECT_EQ(p.getCritRate(), 9);
+    EXPECT_EQ(p.getCritDmg(), 49);
     EXPECT_EQ(p.getRechargeCount(), 1);
     EXPECT_EQ(p.getTurn(), 0);
 }
 
+TEST(FruitTests, setTestsLargeNegative) {
+    Player p("assets/saves/testSave/TestPlayer.txt", "assets/saves/testSave/TestInventoryList.txt");
+    p.setHp(-1000);
+    p.setMaxHpAdd(-1000);
+    p.setAttackAdd(-1000);
+    p.setDefenseAdd(-1000);
+    p.setArtsAdd(-1000);
+    p.setResAdd(-1000);
+    p.setCritRateAdd(-1000);
+    p.setCritDmgAdd(-1000);
+    p.setRechargeCount(-1000);
+
+    EXPECT_EQ(p.getHp(), -900);
+    EXPECT_EQ(p.getMaxHp(), 0);
+    EXPECT_EQ(p.getAttack(), 0);
+    EXPECT_EQ(p.getDefense(), 0);
+    EXPECT_EQ(p.getArts(), 0);
+    EXPECT_EQ(p.getRes(), 0);
+    EXPECT_EQ(p.getCritRate(), 0);
+    EXPECT_EQ(p.getCritDmg(), 0);
+    EXPECT_EQ(p.getRechargeCount(), 0);
+}
+
 TEST(FruitTests, clearStatusTest) {
-    Player p("assets/saves/Save1/Player.txt", "assets/saves/Save1/InventoryList.txt");
+    Player p("assets/saves/testSave/TestPlayer.txt", "assets/saves/testSave/TestInventoryList.txt");
 
     p.setHp(1);
     p.setMaxHpAdd(1);
@@ -129,30 +148,29 @@ TEST(FruitTests, clearStatusTest) {
     p.setCritDmgAdd(1);
     p.clearStatus();
 
-    EXPECT_EQ(p.getLevel(), 2);
-    EXPECT_EQ(p.getHp(), 4);
-    EXPECT_EQ(p.getMaxHp(), 4);
-    EXPECT_EQ(p.getAttack(), 5);
-    EXPECT_EQ(p.getDefense(), 6);
-    EXPECT_EQ(p.getArts(), 7);
-    EXPECT_EQ(p.getRes(), 8);
-    EXPECT_EQ(p.getCritRate(), 9);
-    EXPECT_EQ(p.getCritDmg(), 10);
+    EXPECT_EQ(p.getHp(), 100);
+    EXPECT_EQ(p.getMaxHp(), 100);
+    EXPECT_EQ(p.getAttack(), 50);
+    EXPECT_EQ(p.getDefense(), 25);
+    EXPECT_EQ(p.getArts(), 50);
+    EXPECT_EQ(p.getRes(), 25);
+    EXPECT_EQ(p.getCritRate(), 10);
+    EXPECT_EQ(p.getCritDmg(), 50);
 }
 
 TEST(FruitTests, isDeadFalse) {
-    Player p("assets/saves/Save1/Player.txt", "assets/saves/Save1/InventoryList.txt");
-    EXPECT_TRUE(!p.isDead());
+    Player p("assets/saves/testSave/TestPlayer.txt", "assets/saves/testSave/TestInventoryList.txt");
+    EXPECT_FALSE(p.isDead());
 }
 
 TEST(FruitTests, isDeadTrue) {
-    Player p("assets/saves/Save1/Player.txt", "assets/saves/Save1/InventoryList.txt");
+    Player p("assets/saves/testSave/TestPlayer.txt", "assets/saves/testSave/TestInventoryList.txt");
     p.setHp(-1000);
     EXPECT_TRUE(p.isDead());
 }
 
 TEST(PlayerTests, constructorFailFile) {
-    EXPECT_DEATH(Player p("assets/saves/Save1/Player.txt", "assets/saves/Save1/InventoryList"), ".*Inventory list file.*");
+    EXPECT_DEATH(Player p("assets/saves/testSave/TestPlayer.txt", "");, ".*Inventory list file.*");
 }
 
 TEST(PlayerTests, constructorTestPass) {
