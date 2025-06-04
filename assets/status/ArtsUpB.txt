@@ -1,6 +1,6 @@
 Arts Up β
 Increases Arts ATK by 30%, and increases RES by 5.
-0
+-1
 1
 0
 0

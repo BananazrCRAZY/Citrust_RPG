@@ -1,6 +1,6 @@
 Comfort
 Decreases Max HP by 20% but increases CRIT Rate by 20% and CRIT DMG by 40%.
-0
+-1
 0
 0
 -20
