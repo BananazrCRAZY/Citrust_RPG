@@ -1,5 +1,15 @@
 #include "Game.h"
 #include "Boss.h"
+#include "Apple.h"
+#include "Pear.h"
+#include "Strawberry.h"
+#include "Grape.h"
+#include "Dekopon.h"
+#include "MangoGreen.h"
+#include "MangoRed.h"
+#include "Pineapple.h"
+#include "Durian.h"
+#include "Watermelon.h"
 #include "Shop.h"
 #include <fstream>
 #include <iostream>
@@ -75,34 +85,55 @@ void Game::startGame() {
 
 void Game::gameLoop() {
     while (savePoint < 10) {
-        // need ui to print file called by getDialogueFile()
-        
-        if (savePoint != 0) {
-            Boss* boss;
-            switch (savePoint) {
-                case 1:
-                    // create boss here, use getBossFile and hard code item and required charge
-                    break;
-                case 2:
-                    break;
-                case 9:
-                    break;
-                default:
-                    cerr << "Game loop input error" << endl;
-                    exit(1);
-            }
-            // battleResult: -1 is a loss, if positive then it's the number of cycles
-            int battleResult = battleLoop(boss);
-            player->newItem(boss->getItem());
-            delete boss;
-            if (battleResult == -1) {
-                loadLose();
-            } if (battleResult > 0) {
-                int addCalories = player->getLevel() * 1000 / battleResult;
-                if (addCalories < 75) addCalories = 75;
-                calories += addCalories;
-            }
+        // need ui to show screen based on savePoint
+        Boss* boss;
+        switch (savePoint) {
+            case 0:
+                // create boss here, use getBossFile and hard code item and required charge
+                boss = new Apple();
+                break;
+            case 1:
+                boss = new Pear();
+                break;
+            case 2:
+                boss = new Strawberry();
+                break;
+            case 3:
+                boss = new Grape();
+                break;
+            case 4:
+                boss = new Dekopon();
+                break;
+            case 5:
+                boss = new MangoGreen();
+                break;
+            case 6:
+                boss = new Pineapple();
+                break;
+            case 7:
+                boss = new Durian();
+                break;
+            case 8:
+                boss = new Watermelon();
+                break;
+            default:
+                cerr << "Game loop input error" << endl;
+                exit(1);
         }
+        // battleResult: -1 is a loss, if positive then it's the number of cycles
+        int battleResult = battleLoop(boss);
+        if (savePoint == 5) {
+            delete boss;
+            boss = new MangoRed();
+            battleResult += battleLoop(boss);
+        }
+        player->newItem(boss->getItem());
+        delete boss;
+        if (battleResult == -1) loadLose();
+        int addCalories = player->getLevel() * 1000 / battleResult;
+        if (addCalories < 75) addCalories = 75;
+        calories += addCalories;
+
         // figure out how to display all objects in shop
         loadInterlude();
         savePoint++;
@@ -151,6 +182,7 @@ void Game::loadInterlude() {
 void Game::loadEndOfGame() {
     resetGame();
     // have the ui end game screen here and get input
+    int input;
     switch(input) {
         case 0:
             exit(1);
@@ -164,6 +196,7 @@ void Game::loadEndOfGame() {
 void Game::loadLose() {
     resetGame();
     // have ui load lose screen and get input
+    int input;
     switch(input) {
         case 0:
             exit(1);
@@ -190,39 +223,44 @@ string Game::getBossFile() const {
     return bossFile;
 }
 
-string Game::getDialogueFile() const {
-    ifstream iFile(dialogueList);
-    if (!iFile.good()) {
-        cerr << "Error with file fstream\n";
-        exit(1);
-    }
+// string Game::getDialogueFile() const {
+//     ifstream iFile(dialogueList);
+//     if (!iFile.good()) {
+//         cerr << "Error with file fstream\n";
+//         exit(1);
+//     }
 
-    string dialogueFile = "";
-    int counter = savePoint;
-    while (counter >= 0) {
-        iFile >> dialogueFile;
-        counter--;
-    }
-    return dialogueFile;
-}
+//     string dialogueFile = "";
+//     int counter = savePoint;
+//     while (counter >= 0) {
+//         iFile >> dialogueFile;
+//         counter--;
+//     }
+//     return dialogueFile;
+// }
 
 int Game::battleLoop(Boss* boss) {
     int battleCycle = 1;
-    while (true) {
+    while (battleCycle < 100) {
         while (player->getTurn() > 0) {
             playerTurn(boss);
             if (player->isDead()) return -1;
             if (boss->isDead()) return battleCycle;
             player->endOfTurn();
+            if (player->isDead()) return -1;
         }
         while (boss->getTurn() > 0) {
             enemyTurn(boss);
             if (player->isDead()) return -1;
             if (boss->isDead()) return battleCycle;
             boss->endOfTurn();
+            if (boss->isDead()) return battleCycle;
         }
+        player->setTurn(1);
+        boss->setTurn(1);
         battleCycle++;
     }
+    return -1;
 }
 
 void Game::playerTurn(Boss* boss) {

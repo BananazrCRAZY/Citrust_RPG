@@ -46,22 +46,29 @@ string Player::specialAttack(Fruit* target) {
   physDmg -= target->getDefense();
   artsDmg *= 1 - (target->getRes()/100);
   int damageDealt = physDmg + artsDmg;
-  if (damageDealt <= 0) return name + " did 0 damage.";
+  if (damageDealt <= 0) return name + ": Dealt 0 damage.";
   target->setHp(-1 * damageDealt);
 
-  return name + " did " + std::to_string(damageDealt) + " damage.";
+  rechargeCount -= 2;
+  return name + ": Dealt " + std::to_string(damageDealt) + " damage.";
 }
 
 void Player::levelUp() {
     // Remove added stats and then readd them because of percent-based items
     clearStats();
     level++;
-    hp += 250;
     maxHp->addBase(250);
     attack->addBase(125);
     arts->addBase(115);
     defense->addBase(50);
     reAddStats();
+}
+
+void Player::endOfBattle() {
+    levelUp();
+    hp = maxHp->getTotal();
+    rechargeCount = 2;
+    turn = 1;
 }
 
 string Player::useItem(Fruit* target, unsigned itemIndex) {
@@ -128,4 +135,23 @@ void Player::equipItem(unsigned index) {
     addStats(items.at(index)->getStatus());
     battleItems.push_back(items.at(index));
     items.erase(items.begin() + index);
+}
+
+void Player::clearStats() {
+    effects.clear();
+    maxHp->removeAdd();
+    attack->removeAdd();
+    defense->removeAdd();
+    arts->removeAdd();
+    res->removeAdd();
+    critRate->removeAdd();
+    critDmg->removeAdd();
+    if (hp > maxHp->getTotal()) hp = maxHp->getTotal();
+}
+
+void Player::reAddStats() {
+    for (unsigned i = 0; i < battleItems.size(); ++i) {
+        effects.push_back(battleItems.at(i)->getStatus());
+        addStats(effects.at(i));
+    }
 }

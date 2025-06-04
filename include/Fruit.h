@@ -27,13 +27,13 @@ class Fruit {
         void removeStats(Status*);
         void addStats(Status*);
         
-        void clearStats();  // called by levelUp()
+        void clearStats();  // called by clearStatus() called by levelUp()
         void reAddStats();  // called by levelUp()
 
     public:
         Fruit(const string&);
         virtual ~Fruit();
-        string basicAttack(Fruit*);
+        virtual string basicAttack(Fruit*);
         virtual string specialAttack(Fruit*) = 0;
         string getName() { return name; }
         int getLevel() const { return level; }
@@ -47,15 +47,8 @@ class Fruit {
         int getCritDmg() const { return critDmg->getTotal(); }
         int getRechargeCount() const { return rechargeCount; }
         int getTurn() const { return turn; }
-        void setMaxHpAdd(int change) {
-            maxHp->add(change);
-            if (change > 0) setHp(change);
-            if (hp > maxHp->getTotal()) hp = maxHp->getTotal();
-        }
-        void setHp(int change) {
-            hp += change;
-            if (hp > maxHp->getTotal()) hp = maxHp->getTotal();
-        }
+        void setMaxHpAdd(int change);
+        void setHp(int change);
         void setAttackAdd(int change) { attack->add(change); }
         void setDefenseAdd(int change) { defense->add(change); }
         void setArtsAdd(int change) { arts->add(change); }

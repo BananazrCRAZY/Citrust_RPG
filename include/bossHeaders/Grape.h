@@ -4,7 +4,7 @@
 using std::to_string;
 
 class Grape : public Boss {
-    Status* effectGive = new Status("");
+    Status* effectGive = new Status();
 
     public:
         Grape(const string& main, const string& item, int required) : Boss(main, item, required) {}
@@ -13,22 +13,21 @@ class Grape : public Boss {
             srand(time(0));
             string returnStatement = "";
             for (int i = 1; i < 4; i++) {
-                int damage = arts->getTotal();
-                if (checkIfCrit()) damage = damage * (critDmg->getTotal()/100 + 1);
-                damage *= (1-(target->getRes()/100));
+                int damage = arts->getTotal() * (1-(target->getRes()/100));
                 target->setHp(-1 * damage);
-                returnStatement += ("Attack " + to_string(i) + " did " + to_string(damage) + " damage.\n");
+                returnStatement += (name + ": Attack " + to_string(i) + " did " + to_string(damage) + " damage.\n");
                 if ((rand() % 5) > 2) {
                     target->addEffect(effectGive);
-                    returnStatement += (name + " gave you " + effectGive->getName() + ".");
+                    returnStatement += (name + ": Gave " + target->getName() + " " + effectGive->getName() + ".");
                 }
             }
+            rechargeCount -= 2;
             return returnStatement;
         }
 
-        // does not use target will refactor in the future
         string bossAbility() {
+            bossAbilityCharge -= requiredBossCharge;
             turn++;
-            return name + " charged up.";
+            return name + ": Charged up.";
         }
 };

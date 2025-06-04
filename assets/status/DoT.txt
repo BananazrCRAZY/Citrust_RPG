@@ -1,0 +1,14 @@
+DoT
+This effect deals Damage over Time
+2
+0
+-30
+0
+0
+0
+0
+0
+0
+0
+0
+0

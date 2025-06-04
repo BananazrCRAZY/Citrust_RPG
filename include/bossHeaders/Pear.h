@@ -8,12 +8,15 @@ class Pear : public Boss {
             int damage = arts->getTotal() * 2;
             if (checkIfCrit()) damage = damage * (critDmg->getTotal()/100 + 1);
             damage *= (1-(target->getRes()/100));
-            if (damage <= 0) return name + " did 0 damage.";
+            if (damage <= 0) return name + ": Dealt 0 damage.";
             target->setHp(-1*damage);
-            return name + " did " + std::to_string(damage) + " damage.";
+            
+            rechargeCount -= 2;
+            return name + ": Dealt " + std::to_string(damage) + " damage.";
         }
 
         string bossAbility() {
-            return "Pear tried to use a boss attack and failed.";
+            critRate->add(2);
+            return name + ": Increased critical rate.";
         }
 };

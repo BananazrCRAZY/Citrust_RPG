@@ -58,13 +58,24 @@ Fruit::~Fruit() {
     delete critDmg;
 }
 
+void Fruit::setMaxHpAdd(int change) {
+    maxHp->add(change);
+    if (change > 0) setHp(change);
+    if (hp > maxHp->getTotal()) hp = maxHp->getTotal();
+}
+
+void Fruit::setHp(int change) {
+    hp += change;
+    if (hp > maxHp->getTotal()) hp = maxHp->getTotal();
+}
+
 string Fruit::basicAttack(Fruit* target) {
     int damage = attack->getTotal();
     if (checkIfCrit()) damage = damage * (critDmg->getTotal()/100 + 1);
     damage = damage - target->getDefense();
     if (damage <= 0) return name + " did 0 damage.";
     target->setHp(-1*damage);
-    return name + " did " + std::to_string(damage) + " damage.";
+    return name + ": Dealt " + std::to_string(damage) + " damage.";
 }
 
 bool Fruit::checkIfCrit() {
@@ -80,12 +91,12 @@ bool Fruit::isDead() const {
 
 void Fruit::removeStats(Status* status) {
     if (status->isPercentBased()) {
-        maxHp->add(-1 * status->getMaxHpChange()/100 * maxHp->getBase());
+        setMaxHpAdd(-1 * status->getMaxHpChange()/100 * maxHp->getBase());
         attack->add(-1 * status->getAttackChange()/100 * attack->getBase());
         defense->add(-1 * status->getDefenseChange()/100 * defense->getBase());
         arts->add(-1 * status->getArtsChange()/100 * arts->getBase());
     } else {
-        maxHp->add(-1 * status->getMaxHpChange());
+        setMaxHpAdd(-1 * status->getMaxHpChange());
         attack->add(-1 * status->getAttackChange());
         defense->add(-1 * status->getDefenseChange());
         arts->add(-1 * status->getArtsChange());
@@ -93,17 +104,16 @@ void Fruit::removeStats(Status* status) {
     res->add(-1 * status->getResChange());
     critRate->add(-1 * status->getCritRateChange());
     critDmg->add(-1 * status->getCritDamageChange());
-    if (hp > maxHp->getTotal()) hp = maxHp->getTotal();
 }
 
 void Fruit::addStats(Status* status) {
     if (status->isPercentBased()) {
-        maxHp->add(status->getMaxHpChange()/100 * maxHp->getBase());
+        setMaxHpAdd(status->getMaxHpChange()/100 * maxHp->getBase());
         attack->add(status->getAttackChange()/100 * attack->getBase());
         defense->add(status->getDefenseChange()/100 * defense->getBase());
         arts->add(status->getArtsChange()/100 * arts->getBase());
     } else {
-        maxHp->add(status->getMaxHpChange());
+        setMaxHpAdd(status->getMaxHpChange());
         attack->add(status->getAttackChange());
         defense->add(status->getDefenseChange());
         arts->add(status->getArtsChange());
@@ -111,7 +121,6 @@ void Fruit::addStats(Status* status) {
     res->add(status->getResChange());
     critRate->add(status->getCritRateChange());
     critDmg->add(status->getCritDamageChange());
-    if (hp > maxHp->getTotal()) hp = maxHp->getTotal();
 }
 
 void Fruit::addEffect(Status* effect) {
@@ -127,32 +136,9 @@ void Fruit::endOfTurn() {
             effects.at(i)->resetStatusTurns();
             effects.erase(effects.begin()+i);
         }
-        setHp(effects.at(i)->getHpChange());
+        if (effects.at(i)->isPercentBased()) setHp(effects.at(i)->getHpChange() * maxHp->getTotal());
+        else setHp(effects.at(i)->getHpChange());
         effects.at(i)->decreaseTurn();
     }
     rechargeCount++;
-}
-
-void Fruit::clearStats() {
-    maxHp->removeAdd();
-    attack->removeAdd();
-    defense->removeAdd();
-    arts->removeAdd();
-    res->removeAdd();
-    critRate->removeAdd();
-    critDmg->removeAdd();
-    if (hp > maxHp->getTotal()) hp = maxHp->getTotal();
-}
-
-void Fruit::reAddStats() {
-  for (unsigned i = 0; i < effects.size(); ++i) {
-    addStats(effects.at(i));
-  }
-}
-
-void Fruit::clearStatus() {
-    clearStats();
-    effects.clear();
-    rechargeCount = 2;
-    turn = 1;
 }
