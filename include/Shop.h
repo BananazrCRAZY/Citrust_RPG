@@ -10,6 +10,7 @@ using std::vector;
 
 class Shop {
  private:
+  
   const unsigned MAX_NUM_ITEMS_IN_SHOP = 6;
   unsigned itemsInShop;
   string itemsFile;
@@ -18,6 +19,7 @@ class Shop {
   std::unordered_set<std::string> shownItems;  // Set of all items shown in the shop.
 
  public:
+  ~Shop();
   Shop(string& pathToItemsList);
   int purchaseItem(Fruit* player, int itemIndex);
   void resetShop();

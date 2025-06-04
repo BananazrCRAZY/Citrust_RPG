@@ -1,4 +1,4 @@
-#include "Shop.h"
+#include "include/Shop.h"
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
@@ -30,10 +30,10 @@ Shop::~Shop() {
   for (Item* item : allItems) delete item;
 }
 
-int Shop::purchaseItem(Fruit* player, int itemIndex) {
-  player->newItem(itemsForSale.at(itemIndex));
-  return itemsForSale.at(itemIndex)->getCost();
-}
+// int Shop::purchaseItem(Fruit* player, int itemIndex) {
+//   player->newItem(itemsForSale.at(itemIndex));
+//   return itemsForSale.at(itemIndex)->getCost();
+// }
 
 void Shop::populateShop() {
   assert(itemsInShop == 0);  // Shop must be empty beforehand

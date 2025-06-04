@@ -1,4 +1,4 @@
-#include "Game.h"
+#include "include/Game.h"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -18,7 +18,7 @@ Game::Game(string file) : gameFile(file) {
     iFile >> calories;
     string outFile = "";
     iFile >> outFile;
-    player = new Player(outFile);
+    player = new Player(outFile, " ");
     iFile >> outFile;
     //shop = new Shop(outFile);
 }

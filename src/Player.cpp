@@ -1,4 +1,4 @@
-#include "Player.h"
+#include "include/Player.h"
 #include <iostream>
 #include <fstream>
 #include <stdexcept>
@@ -50,41 +50,41 @@ bool Player::useItem(Fruit* target, unsigned itemIndex) {
     battleItems.at(itemIndex)->use(target);
 }
 
-void Player::savePlayer() {
-    std::ofstream oFile(fileName);
-    if (!oFile.good()) {
-        cerr << "Error with file ostream" << std::endl;
-        exit(1);
-    }
+// void Player::savePlayer() {
+//     std::ofstream oFile(fileName);
+//     if (!oFile.good()) {
+//         cerr << "Error with file ostream" << std::endl;
+//         exit(1);
+//     }
 
-    // need to fix if there is overflow
-    oFile << name << '\n';
-    oFile << level << '\n';
-    oFile << hp << '\n';
-    oFile << maxHp->getBase() << '\n';
-    oFile << attack->getBase() << '\n';
-    oFile << defense->getBase() << '\n';
-    oFile << arts->getBase() << '\n';
-    oFile << res->getBase() << '\n';
-    oFile << critRate->getBase() << '\n';
-    oFile << critDmg->getBase();
-    oFile.close();
+//     // need to fix if there is overflow
+//     oFile << name << '\n';
+//     oFile << level << '\n';
+//     oFile << hp << '\n';
+//     oFile << maxHp->getBase() << '\n';
+//     oFile << attack->getBase() << '\n';
+//     oFile << defense->getBase() << '\n';
+//     oFile << arts->getBase() << '\n';
+//     oFile << res->getBase() << '\n';
+//     oFile << critRate->getBase() << '\n';
+//     oFile << critDmg->getBase();
+//     oFile.close();
 
-    oFile.open(inventoryList);
-    if (!oFile.good()) {
-        cerr << "Error with file ostream" << std::endl;
-        exit(1);
-    }
+//     oFile.open(inventoryList);
+//     if (!oFile.good()) {
+//         cerr << "Error with file ostream" << std::endl;
+//         exit(1);
+//     }
 
-    for (int i = 0; i < battleItems.size(); i++) {
-        oFile << battleItems.at(i)->getFile() << '\n';
-    }
-    oFile << 'unequipped\n';
-    for (int i = 0; i < items.size(); i++) {
-        oFile << items.at(i)->getFile() << '\n';
-    }
-    oFile.close();
-}
+//     for (int i = 0; i < battleItems.size(); i++) {
+//         oFile << battleItems.at(i)->getFile() << '\n';
+//     }
+//     oFile << 'unequipped\n';
+//     for (int i = 0; i < items.size(); i++) {
+//         oFile << items.at(i)->getFile() << '\n';
+//     }
+//     oFile.close();
+// }
 
 void Player::removeItem(unsigned index) {
     if (index > (battleItems.size()-1)) {
