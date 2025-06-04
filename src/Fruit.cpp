@@ -149,6 +149,12 @@ void Fruit::clearStats() {
     critDmg->removeAdd();
 }
 
+void Fruit::reAddStats() {
+  for (unsigned i = 0; i < effects.size(); ++i) {
+    addStats(effects.at(i));
+  }
+}
+
 void Fruit::clearStatus() {
     clearStats();
     effects.clear();
