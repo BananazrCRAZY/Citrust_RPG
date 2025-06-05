@@ -1,6 +1,6 @@
 Restoration β
 Heals 25% of Max HP.
-0
+-1
 1
 25
 0

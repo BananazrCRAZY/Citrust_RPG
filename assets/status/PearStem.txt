@@ -1,0 +1,14 @@
+Pear Stem
+Decreases starting Skill Points by 2, but increases DEF by 13% and Arts ATK by 7%. Furthermore, increases CRIT DMG by 40%.
+-1
+1
+0
+0
+0
+13
+7
+0
+0
+20
+-2
+0

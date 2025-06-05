@@ -1,0 +1,14 @@
+Strawberry Seed
+Increases DEF by 30%, but decreases ATK by 5%. Furthermore, increases CRIT Rate by 35%.
+-1
+1
+0
+0
+-5
+30
+0
+0
+35
+0
+0
+0

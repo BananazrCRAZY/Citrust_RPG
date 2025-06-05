@@ -1,6 +1,6 @@
 Orange Scent
 Increases Arts ATK by 10% and RES by 5.
-0
+-1
 1
 0
 0

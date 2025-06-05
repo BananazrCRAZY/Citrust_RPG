@@ -1,6 +1,6 @@
 Arts Up α
 Increases Arts ATK by 15%, and increases RES by 3.
-0
+-1
 1
 0
 0
