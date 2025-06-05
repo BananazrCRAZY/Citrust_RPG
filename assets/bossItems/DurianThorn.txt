@@ -1,0 +1,7 @@
+Durian Thorn
+The thorn of a durian you recently defeated.
+0
+0
+0
+0
+../status/DurianThorn

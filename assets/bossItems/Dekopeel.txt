@@ -1,0 +1,7 @@
+Dekopeel
+The peel of a dekopon you recently defeated.
+0
+0
+0
+0
+../status/Dekopeel

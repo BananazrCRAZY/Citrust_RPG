@@ -1,0 +1,7 @@
+Pineapple Crown
+The crown of a pineapple you recently defeated.
+0
+0
+0
+0
+../status/PineappleCrown

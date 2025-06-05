@@ -1,0 +1,10 @@
+bosses/Apple.txt
+bosses/Dekopon.txt
+bosses/Durian.txt
+bosses/Grape.txt
+bosses/MangoGreen.txt
+bosses/MangoRed.txt
+bosses/Pear.txt
+bosses/Pineapple.txt
+bosses/Strawberry.txt
+bosses/Watermelon.txt
