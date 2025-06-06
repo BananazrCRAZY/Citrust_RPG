@@ -20,11 +20,10 @@ class Boss : public Fruit {
         virtual string specialAttack(Fruit*) = 0;
         virtual string bossAbility() = 0;
         int getBossAbilityCharge() { return bossAbilityCharge; }
-        void increaseBossAbilityCharge() { bossAbilityCharge++; }
         Item* getItem() { return itemDrop; }
         int getRequiredBossCharge() { return requiredBossCharge; }
         void endOfTurn() {
             Fruit::endOfTurn();
-            increaseBossAbilityCharge();
+            bossAbilityCharge++;
         }
 };

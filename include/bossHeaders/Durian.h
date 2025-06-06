@@ -23,8 +23,9 @@ class Durian : public Boss {
         string bossAbility() {
             // really simplistic calculation that doesn't take into account if boss hp/max changes
             int change = maxHp->getBase() - hp - damageTaken;
+            damageTaken = maxHp->getBase() - hp;
             if (change <= 0) return "";
-            attack->add(change * .1);
+            attack->add(static_cast<int>(change * .1));
             return name + ": Getting angry.";
         }
 

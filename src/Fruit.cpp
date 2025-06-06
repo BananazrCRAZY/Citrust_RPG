@@ -49,6 +49,7 @@ Fruit::Fruit(const string& file) :
     }
 
 Fruit::~Fruit() {
+    clearEffectsVector();
     delete maxHp;
     delete attack;
     delete defense;
@@ -56,6 +57,12 @@ Fruit::~Fruit() {
     delete res;
     delete critRate;
     delete critDmg;
+}
+
+void Fruit::clearEffectsVector() {
+    for (int i = 0; i < effects.size(); i++) {
+        if (effects.at(i)->isDeleteThisStatus()) delete effects.at(i);
+    }
 }
 
 void Fruit::setMaxHpAdd(int change) {
@@ -71,7 +78,7 @@ void Fruit::setHp(int change) {
 
 string Fruit::basicAttack(Fruit* target) {
     int damage = attack->getTotal();
-    if (checkIfCrit()) damage = damage * (critDmg->getTotal()/100 + 1);
+    if (checkIfCrit()) damage = damage * (critDmg->getTotal()/100.0 + 1);
     damage = damage - target->getDefense();
     if (damage <= 0) return name + " did 0 damage.";
     target->setHp(-1*damage);
@@ -79,14 +86,11 @@ string Fruit::basicAttack(Fruit* target) {
 }
 
 bool Fruit::checkIfCrit() {
-    srand(time(0));
-    if (((rand() % 100) + 1) > critRate->getTotal()) return false;
-    return true;
+    return ((rand() % 100) + 1) <= critRate->getTotal();
 }
 
 bool Fruit::isDead() const {
-    if (hp <= 0) return true;
-    return false;
+    return hp <= 0;
 }
 
 void Fruit::removeStats(Status* status) {
@@ -135,13 +139,15 @@ void Fruit::endOfTurn() {
     for (int i = 0; i < effects.size(); i++) {
         if (effects.at(i)->getTurns() == 0) {
             removeStats(effects.at(i));
-            effects.at(i)->resetStatusTurns();
+            if (effects.at(i)->isDeleteThisStatus()) delete effects.at(i);
+            else effects.at(i)->resetStatusTurns();
             effects.erase(effects.begin()+i);
+        } else {
+            if (effects.at(i)->isPercentBased()) setHp(effects.at(i)->getHpChange() * maxHp->getTotal());
+            else setHp(effects.at(i)->getHpChange());
+            effects.at(i)->decreaseTurn();
         }
-        if (effects.at(i)->isPercentBased()) setHp(effects.at(i)->getHpChange() * maxHp->getTotal());
-        else setHp(effects.at(i)->getHpChange());
-        effects.at(i)->decreaseTurn();
     }
-    rechargeCount++;
+    setRechargeCount(1);
     turn--;
 }

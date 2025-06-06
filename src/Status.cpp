@@ -32,6 +32,10 @@ Status::Status(string file) {
     cerr << "Error with status file format fstream" << std::endl;
     exit(1);
   }
+
+  iFile >> deleteThisStatus;
+  if (!iFile.good()) deleteThisStatus = false;
+
   iFile.close();
 }
 

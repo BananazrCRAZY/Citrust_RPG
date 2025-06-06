@@ -135,10 +135,10 @@ void Game::gameLoop() {
                 boss = new Strawberry("assets/bosses/Strawberry.txt", "assets/bossItems/StrawberrySeed.txt", 3);
                 break;
             case 3:
-                boss = new Grape("assets/bosses/Grape.txt", "assets/bossItems/Grapevine.txt", 3);
+                boss = new Grape("assets/bosses/Grape.txt", "assets/bossItems/Grapevine.txt", 4);
                 break;
             case 4:
-                boss = new Dekopon("assets/bosses/Dekopon.txt", "assets/bossItems/Dekopeel.txt", 3);
+                boss = new Dekopon(playerFile, "assets/bossItems/Dekopeel.txt", 3);
                 break;
             case 5:
                 boss = new MangoGreen("assets/bosses/MangoGreen.txt", "assets/bossItems/DriedMango.txt", -1);
@@ -319,7 +319,6 @@ void Game::enemyTurn(Boss* boss) {
         printThis += boss->basicAttack(player);
     }
     // print here
-
 }
 
 void Game::saveGame() {
