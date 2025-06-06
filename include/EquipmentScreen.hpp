@@ -1,5 +1,5 @@
-#ifndef TUTORIALSCREEN12_HPP
-#define TUTORIALSCREEN12_HPP
+#ifndef EQUIPMENTSCREEN_HPP
+#define EQUIPMENTSCREEN_HPP
 
 #include "IScreen.hpp"
 #include "ScreenManager.hpp"
@@ -9,10 +9,10 @@
 
 using namespace std;
 
-class TutorialScreen12 : public IScreen {
+class EquipmentScreen : public IScreen {
     public:
-        TutorialScreen12(ScreenManager& manager, bool& exitFlag);
-        ~TutorialScreen12() override;
+        EquipmentScreen(ScreenManager& manager, bool& exitFlag);
+        ~EquipmentScreen() override;
     
         void Update(const Vector2& mousePos, bool mouseClicked) override;
         void Draw() override;
@@ -20,6 +20,13 @@ class TutorialScreen12 : public IScreen {
     private:
         ScreenManager& manager;
         bool& exitGame;
+        Button item1;
+        Button item2;
+        Button item3;
+        Button item4;
+        Button item5;
+        Button item6;
+        Button backButton;
         Texture2D background;
 };
 

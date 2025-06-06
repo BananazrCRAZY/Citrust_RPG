@@ -3,6 +3,7 @@
 #include "include/ScreenManager.hpp"
 #include "include/TitleScreen.hpp"
 #include "include/NameScreen.hpp"
+#include "include/Popup.hpp"
 #include <string>
 #include "Player.h"
 #include "Boss.h"
@@ -20,10 +21,10 @@ class Game {
     string playerItemsFile;
     string shopFile;
     ScreenManager screenManager;
-    bool exitGame = false;
+    bool exitGame;
 
     void startGame(int input);
-    void gameLoop();
+    int gameLoop();
     void loadInterlude();
     void loadEndOfGame();
     void loadLose();
@@ -36,7 +37,7 @@ class Game {
     void uiDraw();
 
     public:
-        Game() : savePoint(-1), player(nullptr), shop(nullptr) {}
+        Game();
         ~Game() { resetGame(); }
         void runGame();
         void openFile(string);

@@ -1,36 +1,41 @@
 #include "include/AppleBossScreen.hpp"
+#include "include/InventoryScreen.hpp"
 #include "include/Player.h"
 #include "include/button.hpp"
 #include "include/ScreenManager.hpp"
+#include "include/InterludeScreen.hpp"
+#include <iostream>
+
+using namespace std;
 
 // Player HP Textures
 static const char* playerHPTextures[] = {
-    "Graphics/HPBars/player100HP.png",
-    "Graphics/HPBars/player80HP.png",
-    "Graphics/HPBars/player60HP.png",
-    "Graphics/HPBars/player40HP.png",
+    "Graphics/HPBars/zeroHP.png",
     "Graphics/HPBars/player20HP.png",
-    "Graphics/HPBars/zeroHP.png"
+    "Graphics/HPBars/player40HP.png",
+    "Graphics/HPBars/player60HP.png",
+    "Graphics/HPBars/player80HP.png",
+    "Graphics/HPBars/player100HP.png"
 };
 
 // Boss HP Textures
 static const char* bossHPTextures[] = {
-    "Graphics/HPBars/boss100HP.png",
-    "Graphics/HPBars/boss80HP.png",
-    "Graphics/HPBars/boss60HP.png",
-    "Graphics/HPBars/boss40HP.png",
+    "Graphics/HPBars/zeroHP.png",
     "Graphics/HPBars/boss20HP.png",
-    "Graphics/HPBars/zeroHP.png"
+    "Graphics/HPBars/boss40HP.png",
+    "Graphics/HPBars/boss60HP.png",
+    "Graphics/HPBars/boss80HP.png",
+    "Graphics/HPBars/boss100HP.png"
 };
 
 // Skill Point Textures
 static const char* spTextures[] = {
-    "Graphics/SkillPoints/fiveSP.png",
-    "Graphics/SkillPoints/fourSP.png",
-    "Graphics/SkillPoints/threeSP.png",
-    "Graphics/SkillPoints/twoSP.png",
+    "Graphics/SkillPoints/zeroSP.png",
     "Graphics/SkillPoints/oneSP.png",
-    "Graphics/SkillPoints/zeroSP.png"
+    "Graphics/SkillPoints/twoSP.png",
+    "Graphics/SkillPoints/threeSP.png",
+    "Graphics/SkillPoints/fourSP.png",
+    "Graphics/SkillPoints/fiveSP.png"
 };
 
 
@@ -38,7 +43,7 @@ static const char* spTextures[] = {
 AppleBossScreen::AppleBossScreen(ScreenManager& mgr, bool& exitFlag)
     : manager(mgr)
     , exitGame(exitFlag)
-    , playerHPButton("Graphics/HPBars/player100HP.png", {600,765}, 1)
+    , playerHPButton("Graphics/HPBars/player100HP.png", {600,765}, 0.4)
     , bossHPButton("Graphics/HPBars/boss100HP.png", {400,100}, 0.5)
     , spCounterButton("Graphics/SkillPoints/zeroSP.png", {850,705}, 0.35)
     , skillButton("Graphics/skillButton.png", {1210,673}, 0.33)
@@ -46,6 +51,39 @@ AppleBossScreen::AppleBossScreen(ScreenManager& mgr, bool& exitFlag)
     , inventoryButton("Graphics/inventoryButton.png", {1270,550}, 0.25)
 {
     Image backgroundImage = LoadImage("Graphics/BossScreens/AppleBossScreen.png");
+    switch (manager.GetBossCount()) {
+        case 1:
+            backgroundImage = LoadImage("Graphics/BossScreens/PearBossScreen.png");
+            break;
+        case 2:
+            backgroundImage = LoadImage("Graphics/BossScreens/StrawberryBossScreen.png");
+            break;
+        case 3:
+            backgroundImage = LoadImage("Graphics/BossScreens/GrapeBossScreen.png");
+            break;
+        case 4:
+            backgroundImage = LoadImage("Graphics/BossScreens/DekoponBossScreen.png");
+            break;
+        case 5:
+            backgroundImage = LoadImage("Graphics/BossScreens/GreenMangoBossScreen.png");
+            break;
+        case 6:
+            backgroundImage = LoadImage("Graphics/BossScreens/RedMangoBossScreen.png");
+            break;
+        case 7:
+            backgroundImage = LoadImage("Graphics/BossScreens/PineappleBossScreen.png");
+            break;
+        case 8:
+            backgroundImage = LoadImage("Graphics/BossScreens/DurianBossScreen.png");
+            break;
+        case 9:
+            backgroundImage = LoadImage("Graphics/BossScreens/WatermelonBossScreen.png");
+            break;
+        // default:
+        //     cerr << "boss load background image error" << endl;
+        //     exit(1);
+    }
+    
     ImageResize(&backgroundImage, 1600, 900);
 
     // Converts image into texture
@@ -61,44 +99,45 @@ AppleBossScreen::~AppleBossScreen() {
 
 void AppleBossScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     Player* player = manager.getPlayer();  // Access persistent player object
-
-    // Simulate damage/heal for testing
-    if (IsKeyPressed(KEY_LEFT)) {
-        player->setHp(-20);
-    }
-    if (IsKeyPressed(KEY_RIGHT)) {
-        player->setHp(20);
-    }
+    Boss* boss = manager.getBoss();
 
     int index = 5 * player->getHp() / player->getMaxHp();
+    if (index > 5) index = 5;
+    if (index < 0) index = 0;
     static int lastIndex = -1;
     if (index != lastIndex) {               // doesn't access array index out of bounds
         playerHPButton.SetTexture(playerHPTextures[index], 0.40f);
-        bossHPButton.SetTexture(bossHPTextures[index], 0.50f);
-        spCounterButton.SetTexture(spTextures[index], 0.35f);
         lastIndex = index;
     }
-
-    // Handle popup timer
-    if (showPopUp) {
-        popupTimer += GetFrameTime();
-        if (popupTimer >= popupDuration) {
-            showPopUp = false;
-        }
+    
+    int indexBossHp = 5 * boss->getHp() / boss->getMaxHp();
+    if (indexBossHp > 5) indexBossHp = 5;
+    if (indexBossHp < 0) indexBossHp = 0;
+    static int lastBossIndex = -1;
+    if (indexBossHp != lastBossIndex) {
+        bossHPButton.SetTexture(bossHPTextures[indexBossHp], 0.50f);
+        lastIndex = indexBossHp;
     }
+    
+    int skillPts = player->getRechargeCount();
+    if (skillPts > 5) skillPts = 5;
+    if (skillPts < 0) skillPts = 0;
+    spCounterButton.SetTexture(spTextures[skillPts], 0.35f);
 
-    // Trigger popups
+    // player buttons
     if (attackButton.isPressed(mousePos, mouseClicked)) {
-        ShowPopup("Orange uses basic attack on Apple!");
+        manager.setInput(0);
     }
 
     if (inventoryButton.isPressed(mousePos, mouseClicked)) {
-        ShowPopup("Orange opens inventory!");
+        manager.PushScreen(make_unique<InventoryScreen>(manager, exitGame));
     }
 
     if (skillButton.isPressed(mousePos, mouseClicked)) {
-        ShowPopup("Orange uses skill on Apple!");
+        manager.setInput(1);
     }
+
+    manager.getPopup()->Update();
 }
 
 void AppleBossScreen::Draw() {
@@ -110,21 +149,5 @@ void AppleBossScreen::Draw() {
     attackButton.Draw();
     inventoryButton.Draw();
 
-    // Draw popup box if active
-    if (showPopUp) {
-        Rectangle popUpBox = { 800, 600, 400, 80 };
-        DrawRectangleRec(popUpBox, LIGHTGRAY);
-        DrawRectangleLinesEx(popUpBox, 3, DARKGRAY);
-
-        int textWidth = MeasureText(popupMessage.c_str(), 20);
-        DrawText(popupMessage.c_str(), popUpBox.x + (popUpBox.width - textWidth)/2, popUpBox.y + 30, 20, BLACK);
-    }
-
-}
-
-
-void AppleBossScreen::ShowPopup(const string& message) {
-    popupMessage = message;
-    popupTimer = 0.0f;
-    showPopUp = true;
+    manager.getPopup()->Draw();
 }

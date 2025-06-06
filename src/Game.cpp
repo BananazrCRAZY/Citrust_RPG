@@ -16,22 +16,35 @@
 #include "include/TitleScreen.hpp"
 #include "include/NameScreen.hpp"
 #include "include/PrologueScreen1.hpp"
+#include "include/InterludeScreen.hpp"
+#include "include/AppleBossScreen.hpp"
 #include <raylib.h>
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <stdexcept>
+#include <unistd.h>
 
 using std::cerr;
 using std::string;
 using std::ifstream;
 using std::endl;
 
+Game::Game() : savePoint(-1), player(nullptr), shop(nullptr), exitGame(false) {
+    // Setup!
+    InitWindow(1600, 900, "Orange Game");          // window length 1920 x 1080
+    SetTargetFPS(60);
+
+    // Boot into title screen
+    screenManager.PushScreen(make_unique<TitleScreen>(screenManager, exitGame));
+}
+
 void Game::uiDraw() {
 // Notes current mouse position and if mouse is pressed
     Vector2 mousePosition = GetMousePosition();
     bool mousePressed = IsMouseButtonPressed(MOUSE_BUTTON_LEFT);
     screenManager.Update(mousePosition, mousePressed);
+
     BeginDrawing();
     ClearBackground(BLACK);
     screenManager.Draw();
@@ -39,17 +52,15 @@ void Game::uiDraw() {
 }
 
 void Game::runGame() {
-    // Setup!
-    InitWindow(1600, 900, "Orange Game");          // window length 1920 x 1080
-    SetTargetFPS(60);
-
-    // Boot into title screen
-    screenManager.SetScreen(make_unique<TitleScreen>(screenManager, exitGame));
+    resetGame();
+    screenManager.ChangeScreen(make_unique<TitleScreen>(screenManager, exitGame));
 
     bool gotFile = false;
     bool gotName = true;
     bool setName = true;
     bool gameLoopReady = false;
+    int winGame = 0;
+    screenManager.setInput(-1);
 
     // Game Loop: keep running while window isn't closed and exitGame bool isn't flagged
     while ((WindowShouldClose() == false) && (exitGame == false)) {
@@ -66,6 +77,7 @@ void Game::runGame() {
                 gotFile = true;
                 if (savePoint == 0) gotName = false;
                 screenManager.setPlayer(player);
+                screenManager.AddBossCount(savePoint);
             }
         }
         if (!gotName) {
@@ -83,7 +95,10 @@ void Game::runGame() {
             }
         }
         if (gameLoopReady || savePoint > 0) {
-            gameLoop();
+            winGame = gameLoop();
+            // if (winGame < 0) loadLose();
+            // else loadEndOfGame();
+            exitGame = true;
         }
         uiDraw();
 
@@ -94,7 +109,9 @@ void Game::runGame() {
 
 void Game::resetGame() {
     delete player;
+    player = nullptr;
     delete shop;
+    shop = nullptr;
 }
 
 void Game::openFile(string file) {
@@ -136,66 +153,85 @@ void Game::startGame(int input) {
     }
 }
 
-void Game::gameLoop() {
+int Game::gameLoop() {
     while (savePoint < 10 && !exitGame) {
         // need ui to show screen based on savePoint (dialogue)
         Boss* boss;
         switch (savePoint) {
             case 0:
                 screenManager.ChangeScreen(make_unique<PrologueScreen1>(screenManager, exitGame));
-                while (screenManager.getInput() != 5) {
-                    uiDraw();
-                }
-                // create boss here, hard code
+                while (screenManager.getInput() != 5) uiDraw();
                 boss = new Apple("assets/bosses/Apple.txt", "assets/bossItems/AppleCore.txt", -1);
                 break;
             case 1:
                 boss = new Pear("assets/bosses/Pear.txt", "assets/bossItems/PearStem.txt", -1);
+                screenManager.ChangeScreen(make_unique<AppleBossScreen>(screenManager, exitGame));
                 break;
             case 2:
                 boss = new Strawberry("assets/bosses/Strawberry.txt", "assets/bossItems/StrawberrySeed.txt", 3);
+                screenManager.ChangeScreen(make_unique<AppleBossScreen>(screenManager, exitGame));
                 break;
             case 3:
                 boss = new Grape("assets/bosses/Grape.txt", "assets/bossItems/Grapevine.txt", 4);
+                screenManager.ChangeScreen(make_unique<AppleBossScreen>(screenManager, exitGame));
                 break;
             case 4:
                 boss = new Dekopon(playerFile, "assets/bossItems/Dekopeel.txt", 3);
+                screenManager.ChangeScreen(make_unique<AppleBossScreen>(screenManager, exitGame));
                 break;
             case 5:
                 boss = new MangoGreen("assets/bosses/MangoGreen.txt", "assets/bossItems/DriedMango.txt", -1);
-                break;
-            case 6:
-                boss = new Pineapple("assets/bosses/Pineapple.txt", "assets/bossItems/PineappleCrown.txt", 1000);
+                screenManager.ChangeScreen(make_unique<AppleBossScreen>(screenManager, exitGame));
                 break;
             case 7:
-                boss = new Durian("assets/bosses/Durian.txt", "assets/bossItems/DurianThorn.txt", -1);
+                boss = new Pineapple("assets/bosses/Pineapple.txt", "assets/bossItems/PineappleCrown.txt", 1000);
+                screenManager.ChangeScreen(make_unique<AppleBossScreen>(screenManager, exitGame));
                 break;
             case 8:
+                boss = new Durian("assets/bosses/Durian.txt", "assets/bossItems/DurianThorn.txt", -1);
+                screenManager.ChangeScreen(make_unique<AppleBossScreen>(screenManager, exitGame));
+                break;
+            case 9:
                 boss = new Watermelon("assets/bosses/Watermelon.txt", "assets/bossItems/DurianThorn.txt", 1000);
+                screenManager.ChangeScreen(make_unique<AppleBossScreen>(screenManager, exitGame));
                 break;
             default:
                 cerr << "Game loop input error" << endl;
                 exit(1);
         }
+        screenManager.setBoss(boss);
+        uiDraw();
         // battleResult: -1 is a loss, if positive then it's the number of cycles
         int battleResult = battleLoop(boss);
         if (savePoint == 5) {
-            delete boss;
-            boss = new MangoRed("assets/bosses/MangoRed.txt", "assets/bossItems/DriedMango.txt", -1);
-            battleResult += battleLoop(boss);
+            if (battleResult != -1) {
+                delete boss;
+                boss = new MangoRed("assets/bosses/MangoRed.txt", "assets/bossItems/DriedMango.txt", -1);
+                screenManager.setBoss(boss);
+                screenManager.AddBossCount(1);
+                screenManager.ChangeScreen(make_unique<AppleBossScreen>(screenManager, exitGame));
+                uiDraw();
+                battleResult += battleLoop(boss);
+                savePoint++;
+            }
         }
         player->newItem(boss->getItem());
+        screenManager.ChangeScreen(make_unique<InterludeScreen>(screenManager, exitGame));
+        uiDraw();
         delete boss;
-        //if (battleResult == -1) loadLose();
-        int addCalories = player->getLevel() * 1000 / battleResult;
+        boss = nullptr;
+        if (battleResult == -1) return -1;
+        int addCalories = player->getLevel() * 400 / battleResult;
         if (addCalories < 75) addCalories = 75;
         calories += addCalories;
         player->endOfBattle();
+        screenManager.AddBossCount(1);
 
-        // // figure out how to display all objects in shop
-        // loadInterlude();
-        // savePoint++;
-        // saveGame();
+        // figure out how to display all objects in shop
+        loadInterlude();
+        savePoint++;
+        saveGame();
+        if (savePoint == 10) return 1;
     }
 }
 
@@ -203,10 +239,12 @@ void Game::loadInterlude() {
     shop->resetShop();
     string printThis;
     while (1) {
-        // get input from intermediate screen
-        int input;
-        switch (input) {
+        screenManager.setInput(-1);
+        // load interlude screen here
+        while(screenManager.getInput() == -1) uiDraw();
+        switch (screenManager.getInput()) {
             case 0:
+                exitGame = true;
                 return;
             case 1:
                 printThis = checkBuyItem(0);
@@ -227,6 +265,8 @@ void Game::loadInterlude() {
                 printThis = checkBuyItem(5);
                 break;
             case 7:
+                return;
+            case 8:
             // not sure how to equip and unequip items
             default:
                 cerr << "Shop loop input error" << endl;
@@ -237,54 +277,64 @@ void Game::loadInterlude() {
     }
 }
 
-// void Game::loadEndOfGame() {
-//     resetGame();
-//     // have the ui end game screen here and get input
-//     int input;
-//     switch(input) {
-//         case 0:
-//             exit(1);
-//         case 1:
-//             startGame();
-//             break;
-//         default:
-//             break;
-//     }
-// }
+void Game::loadEndOfGame() {
+    screenManager.setInput(-1);
+    // load end of game screen here
+    while(screenManager.getInput() == -1) uiDraw();
+    switch(screenManager.getInput()) {
+        case 0:
+            exit(1);
+        case 1:
+            runGame();
+            break;
+        default:
+            cerr << "end of game input error" << endl;
+            exit(1);
+    }
+}
 
-// void Game::loadLose() {
-//     resetGame();
-//     // have ui load lose screen and get input
-//     int input;
-//     switch(input) {
-//         case 0:
-//             exit(1);
-//         case 1:
-//             startGame();
-//             break;
-//         default:
-//             break;
-//     }
-// }
+void Game::loadLose() {
+    screenManager.setInput(-1);
+    // load lose screen here
+    // hard coded here for test
+    screenManager.setInput(1);
+    while(screenManager.getInput() == -1) uiDraw();
+    switch(screenManager.getInput()) {
+        case 0:
+            resetGame();
+            exit(1);
+        case 1:
+            runGame();
+            break;
+        default:
+            cerr << "load lose input error" << endl;
+            exit(1);
+    }
+}
 
 int Game::battleLoop(Boss* boss) {
     int battleCycle = 1;
     while (battleCycle < 100) {
+        screenManager.setInput(-1);
         while (player->getTurn() > 0) {
-            uiDraw();
+            usleep(1500000);
             playerTurn(boss);
+            uiDraw();
             if (player->isDead()) return -1;
             if (boss->isDead()) return battleCycle;
             player->endOfTurn();
             if (player->isDead()) return -1;
+            uiDraw();
         }
         while (boss->getTurn() > 0) {
-            uiDraw();
+            usleep(1500000);
             enemyTurn(boss);
+            uiDraw();
             if (player->isDead()) return -1;
             if (boss->isDead()) return battleCycle;
             boss->endOfTurn();
             if (boss->isDead()) return battleCycle;
+            uiDraw();
         }
         player->setTurn(1);
         boss->setTurn(1);
@@ -294,10 +344,9 @@ int Game::battleLoop(Boss* boss) {
 }
 
 void Game::playerTurn(Boss* boss) {
-    // get input from ui
-    int input;
+    while (screenManager.getInput() == -1) uiDraw();
     string print;
-    switch (input) {
+    switch (screenManager.getInput()) {
         case 0:
             print = player->basicAttack(boss);
             break;
@@ -326,8 +375,7 @@ void Game::playerTurn(Boss* boss) {
             cerr << "Player turn input error" << endl;
             exit(1);
     }
-    // print out string here
-
+    screenManager.ShowPopup(print);
 }
 
 void Game::enemyTurn(Boss* boss) {
@@ -341,7 +389,7 @@ void Game::enemyTurn(Boss* boss) {
     } else {
         printThis += boss->basicAttack(player);
     }
-    // print here
+    screenManager.ShowPopup(printThis);
 }
 
 void Game::saveGame() {
