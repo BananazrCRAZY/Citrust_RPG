@@ -24,7 +24,7 @@ class Pineapple : public Boss {
             string returnStr;
             int damage = arts->getTotal();
             if (checkIfCrit()) damage = damage * (critDmg->getTotal()/100 + 1);
-            damage = damage * (1 - (target->getRes() / 100));
+            damage *= (1 - (target->getRes() / 100.0));
             if (damage <= 0) returnStr = name + " did 0 damage.\n";
             target->setHp(-1*damage);
             returnStr = name + ": Dealt " + std::to_string(damage) + " damage.\n";

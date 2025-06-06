@@ -323,7 +323,61 @@ TEST(PineappleTests, specialAttackTest) {
 }
 
 TEST(PineappleTests, basicAttack) {
-    Boss* boss = new Pineapple("assets/bosses/Pineapple.txt", "assets/bossItems/PineappleCrown.txt", 1000);
-    Player* p = new Player("assets/saves/testSave/TestPlayer.txt", "assets/saves/testSave/TestInventoryList.txt");
+  Boss* boss = new Pineapple("assets/bosses/Pineapple.txt", "assets/bossItems/PineappleCrown.txt", 1000);
+  Player* p = new Player("assets/saves/testSave/TestPlayer.txt", "assets/saves/testSave/TestInventoryList.txt");
 
+  EXPECT_EQ(boss->basicAttack(p), "Pineapple: Dealt 300 damage.\nbob Johnson: Inflicted with DoT by Pineapple.");
+  EXPECT_EQ(p->getHp(), -200);
+  p->endOfTurn();
+  EXPECT_EQ(p->getHp(), -230);
+  EXPECT_EQ(boss->getRechargeCount(), 2);
+}
+
+TEST(DurianTests, bossAbility) {
+  Boss* boss = new Durian("assets/bosses/Durian.txt", "assets/bossItems/DurianThorn.txt", -1);
+  Player* p = new Player("assets/saves/testSave/TestPlayer.txt", "assets/saves/testSave/TestInventoryList.txt");
+
+  boss->setHp(-25);
+  EXPECT_EQ(boss->bossAbility(), "Durian: Getting angry.");
+  EXPECT_EQ(boss->getAttack(), 629);
+  boss->setHp(-25);
+  EXPECT_EQ(boss->bossAbility(), "Durian: Getting angry.");
+  EXPECT_EQ(boss->getAttack(), 631);
+  boss->setHp(-25);
+  EXPECT_EQ(boss->bossAbility(), "Durian: Getting angry.");
+  EXPECT_EQ(boss->getAttack(), 633);
+}
+
+TEST(DurianTests, basicAttack) {
+  Boss* boss = new Durian("assets/bosses/Durian.txt", "assets/bossItems/DurianThorn.txt", -1);
+  Player* p = new Player("assets/saves/testSave/TestPlayer.txt", "assets/saves/testSave/TestInventoryList.txt");
+
+  EXPECT_EQ(boss->basicAttack(p), "Durian: Dealt 602 damage.\nbob Johnson: Inflicted with DoT by Durian.");
+  EXPECT_EQ(p->getHp(), -502);
+  p->endOfTurn();
+  EXPECT_EQ(p->getHp(), -702);
+}
+
+TEST(DurianTests, specialAttack) {
+  Boss* boss = new Durian("assets/bosses/Durian.txt", "assets/bossItems/DurianThorn.txt", -1);
+  Player* p = new Player("assets/saves/testSave/TestPlayer.txt", "assets/saves/testSave/TestInventoryList.txt");
+
+  EXPECT_EQ(boss->specialAttack(p), "Durian: Dealt 1868 damage.");
+  EXPECT_EQ(p->getHp(), -1768);
+  EXPECT_EQ(boss->getRechargeCount(), 0);
+}
+
+TEST(WatermelonTests, specialAttack) {
+  Boss* boss = new Watermelon("assets/bosses/Watermelon.txt", "assets/bossItems/DurianThorn.txt", 1000);
+  Player* p = new Player("assets/saves/testSave/TestPlayer.txt", "assets/saves/testSave/TestInventoryList.txt");
+
+  EXPECT_EQ(boss->specialAttack(p), "Watermelon: Dealt 2883 damage.\nWatermelon: Attack and res increased, and defense decreased.\n");
+  EXPECT_EQ(boss->getAttack(), 777);
+  EXPECT_EQ(boss->getDefense(), 770);
+  EXPECT_EQ(boss->getRes(), 9);
+
+  EXPECT_EQ(boss->specialAttack(p), "Watermelon: Dealt 3083 damage.\nWatermelon: Attack and res increased, and defense decreased.\n");
+  EXPECT_EQ(boss->getAttack(), 827);
+  EXPECT_EQ(boss->getDefense(), 720);
+  EXPECT_EQ(boss->getRes(), 16);
 }

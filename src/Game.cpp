@@ -279,7 +279,6 @@ void Game::enemyTurn(Boss* boss) {
         printThis += boss->basicAttack(player);
     }
     // print here
-
 }
 
 void Game::saveGame() {
