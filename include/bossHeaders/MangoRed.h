@@ -16,6 +16,7 @@ class MangoRed : public Boss {
             target->setHp(-1*damage);
             returnStr += (name + ": Dealt " + std::to_string(damage) + " damage.\n");
             target->setAttackAdd(-40);
+            rechargeCount -= 2;
             return returnStr + target->getName() + ": Attack decreased by " + name + ".";
         }
 

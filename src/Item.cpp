@@ -26,6 +26,8 @@ Item::Item(const string& file) : filePath(file), cooldown(0) {
     exit(1);
   }
   effect = new Status(statusFile);
+  // added last minute, probabily good idea of have consumable and non consumable items
+  iFile >> useOnPlayer;
   if (!iFile.good()) {
     cerr << "Error with item file format fstream" << std::endl;
     exit(1);

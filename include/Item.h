@@ -16,6 +16,7 @@ class Item {
   Status* effect;
   double appearanceProbability;
   bool isConsumable;
+  bool useOnPlayer;
 
  public:
   Item(const string&);
@@ -32,4 +33,5 @@ class Item {
   double getAppearanceProbabiity() const;
   bool isConsumableTrue() const;
   Status* getStatus() const { return effect; }
+  bool isUseOnPlayer() const { return useOnPlayer; }
 };

@@ -30,6 +30,7 @@ class Strawberry : public Boss {
         }
 
         string bossAbility() {
+            bossAbilityCharge -= requiredBossCharge;
             int change = defense->getBase() * .03;
             defense->add(-1 * change);
             return name + ": Lost " + to_string(change) + " defense.";

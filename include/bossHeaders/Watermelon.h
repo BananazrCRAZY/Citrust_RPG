@@ -14,6 +14,7 @@ class Watermelon : public Boss {
             returnStr = name + ": Dealt " + to_string(damage) + " damage.\n";
 
             attack->addBase(-50);
+            rechargeCount -= 2;
             return returnStr + name + ": Attack decreased.\n";
         }
 

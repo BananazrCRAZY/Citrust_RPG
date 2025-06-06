@@ -12,6 +12,7 @@ class Pineapple : public Boss {
         string specialAttack(Fruit* target) {
             target->addEffect(effectGive);
             target->addEffect(effectGive);
+            rechargeCount -= 2;
             return target->getName() + ": Inflicted with DoT by " + name + ".";
         }
 

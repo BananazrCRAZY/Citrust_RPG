@@ -100,19 +100,19 @@ void Game::gameLoop() {
                 boss = new Grape("assets/bosses/Grape.txt", "assets/bossItems/Grapevine.txt", 3);
                 break;
             case 4:
-                boss = new Dekopon("assets/bosses/Dekopon.txt", "assets/bossItems/Dekopeel.txt", 2);
+                boss = new Dekopon("assets/bosses/Dekopon.txt", "assets/bossItems/Dekopeel.txt", 3);
                 break;
             case 5:
-                boss = new MangoGreen("assets/bosses/MangoGreen.txt", "assets/bossItems/DriedMango.txt", 2);
+                boss = new MangoGreen("assets/bosses/MangoGreen.txt", "assets/bossItems/DriedMango.txt", -1);
                 break;
             case 6:
-                boss = new Pineapple("assets/bosses/Pineapple.txt", "assets/bossItems/PineappleCrown.txt", 2);
+                boss = new Pineapple("assets/bosses/Pineapple.txt", "assets/bossItems/PineappleCrown.txt", 1000);
                 break;
             case 7:
-                boss = new Durian("assets/bosses/Durian.txt", "assets/bossItems/DurianThorn.txt", 2);
+                boss = new Durian("assets/bosses/Durian.txt", "assets/bossItems/DurianThorn.txt", -1);
                 break;
             case 8:
-                boss = new Watermelon("assets/bosses/Watermelon.txt", "assets/bossItems/DurianThorn.txt", 2);
+                boss = new Watermelon("assets/bosses/Watermelon.txt", "assets/bossItems/DurianThorn.txt", 1000);
                 break;
             default:
                 cerr << "Game loop input error" << endl;
@@ -122,7 +122,7 @@ void Game::gameLoop() {
         int battleResult = battleLoop(boss);
         if (savePoint == 5) {
             delete boss;
-            boss = new MangoRed("assets/bosses/MangoRed.txt", "assets/bossItems/DriedMango.txt", 2);
+            boss = new MangoRed("assets/bosses/MangoRed.txt", "assets/bossItems/DriedMango.txt", -1);
             battleResult += battleLoop(boss);
         }
         player->newItem(boss->getItem());
@@ -131,6 +131,7 @@ void Game::gameLoop() {
         int addCalories = player->getLevel() * 1000 / battleResult;
         if (addCalories < 75) addCalories = 75;
         calories += addCalories;
+        player->endOfBattle();
 
         // figure out how to display all objects in shop
         loadInterlude();
@@ -241,39 +242,21 @@ void Game::playerTurn(Boss* boss) {
             print = player->specialAttack(boss);
             break;
         case 2:
-            print = player->useItem(player, 0);
-            break;
-        case 3:
-            print = player->useItem(player, 1);
-            break;
-        case 4:
-            print = player->useItem(player, 2);
-            break;
-        case 5:
-            print = player->useItem(player, 3);
-            break;
-        case 6:
-            print = player->useItem(player, 4);
-            break;
-        case 7:
-            print = player->useItem(player, 5);
-            break;
-        case 8:
             print = player->useItem(boss, 0);
             break;
-        case 9:
+        case 3:
             print = player->useItem(boss, 1);
             break;
-        case 10:
+        case 4:
             print = player->useItem(boss, 2);
             break;
-        case 11:
+        case 5:
             print = player->useItem(boss, 3);
             break;
-        case 12:
+        case 6:
             print = player->useItem(boss, 4);
             break;
-        case 13:
+        case 7:
             print = player->useItem(boss, 5);
             break;
         default:

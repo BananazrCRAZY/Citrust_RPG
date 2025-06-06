@@ -1,14 +1,24 @@
 #pragma once
 #include "Boss.h"
+#include "Status.h"
+#include <vector>
 
+using std::vector;
 using std::to_string;
 
 class Grape : public Boss {
-    Status* effectGive = new Status();
+    vector<Status*> effects = {
+        new Status("assets/status/GrapeStatus/DecreaseArts.txt"),
+        new Status("assets/status/GrapeStatus/DecreaseAttack.txt"),
+        new Status("assets/status/GrapeStatus/DecreaseCritDmg.txt"),
+        new Status("assets/status/GrapeStatus/DecreaseCritRate.txt"),
+        new Status("assets/status/GrapeStatus/DecreaseDefense.txt"),
+        new Status("assets/status/GrapeStatus/DecreaseRes.txt")
+    };
 
     public:
         Grape(const string& main, const string& item, int required) : Boss(main, item, required) {}
-        ~Grape() { delete effectGive; }
+        ~Grape() { for (unsigned i = 0; i < effects.size(); i++) delete effects.at(i); }
         string specialAttack(Fruit* target) {
             srand(time(0));
             string returnStatement = "";
@@ -17,8 +27,9 @@ class Grape : public Boss {
                 target->setHp(-1 * damage);
                 returnStatement += (name + ": Attack " + to_string(i) + " did " + to_string(damage) + " damage.\n");
                 if ((rand() % 5) > 2) {
-                    target->addEffect(effectGive);
-                    returnStatement += (name + ": Gave " + target->getName() + " " + effectGive->getName() + ".");
+                    int effectIndex = rand() % effects.size();
+                    target->addEffect(effects.at(effectIndex));
+                    returnStatement += (name + ": Gave " + target->getName() + " " + effects.at(effectIndex)->getName() + ".");
                 }
             }
             rechargeCount -= 2;

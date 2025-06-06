@@ -16,6 +16,7 @@ class Durian : public Boss {
             damage = damage - (target->getDefense() * .5);
             if (damage <= 0) return name + " did 0 damage.";
             target->setHp(-1*damage);
+            rechargeCount -= 2;
             return name + ": Dealt " + to_string(damage) + " damage.";
         }
 

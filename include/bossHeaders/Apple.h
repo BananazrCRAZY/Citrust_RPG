@@ -8,6 +8,7 @@ class Apple : public Boss {
             int damage = attack->getTotal() * 2 - target->getDefense();
             if (damage <= 0) return name + " did 0 damage.";
             target->setHp(-1*damage);
+            rechargeCount -= 2;
             return name + ": Dealt " + std::to_string(damage) + " damage.";
         }
 

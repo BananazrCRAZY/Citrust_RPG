@@ -71,15 +71,21 @@ void Player::endOfBattle() {
     turn = 1;
 }
 
-string Player::useItem(Fruit* target, unsigned itemIndex) {
+// boss may not be used, would've had selector to use on player or boss
+// however not enough time
+string Player::useItem(Fruit* boss, unsigned itemIndex) {
     if (itemIndex > (battleItems.size()-1)) {
         cerr << "Error useItem index problem" << std::endl;
         exit(1);
     }
     if (!battleItems.at(itemIndex)->isConsumableTrue()) return "This is not a consumable.";
     if (battleItems.at(itemIndex)->getCooldown() > 0) return "Item is on cooldown.";
-    battleItems.at(itemIndex)->use(target);
-    return name + " used " + battleItems.at(itemIndex)->getName() + " on " + target->getName() + ".";
+    if (battleItems.at(itemIndex)->isUseOnPlayer()) {
+        battleItems.at(itemIndex)->use(this);
+        return name + " used " + battleItems.at(itemIndex)->getName() + " on " + name + ".";
+    }
+    battleItems.at(itemIndex)->use(boss);
+    return name + " used " + battleItems.at(itemIndex)->getName() + " on " + boss->getName() + ".";
 }
 
 void Player::savePlayer() {
