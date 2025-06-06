@@ -4,4 +4,4 @@ The vine of a cluster of grapes you recently defeated.
 1
 0
 0
-../status/Grapevine
+assets/status/Grapevine

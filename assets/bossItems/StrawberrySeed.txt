@@ -4,4 +4,4 @@ The seeds of a strawberry you recently defeated.
 0
 0
 0
-../status/StrawberrySeed
+assets/status/StrawberrySeed
