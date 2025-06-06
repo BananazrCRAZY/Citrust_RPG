@@ -147,6 +147,13 @@ progress: 12
   <img src="https://github.com/user-attachments/assets/d354d00b-f125-4c1d-ae36-1a3b2b070b14" alt="Inventory Loadout Diagram" width="700"/>
 </p>
 
+---
+
+## Installation/usage instructions
+- clone this repository into vscode
+- click open any files in repository and press f5
+
+---
 
 ## UML Diagram
 <p align="center">
@@ -425,19 +432,3 @@ progress: 12
   * `resetStatus(): void`
     * Changes turns = `defaultTurns`
 </details>
-
-## Compositions and Aggregation
-  * Item
-    * Boss comp
-    * Player aggregation
-  * Status 
-    * Fruit aggregation
-    * Item comp
-  * Player
-    * Fruit inherit
-    * Game comp
-  * Boss
-    * Fruit inherit
-  * Shop
-    * Game comp
-    * Item comp
