@@ -40,11 +40,11 @@ string Player::specialAttack(Fruit* target) {
   int physDmg = attack->getTotal();
   int artsDmg = arts->getTotal();
   if (checkIfCrit()) {
-    physDmg *= (critDmg->getTotal()/100 + 1);
-    artsDmg *= (critDmg->getTotal()/100 + 1);
+    physDmg *= (critDmg->getTotal()/100.0 + 1);
+    artsDmg *= (critDmg->getTotal()/100.0 + 1);
   }
   physDmg -= target->getDefense();
-  artsDmg *= 1 - (target->getRes()/100);
+  artsDmg *= (1.0 - (target->getRes()/100.0));
   int damageDealt = physDmg + artsDmg;
   if (damageDealt <= 0) return name + ": Dealt 0 damage.";
   target->setHp(-1 * damageDealt);
@@ -145,6 +145,7 @@ void Player::equipItem(unsigned index) {
 }
 
 void Player::clearStats() {
+    clearEffectsVector();
     effects.clear();
     maxHp->removeAdd();
     attack->removeAdd();

@@ -29,6 +29,7 @@ class Fruit {
         
         void clearStats();  // called by clearStatus() called by levelUp()
         void reAddStats();  // called by levelUp()
+        void clearEffectsVector();
 
     public:
         Fruit(const string&);
@@ -58,6 +59,7 @@ class Fruit {
         void setRechargeCount(int change) {
             rechargeCount += change;
             if (rechargeCount < 0) rechargeCount = 0;
+            if (rechargeCount > 5) rechargeCount = 5;
         }
         void setTurn(int change) { turn += change; }
         void addEffect(Status*);

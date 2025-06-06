@@ -13,9 +13,11 @@ class Watermelon : public Boss {
             target->setHp(-1*damage);
             returnStr = name + ": Dealt " + to_string(damage) + " damage.\n";
 
-            attack->addBase(-50);
+            attack->addBase(50);
+            defense->addBase(-50);
+            res->addBase(7);
             rechargeCount -= 2;
-            return returnStr + name + ": Attack decreased.\n";
+            return returnStr + name + ": Attack and res increased, and defense decreased.\n";
         }
 
         // doesn't use

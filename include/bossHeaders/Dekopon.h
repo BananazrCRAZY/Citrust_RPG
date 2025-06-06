@@ -5,7 +5,10 @@ using std::to_string;
 
 class Dekopon : public Boss {
     public:
-        Dekopon(const string& main, const string& item, int required) : Boss(main, item, required) {}
+        Dekopon(const string& main, const string& item, int required) : Boss(main, item, required) {
+            name = "Dekopon";
+            level = 50;
+        }
         string specialAttack(Fruit* target) {
             int amount = target->getMaxHp() * .2;
             setHp(amount);
