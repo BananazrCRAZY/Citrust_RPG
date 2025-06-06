@@ -4,4 +4,5 @@ A chest of Vitamin C tablets. You can overcome any disease that comes your away 
 1
 3
 20
-../status/RestorationY.txt
+assets/status/RestorationY.txt
+1

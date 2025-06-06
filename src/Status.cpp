@@ -9,13 +9,14 @@ using std::cerr;
 Status::Status(string file) {
   ifstream iFile(file);
   if (!iFile.good()) {
-    cerr << "Error with file fstream" << std::endl;
+    cerr << "Error with status file fstream" << std::endl;
     exit(1);
   }
 
   getline(iFile, name);
   getline(iFile, description);
   iFile >> defaultTurns;
+  turns = defaultTurns;
   iFile >> percentBased;
   iFile >> hpChange;
   iFile >> maxHpChange;
@@ -28,15 +29,15 @@ Status::Status(string file) {
   iFile >> rechargeCountChange;
   iFile >> turnChange;
   if (!iFile.good()) {
-    cerr << "Error with file fstream" << std::endl;
+    cerr << "Error with status file format fstream" << std::endl;
     exit(1);
   }
   iFile.close();
 }
 
-void Status::decreaseTurn() { if (turns > 0) --turns; }
+void Status::decreaseTurn() { --turns; }
 
-void Status::resetStatus() { turns = defaultTurns; }
+void Status::resetStatusTurns() { turns = defaultTurns; }
 
 string Status::getName() const { return name; }
 string Status::getDescription() const { return description; }
@@ -51,4 +52,3 @@ double Status::getCritRateChange() const { return critRateChange; }
 double Status::getCritDamageChange() const { return critDamageChange; }
 int Status::getRechargeCountChange() const { return rechargeCountChange; }
 int Status::getTurnChange() const { return turnChange; }
-bool Status::isBossStatusTF() const { return isBossStatus; }

@@ -1,6 +1,6 @@
 ATK Up γ
 Increases ATK by 40%, increases CRIT Rate by 40%, and increases CRIT DMG by 20%.
-0
+-1
 1
 0
 0

@@ -1,6 +1,6 @@
 Honey Goodness
 Increases Arts ATK by 30% and RES by 15.
-0
+-1
 1
 0
 0

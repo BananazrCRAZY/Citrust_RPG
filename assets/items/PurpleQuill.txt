@@ -4,4 +4,5 @@ A purple plume that reminds you of a certain underworld dweller.
 1
 4
 20
-../status/Resurgence.txt
+assets/status/Resurgence.txt
+1

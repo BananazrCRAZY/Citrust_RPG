@@ -1,0 +1,8 @@
+test name
+test description
+300
+0
+0
+10
+assets/status/AttackUpY.txt
+1

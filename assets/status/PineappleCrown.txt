@@ -1,0 +1,14 @@
+Pineapple Crown
+Increases Max HP by 15%, but consumes 4% of Max HP every turn. Increases CRIT Rate by 15%, but decreases CRIT DMG by 15%.
+-1
+1
+-4
+15
+0
+0
+0
+0
+15
+15
+0
+0

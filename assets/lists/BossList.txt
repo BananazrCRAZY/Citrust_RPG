@@ -1,0 +1,10 @@
+assets/bosses/Apple.txt
+assets/bosses/Pear.txt
+assets/bosses/Strawberry.txt
+assets/bosses/Grape.txt
+assets/bosses/Dekopon.txt
+assets/bosses/MangoGreen.txt
+assets/bosses/MangoRed.txt
+assets/bosses/Pineapple.txt
+assets/bosses/Durian.txt
+assets/bosses/Watermelon.txt

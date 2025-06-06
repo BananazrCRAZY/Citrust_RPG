@@ -1,6 +1,6 @@
 Leafy Green
 Increases CRIT Rate by 30% and CRIT DMG by 50%.
-0
+-1
 1
 0
 0

@@ -1,0 +1,3 @@
+assets/items/TestItem1.txt
+assets/items/TestItem2.txt
+assets/items/TestItem3.txt

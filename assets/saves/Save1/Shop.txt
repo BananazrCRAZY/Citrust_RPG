@@ -1,6 +1,6 @@
 items/BlenderKnives.txt
 items/ButterflyFlurry.txt
-items/Cappuccino.txt
+items/Cappucchino.txt
 items/ColorPalette.txt
 items/CoolingFan.txt
 items/FirstAidKit.txt
