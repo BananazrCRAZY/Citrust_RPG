@@ -28,6 +28,10 @@ using std::ifstream;
 using std::endl;
 
 void Game::uiDraw() {
+// Notes current mouse position and if mouse is pressed
+    Vector2 mousePosition = GetMousePosition();
+    bool mousePressed = IsMouseButtonPressed(MOUSE_BUTTON_LEFT);
+    screenManager.Update(mousePosition, mousePressed);
     BeginDrawing();
     ClearBackground(BLACK);
     screenManager.Draw();
@@ -50,18 +54,17 @@ void Game::runGame() {
     // Game Loop: keep running while window isn't closed and exitGame bool isn't flagged
     while ((WindowShouldClose() == false) && (exitGame == false)) {
 
-        // Notes current mouse position and if mouse is pressed
-        Vector2 mousePosition = GetMousePosition();
-        bool mousePressed = IsMouseButtonPressed(MOUSE_BUTTON_LEFT);
+        // // Notes current mouse position and if mouse is pressed
+        // Vector2 mousePosition = GetMousePosition();
+        // bool mousePressed = IsMouseButtonPressed(MOUSE_BUTTON_LEFT);
 
-        screenManager.Update(mousePosition, mousePressed);
+        // screenManager.Update(mousePosition, mousePressed);
 
         if (!gotFile) {
             if (screenManager.getInput() == 1 || screenManager.getInput() == 2 || screenManager.getInput() == 3 || screenManager.getInput() == 4) {
                 startGame(screenManager.getInput());
                 gotFile = true;
                 if (savePoint == 0) gotName = false;
-                else gameLoopReady = true;
                 screenManager.setPlayer(player);
             }
         }
@@ -79,7 +82,7 @@ void Game::runGame() {
                 gameLoopReady = true;
             }
         }
-        if (gameLoopReady) {
+        if (gameLoopReady || savePoint > 0) {
             gameLoop();
         }
         uiDraw();
@@ -134,12 +137,15 @@ void Game::startGame(int input) {
 }
 
 void Game::gameLoop() {
-    while (savePoint < 10) {
+    while (savePoint < 10 && !exitGame) {
         // need ui to show screen based on savePoint (dialogue)
         Boss* boss;
         switch (savePoint) {
             case 0:
                 screenManager.ChangeScreen(make_unique<PrologueScreen1>(screenManager, exitGame));
+                while (screenManager.getInput() != 5) {
+                    uiDraw();
+                }
                 // create boss here, hard code
                 boss = new Apple("assets/bosses/Apple.txt", "assets/bossItems/AppleCore.txt", -1);
                 break;
@@ -171,26 +177,25 @@ void Game::gameLoop() {
                 cerr << "Game loop input error" << endl;
                 exit(1);
         }
-        uiDraw();
-        // // battleResult: -1 is a loss, if positive then it's the number of cycles
-        // int battleResult = battleLoop(boss);
-        // if (savePoint == 5) {
-        //     delete boss;
-        //     boss = new MangoRed("assets/bosses/MangoRed.txt", "assets/bossItems/DriedMango.txt", -1);
-        //     battleResult += battleLoop(boss);
-        // }
-        // player->newItem(boss->getItem());
-        // delete boss;
-        // //if (battleResult == -1) loadLose();
-        // int addCalories = player->getLevel() * 1000 / battleResult;
-        // if (addCalories < 75) addCalories = 75;
-        // calories += addCalories;
-        // player->endOfBattle();
+        // battleResult: -1 is a loss, if positive then it's the number of cycles
+        int battleResult = battleLoop(boss);
+        if (savePoint == 5) {
+            delete boss;
+            boss = new MangoRed("assets/bosses/MangoRed.txt", "assets/bossItems/DriedMango.txt", -1);
+            battleResult += battleLoop(boss);
+        }
+        player->newItem(boss->getItem());
+        delete boss;
+        //if (battleResult == -1) loadLose();
+        int addCalories = player->getLevel() * 1000 / battleResult;
+        if (addCalories < 75) addCalories = 75;
+        calories += addCalories;
+        player->endOfBattle();
 
         // // figure out how to display all objects in shop
         // loadInterlude();
-        savePoint++;
-        saveGame();
+        // savePoint++;
+        // saveGame();
     }
 }
 
@@ -266,6 +271,7 @@ int Game::battleLoop(Boss* boss) {
     int battleCycle = 1;
     while (battleCycle < 100) {
         while (player->getTurn() > 0) {
+            uiDraw();
             playerTurn(boss);
             if (player->isDead()) return -1;
             if (boss->isDead()) return battleCycle;
@@ -273,6 +279,7 @@ int Game::battleLoop(Boss* boss) {
             if (player->isDead()) return -1;
         }
         while (boss->getTurn() > 0) {
+            uiDraw();
             enemyTurn(boss);
             if (player->isDead()) return -1;
             if (boss->isDead()) return battleCycle;

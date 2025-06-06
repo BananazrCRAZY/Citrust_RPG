@@ -29,7 +29,7 @@ public:
 private:
     unique_ptr<IScreen> currentScreen;
     string playerName = "";
-    int input;
+    int input = -1;
     Player* player = nullptr;
 };
 
