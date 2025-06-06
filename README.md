@@ -153,6 +153,8 @@ Important/Interesting:
 ---
 
 ## UML Diagram
+- **UML:** [View UML in draw.io](https://app.diagrams.net/#G1euJCQomQhLoey8pglOfzLNkVippZvsMd#%7B%22pageId%22%3A%22oiYqd9vRAGfTHePaKK0A%22%7D)
+  
 <p align="center">
   <img src="https://github.com/user-attachments/assets/275f8565-2e8a-4bec-8488-40a50249acfc" alt="UML Diagram" width="700"/>
 </p>
