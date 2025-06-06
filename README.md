@@ -70,25 +70,62 @@ progress: 12
 
 ---
 
-### Prologue / Epilogue
+### Prologue 
 - Tells the story of Orange being bullied by the different Fruit Bosses  
-- **Next** – Prompts a shift into a Tutorial Boss Fight  
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/b13360dc-8f08-466c-8615-1d468484b6b5" alt="Prologue Diagram 1" width="700"/>
-  <img src="https://github.com/user-attachments/assets/25559367-a38f-492b-b05f-c661c68d9f39" alt="Prologue Diagram 2" width="700"/>
+  <img src="https://github.com/user-attachments/assets/b52301f8-b3c8-4777-838b-0dca3bb7111e" alt="Prologue Diagram 1" width="700"/>
+  <img src="https://github.com/user-attachments/assets/4e4d4a37-2d1b-4461-b387-5b1e8b4f48b5" alt="Prologue Diagram 2" width="700"/>
+</p>
+
+
+---
+
+### Suspense
+- Filler story page
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/098ed379-30ba-4474-8f9a-7aa8a9ebf911" alt="Prologue Diagram 1" width="700"/>
 </p>
 
 ---
 
-### Tutorial Boss Fight
+### Tutorial in battle view
 - General layout for all boss fights (template)  
-- Players have two turn-based options:
+- Players have three turn-based options:
   - **Basic Attack** – Requires no skill points  
-  - **Skill Attack** – Choose 1 of 2, each requires same number of skill points  
+  - **Skill Attack** – Requires one skill point
+  - **Inventory** - Use equippable items purchased
+- Reference the linked presentation above for the full tutorial
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/bced573f-70ff-42c2-989f-a9dc62a3fb72" alt="Boss Fight Diagram" width="700"/>
+  <img src="https://github.com/user-attachments/assets/8d433f8b-5e45-4f8b-bd16-21bda0eabc56" alt="Boss Fight Tutorial Diagram" width="700"/>
+</p>
+
+---
+
+### Boss battle
+- General layout for all boss fights (template)  
+- Players have three turn-based options:
+  - **Basic Attack** – Requires no skill points  
+  - **Skill Attack** – Requires one skill point
+  - **Equipment** - Use equippable items purchased
+- Reference the linked presentation above for visuals with other boss types 
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/9a5b0f6d-819b-42be-a61f-018f9ca8effc" alt="Boss Fight Diagram" width="700"/>
+</p>
+
+---
+
+### Interlude
+- Players are given three choices:
+  - **Shop** – takes player to a screen to purchase items
+  - **Inventory** – takes player to view their current inventory of items
+  - **Boss** - go onto the next battle
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/56a40d4a-a109-46be-b57f-8664a6184009" alt="Boss Fight Diagram" width="700"/>
 </p>
 
 ---
@@ -113,7 +150,7 @@ progress: 12
 
 ## UML Diagram
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/b9e7bfbb-47cf-4702-8149-1e35d4dc8be3" alt="UML Diagram" width="700"/>
+  <img src="https://github.com/user-attachments/assets/275f8565-2e8a-4bec-8488-40a50249acfc" alt="UML Diagram" width="700"/>
 </p>
 
 ## SOLID Principle Description
