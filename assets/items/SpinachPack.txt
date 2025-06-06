@@ -4,4 +4,5 @@ Although bitter, eating it makes you feel stronger
 0
 0
 25
-../status/LeafyGreen.txt
+assets/status/LeafyGreen.txt
+0

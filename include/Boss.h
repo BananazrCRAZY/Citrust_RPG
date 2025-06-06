@@ -8,13 +8,23 @@ using std::string;
 class Boss : public Fruit {
     protected:
         Item* itemDrop;
-        int bossAttackCharge;
+        int bossAbilityCharge;
+        int requiredBossCharge;
 
     public:
-        Boss(string mainFile, string itemF) : Fruit(mainFile), itemDrop(new Item(itemF)) {}
+        Boss(const string& mainFile, const string& itemF, int requiredCharge) : 
+            Fruit(mainFile), 
+            itemDrop(new Item(itemF)), 
+            requiredBossCharge(requiredCharge), 
+            bossAbilityCharge(1) {}
         virtual string specialAttack(Fruit*) = 0;
-        virtual string bossAttack(Fruit*) = 0;
-        int getBossAttackCharge() { return bossAttackCharge; }
-        void setBossAttackCharge(int change) { bossAttackCharge += change; }
+        virtual string bossAbility() = 0;
+        int getBossAbilityCharge() { return bossAbilityCharge; }
+        void increaseBossAbilityCharge() { bossAbilityCharge++; }
         Item* getItem() { return itemDrop; }
+        int getRequiredBossCharge() { return requiredBossCharge; }
+        void endOfTurn() {
+            Fruit::endOfTurn();
+            increaseBossAbilityCharge();
+        }
 };

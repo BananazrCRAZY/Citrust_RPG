@@ -4,4 +4,5 @@ Used to cast spells forgotten to time. Only a select few have succesfully been a
 0
 0
 15
-../status/ArtsUpY.txt
+assets/status/ArtsUpY.txt
+0

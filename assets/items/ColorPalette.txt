@@ -4,4 +4,5 @@ Contains colors the naked eye is unable to see. However, holding it gives the ey
 0
 0
 50
-../status/ArtsUpB.txt
+assets/status/ArtsUpB.txt
+0

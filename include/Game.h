@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
 #include "Player.h"
-//#include "Shop.h"
+#include "Boss.h"
+#include "Shop.h"
 
 using std::string;
 
@@ -10,16 +11,26 @@ class Game {
     int savePoint;
     int calories;
     Player* player;
-    //Shop* shop;
+    Shop* shop;
+    string playerFile;
+    string playerItemsFile;
+    string shopFile;
+
+    void startGame();
+    void gameLoop();
+    void loadInterlude();
+    void loadEndOfGame();
+    void loadLose();
+    void saveGame();
+    int battleLoop(Boss*);
+    void playerTurn(Boss*);
+    void enemyTurn(Boss*);
+    void openFile(string);
+    string checkBuyItem(int);
+    void resetGame();
 
     public:
-        Game(string);
-        int gameLoop();
-        int battleLoop();
-        int playerTurn();
-        int enemyTurn();
-        void turnReset();
-        int deathCheck();
-        void loadShop();
-        void saveGame();
+        Game() {}
+        ~Game() { resetGame(); }
+        void runGame();
 };

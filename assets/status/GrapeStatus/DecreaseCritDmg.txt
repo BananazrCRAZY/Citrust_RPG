@@ -1,0 +1,14 @@
+Grape Effect Crit Damage
+Decrease crit damage by 20%.
+2
+1
+0
+0
+0
+0
+0
+0
+0
+-20
+0
+0

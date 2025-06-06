@@ -7,10 +7,10 @@
 using std::string;
 using std::cerr;
 
-Player::Player(string file, string itemFile) : Fruit(file),  inventoryList(itemFile) {
+Player::Player(const string& file, const string& itemFile) : Fruit(file),  inventoryList(itemFile) {
     std::ifstream iFile(itemFile);
     if (!iFile.good()) {
-        cerr << "Error with file fstream" << std::endl;
+        cerr << "Error with Inventory list file fstream" << std::endl;
         exit(1);
     }
 
@@ -30,6 +30,11 @@ Player::Player(string file, string itemFile) : Fruit(file),  inventoryList(itemF
     iFile.close();
 }
 
+Player::~Player() {
+    for (int i = 0; i < battleItems.size(); i++) delete battleItems.at(i);
+    for (int i = 0; i < items.size(); i++) delete items.at(i);
+}
+
 // Deals Physical DMG and Arts DMG equal to ATK and Arts ATK respectively. Damage dealt is counted as once instance of damage. However, each type of damage has its own chance to crit.
 string Player::specialAttack(Fruit* target) {
   int physDmg = attack->getTotal();
@@ -41,10 +46,11 @@ string Player::specialAttack(Fruit* target) {
   physDmg -= target->getDefense();
   artsDmg *= 1 - (target->getRes()/100);
   int damageDealt = physDmg + artsDmg;
-  if (damageDealt <= 0) return name + " did 0 damage.";
+  if (damageDealt <= 0) return name + ": Dealt 0 damage.";
   target->setHp(-1 * damageDealt);
 
-  return name + " did " + std::to_string(damageDealt) + " damage.";
+  rechargeCount -= 2;
+  return name + ": Dealt " + std::to_string(damageDealt) + " damage.";
 }
 
 void Player::levelUp() {
@@ -58,22 +64,38 @@ void Player::levelUp() {
     reAddStats();
 }
 
-bool Player::useItem(Fruit* target, unsigned itemIndex) {
+void Player::endOfBattle() {
+    levelUp();
+    hp = maxHp->getTotal();
+    rechargeCount = 2;
+    turn = 1;
+}
+
+// boss may not be used, would've had selector to use on player or boss
+// however not enough time
+string Player::useItem(Fruit* boss, unsigned itemIndex) {
     if (itemIndex > (battleItems.size()-1)) {
         cerr << "Error useItem index problem" << std::endl;
         exit(1);
     }
-    battleItems.at(itemIndex)->use(target);
+    if (!battleItems.at(itemIndex)->isConsumableTrue()) return "This is not a consumable.";
+    if (battleItems.at(itemIndex)->getCooldown() > 0) return "Item is on cooldown.";
+    if (battleItems.at(itemIndex)->isUseOnPlayer()) {
+        battleItems.at(itemIndex)->use(this);
+        return name + " used " + battleItems.at(itemIndex)->getName() + " on " + name + ".";
+    }
+    battleItems.at(itemIndex)->use(boss);
+    rechargeCount -= 2;
+    return name + " used " + battleItems.at(itemIndex)->getName() + " on " + boss->getName() + ".";
 }
 
 void Player::savePlayer() {
-    std::ofstream oFile(fileName);
+    std::ofstream oFile(fileName, std::ios::trunc);
     if (!oFile.good()) {
-        cerr << "Error with file ostream" << std::endl;
+        cerr << "Error with saving Fruit file ostream" << std::endl;
         exit(1);
     }
 
-    // need to fix if there is overflow
     oFile << name << '\n';
     oFile << level << '\n';
     oFile << hp << '\n';
@@ -83,41 +105,62 @@ void Player::savePlayer() {
     oFile << arts->getBase() << '\n';
     oFile << res->getBase() << '\n';
     oFile << critRate->getBase() << '\n';
-    oFile << critDmg->getBase();
+    oFile << critDmg->getBase() << '\n';
     oFile.close();
 
-    oFile.open(inventoryList);
+    oFile.open(inventoryList, std::ios::trunc);
     if (!oFile.good()) {
-        cerr << "Error with file ostream" << std::endl;
+        cerr << "Error with saving Inventory list file ostream" << std::endl;
         exit(1);
     }
 
     for (int i = 0; i < battleItems.size(); i++) {
         oFile << battleItems.at(i)->getFilePath() << '\n';
     }
-    oFile << 'unequipped\n';
+    oFile << "unequipped\n";
     for (int i = 0; i < items.size(); i++) {
         oFile << items.at(i)->getFilePath() << '\n';
     }
     oFile.close();
 }
 
-void Player::removeItem(unsigned index) {
+void Player::unequipItem(unsigned index) {
     if (index > (battleItems.size()-1)) {
         cerr << "Error removeItem index problem" << std::endl;
         exit(1);
     }
-    removeStats(battleItems.at(index)->getStatus());
+    if (!battleItems.at(index)->isConsumableTrue()) removeStats(battleItems.at(index)->getStatus());
     items.push_back(battleItems.at(index));
     battleItems.erase(battleItems.begin() + index);
 }
 
-void Player::addItem(unsigned index) {
+void Player::equipItem(unsigned index) {
     if (index > (items.size()-1)) {
         cerr << "Error addItem index problem" << std::endl;
         exit(1);
     }
-    addStats(items.at(index)->getStatus());
+    if (!battleItems.at(index)->isConsumableTrue()) addStats(items.at(index)->getStatus());
     battleItems.push_back(items.at(index));
     items.erase(items.begin() + index);
+}
+
+void Player::clearStats() {
+    effects.clear();
+    maxHp->removeAdd();
+    attack->removeAdd();
+    defense->removeAdd();
+    arts->removeAdd();
+    res->removeAdd();
+    critRate->removeAdd();
+    critDmg->removeAdd();
+    if (hp > maxHp->getTotal()) hp = maxHp->getTotal();
+}
+
+void Player::reAddStats() {
+    for (unsigned i = 0; i < battleItems.size(); ++i) {
+        if (!battleItems.at(i)->isConsumableTrue()) {
+            effects.push_back(battleItems.at(i)->getStatus());
+            addStats(effects.at(i));
+        }
+    }
 }

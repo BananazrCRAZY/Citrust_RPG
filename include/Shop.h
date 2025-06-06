@@ -15,13 +15,14 @@ class Shop {
   string itemsFile;
   vector<Item*> allItems;
   vector<Item*> itemsForSale;
-  std::unordered_set<std::string> shownItems;  // Set of all items shown in the shop.
 
  public:
-  Shop(string& pathToItemsList);
-  int purchaseItem(Fruit* player, int itemIndex);
+  Shop(const string& pathToItemsList);
+  ~Shop();
+  string purchaseItem(Player* player, int itemIndex);
   void resetShop();
   void saveShop();
+  int getItemPrice(unsigned index);
 
  private:
   void populateShop();

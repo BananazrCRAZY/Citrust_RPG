@@ -16,12 +16,13 @@ class Item {
   Status* effect;
   double appearanceProbability;
   bool isConsumable;
+  bool useOnPlayer;
 
  public:
-  Item(string);
-
+  Item(const string&);
+  ~Item();
   void use(Fruit* target);
-  void changeCooldown(int change);
+  void decreaseCooldown();
 
   // Getters
   string getFilePath() const { return filePath; }
@@ -32,4 +33,5 @@ class Item {
   double getAppearanceProbabiity() const;
   bool isConsumableTrue() const;
   Status* getStatus() const { return effect; }
+  bool isUseOnPlayer() const { return useOnPlayer; }
 };

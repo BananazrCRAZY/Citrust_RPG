@@ -4,4 +4,5 @@ The thorn of a durian you recently defeated.
 0
 0
 0
-../status/DurianThorn
+assets/status/DurianThorn
+0

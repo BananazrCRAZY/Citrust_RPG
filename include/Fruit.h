@@ -27,13 +27,13 @@ class Fruit {
         void removeStats(Status*);
         void addStats(Status*);
         
-        void clearStats();  // called by levelUp()
+        void clearStats();  // called by clearStatus() called by levelUp()
         void reAddStats();  // called by levelUp()
 
     public:
-        Fruit(string);
-        ~Fruit();
-        string basicAttack(Fruit*);
+        Fruit(const string&);
+        virtual ~Fruit();
+        virtual string basicAttack(Fruit*);
         virtual string specialAttack(Fruit*) = 0;
         string getName() { return name; }
         int getLevel() const { return level; }
@@ -47,18 +47,21 @@ class Fruit {
         int getCritDmg() const { return critDmg->getTotal(); }
         int getRechargeCount() const { return rechargeCount; }
         int getTurn() const { return turn; }
-        void setMaxHpAdd(int change) { maxHp->add(change); }
-        void setHp(int change) { hp += change; }
+        void setMaxHpAdd(int change);
+        void setHp(int change);
         void setAttackAdd(int change) { attack->add(change); }
         void setDefenseAdd(int change) { defense->add(change); }
         void setArtsAdd(int change) { arts->add(change); }
         void setResAdd(int change) { res->add(change); }
         void setCritRateAdd(int change) { critRate->add(change); }
         void setCritDmgAdd(int change) { critDmg->add(change); }
-        void setRechargeCount(int change) { rechargeCount += change; }
+        void setRechargeCount(int change) {
+            rechargeCount += change;
+            if (rechargeCount < 0) rechargeCount = 0;
+        }
         void setTurn(int change) { turn += change; }
         void addEffect(Status*);
         bool isDead() const;
-        virtual int endOfTurn();
+        void endOfTurn();
         void clearStatus();
 };

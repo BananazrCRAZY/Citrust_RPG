@@ -4,4 +4,5 @@ Comes in three different flavors. Drinking it takes you to the land of dreams.
 1
 2
 75
-../status/LandOfDreams.txt
+assets/status/LandOfDreams.txt
+1

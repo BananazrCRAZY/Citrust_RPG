@@ -20,13 +20,12 @@ class Status {
   double critDamageChange;
   int rechargeCountChange;
   int turnChange;
-  bool isBossStatus;
 
  public:
   Status(string);
 
   void decreaseTurn();
-  void resetStatus();
+  void resetStatusTurns();
 
   // Getters
   string getName() const;
@@ -42,6 +41,5 @@ class Status {
   double getCritDamageChange() const;
   int getRechargeCountChange() const;
   int getTurnChange() const;
-  bool isBossStatusTF() const;
   bool isPercentBased() const { return percentBased; }
 };

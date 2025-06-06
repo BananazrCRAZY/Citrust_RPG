@@ -4,4 +4,5 @@ Refreshing and berry-flavored, one sip relaxes your entire body and takes you to
 1
 3
 30
-../status/BerryBlast.txt
+assets/status/BerryBlast.txt
+1
