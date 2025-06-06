@@ -155,6 +155,12 @@ progress: 12
 
 ---
 
+## Project testing/validating
+- not only did we do unit tests, we played through the game
+- we played through the game every time we made a change 
+
+---
+
 ## UML Diagram
 <p align="center">
   <img src="https://github.com/user-attachments/assets/275f8565-2e8a-4bec-8488-40a50249acfc" alt="UML Diagram" width="700"/>
