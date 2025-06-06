@@ -1,7 +1,8 @@
-#include "Game.h"
+#include "../include/Game.h"
+#include <iostream>
 
-int main() {
-  Game game;
-  game.startGame();
-  return 0;
+int main() {   
+    Game* game = new Game();
+    game->runGame();
+    std::cout << "hi";
 }

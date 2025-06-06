@@ -1,6 +1,6 @@
 #pragma once
-#include "Boss.h"
-#include "Status.h"
+#include "include/Boss.h"
+#include "include/Status.h"
 #include <vector>
 
 using std::vector;

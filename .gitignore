@@ -1,21 +1,21 @@
-# Build directories
-build/
-bin/
-lib/
+# # Build directories
+# build/
+# bin/
+# lib/
 
-# IDE specific files
-.vscode/
-.idea/
-*.suo
-*.user
+# # IDE specific files
+# # .vscode/
+# .idea/
+# *.suo
+# *.user
 
-# Compiled objects
-*.o
-*.obj
-*.exe
-*.out
+# # Compiled objects
+# *.o
+# *.obj
+# *.exe
+# *.out
 
-CMakeFiles/
-Makefile
-CMakeCache.txt
-cmake_install.cmake
+# CMakeFiles/
+# CMakeCache.txt
+# cmake_install.cmake
+# tests/googletest/

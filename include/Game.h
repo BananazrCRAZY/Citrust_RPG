@@ -1,4 +1,8 @@
 #pragma once
+#include "include/button.hpp"
+#include "include/ScreenManager.hpp"
+#include "include/TitleScreen.hpp"
+#include "include/NameScreen.hpp"
 #include <string>
 #include "Player.h"
 #include "Boss.h"
@@ -15,8 +19,10 @@ class Game {
     string playerFile;
     string playerItemsFile;
     string shopFile;
+    ScreenManager screenManager;
+    bool exitGame = false;
 
-    void startGame();
+    void startGame(int input);
     void gameLoop();
     void loadInterlude();
     void loadEndOfGame();
@@ -25,12 +31,13 @@ class Game {
     int battleLoop(Boss*);
     void playerTurn(Boss*);
     void enemyTurn(Boss*);
-    void openFile(string);
     string checkBuyItem(int);
     void resetGame();
+    void uiDraw();
 
     public:
-        Game() : player(nullptr), shop(nullptr) {}
+        Game() : savePoint(-1), player(nullptr), shop(nullptr) {}
         ~Game() { resetGame(); }
         void runGame();
+        void openFile(string);
 };
