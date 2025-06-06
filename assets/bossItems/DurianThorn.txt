@@ -4,5 +4,5 @@ The thorn of a durian you recently defeated.
 0
 0
 0
-assets/status/DurianThorn
+assets/status/DurianThorn.txt
 0

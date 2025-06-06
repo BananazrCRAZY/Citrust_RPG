@@ -172,23 +172,23 @@ void Game::gameLoop() {
                 exit(1);
         }
         uiDraw();
-        // battleResult: -1 is a loss, if positive then it's the number of cycles
-        int battleResult = battleLoop(boss);
-        if (savePoint == 5) {
-            delete boss;
-            boss = new MangoRed("assets/bosses/MangoRed.txt", "assets/bossItems/DriedMango.txt", -1);
-            battleResult += battleLoop(boss);
-        }
-        player->newItem(boss->getItem());
-        delete boss;
-        //if (battleResult == -1) loadLose();
-        int addCalories = player->getLevel() * 1000 / battleResult;
-        if (addCalories < 75) addCalories = 75;
-        calories += addCalories;
-        player->endOfBattle();
+        // // battleResult: -1 is a loss, if positive then it's the number of cycles
+        // int battleResult = battleLoop(boss);
+        // if (savePoint == 5) {
+        //     delete boss;
+        //     boss = new MangoRed("assets/bosses/MangoRed.txt", "assets/bossItems/DriedMango.txt", -1);
+        //     battleResult += battleLoop(boss);
+        // }
+        // player->newItem(boss->getItem());
+        // delete boss;
+        // //if (battleResult == -1) loadLose();
+        // int addCalories = player->getLevel() * 1000 / battleResult;
+        // if (addCalories < 75) addCalories = 75;
+        // calories += addCalories;
+        // player->endOfBattle();
 
-        // figure out how to display all objects in shop
-        loadInterlude();
+        // // figure out how to display all objects in shop
+        // loadInterlude();
         savePoint++;
         saveGame();
     }
