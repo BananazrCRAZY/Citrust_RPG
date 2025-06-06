@@ -43,7 +43,7 @@ static const char* spTextures[] = {
 AppleBossScreen::AppleBossScreen(ScreenManager& mgr, bool& exitFlag)
     : manager(mgr)
     , exitGame(exitFlag)
-    , playerHPButton("Graphics/HPBars/player100HP.png", {600,765}, 1)
+    , playerHPButton("Graphics/HPBars/player100HP.png", {600,765}, 0.4)
     , bossHPButton("Graphics/HPBars/boss100HP.png", {400,100}, 0.5)
     , spCounterButton("Graphics/SkillPoints/zeroSP.png", {850,705}, 0.35)
     , skillButton("Graphics/skillButton.png", {1210,673}, 0.33)
