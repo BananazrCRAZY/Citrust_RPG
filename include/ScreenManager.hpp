@@ -20,10 +20,13 @@ public:
     void Draw();
     void SetPlayerName(const string& name) {playerName = name;}
     const string& GetPlayerName() const {return playerName;}
+    void setInput(int buttonInput) { input = buttonInput; }
+    int getInput() const { return input; }
 
 private:
     unique_ptr<IScreen> currentScreen;
     string playerName;
+    int input;
 };
 
 #endif

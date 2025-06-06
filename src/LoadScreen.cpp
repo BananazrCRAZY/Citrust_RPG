@@ -31,14 +31,13 @@ LoadScreen::~LoadScreen() {
 
 void LoadScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     if (saveButton1.isPressed(mousePos, mouseClicked)) {
-        //manager.ChangeScreen(make_unique<NameScreen>(manager, exitGame));
-        cout << "1" << endl;
+        manager.setInput(2);
     }
     if (saveButton2.isPressed(mousePos, mouseClicked)) {
-       cout << "2" << endl;
+        manager.setInput(3);
     }
     if (saveButton3.isPressed(mousePos, mouseClicked)) {
-        cout << "3" << endl;
+        manager.setInput(4);
     }
     if (backButton.isPressed(mousePos, mouseClicked)) {
         manager.ChangeScreen(make_unique<TitleScreen>(manager, exitGame));

@@ -89,43 +89,6 @@ string Player::useItem(Fruit* boss, unsigned itemIndex) {
     return name + " used " + battleItems.at(itemIndex)->getName() + " on " + boss->getName() + ".";
 }
 
-<<<<<<< HEAD
-// void Player::savePlayer() {
-//     std::ofstream oFile(fileName);
-//     if (!oFile.good()) {
-//         cerr << "Error with file ostream" << std::endl;
-//         exit(1);
-//     }
-
-//     // need to fix if there is overflow
-//     oFile << name << '\n';
-//     oFile << level << '\n';
-//     oFile << hp << '\n';
-//     oFile << maxHp->getBase() << '\n';
-//     oFile << attack->getBase() << '\n';
-//     oFile << defense->getBase() << '\n';
-//     oFile << arts->getBase() << '\n';
-//     oFile << res->getBase() << '\n';
-//     oFile << critRate->getBase() << '\n';
-//     oFile << critDmg->getBase();
-//     oFile.close();
-
-//     oFile.open(inventoryList);
-//     if (!oFile.good()) {
-//         cerr << "Error with file ostream" << std::endl;
-//         exit(1);
-//     }
-
-//     for (int i = 0; i < battleItems.size(); i++) {
-//         oFile << battleItems.at(i)->getFile() << '\n';
-//     }
-//     oFile << 'unequipped\n';
-//     for (int i = 0; i < items.size(); i++) {
-//         oFile << items.at(i)->getFile() << '\n';
-//     }
-//     oFile.close();
-// }
-=======
 void Player::savePlayer() {
     std::ofstream oFile(fileName, std::ios::trunc);
     if (!oFile.good()) {
@@ -160,7 +123,6 @@ void Player::savePlayer() {
     }
     oFile.close();
 }
->>>>>>> master
 
 void Player::unequipItem(unsigned index) {
     if (index > (battleItems.size()-1)) {

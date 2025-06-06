@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 #include "include/Shop.h"
-=======
-#include "Shop.h"
-#include "Player.h"
->>>>>>> master
+#include "include/Player.h"
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
