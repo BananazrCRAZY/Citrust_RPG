@@ -1,5 +1,5 @@
-#include "Shop.h"
-#include "Player.h"
+#include "include/Shop.h"
+#include "include/Player.h"
 #include <fstream>
 #include <iostream>
 #include <stdexcept>

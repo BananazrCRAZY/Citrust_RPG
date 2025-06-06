@@ -10,6 +10,7 @@ using std::vector;
 
 class Shop {
  private:
+  
   const unsigned MAX_NUM_ITEMS_IN_SHOP = 6;
   unsigned itemsInShop;
   string itemsFile;

@@ -1,17 +1,21 @@
-#include "Game.h"
-#include "Boss.h"
-#include "gtest/gtest.h"
-#include "bossHeaders/Apple.h"
-#include "bossHeaders/Pear.h"
-#include "bossHeaders/Strawberry.h"
-#include "bossHeaders/Grape.h"
-#include "bossHeaders/Dekopon.h"
-#include "bossHeaders/MangoGreen.h"
-#include "bossHeaders/MangoRed.h"
-#include "bossHeaders/Pineapple.h"
-#include "bossHeaders/Durian.h"
-#include "bossHeaders/Watermelon.h"
-#include "Shop.h"
+#include "include/Game.h"
+#include "include/Boss.h"
+#include "include/bossHeaders/Apple.h"
+#include "include/bossHeaders/Pear.h"
+#include "include/bossHeaders/Strawberry.h"
+#include "include/bossHeaders/Grape.h"
+#include "include/bossHeaders/Dekopon.h"
+#include "include/bossHeaders/MangoGreen.h"
+#include "include/bossHeaders/MangoRed.h"
+#include "include/bossHeaders/Pineapple.h"
+#include "include/bossHeaders/Durian.h"
+#include "include/bossHeaders/Watermelon.h"
+#include "include/Shop.h"
+#include "include/button.hpp"
+#include "include/ScreenManager.hpp"
+#include "include/TitleScreen.hpp"
+#include "include/NameScreen.hpp"
+#include <raylib.h>
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -22,14 +26,51 @@ using std::string;
 using std::ifstream;
 using std::endl;
 
+void Game::uiDraw() {
+    BeginDrawing();
+    ClearBackground(BLACK);
+    screenManager.Draw();
+    EndDrawing();
+}
+
 void Game::runGame() {
-    startGame();
-    if (savePoint == 0) {  // get ui to send name
-        string inputName;
-        player->setName(inputName);
+    // Setup!
+    InitWindow(1600, 900, "Orange Game");          // window length 1920 x 1080
+    SetTargetFPS(60);
+
+    // Boot into title screen
+    screenManager.SetScreen(make_unique<TitleScreen>(screenManager, exitGame));
+
+    bool gotFile = false;
+    bool gotName = true;
+
+    // Game Loop: keep running while window isn't closed and exitGame bool isn't flagged
+    while ((WindowShouldClose() == false) && (exitGame == false)) {
+
+        // Notes current mouse position and if mouse is pressed
+        Vector2 mousePosition = GetMousePosition();
+        bool mousePressed = IsMouseButtonPressed(MOUSE_BUTTON_LEFT);
+
+        screenManager.Update(mousePosition, mousePressed);
+
+        if (!gotFile) {
+            if (screenManager.getInput() == 1 || screenManager.getInput() == 2 || screenManager.getInput() == 3 || screenManager.getInput() == 4) {
+                startGame(screenManager.getInput());
+                gotFile = true;
+                if (savePoint == 0) gotName = false;
+            }
+        }
+        if (!gotName) {
+            if (savePoint == 0) {
+                screenManager.ChangeScreen(make_unique<NameScreen>(screenManager, exitGame));
+                gotName = true;
+            }
+        }
+        
+        uiDraw();
+
     }
-    gameLoop();
-    loadEndOfGame();
+    CloseWindow();
 }
 
 void Game::resetGame() {
@@ -54,17 +95,13 @@ void Game::openFile(string file) {
     shop = new Shop(shopFile);
 }
 
-void Game::startGame() {
-    // need ui input
-    int input;
+void Game::startGame(int input) {
     switch (input) {    
         case 0:
-            exit(0);
+            exitGame = true;
         case 1:
-            // new game
-            openFile("assets/saves/Save1/Game.txt");
-            break;
         case 2:
+            // new game
             // load save 1
             openFile("assets/saves/Save1/Game.txt");
             break;
@@ -128,7 +165,7 @@ void Game::gameLoop() {
         }
         player->newItem(boss->getItem());
         delete boss;
-        if (battleResult == -1) loadLose();
+        //if (battleResult == -1) loadLose();
         int addCalories = player->getLevel() * 1000 / battleResult;
         if (addCalories < 75) addCalories = 75;
         calories += addCalories;
@@ -179,33 +216,35 @@ void Game::loadInterlude() {
     }
 }
 
-void Game::loadEndOfGame() {
-    resetGame();
-    // have the ui end game screen here and get input
-    int input;
-    switch(input) {
-        case 0:
-            exit(1);
-        case 1:
-            startGame();
-            break;
-        default:
-    }
-}
+// void Game::loadEndOfGame() {
+//     resetGame();
+//     // have the ui end game screen here and get input
+//     int input;
+//     switch(input) {
+//         case 0:
+//             exit(1);
+//         case 1:
+//             startGame();
+//             break;
+//         default:
+//             break;
+//     }
+// }
 
-void Game::loadLose() {
-    resetGame();
-    // have ui load lose screen and get input
-    int input;
-    switch(input) {
-        case 0:
-            exit(1);
-        case 1:
-            startGame();
-            break;
-        default:
-    }
-}
+// void Game::loadLose() {
+//     resetGame();
+//     // have ui load lose screen and get input
+//     int input;
+//     switch(input) {
+//         case 0:
+//             exit(1);
+//         case 1:
+//             startGame();
+//             break;
+//         default:
+//             break;
+//     }
+// }
 
 int Game::battleLoop(Boss* boss) {
     int battleCycle = 1;
