@@ -20,10 +20,10 @@ class TitleScreen : public IScreen {
     private:
         ScreenManager& manager;
         bool& exitGame;
-        Texture2D background;
-        Button quitButton;
         Button startButton;
         Button loadButton;
+        Button quitButton;
+        Texture2D background;
 };
 
 #endif 

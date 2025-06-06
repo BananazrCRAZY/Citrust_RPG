@@ -4,6 +4,7 @@
 #include <memory>
 #include <raylib.h>
 #include "IScreen.hpp"
+#include <string>
 
 using namespace std;
 
@@ -17,9 +18,12 @@ public:
     // Forward update/draw calls
     void Update(const Vector2& mousePos, bool mouseClicked);
     void Draw();
+    void SetPlayerName(const string& name) {playerName = name;}
+    const string& GetPlayerName() const {return playerName;}
 
 private:
     unique_ptr<IScreen> currentScreen;
+    string playerName;
 };
 
 #endif

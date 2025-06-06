@@ -1,12 +1,13 @@
 #include "include/NameScreen.hpp"
 #include "include/GameScreen.hpp"
 #include "include/TitleScreen.hpp"
+#include "include/PrologueScreen1.hpp"
 #include <iostream>
 
 using namespace std;
 
 NameScreen::NameScreen(ScreenManager& mgr, bool& exitFlag) : manager(mgr), exitGame(exitFlag), nextButton("Graphics/nextButton.png",{1200,680}, 1.6)
-, inputText(""), textBox({1000, 280, 250, 50}), textBoxActive(false), letterCount(0) {
+, inputText(""), textBox({1000, 270, 250, 60}), textBoxActive(false), letterCount(0) {
 
     Image backgroundImage = LoadImage("Graphics/NameScreen.png");
     ImageResize(&backgroundImage, 1600, 900);
@@ -50,9 +51,9 @@ void NameScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     }
 
     if (nextButton.isPressed(mousePos, mouseClicked)) {
-        //manager.ChangeScreen(make_unique<GameScreen>(manager, exitGame));
-        cout << "Next Pressed" << endl;
-        cout <<  "Name entered: " << inputText << endl;
+        cout <<  "Name enteredllalalala: " << inputText << endl;
+        manager.SetPlayerName(inputText);
+        manager.ChangeScreen(make_unique<PrologueScreen1>(manager, exitGame));
     }
 }
 
@@ -71,7 +72,7 @@ void NameScreen::Draw() {
     DrawRectangleLinesEx(textBox, 1, borderColor);
 
     //DrawText(const char *text, int posX, int posY, int fontSize, Color color)
-    DrawText(inputText.c_str(), textBox.x + 10, textBox.y + 15, 30, BLACK);
+    DrawText(inputText.c_str(), textBox.x + 10, textBox.y + 13, 55, BLACK);
 }
 
 const string& NameScreen::GetInputText() const {
