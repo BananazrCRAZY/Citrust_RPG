@@ -1,8 +1,0 @@
-boss item
-testing boss so need item
-0
-0
-1
-0
-0
-assets/status/BossItemStatus.txt

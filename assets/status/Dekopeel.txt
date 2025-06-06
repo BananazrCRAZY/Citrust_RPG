@@ -1,0 +1,14 @@
+Dekopeel
+Decreases Max HP by 40%, but restores 15% of Max HP every turn. Furthermore, increases DEF by 20% and RES by 5.
+-1
+1
+15
+0
+0
+20
+0
+5
+0
+0
+0
+0

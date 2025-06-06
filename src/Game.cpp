@@ -40,7 +40,7 @@ void Game::openFile(string file) {
     gameFile = file;
     ifstream iFile(gameFile);
     if (!iFile.good()) {
-        cerr << "Error with file fstream\n";
+        cerr << "Error with game file fstream\n";
         exit(1);
     }
 
@@ -51,8 +51,6 @@ void Game::openFile(string file) {
     player = new Player(playerFile, playerItemsFile);
     iFile >> shopFile;
     shop = new Shop(shopFile);
-    iFile >> bossList;
-    iFile >> dialogueList;
 }
 
 void Game::startGame() {
@@ -85,36 +83,36 @@ void Game::startGame() {
 
 void Game::gameLoop() {
     while (savePoint < 10) {
-        // need ui to show screen based on savePoint
+        // need ui to show screen based on savePoint (dialogue)
         Boss* boss;
         switch (savePoint) {
             case 0:
-                // create boss here, use getBossFile and hard code item and required charge
-                boss = new Apple();
+                // create boss here, hard code
+                boss = new Apple("assets/bosses/Apple.txt", "assets/bossItems/AppleCore.txt", -1);
                 break;
             case 1:
-                boss = new Pear();
+                boss = new Pear("assets/bosses/Pear.txt", "assets/bossItems/PearStem.txt", -1);
                 break;
             case 2:
-                boss = new Strawberry();
+                boss = new Strawberry("assets/bosses/Strawberry.txt", "assets/bossItems/StrawberrySeed.txt", 3);
                 break;
             case 3:
-                boss = new Grape();
+                boss = new Grape("assets/bosses/Grape.txt", "assets/bossItems/Grapevine.txt", 3);
                 break;
             case 4:
-                boss = new Dekopon();
+                boss = new Dekopon("assets/bosses/Dekopon.txt", "assets/bossItems/Dekopeel.txt", 2);
                 break;
             case 5:
-                boss = new MangoGreen();
+                boss = new MangoGreen("assets/bosses/MangoGreen.txt", "assets/bossItems/DriedMango.txt", 2);
                 break;
             case 6:
-                boss = new Pineapple();
+                boss = new Pineapple("assets/bosses/Pineapple.txt", "assets/bossItems/PineappleCrown.txt", 2);
                 break;
             case 7:
-                boss = new Durian();
+                boss = new Durian("assets/bosses/Durian.txt", "assets/bossItems/DurianThorn.txt", 2);
                 break;
             case 8:
-                boss = new Watermelon();
+                boss = new Watermelon("assets/bosses/Watermelon.txt", "assets/bossItems/DurianThorn.txt", 2);
                 break;
             default:
                 cerr << "Game loop input error" << endl;
@@ -124,7 +122,7 @@ void Game::gameLoop() {
         int battleResult = battleLoop(boss);
         if (savePoint == 5) {
             delete boss;
-            boss = new MangoRed();
+            boss = new MangoRed("assets/bosses/MangoRed.txt", "assets/bossItems/DriedMango.txt", 2);
             battleResult += battleLoop(boss);
         }
         player->newItem(boss->getItem());
@@ -206,38 +204,6 @@ void Game::loadLose() {
         default:
     }
 }
-
-string Game::getBossFile() const {
-    ifstream iFile(bossList);
-    if (!iFile.good()) {
-        cerr << "Error with file fstream\n";
-        exit(1);
-    }
-
-    string bossFile = "";
-    int counter = savePoint;
-    while (counter != 0) {
-        iFile >> bossFile;
-        counter--;
-    }
-    return bossFile;
-}
-
-// string Game::getDialogueFile() const {
-//     ifstream iFile(dialogueList);
-//     if (!iFile.good()) {
-//         cerr << "Error with file fstream\n";
-//         exit(1);
-//     }
-
-//     string dialogueFile = "";
-//     int counter = savePoint;
-//     while (counter >= 0) {
-//         iFile >> dialogueFile;
-//         counter--;
-//     }
-//     return dialogueFile;
-// }
 
 int Game::battleLoop(Boss* boss) {
     int battleCycle = 1;
@@ -345,8 +311,6 @@ void Game::saveGame() {
     oFile << playerFile << '\n';
     oFile << playerItemsFile << '\n';
     oFile << shopFile << '\n';
-    oFile << bossList << '\n';
-    oFile << dialogueList << '\n';
 
     shop->saveShop();
     player->savePlayer();

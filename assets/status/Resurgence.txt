@@ -1,6 +1,6 @@
 Resurgence
 Immediately grants the the player 1 extra turn after the current turn ends, and gives 1 more skill point.
-0
+-1
 0
 0
 0

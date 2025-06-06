@@ -12,8 +12,6 @@ class Game {
     int calories;
     Player* player;
     Shop* shop;
-    string bossList;
-    string dialogueList;
     string playerFile;
     string playerItemsFile;
     string shopFile;
@@ -24,8 +22,6 @@ class Game {
     void loadEndOfGame();
     void loadLose();
     void saveGame();
-    string getBossFile() const;
-    string getDialogueFile() const;
     int battleLoop(Boss*);
     void playerTurn(Boss*);
     void enemyTurn(Boss*);

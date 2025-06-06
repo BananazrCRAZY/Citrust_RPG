@@ -1,0 +1,7 @@
+Grapevine
+The vine of a cluster of grapes you recently defeated.
+0
+1
+0
+0
+../status/Grapevine

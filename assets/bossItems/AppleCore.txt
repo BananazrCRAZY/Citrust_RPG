@@ -1,0 +1,7 @@
+Apple Core
+The core of an apple you recently defeated.
+0
+0
+0
+0
+../status/AppleCore
