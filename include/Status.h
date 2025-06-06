@@ -20,6 +20,7 @@ class Status {
   double critDamageChange;
   int rechargeCountChange;
   int turnChange;
+  bool deleteThisStatus;
 
  public:
   Status(string);
@@ -42,4 +43,5 @@ class Status {
   int getRechargeCountChange() const;
   int getTurnChange() const;
   bool isPercentBased() const { return percentBased; }
+  bool isDeleteThisStatus() const { return deleteThisStatus; }
 };

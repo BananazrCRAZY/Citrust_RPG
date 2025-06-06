@@ -12,3 +12,4 @@ This effect deals Damage over Time
 0
 0
 0
+1

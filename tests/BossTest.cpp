@@ -307,3 +307,23 @@ TEST(MangoRedTests, abilityTestSub50) {
     EXPECT_EQ(boss->getRequiredBossCharge(), 101);
 }
 
+TEST(PineappleTests, specialAttackTest) {
+    Boss* boss = new Pineapple("assets/bosses/Pineapple.txt", "assets/bossItems/PineappleCrown.txt", 1000);
+    Player* p = new Player("assets/saves/testSave/TestPlayer.txt", "assets/saves/testSave/TestInventoryList.txt");
+
+    EXPECT_EQ(boss->specialAttack(p), "bob Johnson: Inflicted with DoT by Pineapple.");
+    EXPECT_EQ(p->getHp(), 100);
+    p->endOfTurn();
+    EXPECT_EQ(p->getHp(), 40);
+    p->endOfTurn();
+    EXPECT_EQ(p->getHp(), -20);
+    p->endOfTurn();
+    EXPECT_EQ(p->getHp(), -20);
+    EXPECT_EQ(boss->getRechargeCount(), 0);
+}
+
+TEST(PineappleTests, basicAttack) {
+    Boss* boss = new Pineapple("assets/bosses/Pineapple.txt", "assets/bossItems/PineappleCrown.txt", 1000);
+    Player* p = new Player("assets/saves/testSave/TestPlayer.txt", "assets/saves/testSave/TestInventoryList.txt");
+
+}

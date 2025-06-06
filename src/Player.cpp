@@ -145,6 +145,7 @@ void Player::equipItem(unsigned index) {
 }
 
 void Player::clearStats() {
+    clearEffectsVector();
     effects.clear();
     maxHp->removeAdd();
     attack->removeAdd();

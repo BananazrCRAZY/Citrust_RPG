@@ -29,6 +29,7 @@ class Fruit {
         
         void clearStats();  // called by clearStatus() called by levelUp()
         void reAddStats();  // called by levelUp()
+        void clearEffectsVector();
 
     public:
         Fruit(const string&);

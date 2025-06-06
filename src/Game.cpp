@@ -1,6 +1,5 @@
 #include "Game.h"
 #include "Boss.h"
-#include "gtest/gtest.h"
 #include "bossHeaders/Apple.h"
 #include "bossHeaders/Pear.h"
 #include "bossHeaders/Strawberry.h"

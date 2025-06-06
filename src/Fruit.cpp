@@ -49,6 +49,7 @@ Fruit::Fruit(const string& file) :
     }
 
 Fruit::~Fruit() {
+    clearEffectsVector();
     delete maxHp;
     delete attack;
     delete defense;
@@ -56,6 +57,12 @@ Fruit::~Fruit() {
     delete res;
     delete critRate;
     delete critDmg;
+}
+
+void Fruit::clearEffectsVector() {
+    for (int i = 0; i < effects.size(); i++) {
+        if (effects.at(i)->isDeleteThisStatus()) delete effects.at(i);
+    }
 }
 
 void Fruit::setMaxHpAdd(int change) {
@@ -132,12 +139,14 @@ void Fruit::endOfTurn() {
     for (int i = 0; i < effects.size(); i++) {
         if (effects.at(i)->getTurns() == 0) {
             removeStats(effects.at(i));
-            effects.at(i)->resetStatusTurns();
+            if (effects.at(i)->isDeleteThisStatus()) delete effects.at(i);
+            else effects.at(i)->resetStatusTurns();
             effects.erase(effects.begin()+i);
+        } else {
+            if (effects.at(i)->isPercentBased()) setHp(effects.at(i)->getHpChange() * maxHp->getTotal());
+            else setHp(effects.at(i)->getHpChange());
+            effects.at(i)->decreaseTurn();
         }
-        if (effects.at(i)->isPercentBased()) setHp(effects.at(i)->getHpChange() * maxHp->getTotal());
-        else setHp(effects.at(i)->getHpChange());
-        effects.at(i)->decreaseTurn();
     }
     setRechargeCount(1);
     turn--;

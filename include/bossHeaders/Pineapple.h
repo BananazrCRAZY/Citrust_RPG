@@ -4,15 +4,14 @@
 using std::to_string;
 
 class Pineapple : public Boss {
-    Status* effectGive = new Status("assets/status/DoT.txt");
+    string dotFile = "assets/status/DoT.txt";
 
     public:
         Pineapple(const string& main, const string& item, int required) : Boss(main, item, required) {}
-        ~Pineapple() { delete effectGive; }
         string specialAttack(Fruit* target) {
             rechargeCount -= 2;
-            target->addEffect(effectGive);
-            target->addEffect(effectGive);
+            target->addEffect(new Status(dotFile));
+            target->addEffect(new Status(dotFile));
             return target->getName() + ": Inflicted with DoT by " + name + ".";
         }
 
@@ -30,7 +29,7 @@ class Pineapple : public Boss {
             target->setHp(-1*damage);
             returnStr = name + ": Dealt " + std::to_string(damage) + " damage.\n";
 
-            target->addEffect(effectGive);
+            target->addEffect(new Status(dotFile));
             return returnStr + target->getName() + ": Inflicted with DoT by " + name + ".";
         }
 };
