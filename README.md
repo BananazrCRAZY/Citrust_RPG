@@ -141,6 +141,7 @@ Important/Interesting:
 ---
 
 ## Installation/usage instructions
+- download and run raylib
 - clone this repository into vscode
 - click open any files in repository and press f5
 
@@ -179,79 +180,7 @@ Important/Interesting:
 * This way it can take either Player or Boss items
 
 
-## UML Class Descriptions (work in progress)
-
-<details>
-  <summary>
-    <strong>
-      Game
-    </strong>
-  </summary>
-  
-  * `saveFile: string`
-    * Name of the '.txt' file that contains the game save data
-  * `savePoint: int`
-    * Indicates the chapter the player is in during the story
-  * `calories: int`
-    * In-game currency
-  * `player: Player`
-    * Created during game initialization
-
-  **Methods:**
-  * `loadGame(saveFile): void`
-    * Creates and initializes all necessary data from `saveFile`
-  * `loadStartMenu(): void`
-    * Creates UI for the Home screen
-  * `loadBattle(): void`
-    * Creates UI for the Battle screen
-    * Has buttons for player actions
-  * `playerTurn(): void`
-    * Is used within battle
-    * Allows for the player to choose their action
-    * Uses on-screen button as input
-  * `enemyTurn(): void`
-    * Displays dialogue for their action
-  * `turnReset(): void`
-    * End of battle loop
-    * Resets turn
-    * Updates statuses
-  * `loadDialogue(file: string): void`
-    * Opens `file`
-    * Reads in each character one at a time for rolling text
-    * Used for story scenes
-  * `loadShop(): void`
-    * Displays UI for the Shop
-  * `saveGame(): void`
-    * Calls `savePlayer()` and `saveShop()`
-    * Saves data into `saveFile.txt`
-    * `ofstream`
-</details>
-
-<details>
-  <summary>
-    <strong>
-      Shop
-    </strong>
-  </summary>
-
-  * `itemsFile: string`
-    * Name of the file that contains all available items that can be in the shop
-    * All items are in `itemsForSale` vector
-  * `allItems: vector<item>`
-    * Vector of every possible `item`s available to purchase in the shop
-  * `itemsForSale: vector<item>`
-    * Randomly selected list of `item`s within `allITems` to be put for sale in the shop
-    * 6 `item`s
-   
-  **Methods:**
-  * `loadAllItems(): void`
-    * Loads all the available items into a vector
-  * `purchaseItem(player: Player, item: int): void`
-    * `item: int` is for a vector item location; will be determined by the `item` selected which will be a button
-    * Adds the `item` to the `player`'s `item`s
-    * Removes `item` from `allItems` and `itemsForSale`
-  * `saveShop(): void`
-</details>
+## UML Class Descriptions
 
 <details>
   <summary>
@@ -259,88 +188,33 @@ Important/Interesting:
       Fruit
     </strong>
   </summary>
-
-  * `fileName: string`
-  * `name: string`
-  * `level: int`
-    * tied to `hp`, `attack`, `def`, `arts`, `res,` for bosses
-  * `hp: int`
-  * `baseMaxHp: int`
-  * `baseAttack: int`
-  * `baseDefense: int`
-  * `baseArts: int`
-  * `baseRes: int`
-  * `baseCritRate: double`
-  * `baseCritDmg: double`
-  * `maxHpAdd: int`
-  * `attackAdd: int`
-  * `defenseAdd: int`
-  * `artsAdd: int`
-  * `resAdd: int`
-  * `critRateAdd: double`
-  * `critDmgAdd: double`
-  * `rechargeCount: int`
-    * For special attack and items for the player
-  * `turn: int`
-    * Decreases after the player acts
-    * Resets after each turn cycle in the battle loop
-  * `effects: vector<Status*>`
-
-  **Methods:**
-  * `basicAttack(target: Fruit): void`
-    * Increments `rechargeCount` by 1
-  * `specialAttack(target: Fruit): bool`
-    * Returns `true` or `false` based on whether or not there was enough `recharge` to do the special attack
-    * Decrements `rechargeCount` by 1
-  * `getMaxHp(): int`
-  * `getHp(): int`
-  * `getDefense(): int`
-  * `getArts(): int`
-  * `getRes(): int`
-  * `getCritRate(): double`
-  * `getCritDmg(): double`
-  * `getRechargeCount(): int`
-  * `getTurn(): int`
-  * `setMaxHpAdd(change: int): void`
-  * `setHpAdd(change: int): void`
-  * `setDefenseAdd(change: int): void`
-  * `setArtsAdd(change: int): void`
-  * `setResAdd(change: int): void`
-  * `setCritRateAdd(change: int): void`
-  * `setCritDmgAdd(change: double): void`
-  * `setRechargeAccount(change: int): void`
-  * `setTurn(change: int): void`
-  * `addEffect(effect: Status): void`
-  * `endOfTurn(): void`
-    * Updates `effects`
-    * Not turn charge, rechargeCount
-    
+	
+* `checkIfCrit(): bool`
+	* Compares a randomly generated integer between 1 and 100 (inclusive) and compares it 
+	to the Fruit’s CRIT Rate. If RNG int <= CRIT Rate, then returns true. Otherwise, false.
+* `removeStats(Status*): void`
+	* Removes, from Fruit, the bonuses of the Status that is passed in. Typically when a buff expires. Accounts for both flat and percentage-based changes.
+* `addStats(Status*): void`
+	* Applies, unto Fruit, the bonuses of the Status that is passed in.
+* `clearStats(): void`
+	* Called by clearStatus() and levelUp(). Removes any bonuses given by any Statuses.
+* `reAddStats(): void`
+	* Called by levelUp(). Goes through every Status and adds the bonuses it provides to Fruit
+* `clearEffectsVector(): void`
+	* Clears the effect vector and deletes any effects not linked to items
+* `basicAttack(target: Fruit*): string`
+	* Deals damage to the target based on the attacker’s attack and the target’s defense
+* `specialAttack(target: Fruit*): string`
+	* virtual
+* `addEffect(effect: Status*): void`
+	* Adds effect to the effects vector 
+* `isDead(): bool` 
+	* Checks if the fruit is dead
+* `endOfTurn(): void`
+	* Checks if effects to see if duration ran out, updates hp effects, recharges, and decreases turn
+* `clearStatus(): void`
 </details>
 
-<details>
-  <summary>
-    <strong>
-      Player
-    </strong>
-  </summary>
-
-  * `items: vector<Item>`
-  * `battleItems: vector<Item>`
-    * Equipped `item`s that can be used during battle
-    * Limited to a maximum of 6
-
-  **Methods:**
-  * `basicAttack(target: Fruit): void`
-    * Deals an instance of both physical and arts damage
-  * `specialAttack(target: Fruit): bool`
-    * Deals a concentrated instance of either physical or arts damage
-  * `useItem(target: Fruit, item: int): bool`
-    * Can only use consumable items
-  * `endOfTurn(): void`
-    * Needs to go through `items` and remove `item`s with 0 uses left
-    * Goes through status to update
-  * `savePlayer(): void`
-</details>
 
 <details>
   <summary>
@@ -349,20 +223,91 @@ Important/Interesting:
     </strong>
   </summary>
 
-  * `itemDrop: Item`
-  * `bossAttackCharge: int`
-    * Unique boss attack that happens after every certain amount of turns
-   
-  **Methods:**
-  * `basicAttack(target: Fruit): void`
-    * Bosses' basic attack (different stats for every boss)
-  * `specialAttack(target: Fruit): void`
-    * Bosses' special attack
-    * Can apply debuffs (a `Status`) onto the player, takes a certain amount of `charge`
-  * `getBossAttackCharge(): int`
-  * `setBossAttackCharge(change: int`
-  * `endOfTurn(): void`
+* `specialAttack(target: Fruit*): string`
+	* Implemented a special attack with features based on the boss who implemented it.
+* `bossAbility(): string`
+	* Unique ability of a boss
+* `endOfTurn(): void`
+	* Same as fruit but bossCharge increments.
 </details>
+
+
+<details>
+  <summary>
+    <strong>
+      Game
+    </strong>
+  </summary>
+	
+* `startGame(int): void`
+* `gameLoop(): void`
+* `loadInterlude(): void`
+* `loadEndOfGame(): void`
+* `loadLose(): void`
+* `saveGame(): void`
+* `battleLoop(Boss*): int`
+* `playerTurn(Boss*): void`
+* `enemyTurn(Boss*): void`
+* `checkBuyItem(int): string`
+* `resetGame(): void`
+* `uiDraw(): void`
+* `runGame(): void`
+* `openFile(string): void`
+</details>
+
+
+<details>
+  <summary>
+    <strong>
+      IScreen
+    </strong>
+  </summary>
+	
+* `Update(Vector2&, bool): void`
+	* Abstract method that serves as a skeleton for implementations Screen’s updates
+* `Draw(): void`
+	* Abstract method that serves as a skeleton for drawing in Screens
+</details>
+
+
+<details>
+  <summary>
+    <strong>
+      ScreenManager
+    </strong>
+  </summary>
+	
+* `PushScreen(unique_ptr<IScreen>): void`
+	* Pushes 1 IScreen on top of the existing stack, a pause of sorts, the screen underneath still exists
+* `ChangeScreen(unique_ptr<IScreen>): void`
+	* Completely replace whatever was on the stack with a new screen, clearing the vector and pushing 1 IScreen
+* `Update(Vector2&, bool): void`
+	* On each frame, call update on the topmost screen
+* `Draw(): void`
+	* On each frame, call draw on the topmost screen
+* `PopScreen(): void`
+	* Removes the topmost screen from the stack
+</details>
+
+
+<details>
+  <summary>
+    <strong>
+      Shop
+    </strong>
+  </summary>
+	
+* `purchaseItem(player: Fruit, itemIndex: int): void` 
+	* Adds an item from the vector of shop items to the player.
+* `resetShop(): void` 
+	* Clears the shop and then repopulates it.
+* `saveShop(): void`
+	* Saves the shop into a save text file. The contents of the text file are all of the items that have not shown up yet.
+* `populateShop(): void`
+	* Selects an item at random, then uses an RNG to determine if that selected item will
+	appear in the shop. Do this until there are 6 items.
+</details>
+
 
 <details>
   <summary>
@@ -370,37 +315,16 @@ Important/Interesting:
       Item
     </strong>
   </summary>
-
-  * `name: string`
-  * `description: string`
-  * `cost: int`
-  * `consumable: bool`
-  * `uses: int`
-    * Doesn't have to be a consumable `item`
-    * Set -1
-  * `cooldownDefault: int`
-  * `cooldown: int`
-    * Updates after each turn
-  * `effect: Status*`
-  * `showProbability: int`
-    * Random number between 0-99
-    * For having probability variability for items that show in the shope.
-    * <details>
-      <summary>
-        Example
-      </summary>
-      
-      We have 3 items total, but we want `item[0]` to have a probability of appearing in the shop of 25%. So, we set `showProbability` to $\frac{2}{3}$. The equation is:
-
-      ![image](https://github.com/user-attachments/assets/1e9597a1-5480-4864-9dc4-c518efbba42e)
-
-
-      </details>
-      
-  **Methods:**
-  * `use(target: Fruit): void`
-  * `setCooldown(change: int): void`
-    * Will be used in `Player.endOfTurn()`
+	
+* `use(target: Fruit*): void` 
+	* Adds the corresponding effect linked to the item to the Fruit.
+* `decreaseCooldown(): void`
+	* Decrease the cooldown of the item by 11.
+* `isConsumableTrue(): bool`
+	* Returns true if the item is a consumable item. False otherwise.
+* `isUseOnPlayer(): bool`
+	* Returns true if the item is supposed to be used on the player, false if the item is
+	supposed to be used on a boss enemy.
 </details>
 
 
@@ -410,32 +334,45 @@ Important/Interesting:
       Status
     </strong>
   </summary>
-  
-  * `name: string`
-  * `description: string`
-  * `defaultTurns: int`
-  * `turns: int`
-  * `hpChange: double`
-  * `maxHpChange: edouble`
-  * `attackChange: double`
-  * `defenseChange: double`
-  * `artsChange: double`
-  * `resChange: double`
-  * `critRateChange: double`
-  * `critDmgChange: double`
-  * `rechargeCountChange: int`
-  * `turnChange: int`
-
-  **Methods:**
-  * `decreaseTurn(): void`
-  * `resetStatus(): void`
-    * Changes turns = `defaultTurns`
+	
+* `decreaseTurn(): void` 
+	* Decreases turn by 1.
+* `resetStatusTurns(): void`
+	* Sets turns equal to the default turns to ensure the status continues to be in effect.
+* `isDeleteThisStatus(): bool`
+	*Used to determine when Fruit is clearing effects, what statuses to remove (such as DoT)
+* `isPercentBased(): bool`
+	*Returns true if the status is percent-based. False otherwise.
 </details>
 
-Status
-+ decreaseTurn(): void 
-	decrease
-+ resetStatusTurns(): void
-+ isDeleteThisStatus(): bool
-+ isPercentBased(): bool
+
+<details>
+  <summary>
+    <strong>
+      Player
+    </strong>
+  </summary>
+	 
+* `specialAttack(target: Fruit*): string`
+* Implementation. Uses both attack and arts, minus target defense and res to deal damage to the target
+* `useItem(Fruit*, unsigned): string`
+* `savePlayer(): void`
+* `unequipItem(unsigned): void`
+* `equipItem(unsigned): void`
+* `newItem(Item*): void`
+	* Adds a new item to the inventory
+</details>
+
+
+ <details>
+  <summary>
+    <strong>
+      Stat
+    </strong>
+  </summary>
+	
+* `add(int): void`
+* `removeAdd(): void`
+* `addBase(int): void`
+</details>
 
