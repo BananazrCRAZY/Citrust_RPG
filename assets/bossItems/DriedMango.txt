@@ -5,3 +5,4 @@ The remains of a mango you recently defeated.
 0
 0
 assets/status/DriedMango
+0

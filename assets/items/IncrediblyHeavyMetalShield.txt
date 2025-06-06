@@ -5,3 +5,4 @@ Only able to be carried by the strongest of men.
 10
 10
 assets/status/ImpenetrableBarrier.txt
+1

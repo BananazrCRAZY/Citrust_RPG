@@ -5,3 +5,4 @@ A place for you to sit down when you're vulnurable after a long day of work.
 0
 30
 assets/status/Comfort.txt
+0

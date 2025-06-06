@@ -5,3 +5,4 @@ A tempting purchase on a hot day.
 0
 50
 assets/status/Chill.txt
+0

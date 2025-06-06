@@ -5,3 +5,4 @@ Contains colors the naked eye is unable to see. However, holding it gives the ey
 0
 50
 assets/status/ArtsUpB.txt
+0

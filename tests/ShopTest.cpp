@@ -60,6 +60,8 @@ TEST(ShopTests, saveShop0ItemBought) {
     s.saveShop();
 }
 
+// The following tests overwrite the txt file
+
 // TEST(ShopTests, saveShop1ItemBought) {
 //     Shop s("assets/saves/testSave/TestShopList.txt");
 //     Player* p = new Player("assets/saves/testSave/TestPlayer.txt", "assets/saves/testSave/TestInventoryList.txt");

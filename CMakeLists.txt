@@ -30,6 +30,7 @@ add_executable(runTests
     tests/ItemTest.cpp
     tests/StatusTest.cpp
     tests/ShopTest.cpp
+    tests/BossTest.cpp
 )
 
 # add_executable(runGame

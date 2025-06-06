@@ -85,6 +85,7 @@ string Player::useItem(Fruit* boss, unsigned itemIndex) {
         return name + " used " + battleItems.at(itemIndex)->getName() + " on " + name + ".";
     }
     battleItems.at(itemIndex)->use(boss);
+    rechargeCount -= 2;
     return name + " used " + battleItems.at(itemIndex)->getName() + " on " + boss->getName() + ".";
 }
 
@@ -128,7 +129,7 @@ void Player::unequipItem(unsigned index) {
         cerr << "Error removeItem index problem" << std::endl;
         exit(1);
     }
-    removeStats(battleItems.at(index)->getStatus());
+    if (!battleItems.at(index)->isConsumableTrue()) removeStats(battleItems.at(index)->getStatus());
     items.push_back(battleItems.at(index));
     battleItems.erase(battleItems.begin() + index);
 }
@@ -138,7 +139,7 @@ void Player::equipItem(unsigned index) {
         cerr << "Error addItem index problem" << std::endl;
         exit(1);
     }
-    addStats(items.at(index)->getStatus());
+    if (!battleItems.at(index)->isConsumableTrue()) addStats(items.at(index)->getStatus());
     battleItems.push_back(items.at(index));
     items.erase(items.begin() + index);
 }
@@ -157,7 +158,9 @@ void Player::clearStats() {
 
 void Player::reAddStats() {
     for (unsigned i = 0; i < battleItems.size(); ++i) {
-        effects.push_back(battleItems.at(i)->getStatus());
-        addStats(effects.at(i));
+        if (!battleItems.at(i)->isConsumableTrue()) {
+            effects.push_back(battleItems.at(i)->getStatus());
+            addStats(effects.at(i));
+        }
     }
 }

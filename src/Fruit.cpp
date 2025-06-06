@@ -121,6 +121,8 @@ void Fruit::addStats(Status* status) {
     res->add(status->getResChange());
     critRate->add(status->getCritRateChange());
     critDmg->add(status->getCritDamageChange());
+    setRechargeCount(status->getRechargeCountChange());
+    setTurn(status->getTurnChange());
 }
 
 void Fruit::addEffect(Status* effect) {
@@ -141,4 +143,5 @@ void Fruit::endOfTurn() {
         effects.at(i)->decreaseTurn();
     }
     rechargeCount++;
+    turn--;
 }

@@ -135,7 +135,7 @@ TEST(FruitTests, setTestsLargeNegative) {
     EXPECT_EQ(p.getRechargeCount(), 0);
 }
 
-TEST(FruitTests, clearStatusTest) {
+TEST(FruitTests, endOfBattleTest) {
     Player p("assets/saves/testSave/TestPlayer.txt", "assets/saves/testSave/TestInventoryList.txt");
 
     p.setHp(1);
@@ -146,16 +146,19 @@ TEST(FruitTests, clearStatusTest) {
     p.setResAdd(1);
     p.setCritRateAdd(1);
     p.setCritDmgAdd(1);
-    p.clearStatus();
+    p.endOfBattle();
 
-    EXPECT_EQ(p.getHp(), 100);
-    EXPECT_EQ(p.getMaxHp(), 100);
-    EXPECT_EQ(p.getAttack(), 50);
-    EXPECT_EQ(p.getDefense(), 25);
-    EXPECT_EQ(p.getArts(), 50);
+    EXPECT_EQ(p.getLevel(), 2);
+    EXPECT_EQ(p.getHp(), 350);
+    EXPECT_EQ(p.getMaxHp(), 350);
+    EXPECT_EQ(p.getAttack(), 175);
+    EXPECT_EQ(p.getDefense(), 75);
+    EXPECT_EQ(p.getArts(), 165);
     EXPECT_EQ(p.getRes(), 25);
     EXPECT_EQ(p.getCritRate(), 10);
     EXPECT_EQ(p.getCritDmg(), 50);
+    EXPECT_EQ(p.getRechargeCount(), 2);
+    EXPECT_EQ(p.getTurn(), 1);
 }
 
 TEST(FruitTests, isDeadFalse) {

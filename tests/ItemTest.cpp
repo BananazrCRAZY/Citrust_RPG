@@ -19,6 +19,7 @@ TEST(ItemTests, constructorPass) {
     EXPECT_FALSE(item.isConsumableTrue());
     EXPECT_EQ(item.getCooldown(), 0);
     EXPECT_EQ(item.getAppearanceProbabiity(), 10);
+    EXPECT_TRUE(item.isUseOnPlayer());
 
     Status s("assets/status/AttackUpY.txt");
     EXPECT_EQ(s.getName(), item.getStatus()->getName());

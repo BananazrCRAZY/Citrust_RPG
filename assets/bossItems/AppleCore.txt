@@ -5,3 +5,4 @@ The core of an apple you recently defeated.
 0
 0
 assets/status/AppleCore
+0

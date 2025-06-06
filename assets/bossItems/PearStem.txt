@@ -5,3 +5,4 @@ The stem of an apple you recently defeated.
 0
 0
 assets/status/PearStem
+0
