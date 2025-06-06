@@ -28,8 +28,8 @@ TutorialScreen13::~TutorialScreen13() {
 
 void TutorialScreen13::Update(const Vector2& mousePos, bool mouseClicked) {
     if (IsKeyPressed(KEY_SPACE)) {
-        manager.ChangeScreen(make_unique<AppleBossScreen>(manager, exitGame));
         manager.setInput(5);
+        manager.ChangeScreen(make_unique<AppleBossScreen>(manager, exitGame));
     }
 }
 

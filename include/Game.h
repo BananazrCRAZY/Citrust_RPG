@@ -21,7 +21,7 @@ class Game {
     string shopFile;
     ScreenManager screenManager;
     bool exitGame = false;
-
+    
     void startGame(int input);
     void gameLoop();
     void loadInterlude();

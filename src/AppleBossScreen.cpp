@@ -1,36 +1,37 @@
 #include "include/AppleBossScreen.hpp"
+#include "include/InventoryScreen.hpp"
 #include "include/Player.h"
 #include "include/button.hpp"
 #include "include/ScreenManager.hpp"
 
 // Player HP Textures
 static const char* playerHPTextures[] = {
-    "Graphics/HPBars/player100HP.png",
-    "Graphics/HPBars/player80HP.png",
-    "Graphics/HPBars/player60HP.png",
-    "Graphics/HPBars/player40HP.png",
+    "Graphics/HPBars/zeroHP.png",
     "Graphics/HPBars/player20HP.png",
-    "Graphics/HPBars/zeroHP.png"
+    "Graphics/HPBars/player40HP.png",
+    "Graphics/HPBars/player60HP.png",
+    "Graphics/HPBars/player80HP.png",
+    "Graphics/HPBars/player100HP.png"
 };
 
 // Boss HP Textures
 static const char* bossHPTextures[] = {
-    "Graphics/HPBars/boss100HP.png",
-    "Graphics/HPBars/boss80HP.png",
-    "Graphics/HPBars/boss60HP.png",
-    "Graphics/HPBars/boss40HP.png",
+    "Graphics/HPBars/zeroHP.png",
     "Graphics/HPBars/boss20HP.png",
-    "Graphics/HPBars/zeroHP.png"
+    "Graphics/HPBars/boss40HP.png",
+    "Graphics/HPBars/boss60HP.png",
+    "Graphics/HPBars/boss80HP.png",
+    "Graphics/HPBars/boss100HP.png"
 };
 
 // Skill Point Textures
 static const char* spTextures[] = {
-    "Graphics/SkillPoints/fiveSP.png",
-    "Graphics/SkillPoints/fourSP.png",
-    "Graphics/SkillPoints/threeSP.png",
-    "Graphics/SkillPoints/twoSP.png",
+    "Graphics/SkillPoints/zeroSP.png",
     "Graphics/SkillPoints/oneSP.png",
-    "Graphics/SkillPoints/zeroSP.png"
+    "Graphics/SkillPoints/twoSP.png",
+    "Graphics/SkillPoints/threeSP.png",
+    "Graphics/SkillPoints/fourSP.png",
+    "Graphics/SkillPoints/fiveSP.png"
 };
 
 
@@ -61,23 +62,17 @@ AppleBossScreen::~AppleBossScreen() {
 
 void AppleBossScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     Player* player = manager.getPlayer();  // Access persistent player object
-
-    // Simulate damage/heal for testing
-    if (IsKeyPressed(KEY_LEFT)) {
-        player->setHp(-20);
-    }
-    if (IsKeyPressed(KEY_RIGHT)) {
-        player->setHp(20);
-    }
+    Boss* boss = manager.getBoss();
 
     int index = 5 * player->getHp() / player->getMaxHp();
+    int indexBossHp = 5 * boss->getHp() / boss->getMaxHp();
     static int lastIndex = -1;
     if (index != lastIndex) {               // doesn't access array index out of bounds
         playerHPButton.SetTexture(playerHPTextures[index], 0.40f);
-        bossHPButton.SetTexture(bossHPTextures[index], 0.50f);
-        spCounterButton.SetTexture(spTextures[index], 0.35f);
+        bossHPButton.SetTexture(bossHPTextures[indexBossHp], 0.50f);
         lastIndex = index;
     }
+    spCounterButton.SetTexture(spTextures[player->getRechargeCount()], 0.35f);
 
     // Handle popup timer
     if (showPopUp) {
@@ -89,15 +84,17 @@ void AppleBossScreen::Update(const Vector2& mousePos, bool mouseClicked) {
 
     // Trigger popups
     if (attackButton.isPressed(mousePos, mouseClicked)) {
-        ShowPopup("Orange uses basic attack on Apple!");
+        manager.setInput(0);
+        ShowPopup("Used Basic Attack");
     }
 
     if (inventoryButton.isPressed(mousePos, mouseClicked)) {
-        ShowPopup("Orange opens inventory!");
+        manager.PushScreen(make_unique<InventoryScreen>(manager, exitGame));
     }
 
     if (skillButton.isPressed(mousePos, mouseClicked)) {
-        ShowPopup("Orange uses skill on Apple!");
+        manager.setInput(1);
+        ShowPopup("Used Special Attack");
     }
 }
 

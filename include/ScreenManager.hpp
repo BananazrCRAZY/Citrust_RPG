@@ -5,17 +5,21 @@
 #include <raylib.h>
 #include "IScreen.hpp"
 #include "Player.h"
+#include "Boss.h"
 #include <string>
 
 using namespace std;
 
 class ScreenManager {
 public:
+    ScreenManager() = default;
+    ~ScreenManager();
     // Initializes first screen, unique pointer guarantees exactly one owner of screen obj, 
     // cant share sames screen obj from two places
-    void SetScreen(unique_ptr<IScreen> screen);
+    void PushScreen(unique_ptr<IScreen> newScreen);
+    void PopScreen();
     // Replace with a new screen, deleting the old screen
-    void ChangeScreen(unique_ptr<IScreen> screen);
+    void ChangeScreen(unique_ptr<IScreen> newScreen);
     // Forward update/draw calls
     void Update(const Vector2& mousePos, bool mouseClicked);
     void Draw();
@@ -25,12 +29,18 @@ public:
     int getInput() const { return input; }
     void setPlayer(Player* p) { player = p;}
     Player* getPlayer() { return player; }
+    void setBoss(Boss* b) { boss = b;}
+    Boss* getBoss() { return boss; }
+    void setPopupStatement(const string& message) { popup = message; }
+    const string& getPopupStatement() { return popup; }
 
 private:
-    unique_ptr<IScreen> currentScreen;
+    vector<unique_ptr<IScreen>> currentScreens;
     string playerName = "";
     int input = -1;
     Player* player = nullptr;
+    Boss* boss = nullptr;
+    string popup = "";
 };
 
 #endif

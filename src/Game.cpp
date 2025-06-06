@@ -21,6 +21,7 @@
 #include <iostream>
 #include <string>
 #include <stdexcept>
+#include <unistd.h>
 
 using std::cerr;
 using std::string;
@@ -32,6 +33,7 @@ void Game::uiDraw() {
     Vector2 mousePosition = GetMousePosition();
     bool mousePressed = IsMouseButtonPressed(MOUSE_BUTTON_LEFT);
     screenManager.Update(mousePosition, mousePressed);
+
     BeginDrawing();
     ClearBackground(BLACK);
     screenManager.Draw();
@@ -44,7 +46,7 @@ void Game::runGame() {
     SetTargetFPS(60);
 
     // Boot into title screen
-    screenManager.SetScreen(make_unique<TitleScreen>(screenManager, exitGame));
+    screenManager.PushScreen(make_unique<TitleScreen>(screenManager, exitGame));
 
     bool gotFile = false;
     bool gotName = true;
@@ -143,10 +145,7 @@ void Game::gameLoop() {
         switch (savePoint) {
             case 0:
                 screenManager.ChangeScreen(make_unique<PrologueScreen1>(screenManager, exitGame));
-                while (screenManager.getInput() != 5) {
-                    uiDraw();
-                }
-                // create boss here, hard code
+                while (screenManager.getInput() != 5) uiDraw();
                 boss = new Apple("assets/bosses/Apple.txt", "assets/bossItems/AppleCore.txt", -1);
                 break;
             case 1:
@@ -177,6 +176,8 @@ void Game::gameLoop() {
                 cerr << "Game loop input error" << endl;
                 exit(1);
         }
+        screenManager.setBoss(boss);
+        uiDraw();
         // battleResult: -1 is a loss, if positive then it's the number of cycles
         int battleResult = battleLoop(boss);
         if (savePoint == 5) {
@@ -187,15 +188,15 @@ void Game::gameLoop() {
         player->newItem(boss->getItem());
         delete boss;
         //if (battleResult == -1) loadLose();
-        int addCalories = player->getLevel() * 1000 / battleResult;
+        int addCalories = player->getLevel() * 400 / battleResult;
         if (addCalories < 75) addCalories = 75;
         calories += addCalories;
         player->endOfBattle();
 
-        // // figure out how to display all objects in shop
+        // figure out how to display all objects in shop
         // loadInterlude();
-        // savePoint++;
-        // saveGame();
+        savePoint++;
+        saveGame();
     }
 }
 
@@ -270,21 +271,25 @@ void Game::loadInterlude() {
 int Game::battleLoop(Boss* boss) {
     int battleCycle = 1;
     while (battleCycle < 100) {
+        screenManager.setInput(-1);
         while (player->getTurn() > 0) {
-            uiDraw();
             playerTurn(boss);
+            uiDraw();
             if (player->isDead()) return -1;
             if (boss->isDead()) return battleCycle;
             player->endOfTurn();
             if (player->isDead()) return -1;
+            uiDraw();
         }
         while (boss->getTurn() > 0) {
-            uiDraw();
+            usleep(1000000);
             enemyTurn(boss);
+            uiDraw();
             if (player->isDead()) return -1;
             if (boss->isDead()) return battleCycle;
             boss->endOfTurn();
             if (boss->isDead()) return battleCycle;
+            uiDraw();
         }
         player->setTurn(1);
         boss->setTurn(1);
@@ -294,10 +299,11 @@ int Game::battleLoop(Boss* boss) {
 }
 
 void Game::playerTurn(Boss* boss) {
-    // get input from ui
-    int input;
+    while (screenManager.getInput() == -1) {
+        uiDraw();
+    }
     string print;
-    switch (input) {
+    switch (screenManager.getInput()) {
         case 0:
             print = player->basicAttack(boss);
             break;
@@ -326,8 +332,6 @@ void Game::playerTurn(Boss* boss) {
             cerr << "Player turn input error" << endl;
             exit(1);
     }
-    // print out string here
-
 }
 
 void Game::enemyTurn(Boss* boss) {
