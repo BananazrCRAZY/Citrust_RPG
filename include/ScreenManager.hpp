@@ -6,13 +6,14 @@
 #include "IScreen.hpp"
 #include "Player.h"
 #include "Boss.h"
+#include "Popup.hpp"
 #include <string>
 
 using namespace std;
 
 class ScreenManager {
 public:
-    ScreenManager() = default;
+    ScreenManager();
     ~ScreenManager();
     // Initializes first screen, unique pointer guarantees exactly one owner of screen obj, 
     // cant share sames screen obj from two places
@@ -31,8 +32,9 @@ public:
     Player* getPlayer() { return player; }
     void setBoss(Boss* b) { boss = b;}
     Boss* getBoss() { return boss; }
-    void setPopupStatement(const string& message) { popup = message; }
-    const string& getPopupStatement() { return popup; }
+
+    std::shared_ptr<Popup> getPopup() const { return popup; }
+    void ShowPopup(const std::string& msg); // convenience wrapper
 
 private:
     vector<unique_ptr<IScreen>> currentScreens;
@@ -40,7 +42,7 @@ private:
     int input = -1;
     Player* player = nullptr;
     Boss* boss = nullptr;
-    string popup = "";
+    std::shared_ptr<Popup> popup;
 };
 
 #endif

@@ -2,10 +2,13 @@
 
 using namespace std;
 
-ScreenManager::~ScreenManager() {
-        currentScreens.clear();
+ScreenManager::ScreenManager() {
+    popup = std::make_shared<Popup>();
 }
 
+ScreenManager::~ScreenManager() {
+    currentScreens.clear();
+}
 
 // completely replace whatever was on the stack with new screen, clearing vector and pushes 1 IScreen
 void ScreenManager::ChangeScreen(unique_ptr<IScreen> newScreen) {
@@ -41,4 +44,8 @@ void ScreenManager::Draw() {
     if (!currentScreens.empty()) {
         currentScreens.back()->Draw();
     }
+}
+
+void ScreenManager::ShowPopup(const std::string& msg) {
+    if (popup) popup->Show(msg);
 }

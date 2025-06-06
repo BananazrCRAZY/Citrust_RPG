@@ -3,6 +3,7 @@
 
 #include "IScreen.hpp"
 #include "ScreenManager.hpp"
+#include "Popup.hpp"
 #include "button.hpp"
 #include <raylib.h>
 #include <memory>
@@ -26,15 +27,6 @@ class AppleBossScreen : public IScreen {
         Button skillButton;
         Button attackButton;
         Button inventoryButton;
-
-        // pop up handling
-        bool showPopUp = false;
-        float popupTimer = 0.0f;
-        string popupMessage = "";
-        const float popupDuration = 0.8f;
-
-        void ShowPopup(const string& message);
-
 };
 
 #endif 

@@ -183,11 +183,13 @@ void Game::gameLoop() {
         if (savePoint == 5) {
             delete boss;
             boss = new MangoRed("assets/bosses/MangoRed.txt", "assets/bossItems/DriedMango.txt", -1);
+            screenManager.setBoss(boss);
+            uiDraw();
             battleResult += battleLoop(boss);
         }
         player->newItem(boss->getItem());
         delete boss;
-        //if (battleResult == -1) loadLose();
+        if (battleResult == -1) loadLose();
         int addCalories = player->getLevel() * 400 / battleResult;
         if (addCalories < 75) addCalories = 75;
         calories += addCalories;
@@ -204,10 +206,12 @@ void Game::loadInterlude() {
     shop->resetShop();
     string printThis;
     while (1) {
-        // get input from intermediate screen
-        int input;
-        switch (input) {
+        screenManager.setInput(-1);
+        // load interlude screen here
+        while(screenManager.getInput() == -1) uiDraw();
+        switch (screenManager.getInput()) {
             case 0:
+                exitGame = true;
                 return;
             case 1:
                 printThis = checkBuyItem(0);
@@ -238,35 +242,39 @@ void Game::loadInterlude() {
     }
 }
 
-// void Game::loadEndOfGame() {
-//     resetGame();
-//     // have the ui end game screen here and get input
-//     int input;
-//     switch(input) {
-//         case 0:
-//             exit(1);
-//         case 1:
-//             startGame();
-//             break;
-//         default:
-//             break;
-//     }
-// }
+void Game::loadEndOfGame() {
+    resetGame();
+    screenManager.setInput(-1);
+    // load end of game screen here
+    while(screenManager.getInput() == -1) uiDraw();
+    switch(screenManager.getInput()) {
+        case 0:
+            exit(1);
+        case 1:
+            runGame();
+            break;
+        default:
+            cerr << "end of game input error" << endl;
+            exit(1);
+    }
+}
 
-// void Game::loadLose() {
-//     resetGame();
-//     // have ui load lose screen and get input
-//     int input;
-//     switch(input) {
-//         case 0:
-//             exit(1);
-//         case 1:
-//             startGame();
-//             break;
-//         default:
-//             break;
-//     }
-// }
+void Game::loadLose() {
+    resetGame();
+    screenManager.setInput(-1);
+    // load lose screen here
+    while(screenManager.getInput() == -1) uiDraw();
+    switch(screenManager.getInput()) {
+        case 0:
+            exit(1);
+        case 1:
+            runGame();
+            break;
+        default:
+            cerr << "load lose input error" << endl;
+            exit(1);
+    }
+}
 
 int Game::battleLoop(Boss* boss) {
     int battleCycle = 1;
@@ -299,9 +307,7 @@ int Game::battleLoop(Boss* boss) {
 }
 
 void Game::playerTurn(Boss* boss) {
-    while (screenManager.getInput() == -1) {
-        uiDraw();
-    }
+    while (screenManager.getInput() == -1) uiDraw();
     string print;
     switch (screenManager.getInput()) {
         case 0:
@@ -332,6 +338,7 @@ void Game::playerTurn(Boss* boss) {
             cerr << "Player turn input error" << endl;
             exit(1);
     }
+    screenManager.ShowPopup(print);
 }
 
 void Game::enemyTurn(Boss* boss) {

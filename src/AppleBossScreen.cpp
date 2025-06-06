@@ -74,18 +74,9 @@ void AppleBossScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     }
     spCounterButton.SetTexture(spTextures[player->getRechargeCount()], 0.35f);
 
-    // Handle popup timer
-    if (showPopUp) {
-        popupTimer += GetFrameTime();
-        if (popupTimer >= popupDuration) {
-            showPopUp = false;
-        }
-    }
-
     // Trigger popups
     if (attackButton.isPressed(mousePos, mouseClicked)) {
         manager.setInput(0);
-        ShowPopup("Used Basic Attack");
     }
 
     if (inventoryButton.isPressed(mousePos, mouseClicked)) {
@@ -94,8 +85,9 @@ void AppleBossScreen::Update(const Vector2& mousePos, bool mouseClicked) {
 
     if (skillButton.isPressed(mousePos, mouseClicked)) {
         manager.setInput(1);
-        ShowPopup("Used Special Attack");
     }
+
+    manager.getPopup()->Update();
 }
 
 void AppleBossScreen::Draw() {
@@ -107,21 +99,5 @@ void AppleBossScreen::Draw() {
     attackButton.Draw();
     inventoryButton.Draw();
 
-    // Draw popup box if active
-    if (showPopUp) {
-        Rectangle popUpBox = { 800, 600, 400, 80 };
-        DrawRectangleRec(popUpBox, LIGHTGRAY);
-        DrawRectangleLinesEx(popUpBox, 3, DARKGRAY);
-
-        int textWidth = MeasureText(popupMessage.c_str(), 20);
-        DrawText(popupMessage.c_str(), popUpBox.x + (popUpBox.width - textWidth)/2, popUpBox.y + 30, 20, BLACK);
-    }
-
-}
-
-
-void AppleBossScreen::ShowPopup(const string& message) {
-    popupMessage = message;
-    popupTimer = 0.0f;
-    showPopUp = true;
+    manager.getPopup()->Draw();
 }
