@@ -27,7 +27,7 @@ class Fruit {
         void removeStats(Status*);
         void addStats(Status*);
         
-        void clearStats();  // called by clearStatus() called by levelUp()
+        void clearStats();
         void reAddStats();  // called by levelUp()
         void clearEffectsVector();
 
@@ -65,5 +65,4 @@ class Fruit {
         void addEffect(Status*);
         bool isDead() const;
         void endOfTurn();
-        void clearStatus();
 };
