@@ -376,3 +376,10 @@ Important/Interesting:
 * `addBase(int): void`
 </details>
 
+### UNIT TESTS
+![image](https://github.com/user-attachments/assets/46a1b487-41d7-4563-b045-fcd6c05be155)
+![image](https://github.com/user-attachments/assets/b8d5339e-733f-4971-8676-1002abbddbb5)
+![image](https://github.com/user-attachments/assets/6df8a15c-8f70-4456-8b25-968fb089fb77)
+![image](https://github.com/user-attachments/assets/47621a86-4124-40e0-b8de-0088626cc64f)
+
+
