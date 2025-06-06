@@ -10,9 +10,9 @@ class Pineapple : public Boss {
         Pineapple(const string& main, const string& item, int required) : Boss(main, item, required) {}
         ~Pineapple() { delete effectGive; }
         string specialAttack(Fruit* target) {
-            target->addEffect(effectGive);
-            target->addEffect(effectGive);
             rechargeCount -= 2;
+            target->addEffect(effectGive);
+            target->addEffect(effectGive);
             return target->getName() + ": Inflicted with DoT by " + name + ".";
         }
 

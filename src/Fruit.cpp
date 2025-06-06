@@ -71,7 +71,7 @@ void Fruit::setHp(int change) {
 
 string Fruit::basicAttack(Fruit* target) {
     int damage = attack->getTotal();
-    if (checkIfCrit()) damage = damage * (critDmg->getTotal()/100 + 1);
+    if (checkIfCrit()) damage = damage * (critDmg->getTotal()/100.0 + 1);
     damage = damage - target->getDefense();
     if (damage <= 0) return name + " did 0 damage.";
     target->setHp(-1*damage);
@@ -79,14 +79,11 @@ string Fruit::basicAttack(Fruit* target) {
 }
 
 bool Fruit::checkIfCrit() {
-    srand(time(0));
-    if (((rand() % 100) + 1) > critRate->getTotal()) return false;
-    return true;
+    return ((rand() % 100) + 1) <= critRate->getTotal();
 }
 
 bool Fruit::isDead() const {
-    if (hp <= 0) return true;
-    return false;
+    return hp <= 0;
 }
 
 void Fruit::removeStats(Status* status) {
@@ -142,6 +139,6 @@ void Fruit::endOfTurn() {
         else setHp(effects.at(i)->getHpChange());
         effects.at(i)->decreaseTurn();
     }
-    rechargeCount++;
+    setRechargeCount(1);
     turn--;
 }

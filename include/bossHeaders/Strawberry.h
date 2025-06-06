@@ -9,7 +9,7 @@ class Strawberry : public Boss {
     public:
         Strawberry(const string& main, const string& item, int required) : Boss(main, item, required) {}
         string specialAttack(Fruit* target) {
-            srand(time(0));
+            rechargeCount -= 2;
             int defenseLower = 0;
             string returnStatement = "";
             int damage = attack->getTotal() - target->getDefense();
@@ -24,8 +24,6 @@ class Strawberry : public Boss {
             }
             returnStatement += (name + ": Lost " + to_string(defenseLower) + " defense.");
             defense->add(-1 * defenseLower);
-
-            rechargeCount -= 2;
             return returnStatement;
         }
 

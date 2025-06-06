@@ -4,5 +4,5 @@ The core of an apple you recently defeated.
 0
 0
 0
-assets/status/AppleCore
+assets/status/AppleCore.txt
 0

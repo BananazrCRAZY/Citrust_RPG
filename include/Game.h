@@ -30,7 +30,7 @@ class Game {
     void resetGame();
 
     public:
-        Game() {}
+        Game() : player(nullptr), shop(nullptr) {}
         ~Game() { resetGame(); }
         void runGame();
 };

@@ -5,13 +5,13 @@ class Pear : public Boss {
     public:
         Pear(const string& main, const string& item, int required) : Boss(main, item, required) {}
         string specialAttack(Fruit* target) {
-            int damage = arts->getTotal() * 2;
-            if (checkIfCrit()) damage = damage * (critDmg->getTotal()/100 + 1);
-            damage *= (1-(target->getRes()/100));
+            rechargeCount -= 2;
+            int damage = attack->getTotal() * 2;
+            if (checkIfCrit()) damage *= (critDmg->getTotal() / 100.0 + 1);
+            damage -= target->getDefense();
             if (damage <= 0) return name + ": Dealt 0 damage.";
             target->setHp(-1*damage);
             
-            rechargeCount -= 2;
             return name + ": Dealt " + std::to_string(damage) + " damage.";
         }
 

@@ -4,5 +4,5 @@ The peel of a dekopon you recently defeated.
 0
 0
 0
-assets/status/Dekopeel
+assets/status/Dekopeel.txt
 0

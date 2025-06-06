@@ -4,5 +4,5 @@ The stem of an apple you recently defeated.
 0
 0
 0
-assets/status/PearStem
+assets/status/PearStem.txt
 0
