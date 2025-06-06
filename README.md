@@ -432,3 +432,11 @@ progress: 12
   * `resetStatus(): void`
     * Changes turns = `defaultTurns`
 </details>
+
+Status
++ decreaseTurn(): void 
+	decrease
++ resetStatusTurns(): void
++ isDeleteThisStatus(): bool
++ isPercentBased(): bool
+
