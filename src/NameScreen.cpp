@@ -51,9 +51,7 @@ void NameScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     }
 
     if (nextButton.isPressed(mousePos, mouseClicked)) {
-        cout <<  "Name enteredllalalala: " << inputText << endl;
         manager.SetPlayerName(inputText);
-        manager.ChangeScreen(make_unique<PrologueScreen1>(manager, exitGame));
     }
 }
 

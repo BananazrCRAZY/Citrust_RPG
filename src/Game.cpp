@@ -15,6 +15,7 @@
 #include "include/ScreenManager.hpp"
 #include "include/TitleScreen.hpp"
 #include "include/NameScreen.hpp"
+#include "include/PrologueScreen1.hpp"
 #include <raylib.h>
 #include <fstream>
 #include <iostream>
@@ -43,6 +44,8 @@ void Game::runGame() {
 
     bool gotFile = false;
     bool gotName = true;
+    bool setName = true;
+    bool gameLoopReady = false;
 
     // Game Loop: keep running while window isn't closed and exitGame bool isn't flagged
     while ((WindowShouldClose() == false) && (exitGame == false)) {
@@ -58,18 +61,31 @@ void Game::runGame() {
                 startGame(screenManager.getInput());
                 gotFile = true;
                 if (savePoint == 0) gotName = false;
+                else gameLoopReady = true;
+                screenManager.setPlayer(player);
             }
         }
         if (!gotName) {
             if (savePoint == 0) {
                 screenManager.ChangeScreen(make_unique<NameScreen>(screenManager, exitGame));
                 gotName = true;
+                setName = false;
             }
         }
-        
+        if (!setName) {
+            if (screenManager.GetPlayerName() != "") {
+                player->setName(screenManager.GetPlayerName());
+                setName = true;
+                gameLoopReady = true;
+            }
+        }
+        if (gameLoopReady) {
+            gameLoop();
+        }
         uiDraw();
 
     }
+    resetGame();
     CloseWindow();
 }
 
@@ -96,9 +112,7 @@ void Game::openFile(string file) {
 }
 
 void Game::startGame(int input) {
-    switch (input) {    
-        case 0:
-            exitGame = true;
+    switch (input) {
         case 1:
         case 2:
             // new game
@@ -125,6 +139,7 @@ void Game::gameLoop() {
         Boss* boss;
         switch (savePoint) {
             case 0:
+                screenManager.ChangeScreen(make_unique<PrologueScreen1>(screenManager, exitGame));
                 // create boss here, hard code
                 boss = new Apple("assets/bosses/Apple.txt", "assets/bossItems/AppleCore.txt", -1);
                 break;
@@ -156,6 +171,7 @@ void Game::gameLoop() {
                 cerr << "Game loop input error" << endl;
                 exit(1);
         }
+        uiDraw();
         // battleResult: -1 is a loss, if positive then it's the number of cycles
         int battleResult = battleLoop(boss);
         if (savePoint == 5) {

@@ -2,6 +2,7 @@
 #include "include/GameScreen.hpp"
 #include "include/NameScreen.hpp"
 #include "include/TutorialScreen13.hpp"
+#include "include/AppleBossScreen.hpp"
 #include <iostream>
 
 using namespace std;
@@ -27,7 +28,7 @@ TutorialScreen13::~TutorialScreen13() {
 
 void TutorialScreen13::Update(const Vector2& mousePos, bool mouseClicked) {
     if (IsKeyPressed(KEY_SPACE)) {
-        //manager.ChangeScreen(make_unique<TutorialScreen1>(manager, exitGame));
+        manager.ChangeScreen(make_unique<AppleBossScreen>(manager, exitGame));
         cout << "tutorial done\n";
     }
 }

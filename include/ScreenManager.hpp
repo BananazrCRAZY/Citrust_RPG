@@ -4,6 +4,7 @@
 #include <memory>
 #include <raylib.h>
 #include "IScreen.hpp"
+#include "Player.h"
 #include <string>
 
 using namespace std;
@@ -22,11 +23,14 @@ public:
     const string& GetPlayerName() const {return playerName;}
     void setInput(int buttonInput) { input = buttonInput; }
     int getInput() const { return input; }
+    void setPlayer(Player* p) { player = p;}
+    Player* getPlayer() { return player; }
 
 private:
     unique_ptr<IScreen> currentScreen;
-    string playerName;
+    string playerName = "";
     int input;
+    Player* player = nullptr;
 };
 
 #endif

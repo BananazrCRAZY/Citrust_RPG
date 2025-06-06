@@ -30,7 +30,6 @@ TitleScreen::~TitleScreen() {
 
 void TitleScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     if (startButton.isPressed(mousePos, mouseClicked)) {
-        //manager.ChangeScreen(make_unique<NameScreen>(manager, exitGame));
         manager.setInput(1);
     }
     if (loadButton.isPressed(mousePos, mouseClicked)) {

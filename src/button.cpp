@@ -1,7 +1,7 @@
 #include "include/button.hpp"
 
 // Button Constructor
-Button::Button(const char *imagePath, Vector2 imagePosition, float scale) {
+Button::Button (const char *imagePath, Vector2 imagePosition, float scale) {
 
     // Uses Image class first as it is resizeable to scale; Texture class is not
     Image image = LoadImage(imagePath);
@@ -42,3 +42,17 @@ bool Button::isPressed(Vector2 mousePos, bool mousePressed) {
 
     return false;
 }
+
+void Button::SetTexture(const char* imagePath, float scale) {
+    UnloadTexture(texture);  // unloads old texture first
+
+    Image image = LoadImage(imagePath);
+
+    // scaling & resizing
+    int newWidth = static_cast<int>(image.width * scale);
+    int newHeight = static_cast<int>(image.height * scale);
+    ImageResize(&image, newWidth, newHeight);
+    texture = LoadTextureFromImage(image);
+    UnloadImage(image);
+}
+
