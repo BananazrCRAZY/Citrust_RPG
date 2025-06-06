@@ -10,30 +10,21 @@ Important/Interesting:
 * C++
 * VSCode
 * Github
-* qt GUI
+* Raylib and RayGUI
 
 ## Input/Output of Project:
-* Keyboard input, terminal output
-* Optional: User .txt file input for character files, and option to output their character information to a .txt file as well
-
-#### Example of `.txt` file format (will be updated as we progress):
-```
-user_name: Annie
-lv: 18
-class: mage
-cals: 19000
-m_hp: 126
-hp: 350
-progress: 12
-```
+* Keyboard and mouse input, GUI output.
+* User .txt file input for character files, and option to output their character information to a .txt file as well
 
 ## Features:
-* Option to save character and continue gameplay from where it is saved
-* Preset decisions and consequences that the player chooses
-* Turn based battle system
+* Turn based battle system featuring two types of damage
+* A variety of equippable and consumable items to be purchased
+* Unique boss items
+* An immersive story
 
 ## Navigation Diagram  
-<p align="center"><img src="https://github.com/user-attachments/assets/62b97016-9f46-4ad0-a2b8-6814a4da05d1" width = "700"</p>
+<p align="center"><img src="https://github.com/user-attachments/assets/12a2ceaf-acd8-4d76-871e-ca21b2bbf826" width = "700"</p>
+
 
 ---
 ## Screen Layouts
