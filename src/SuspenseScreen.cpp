@@ -2,7 +2,7 @@
 #include "include/GameScreen.hpp"
 #include "include/NameScreen.hpp"
 #include "include/SuspenseScreen.hpp"
-#include "include/TutorialScreen1.hpp"
+#include "include/TutorialScreen.hpp"
 #include <iostream>
 
 using namespace std;
@@ -29,7 +29,7 @@ SuspenseScreen::~SuspenseScreen() {
 
 void SuspenseScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     if (nextButton.isPressed(mousePos, mouseClicked)) {
-        manager.ChangeScreen(make_unique<TutorialScreen1>(manager, exitGame));
+        manager.ChangeScreen(make_unique<TutorialScreen>(manager, exitGame));
     }
 }
 

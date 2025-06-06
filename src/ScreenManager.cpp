@@ -8,6 +8,8 @@ ScreenManager::ScreenManager() {
 
 ScreenManager::~ScreenManager() {
     currentScreens.clear();
+    player = nullptr;
+    boss = nullptr;
 }
 
 // completely replace whatever was on the stack with new screen, clearing vector and pushes 1 IScreen

@@ -4,7 +4,7 @@
 
 class Popup {
 public:
-    Popup(float duration = 2.0f);
+    Popup(float duration = 3.0f);
 
     void Show(const std::string& message);
     void Update();

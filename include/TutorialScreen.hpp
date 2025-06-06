@@ -1,5 +1,5 @@
-#ifndef TUTORIALSCREEN9_HPP
-#define TUTORIALSCREEN9_HPP
+#ifndef TUTORIALSCREEN_HPP
+#define TUTORIALSCREEN_HPP
 
 #include "IScreen.hpp"
 #include "ScreenManager.hpp"
@@ -9,10 +9,10 @@
 
 using namespace std;
 
-class TutorialScreen9 : public IScreen {
+class TutorialScreen : public IScreen {
     public:
-        TutorialScreen9(ScreenManager& manager, bool& exitFlag);
-        ~TutorialScreen9() override;
+        TutorialScreen(ScreenManager& manager, bool& exitFlag);
+        ~TutorialScreen() override;
     
         void Update(const Vector2& mousePos, bool mouseClicked) override;
         void Draw() override;

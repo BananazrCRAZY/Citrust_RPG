@@ -36,6 +36,11 @@ public:
     std::shared_ptr<Popup> getPopup() const { return popup; }
     void ShowPopup(const std::string& msg); // convenience wrapper
 
+    void AddBossCount(int count) { bossCount += count; }
+    int GetBossCount() const { return bossCount; }
+
+    void AddTutorialCount(int count) { tutorialCount += count; }
+    int GetTutorialCount() const { return tutorialCount; }
 private:
     vector<unique_ptr<IScreen>> currentScreens;
     string playerName = "";
@@ -43,6 +48,8 @@ private:
     Player* player = nullptr;
     Boss* boss = nullptr;
     std::shared_ptr<Popup> popup;
+    int bossCount = 0;
+    int tutorialCount = 0;
 };
 
 #endif

@@ -3,6 +3,10 @@
 #include "include/Player.h"
 #include "include/button.hpp"
 #include "include/ScreenManager.hpp"
+#include "include/InterludeScreen.hpp"
+#include <iostream>
+
+using namespace std;
 
 // Player HP Textures
 static const char* playerHPTextures[] = {
@@ -47,6 +51,39 @@ AppleBossScreen::AppleBossScreen(ScreenManager& mgr, bool& exitFlag)
     , inventoryButton("Graphics/inventoryButton.png", {1270,550}, 0.25)
 {
     Image backgroundImage = LoadImage("Graphics/BossScreens/AppleBossScreen.png");
+    switch (manager.GetBossCount()) {
+        case 1:
+            backgroundImage = LoadImage("Graphics/BossScreens/PearBossScreen.png");
+            break;
+        case 2:
+            backgroundImage = LoadImage("Graphics/BossScreens/StrawberryBossScreen.png");
+            break;
+        case 3:
+            backgroundImage = LoadImage("Graphics/BossScreens/GrapeBossScreen.png");
+            break;
+        case 4:
+            backgroundImage = LoadImage("Graphics/BossScreens/DekoponBossScreen.png");
+            break;
+        case 5:
+            backgroundImage = LoadImage("Graphics/BossScreens/GreenMangoBossScreen.png");
+            break;
+        case 6:
+            backgroundImage = LoadImage("Graphics/BossScreens/RedMangoBossScreen.png");
+            break;
+        case 7:
+            backgroundImage = LoadImage("Graphics/BossScreens/PineappleBossScreen.png");
+            break;
+        case 8:
+            backgroundImage = LoadImage("Graphics/BossScreens/DurianBossScreen.png");
+            break;
+        case 9:
+            backgroundImage = LoadImage("Graphics/BossScreens/WatermelonBossScreen.png");
+            break;
+        // default:
+        //     cerr << "boss load background image error" << endl;
+        //     exit(1);
+    }
+    
     ImageResize(&backgroundImage, 1600, 900);
 
     // Converts image into texture
@@ -65,16 +102,29 @@ void AppleBossScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     Boss* boss = manager.getBoss();
 
     int index = 5 * player->getHp() / player->getMaxHp();
-    int indexBossHp = 5 * boss->getHp() / boss->getMaxHp();
+    if (index > 5) index = 5;
+    if (index < 0) index = 0;
     static int lastIndex = -1;
     if (index != lastIndex) {               // doesn't access array index out of bounds
         playerHPButton.SetTexture(playerHPTextures[index], 0.40f);
-        bossHPButton.SetTexture(bossHPTextures[indexBossHp], 0.50f);
         lastIndex = index;
     }
-    spCounterButton.SetTexture(spTextures[player->getRechargeCount()], 0.35f);
+    
+    int indexBossHp = 5 * boss->getHp() / boss->getMaxHp();
+    if (indexBossHp > 5) indexBossHp = 5;
+    if (indexBossHp < 0) indexBossHp = 0;
+    static int lastBossIndex = -1;
+    if (indexBossHp != lastBossIndex) {
+        bossHPButton.SetTexture(bossHPTextures[indexBossHp], 0.50f);
+        lastIndex = indexBossHp;
+    }
+    
+    int skillPts = player->getRechargeCount();
+    if (skillPts > 5) skillPts = 5;
+    if (skillPts < 0) skillPts = 0;
+    spCounterButton.SetTexture(spTextures[skillPts], 0.35f);
 
-    // Trigger popups
+    // player buttons
     if (attackButton.isPressed(mousePos, mouseClicked)) {
         manager.setInput(0);
     }
