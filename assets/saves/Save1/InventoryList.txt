@@ -1,0 +1,4 @@
+unequipped
+assets/bossItems/AppleCore.txt
+assets/bossItems/PearStem.txt
+assets/bossItems/StrawberrySeed.txt
