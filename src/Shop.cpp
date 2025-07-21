@@ -13,8 +13,8 @@ using std::cerr;
 using std::endl;
 using std::string;
 
-Shop::Shop(const string& pathToItemsList) : itemsFile(pathToItemsList), itemsInShop(0) {
-  ifstream iFile(itemsFile);
+Shop::Shop(const string& file) : shopFile(file), itemsInShop(0) {
+  ifstream iFile(shopFile);
   if(!iFile.good()) {
     cerr << "Error with the Shop file stream" << endl;
     exit(1);
@@ -81,6 +81,25 @@ void Shop::saveShop() {
   for (int i = 0; i < allItems.size(); i++) {
     oFile << allItems.at(i)->getFilePath() << '\n';
   }
+  oFile.close();
+}
+
+void Shop::resetShopSave() {
+  ifstream iFile(itemsFile);
+  if (!iFile.good()) {
+    cerr << "Error: opening original items list, resetShopSave" << std::endl;
+    exit(1);
+  }
+  ofstream oFile(shopFile);
+  if (!oFile.good()) {
+    cerr << "Error: opening shop file, resetShopSave" << std::endl;
+    exit(1);
+  }
+
+  string output = "";
+  while(iFile >> output) oFile << output;
+
+  iFile.close();
   oFile.close();
 }
 

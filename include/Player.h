@@ -28,4 +28,5 @@ class Player : public Fruit {
         Item* getInventoryItem(int i) const { return items.at(i); }
         void newItem(Item* item) { items.push_back(item); }
         void endOfBattle();
+        void resetPlayerSave();
 };

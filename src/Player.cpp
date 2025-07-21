@@ -124,6 +124,34 @@ void Player::savePlayer() {
     oFile.close();
 }
 
+void Player::resetPlayerSave() {
+    std::ofstream oFile(fileName, std::ios::trunc);
+    if (!oFile.good()) {
+        cerr << "Error with reseting player file ostream" << std::endl;
+        exit(1);
+    }
+
+    oFile << "null name" << '\n';
+    oFile << 1 << '\n';
+    oFile << 200 << '\n';
+    oFile << 200 << '\n';
+    oFile << 150 << '\n';
+    oFile << 75 << '\n';
+    oFile << 100 << '\n';
+    oFile << 10 << '\n';
+    oFile << 10 << '\n';
+    oFile << 50 << '\n';
+    oFile.close();
+
+    oFile.open(inventoryList, std::ios::trunc);
+    if (!oFile.good()) {
+        cerr << "Error with reset Inventory list file ostream" << std::endl;
+        exit(1);
+    }
+    oFile << "unequipped\n";
+    oFile.close();
+}
+
 void Player::unequipItem(unsigned index) {
     if (index > (battleItems.size()-1)) {
         cerr << "Error removeItem index problem" << std::endl;

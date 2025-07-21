@@ -6,7 +6,7 @@ class Stat {
     int total;
 
     public:
-        Stat(int initialBase) : base(initialBase), total(initialBase) {}
+        Stat(int initialBase) : base(initialBase), additional(0), total(initialBase) {}
         void add(int change) {
             additional += change;
             total += change;

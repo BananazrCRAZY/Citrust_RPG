@@ -100,8 +100,12 @@ AppleBossScreen::~AppleBossScreen() {
 void AppleBossScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     Player* player = manager.getPlayer();  // Access persistent player object
     Boss* boss = manager.getBoss();
+    if (boss == nullptr) exit(1);
 
-    int index = 5 * player->getHp() / player->getMaxHp();
+    int index;
+    if (player->getMaxHp() == 0) index = 0;
+    else index = 5 * player->getHp() / player->getMaxHp();
+
     if (index > 5) index = 5;
     if (index < 0) index = 0;
     static int lastIndex = -1;
@@ -110,13 +114,16 @@ void AppleBossScreen::Update(const Vector2& mousePos, bool mouseClicked) {
         lastIndex = index;
     }
     
-    int indexBossHp = 5 * boss->getHp() / boss->getMaxHp();
+    int indexBossHp;
+    if (boss->getMaxHp() == 0) indexBossHp = 0;
+    else indexBossHp = 5 * boss->getHp() / boss->getMaxHp();
+
     if (indexBossHp > 5) indexBossHp = 5;
     if (indexBossHp < 0) indexBossHp = 0;
     static int lastBossIndex = -1;
     if (indexBossHp != lastBossIndex) {
         bossHPButton.SetTexture(bossHPTextures[indexBossHp], 0.50f);
-        lastIndex = indexBossHp;
+        lastBossIndex = indexBossHp;
     }
     
     int skillPts = player->getRechargeCount();

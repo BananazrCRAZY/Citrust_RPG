@@ -35,6 +35,8 @@ class Game {
     string checkBuyItem(int);
     void resetGame();
     void uiDraw();
+    void resetSave();
+    bool isNewSave(string);
 
     public:
         Game();

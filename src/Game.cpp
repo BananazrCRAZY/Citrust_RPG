@@ -72,6 +72,10 @@ void Game::runGame() {
         // screenManager.Update(mousePosition, mousePressed);
 
         if (!gotFile) {
+            // 1: new game -> loads save 1
+            // 2: loads save 1
+            // 3: loads save 2
+            // 4: loads save 3
             if (screenManager.getInput() == 1 || screenManager.getInput() == 2 || screenManager.getInput() == 3 || screenManager.getInput() == 4) {
                 startGame(screenManager.getInput());
                 gotFile = true;
@@ -96,9 +100,20 @@ void Game::runGame() {
         }
         if (gameLoopReady || savePoint > 0) {
             winGame = gameLoop();
-            // if (winGame < 0) loadLose();
-            // else loadEndOfGame();
-            exitGame = true;
+            switch (winGame) {
+                case -1:
+                    return;
+                    break;
+                case 0:
+                    return;
+                    break;
+                case 1:
+                    return;
+                    break;
+                default:
+                    cerr << "Error: winGame contains unknown value" << endl;
+                    exit(1);
+            } 
         }
         uiDraw();
 
@@ -131,11 +146,31 @@ void Game::openFile(string file) {
     shop = new Shop(shopFile);
 }
 
+bool Game::isNewSave(string file) {
+    ifstream iFile(file);
+    if (!iFile.good()) {
+        cerr << "Error: opening file isNewSave()";
+        exit(1);
+    }
+    iFile >> savePoint;
+    return savePoint == 0;
+}
+
 void Game::startGame(int input) {
     switch (input) {
         case 1:
+            if (isNewSave("assets/saves/Save1/Game.txt")) {
+                openFile("assets/saves/Save1/Game.txt");
+                break;
+            } else if (isNewSave("assets/saves/Save2/Game.txt")) {
+                openFile("assets/saves/Save2/Game.txt");
+                break;
+            } else if (isNewSave("assets/saves/Save3/Game.txt")) {
+                openFile("assets/saves/Save3/Game.txt");
+                break;
+            }
         case 2:
-            // new game
+            // if there is no new game
             // load save 1
             openFile("assets/saves/Save1/Game.txt");
             break;
@@ -148,20 +183,19 @@ void Game::startGame(int input) {
             openFile("assets/saves/Save3/Game.txt");
             break;
         default:
-            cerr << "Game start input error" << endl;
+            cerr << "Error: startGame() input unknown" << endl;
             exit(1);
     }
 }
 
 int Game::gameLoop() {
+    Boss* boss = nullptr;
     while (savePoint < 10 && !exitGame) {
         // need ui to show screen based on savePoint (dialogue)
-        Boss* boss;
         switch (savePoint) {
             case 0:
-                screenManager.ChangeScreen(make_unique<PrologueScreen1>(screenManager, exitGame));
-                while (screenManager.getInput() != 5) uiDraw();
                 boss = new Apple("assets/bosses/Apple.txt", "assets/bossItems/AppleCore.txt", -1);
+                screenManager.ChangeScreen(make_unique<PrologueScreen1>(screenManager, exitGame));
                 break;
             case 1:
                 boss = new Pear("assets/bosses/Pear.txt", "assets/bossItems/PearStem.txt", -1);
@@ -207,7 +241,6 @@ int Game::gameLoop() {
             if (battleResult != -1) {
                 delete boss;
                 boss = new MangoRed("assets/bosses/MangoRed.txt", "assets/bossItems/DriedMango.txt", -1);
-                screenManager.setBoss(boss);
                 screenManager.AddBossCount(1);
                 screenManager.ChangeScreen(make_unique<AppleBossScreen>(screenManager, exitGame));
                 uiDraw();
@@ -233,6 +266,7 @@ int Game::gameLoop() {
         saveGame();
         if (savePoint == 10) return 1;
     }
+    return 0;
 }
 
 void Game::loadInterlude() {
@@ -395,7 +429,7 @@ void Game::enemyTurn(Boss* boss) {
 void Game::saveGame() {
     std::ofstream oFile(gameFile);
     if (!oFile.good()) {
-        cerr << "Error with file ostream" << endl;
+        cerr << "Error with file ostream saveGame" << endl;
         exit(1);
     }
 
@@ -407,6 +441,22 @@ void Game::saveGame() {
 
     shop->saveShop();
     player->savePlayer();
+}
+
+void Game::resetSave() {
+    std::ofstream oFile(gameFile);
+    if (!oFile.good()) {
+        cerr << "Error with file ostream reset game save" << endl;
+        exit(1);
+    }
+
+    oFile << "0\n0\n";
+    oFile << playerFile << '\n';
+    oFile << playerItemsFile << '\n';
+    oFile << shopFile << '\n';
+
+    shop->resetShopSave();
+    player->resetPlayerSave();
 }
 
 string Game::checkBuyItem(int index) {

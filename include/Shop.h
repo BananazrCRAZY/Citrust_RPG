@@ -13,7 +13,8 @@ class Shop {
   
   const unsigned MAX_NUM_ITEMS_IN_SHOP = 6;
   unsigned itemsInShop;
-  string itemsFile;
+  string shopFile;
+  string itemsFile = "assets/lists/ItemList.txt";
   vector<Item*> allItems;
   vector<Item*> itemsForSale;
 
@@ -24,6 +25,7 @@ class Shop {
   void resetShop();
   void saveShop();
   int getItemPrice(unsigned index);
+  void resetShopSave();
 
  private:
   void populateShop();

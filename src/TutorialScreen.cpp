@@ -68,7 +68,6 @@ TutorialScreen::~TutorialScreen() {
 void TutorialScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     if (IsKeyPressed(KEY_SPACE)) {
         if (manager.GetTutorialCount() == 12) {
-            manager.setInput(5);
             manager.ChangeScreen(make_unique<AppleBossScreen>(manager, exitGame));
         } else {
             manager.AddTutorialCount(1);
