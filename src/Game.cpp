@@ -378,13 +378,19 @@ int Game::battleLoop(Boss* boss) {
 }
 
 void Game::playerTurn(Boss* boss) {
-    while (screenManager.getInput() == -1) uiDraw();
     string print;
+    redoTurn:
+    while (screenManager.getInput() == -1) uiDraw();
     switch (screenManager.getInput()) {
         case 0:
             print = player->basicAttack(boss);
             break;
         case 1:
+            if (player->getRechargeCount() <= 0) {
+                screenManager.setInput(-1);
+                screenManager.ShowPopup("Not Enough Skill Points");
+                goto redoTurn;
+            }
             print = player->specialAttack(boss);
             break;
         case 2:
