@@ -102,18 +102,16 @@ void Game::runGame() {
             winGame = gameLoop();
             switch (winGame) {
                 case -1:
-                    return;
                     break;
                 case 0:
-                    return;
                     break;
                 case 1:
-                    return;
                     break;
                 default:
                     cerr << "Error: winGame contains unknown value" << endl;
                     exit(1);
-            } 
+            }
+            exitGame = true;
         }
         uiDraw();
 
