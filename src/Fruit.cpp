@@ -60,7 +60,7 @@ Fruit::~Fruit() {
 }
 
 void Fruit::clearEffectsVector() {
-    for (int i = 0; i < effects.size(); i++) {
+    for (unsigned i = 0; i < effects.size(); i++) {
         if (effects.at(i)->isDeleteThisStatus()) delete effects.at(i);
     }
 }
@@ -136,7 +136,7 @@ void Fruit::addEffect(Status* effect) {
 
 // goes through effects and add to recharge, does not check dead
 void Fruit::endOfTurn() {
-    for (int i = 0; i < effects.size(); i++) {
+    for (unsigned i = 0; i < effects.size(); i++) {
         if (effects.at(i)->getTurns() == 0) {
             removeStats(effects.at(i));
             if (effects.at(i)->isDeleteThisStatus()) delete effects.at(i);

@@ -64,6 +64,7 @@ void Game::runGame() {
 
     // Game Loop: keep running while window isn't closed and exitGame bool isn't flagged
     while ((WindowShouldClose() == false) && (exitGame == false)) {
+        uiDraw();
 
         // // Notes current mouse position and if mouse is pressed
         // Vector2 mousePosition = GetMousePosition();
@@ -102,21 +103,17 @@ void Game::runGame() {
             winGame = gameLoop();
             switch (winGame) {
                 case -1:
-                    return;
                     break;
                 case 0:
-                    return;
                     break;
                 case 1:
-                    return;
                     break;
                 default:
                     cerr << "Error: winGame contains unknown value" << endl;
                     exit(1);
-            } 
+            }
+            exitGame = true;
         }
-        uiDraw();
-
     }
     resetGame();
     CloseWindow();
@@ -190,7 +187,7 @@ void Game::startGame(int input) {
 
 int Game::gameLoop() {
     Boss* boss = nullptr;
-    while (savePoint < 10 && !exitGame) {
+    while (!exitGame) {
         // need ui to show screen based on savePoint (dialogue)
         switch (savePoint) {
             case 0:
@@ -215,6 +212,7 @@ int Game::gameLoop() {
                 break;
             case 5:
                 boss = new MangoGreen("assets/bosses/MangoGreen.txt", "assets/bossItems/DriedMango.txt", -1);
+                delete boss->getItem();
                 screenManager.ChangeScreen(make_unique<AppleBossScreen>(screenManager, exitGame));
                 break;
             case 7:
@@ -239,32 +237,44 @@ int Game::gameLoop() {
         int battleResult = battleLoop(boss);
         if (savePoint == 5) {
             if (battleResult != -1) {
+                // if player used special attack to defeat phase 1
+                if (screenManager.getInput() == 1) player->setRechargeCount(1);
                 delete boss;
+                savePoint++;
                 boss = new MangoRed("assets/bosses/MangoRed.txt", "assets/bossItems/DriedMango.txt", -1);
+                screenManager.setBoss(boss);
                 screenManager.AddBossCount(1);
                 screenManager.ChangeScreen(make_unique<AppleBossScreen>(screenManager, exitGame));
                 uiDraw();
-                battleResult += battleLoop(boss);
-                savePoint++;
+                int battleResult2 = battleLoop(boss);
+                if (battleResult2 == -1) goto lose;
+                battleResult += battleResult2;
             }
+        }
+        if (battleResult == -1) {
+            lose:
+            if (savePoint != 5) delete boss->getItem();
+            delete boss;
+            boss = nullptr;
+            return -1;
         }
         player->newItem(boss->getItem());
         screenManager.ChangeScreen(make_unique<InterludeScreen>(screenManager, exitGame));
         uiDraw();
         delete boss;
         boss = nullptr;
-        if (battleResult == -1) return -1;
         int addCalories = player->getLevel() * 400 / battleResult;
         if (addCalories < 75) addCalories = 75;
         calories += addCalories;
         player->endOfBattle();
         screenManager.AddBossCount(1);
 
-        // figure out how to display all objects in shop
+        // end of game
+        if (savePoint == 9) return 1;
+
         loadInterlude();
         savePoint++;
         saveGame();
-        if (savePoint == 10) return 1;
     }
     return 0;
 }
@@ -351,9 +361,9 @@ int Game::battleLoop(Boss* boss) {
     while (battleCycle < 100) {
         screenManager.setInput(-1);
         while (player->getTurn() > 0) {
+            uiDraw();
             usleep(1500000);
             playerTurn(boss);
-            uiDraw();
             if (player->isDead()) return -1;
             if (boss->isDead()) return battleCycle;
             player->endOfTurn();
@@ -361,9 +371,9 @@ int Game::battleLoop(Boss* boss) {
             uiDraw();
         }
         while (boss->getTurn() > 0) {
+            uiDraw();
             usleep(1500000);
             enemyTurn(boss);
-            uiDraw();
             if (player->isDead()) return -1;
             if (boss->isDead()) return battleCycle;
             boss->endOfTurn();
@@ -378,13 +388,19 @@ int Game::battleLoop(Boss* boss) {
 }
 
 void Game::playerTurn(Boss* boss) {
-    while (screenManager.getInput() == -1) uiDraw();
     string print;
+    redoTurn:
+    while (screenManager.getInput() == -1) uiDraw();
     switch (screenManager.getInput()) {
         case 0:
             print = player->basicAttack(boss);
             break;
         case 1:
+            if (player->getRechargeCount() <= 0) {
+                screenManager.setInput(-1);
+                screenManager.ShowPopup("Not Enough Skill Points");
+                goto redoTurn;
+            }
             print = player->specialAttack(boss);
             break;
         case 2:

@@ -2,4 +2,11 @@ unequipped
 assets/bossItems/AppleCore.txt
 assets/bossItems/PearStem.txt
 assets/bossItems/StrawberrySeed.txt
-assets/bossItems/AppleCore.txt
+assets/bossItems/Grapevine.txt
+assets/bossItems/Grapevine.txt
+assets/bossItems/Dekopeel.txt
+assets/bossItems/DriedMango.txt
+assets/bossItems/DriedMango.txt
+assets/bossItems/PineappleCrown.txt
+assets/bossItems/DurianThorn.txt
+assets/bossItems/DurianThorn.txt

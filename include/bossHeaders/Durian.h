@@ -1,15 +1,18 @@
 #pragma once
 #include "include/Boss.h"
+#include "include/Status.h"
+#include <string>
 
+using std::string;
 using std::to_string;
 
 class Durian : public Boss {
-    Status* effectGive = new Status("assets/status/DoTPercent.txt");
+    string effectFile = "assets/status/DoTPercent.txt";
     int damageTaken = 0;
 
     public:
         Durian(const string& main, const string& item, int required) : Boss(main, item, required) {}
-        ~Durian() { delete effectGive; }
+
         string specialAttack(Fruit* target) {
             int damage = attack->getTotal() * 3;
             if (checkIfCrit()) damage = damage * (critDmg->getTotal()/100 + 1);
@@ -24,7 +27,7 @@ class Durian : public Boss {
             // really simplistic calculation that doesn't take into account if boss hp/max changes
             int change = maxHp->getBase() - hp - damageTaken;
             damageTaken = maxHp->getBase() - hp;
-            if (change <= 0) return "";
+            if (change <= 0) return name + ": Waiting for a chance to counter.";
             attack->add(static_cast<int>(change * .1));
             return name + ": Getting angry.";
         }
@@ -32,7 +35,7 @@ class Durian : public Boss {
         string basicAttack(Fruit* target) override {
             string returnStr = Fruit::basicAttack(target) + '\n';
 
-            target->addEffect(effectGive);
+            target->addEffect(new Status(effectFile));
             return returnStr + target->getName() + ": Inflicted with DoT by " + name + ".";
         }
 };

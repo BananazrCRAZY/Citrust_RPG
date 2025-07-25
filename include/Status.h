@@ -24,7 +24,6 @@ class Status {
 
  public:
   Status(string);
-  ~Status() = default;
 
   void decreaseTurn();
   void resetStatusTurns();

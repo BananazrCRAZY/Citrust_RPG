@@ -1,24 +1,26 @@
 #pragma once
 #include "include/Boss.h"
 #include "include/Status.h"
+#include <string>
 #include <vector>
 
 using std::vector;
+using std::string;
 using std::to_string;
 
 class Grape : public Boss {
-    vector<Status*> effects = {
-        new Status("assets/status/GrapeStatus/DecreaseArts.txt"),
-        new Status("assets/status/GrapeStatus/DecreaseAttack.txt"),
-        new Status("assets/status/GrapeStatus/DecreaseCritDmg.txt"),
-        new Status("assets/status/GrapeStatus/DecreaseCritRate.txt"),
-        new Status("assets/status/GrapeStatus/DecreaseDefense.txt"),
-        new Status("assets/status/GrapeStatus/DecreaseRes.txt")
+    string effects[6] = {
+        "assets/status/GrapeStatus/DecreaseArts.txt",
+        "assets/status/GrapeStatus/DecreaseAttack.txt",
+        "assets/status/GrapeStatus/DecreaseCritDmg.txt",
+        "assets/status/GrapeStatus/DecreaseCritRate.txt",
+        "assets/status/GrapeStatus/DecreaseDefense.txt",
+        "assets/status/GrapeStatus/DecreaseRes.txt"
     };
 
     public:
         Grape(const string& main, const string& item, int required) : Boss(main, item, required) {}
-        ~Grape() { for (unsigned i = 0; i < effects.size(); i++) delete effects.at(i); }
+
         string specialAttack(Fruit* target) {
             rechargeCount -= 2;
             string returnStatement = "";
@@ -27,8 +29,8 @@ class Grape : public Boss {
                 target->setHp(-1 * damage);
                 returnStatement += (name + ": Attack " + to_string(i) + " did " + to_string(damage) + " damage.\n");
                 if ((rand() % 5) > 2) {
-                    int effectIndex = rand() % effects.size();
-                    target->addEffect(effects.at(effectIndex));
+                    int effectIndex = rand() % 6;
+                    target->addEffect(new Status(effects[effectIndex]));
                     returnStatement += (name + ": Gave " + target->getName() + " a random effect.\n");
                 }
             }
