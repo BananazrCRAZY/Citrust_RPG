@@ -6,3 +6,4 @@ Contains colors the naked eye is unable to see. However, holding it gives the ey
 50
 assets/status/ArtsUpB.txt
 0
+Graphics\Items\colorPalette.png

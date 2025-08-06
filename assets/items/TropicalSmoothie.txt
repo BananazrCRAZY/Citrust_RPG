@@ -6,3 +6,4 @@ Refreshing and berry-flavored, one sip relaxes your entire body and takes you to
 30
 assets/status/BerryBlast.txt
 1
+Graphics\Items\tropicalSmoothie.png

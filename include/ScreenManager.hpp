@@ -6,6 +6,7 @@
 #include "IScreen.hpp"
 #include "Player.h"
 #include "Boss.h"
+#include "Item.h"
 #include "Popup.hpp"
 #include <string>
 
@@ -29,9 +30,11 @@ public:
     void setInput(int buttonInput) { input = buttonInput; }
     int getInput() const { return input; }
     void setPlayer(Player* p) { player = p;}
-    Player* getPlayer() { return player; }
+    Player* getPlayer() const { return player; }
     void setBoss(Boss* b) { boss = b;}
-    Boss* getBoss() { return boss; }
+    Boss* getBoss() const { return boss; }
+    void setShopItems(Item** arr) { shopItems = arr; }
+    Item* getShopItem(unsigned i) const { return shopItems[i]; }
 
     std::shared_ptr<Popup> getPopup() const { return popup; }
     void ShowPopup(const std::string& msg); // convenience wrapper
@@ -50,6 +53,7 @@ private:
     std::shared_ptr<Popup> popup;
     int bossCount = 0;
     int tutorialCount = 0;
+    Item** shopItems = nullptr;
 };
 
 #endif

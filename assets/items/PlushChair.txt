@@ -6,3 +6,4 @@ A place for you to sit down when you're vulnurable after a long day of work.
 30
 assets/status/Comfort.txt
 0
+Graphics\Items\plushChair.png

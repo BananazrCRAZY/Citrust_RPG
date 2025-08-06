@@ -6,3 +6,4 @@ Used to cast spells forgotten to time. Only a select few have succesfully been a
 15
 assets/status/ArtsUpY.txt
 0
+Graphics\Items\glintstoneStaff.png

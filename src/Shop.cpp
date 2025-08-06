@@ -13,7 +13,7 @@ using std::cerr;
 using std::endl;
 using std::string;
 
-Shop::Shop(const string& file) : shopFile(file), itemsInShop(0) {
+Shop::Shop(const string& file) : itemsInShop(0), shopFile(file), itemsForSale(new Item*[MAX_NUM_ITEMS_IN_SHOP]) {
   ifstream iFile(shopFile);
   if(!iFile.good()) {
     cerr << "Error with the Shop file stream" << endl;
@@ -32,22 +32,22 @@ Shop::~Shop() {
 }
 
 string Shop::purchaseItem(Player* player, int itemIndex) {
-  if(itemIndex > (itemsForSale.size()-1) || itemIndex < 0) {
+  if (itemIndex > (MAX_NUM_ITEMS_IN_SHOP-1) || itemIndex < 0) {
     cerr << "Error: purchaseItem itemIndex is out of range" << endl;
     exit(1);
   }
-  player->newItem(itemsForSale.at(itemIndex));
-  string returnLine = "You bought " + itemsForSale.at(itemIndex)->getName() + "!";
-  itemsForSale.at(itemIndex) = nullptr;
+  player->newItem(itemsForSale[itemIndex]);
+  string returnLine = "You bought " + itemsForSale[itemIndex]->getName() + "!";
+  itemsForSale[itemIndex] = nullptr;
   return returnLine;
 }
 
 int Shop::getItemPrice(unsigned index) {
-  if (index > (itemsForSale.size()-1)) {
+  if (index > (MAX_NUM_ITEMS_IN_SHOP-1)) {
     cerr << "Error: getItemPrice itemIndex is out of range" << endl;
     exit(1);
   }
-  return itemsForSale.at(index)->getCost();
+  return itemsForSale[index]->getCost();
 }
 
 void Shop::populateShop() {
@@ -56,7 +56,7 @@ void Shop::populateShop() {
     int randomIndex = getRandomIndex(allItems.size());
     Item* selectedItem = allItems.at(randomIndex);  // Select a random item from allItems
     if (getRandomNumber(100) <= selectedItem->getAppearanceProbabiity()) {  // RNG to see if that selected item makes it in the shop
-      itemsForSale.push_back(selectedItem);
+      itemsForSale[itemsInShop] = allItems.at(randomIndex);
       allItems.erase(allItems.begin()+randomIndex);
       itemsInShop++;
     }
@@ -64,17 +64,16 @@ void Shop::populateShop() {
 }
 
 void Shop::resetShop() {
-  itemsForSale.clear();
-  itemsInShop = itemsForSale.size();  // Should be 0!
+  itemsInShop = 0;
   populateShop();
 }
 
 void Shop::saveShop() {
-  for (int i = 0; i < itemsInShop; i++) if (itemsForSale.at(i) != nullptr) allItems.push_back(itemsForSale.at(i));
+  for (unsigned i = 0; i < MAX_NUM_ITEMS_IN_SHOP; i++) if (itemsForSale[i] != nullptr) allItems.push_back(itemsForSale[i]);
 
-  ofstream oFile(itemsFile);
+  ofstream oFile(shopFile);
   if (!oFile.good()) {
-    cerr << "Couldn't open master item list file." << std::endl;
+    cerr << "Error: opening file, saveShop" << std::endl;
     exit(1);
   }
 
@@ -85,7 +84,7 @@ void Shop::saveShop() {
 }
 
 void Shop::resetShopSave() {
-  ifstream iFile(itemsFile);
+  ifstream iFile("assets/lists/ItemList.txt");
   if (!iFile.good()) {
     cerr << "Error: opening original items list, resetShopSave" << std::endl;
     exit(1);

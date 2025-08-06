@@ -6,3 +6,4 @@ A tempting purchase on a hot day.
 50
 assets/status/Chill.txt
 0
+Graphics\Items\coolingFan.png

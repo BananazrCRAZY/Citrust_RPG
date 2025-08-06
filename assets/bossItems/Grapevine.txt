@@ -6,3 +6,4 @@ The vine of a cluster of grapes you recently defeated.
 0
 assets/status/Grapevine.txt
 1
+Graphics\Items\grapevine.png

@@ -254,13 +254,17 @@ int Game::gameLoop() {
         if (battleResult == -1) {
             lose:
             if (savePoint != 5) delete boss->getItem();
+
+            // load lose screen here
+
             delete boss;
             boss = nullptr;
             return -1;
         }
         player->newItem(boss->getItem());
-        screenManager.ChangeScreen(make_unique<InterludeScreen>(screenManager, exitGame));
-        uiDraw();
+
+        // load win screen here
+
         delete boss;
         boss = nullptr;
         int addCalories = player->getLevel() * 400 / battleResult;
@@ -281,6 +285,8 @@ int Game::gameLoop() {
 
 void Game::loadInterlude() {
     shop->resetShop();
+    screenManager.setShopItems(shop->getItemsForSale());
+    screenManager.ChangeScreen(make_unique<InterludeScreen>(screenManager, exitGame));
     string printThis;
     while (1) {
         screenManager.setInput(-1);
