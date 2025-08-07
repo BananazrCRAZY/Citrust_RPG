@@ -1,14 +1,11 @@
-#include "include/Popup.hpp"
+#include "include/BuyItemPopup.hpp"
 #include <raylib.h>
 
-Popup::Popup(float duration)
-    : duration(duration), timer(0.0f), visible(false), message("") {}
-
-void Popup::Show(const std::string& msg) {
-    message = msg;
-    timer = 0.0f;
-    visible = true;
-}
+BuyItemPopup::BuyItemPopup(Vector2 popupPosition, Vector2 popupSize, Vector2 buttonPosition, float buttonScale, const char *imagePath, unsigned index, ScreenManager sm) : 
+    IndefinitePopup(popupPosition, popupSize, buttonPosition, buttonScale, imagePath),
+    itemIndex(index),
+    manager(sm)
+{}
 
 void Popup::Update() {
     if (!visible) return;
@@ -19,7 +16,7 @@ void Popup::Update() {
     }
 }
 
-void Popup::Draw() {
+void BuyItemPopup::Draw() {
     if (!visible) return;
 
     Rectangle box = { 800, 600, 400, 80 };

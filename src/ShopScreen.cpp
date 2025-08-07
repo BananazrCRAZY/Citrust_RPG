@@ -1,5 +1,5 @@
-#include "include/AppleBossScreen.hpp"
 #include "include/ShopScreen.hpp"
+#include "include/BuyItemPopup.hpp"
 #include <iostream>
 
 using namespace std;
@@ -33,6 +33,7 @@ ShopScreen::~ShopScreen() {
 void ShopScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     if (item1.isPressed(mousePos, mouseClicked)) {
         cout << "item1 pressed\n";
+       // add popup here
     }
     if (item2.isPressed(mousePos, mouseClicked)) {
         cout << "item2 pressed\n";

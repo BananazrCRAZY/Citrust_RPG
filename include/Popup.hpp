@@ -10,8 +10,6 @@ public:
     void Update();
     void Draw();
 
-    bool IsVisible() const;
-
 private:
     std::string message;
     float timer;
