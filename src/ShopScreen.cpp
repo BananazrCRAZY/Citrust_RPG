@@ -7,12 +7,12 @@ using namespace std;
 ShopScreen::ShopScreen(ScreenManager& mgr, bool& exitFlag)
     : manager(mgr)
     , exitGame(exitFlag)
-    , item1(manager.getShopItem(0)->getIcon().c_str(), {390,320}, 0.25)
-    , item2(manager.getShopItem(1)->getIcon().c_str(), {735,320}, 0.25)
-    , item3(manager.getShopItem(2)->getIcon().c_str(), {1080,320}, 0.25)
-    , item4(manager.getShopItem(3)->getIcon().c_str(), {390,550}, 0.25)
-    , item5(manager.getShopItem(4)->getIcon().c_str(), {735,550}, 0.25)
-    , item6(manager.getShopItem(5)->getIcon().c_str(), {1080,550}, 0.25)
+    , item1(manager.getShopItem(0)->getIcon().c_str(), {285,300}, 332, 195)
+    , item2(manager.getShopItem(1)->getIcon().c_str(), {635,300}, 332, 195)
+    , item3(manager.getShopItem(2)->getIcon().c_str(), {982,300}, 332, 195)
+    , item4(manager.getShopItem(3)->getIcon().c_str(), {285,520}, 332, 195)
+    , item5(manager.getShopItem(4)->getIcon().c_str(), {635,520}, 332, 195)
+    , item6(manager.getShopItem(5)->getIcon().c_str(), {982,520}, 332, 195)
     , backButton("Graphics/backButton.png", {50,750}, 0.8)
 {
     Image backgroundImage = LoadImage("Graphics/ShopScreen.png");
@@ -32,7 +32,22 @@ ShopScreen::~ShopScreen() {
 
 void ShopScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     if (item1.isPressed(mousePos, mouseClicked)) {
-        cout << "item1 pressed";
+        cout << "item1 pressed\n";
+    }
+    if (item2.isPressed(mousePos, mouseClicked)) {
+        cout << "item2 pressed\n";
+    }
+    if (item3.isPressed(mousePos, mouseClicked)) {
+        cout << "item3 pressed\n";
+    }
+    if (item4.isPressed(mousePos, mouseClicked)) {
+        cout << "item4 pressed\n";
+    }
+    if (item5.isPressed(mousePos, mouseClicked)) {
+        cout << "item5 pressed\n";
+    }
+    if (item6.isPressed(mousePos, mouseClicked)) {
+        cout << "item6 pressed\n";
     }
     
     if (backButton.isPressed(mousePos, mouseClicked)) {
