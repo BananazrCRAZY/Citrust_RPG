@@ -5,6 +5,7 @@
 #include "ScreenManager.hpp"
 #include "button.hpp"
 #include "SolidButton.hpp"
+#include "BuyItemPopup.hpp"
 #include <raylib.h>
 #include <memory>
 
@@ -29,6 +30,7 @@ class ShopScreen : public IScreen {
         SolidButton item6;
         Button backButton;
         Texture2D background;
+        BuyItemPopup menu;
 };
 
 #endif 

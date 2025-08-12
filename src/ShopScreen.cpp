@@ -1,5 +1,4 @@
 #include "include/ShopScreen.hpp"
-#include "include/BuyItemPopup.hpp"
 #include <iostream>
 
 using namespace std;
@@ -14,6 +13,7 @@ ShopScreen::ShopScreen(ScreenManager& mgr, bool& exitFlag)
     , item5(manager.getShopItem(4)->getIcon().c_str(), {635,520}, 332, 195)
     , item6(manager.getShopItem(5)->getIcon().c_str(), {982,520}, 332, 195)
     , backButton("Graphics/backButton.png", {50,750}, 0.8)
+    , menu({400, 100}, {800, 700}, {450, 600}, .8, "Graphics/backButton.png", 0, manager)
 {
     Image backgroundImage = LoadImage("Graphics/ShopScreen.png");
     ImageResize(&backgroundImage, 1600, 900);
@@ -31,36 +31,39 @@ ShopScreen::~ShopScreen() {
 }
 
 void ShopScreen::Update(const Vector2& mousePos, bool mouseClicked) {
-    if (item1.isPressed(mousePos, mouseClicked)) {
-        cout << "item1 pressed\n";
-       // add popup here
-    }
-    if (item2.isPressed(mousePos, mouseClicked)) {
-        cout << "item2 pressed\n";
-    }
-    if (item3.isPressed(mousePos, mouseClicked)) {
-        cout << "item3 pressed\n";
-    }
-    if (item4.isPressed(mousePos, mouseClicked)) {
-        cout << "item4 pressed\n";
-    }
-    if (item5.isPressed(mousePos, mouseClicked)) {
-        cout << "item5 pressed\n";
-    }
-    if (item6.isPressed(mousePos, mouseClicked)) {
-        cout << "item6 pressed\n";
-    }
-    
     if (backButton.isPressed(mousePos, mouseClicked)) {
         manager.PopScreen();
         //need to go back to same screen as before, the interlude
+    }
+
+    if (menu.isVisible()) {
+        menu.Update(mousePos, mouseClicked);
+        return;
+    }
+
+    if (item1.isPressed(mousePos, mouseClicked)) {
+        menu.showItem(0);
+    }
+    if (item2.isPressed(mousePos, mouseClicked)) {
+        menu.showItem(1);
+    }
+    if (item3.isPressed(mousePos, mouseClicked)) {
+        menu.showItem(2);
+    }
+    if (item4.isPressed(mousePos, mouseClicked)) {
+        menu.showItem(3);
+    }
+    if (item5.isPressed(mousePos, mouseClicked)) {
+        menu.showItem(4);
+    }
+    if (item6.isPressed(mousePos, mouseClicked)) {
+        menu.showItem(5);
     }
 }
 
 void ShopScreen::Draw() {
     DrawTexture(background, 0, 0, WHITE);
-
-    // need to draw items
+    // drawn in layers so menu needs to be bottom
     item1.Draw();
     item2.Draw();
     item3.Draw();
@@ -68,4 +71,5 @@ void ShopScreen::Draw() {
     item5.Draw();
     item6.Draw();
     backButton.Draw();
+    menu.Draw();
 }

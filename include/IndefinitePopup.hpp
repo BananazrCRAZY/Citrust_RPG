@@ -14,7 +14,6 @@ public:
     void Draw();
 
 protected:
-    string message;
     Vector2 position;
     Vector2 size;
     bool visible;
