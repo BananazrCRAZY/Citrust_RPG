@@ -482,6 +482,9 @@ void Game::resetSave() {
 }
 
 string Game::checkBuyItem(int index) {
-    if (shop->getItemPrice(index) > calories) return "You cannot buy this. You are missing " + std::to_string(shop->getItemPrice(0)-calories) + " calories.";
+    int cost = shop->getItemPrice(index);
+    if (cost == -1) return "You have already purchased this item.";
+    if (cost > calories) return "You cannot buy this. You are missing " + std::to_string(shop->getItemPrice(0)-calories) + " calories.";
+    calories -= cost;
     return shop->purchaseItem(player, index);
 }

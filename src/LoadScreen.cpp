@@ -9,12 +9,12 @@ using namespace std;
 LoadScreen::LoadScreen(ScreenManager& mgr, bool& exitFlag)
     : manager(mgr)
     , exitGame(exitFlag)
-    , saveButton1("Graphics/saveButton1.png", {650,300}, 0.8)
-    , saveButton2("Graphics/saveButton2.png", {650,435}, 0.8)
-    , saveButton3("Graphics/saveButton3.png", {650,576}, 0.8)
-    , backButton("Graphics/backButton.png", {1350,750}, 0.8)
+    , saveButton1("Graphics/Buttons/saveButton1.png", {650,300}, 0.8)
+    , saveButton2("Graphics/Buttons/saveButton2.png", {650,435}, 0.8)
+    , saveButton3("Graphics/Buttons/saveButton3.png", {650,576}, 0.8)
+    , backButton("Graphics/Buttons/backButton.png", {1350,750}, 0.8)
 {
-    Image backgroundImage = LoadImage("Graphics/LoadScreen.png");
+    Image backgroundImage = LoadImage("Graphics/GeneralScreens/LoadScreen.png");
     ImageResize(&backgroundImage, 1600, 900);
 
     // Converts image into texture

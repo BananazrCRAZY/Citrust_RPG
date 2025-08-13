@@ -46,9 +46,9 @@ AppleBossScreen::AppleBossScreen(ScreenManager& mgr, bool& exitFlag)
     , playerHPButton("Graphics/HPBars/player100HP.png", {600,765}, 0.4)
     , bossHPButton("Graphics/HPBars/boss100HP.png", {400,100}, 0.5)
     , spCounterButton("Graphics/SkillPoints/zeroSP.png", {850,705}, 0.35)
-    , skillButton("Graphics/skillButton.png", {1210,673}, 0.33)
-    , attackButton("Graphics/attackButton.png", {1068,710}, 0.31)
-    , inventoryButton("Graphics/inventoryButton.png", {1270,550}, 0.25)
+    , skillButton("Graphics/Buttons/skillButton.png", {1210,673}, 0.33)
+    , attackButton("Graphics/Buttons/attackButton.png", {1068,710}, 0.31)
+    , inventoryButton("Graphics/Buttons/inventoryButton.png", {1270,550}, 0.25)
 {
     Image backgroundImage = LoadImage("Graphics/BossScreens/AppleBossScreen.png");
     switch (manager.GetBossCount()) {

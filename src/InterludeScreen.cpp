@@ -10,12 +10,12 @@ using namespace std;
 InterludeScreen::InterludeScreen(ScreenManager& mgr, bool& exitFlag)
     : manager(mgr)
     , exitGame(exitFlag)
-    , shopButton("Graphics/shopButton.png", {600,350}, 0.7)
-    , inventoryButton("Graphics/circleInventoryButton.png", {850,350}, 0.7)
-    , bossButton("Graphics/bossButton.png", {725,480}, 0.7)
-    , quitButton("Graphics/quitButton.png", {30, 20}, 0.7)
+    , shopButton("Graphics/Buttons/shopButton.png", {600,350}, 0.7)
+    , inventoryButton("Graphics/Buttons/circleInventoryButton.png", {850,350}, 0.7)
+    , bossButton("Graphics/Buttons/bossButton.png", {725,480}, 0.7)
+    , quitButton("Graphics/Buttons/quitButton.png", {30, 20}, 0.7)
 {
-    Image backgroundImage = LoadImage("Graphics/InterludeScreen.png");
+    Image backgroundImage = LoadImage("Graphics/GeneralScreens/InterludeScreen.png");
     ImageResize(&backgroundImage, 1600, 900);
 
     // Converts image into texture

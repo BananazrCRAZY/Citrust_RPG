@@ -7,10 +7,10 @@
 
 using namespace std;
 
-PrologueScreen1::PrologueScreen1 (ScreenManager& mgr, bool& exitFlag) : manager(mgr), exitGame(exitFlag), nextButton("Graphics/nextButton.png",{1200,680}, 1.6)
+PrologueScreen1::PrologueScreen1 (ScreenManager& mgr, bool& exitFlag) : manager(mgr), exitGame(exitFlag), nextButton("Graphics/Buttons/nextButton.png",{1200,680}, 1.6)
 {
 
-    Image backgroundImage = LoadImage("Graphics/PrologueScreen1.png");
+    Image backgroundImage = LoadImage("Graphics/GeneralScreens/PrologueScreen1.png");
     ImageResize(&backgroundImage, 1600, 900);
 
     // Converts image into texture

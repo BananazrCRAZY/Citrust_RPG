@@ -10,6 +10,7 @@ using std::string;
 class BuyItemPopup : public IndefinitePopup {
     unsigned itemIndex;
     ScreenManager& manager;
+    Button buyButton;
 
     public:
         BuyItemPopup(Vector2 popupPosition, Vector2 popupSize, Vector2 buttonPosition, float buttonScale, const char *imagePath, 

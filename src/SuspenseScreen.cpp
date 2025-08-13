@@ -10,9 +10,9 @@ using namespace std;
 SuspenseScreen::SuspenseScreen(ScreenManager& mgr, bool& exitFlag)
     : manager(mgr)
     , exitGame(exitFlag)
-    , nextButton("Graphics/nextButton.png", {1200,680}, 1.6)
+    , nextButton("Graphics/Buttons/nextButton.png", {1200,680}, 1.6)
 {
-    Image backgroundImage = LoadImage("Graphics/SuspenseScreen.png");
+    Image backgroundImage = LoadImage("Graphics/GeneralScreens/SuspenseScreen.png");
     ImageResize(&backgroundImage, 1600, 900);
 
     // Converts image into texture

@@ -12,10 +12,10 @@ ShopScreen::ShopScreen(ScreenManager& mgr, bool& exitFlag)
     , item4(manager.getShopItem(3)->getIcon().c_str(), {285,520}, 332, 195)
     , item5(manager.getShopItem(4)->getIcon().c_str(), {635,520}, 332, 195)
     , item6(manager.getShopItem(5)->getIcon().c_str(), {982,520}, 332, 195)
-    , backButton("Graphics/backButton.png", {50,750}, 0.8)
-    , menu({400, 100}, {800, 700}, {450, 600}, .8, "Graphics/backButton.png", 0, manager)
+    , backButton("Graphics/Buttons/backButton.png", {50,750}, 0.8)
+    , menu({400, 100}, {800, 700}, {500, 600}, .7, "Graphics/Buttons/cancelButton.png", 0, manager)
 {
-    Image backgroundImage = LoadImage("Graphics/ShopScreen.png");
+    Image backgroundImage = LoadImage("Graphics/GeneralScreens/ShopScreen.png");
     ImageResize(&backgroundImage, 1600, 900);
 
     // Converts image into texture
@@ -38,6 +38,9 @@ void ShopScreen::Update(const Vector2& mousePos, bool mouseClicked) {
 
     if (menu.isVisible()) {
         menu.Update(mousePos, mouseClicked);
+        if (!menu.isVisible()) {
+            goto inputCheck;
+        }
         return;
     }
 
@@ -58,6 +61,39 @@ void ShopScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     }
     if (item6.isPressed(mousePos, mouseClicked)) {
         menu.showItem(5);
+    }
+    return;
+
+    inputCheck:
+    switch (manager.getInput()) {
+        case -1:
+            return;
+        case 1:
+            item1.setTexture("");
+            item1.disableButton();
+            break;
+        case 2:
+            item2.setTexture("");
+            item2.disableButton();
+            break;
+        case 3:
+            item3.setTexture("");
+            item3.disableButton();
+            break;
+        case 4:
+            item4.setTexture("");
+            item4.disableButton();
+            break;
+        case 5:
+            item5.setTexture("");
+            item5.disableButton();
+            break;
+        case 6:
+            item6.setTexture("");
+            item6.disableButton();
+            break;
+        default:
+            exit(1);
     }
 }
 

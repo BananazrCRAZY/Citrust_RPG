@@ -6,7 +6,34 @@ SolidButton::SolidButton (const char *imagePath, Vector2 buttonPosition, float b
     buttonWidth(buttonWidth),
     buttonHeight(buttonHeight)
     {
+        setTexture(imagePath);
+}
 
+// Destructor
+SolidButton::~SolidButton() {
+    UnloadTexture(texture);
+}
+
+// Creates button onto window
+void SolidButton::Draw() {
+    DrawTextureV(texture, imagePosition, WHITE);
+}
+
+// Checks whether button is pressed by mouse
+bool SolidButton::isPressed(Vector2 mousePos, bool mousePressed) {
+    if (!active) return false;
+
+    Rectangle buttonArea = {position.x, position.y, buttonWidth, buttonHeight};
+    
+    // if mouse is hovering over button area (rectangular shape) and is pressed
+    if (CheckCollisionPointRec(mousePos, buttonArea) && mousePressed){
+        return true;
+    }
+
+    return false;
+}
+
+void SolidButton::setTexture(const char* imagePath) {
     // Uses Image class first as it is resizeable to scale; Texture class is not
     Image image = LoadImage(imagePath);
 
@@ -37,25 +64,4 @@ SolidButton::SolidButton (const char *imagePath, Vector2 buttonPosition, float b
     imagePosition.y = imageY + position.y;
 }
 
-// Destructor
-SolidButton::~SolidButton() {
-    UnloadTexture(texture);
-}
-
-// Creates button onto window
-void SolidButton::Draw() {
-    DrawTextureV(texture, imagePosition, WHITE);
-}
-
-// Checks whether button is pressed by mouse
-bool SolidButton::isPressed(Vector2 mousePos, bool mousePressed) {
-
-    Rectangle buttonArea = {position.x, position.y, buttonWidth, buttonHeight};
-    
-    // if mouse is hovering over button area (rectangular shape) and is pressed
-    if (CheckCollisionPointRec(mousePos, buttonArea) && mousePressed){
-        return true;
-    }
-
-    return false;
-}
+void SolidButton::disableButton() { active = false; }

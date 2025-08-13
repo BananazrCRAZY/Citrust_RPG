@@ -12,9 +12,7 @@ IndefinitePopup::IndefinitePopup(Vector2 popupPosition, Vector2 popupSize, Vecto
 
 void IndefinitePopup::Update(const Vector2& mousePos, bool mouseClicked) {
     if (!visible) return;
-    if (cancelButton.isPressed(mousePos, mouseClicked)) {
-        visible = false;
-    }
+    if (cancelButton.isPressed(mousePos, mouseClicked)) visible = false;
 }
 
 void IndefinitePopup::Draw() {

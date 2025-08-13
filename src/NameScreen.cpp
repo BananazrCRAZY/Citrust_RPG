@@ -6,10 +6,10 @@
 
 using namespace std;
 
-NameScreen::NameScreen(ScreenManager& mgr, bool& exitFlag) : manager(mgr), exitGame(exitFlag), nextButton("Graphics/nextButton.png",{1200,680}, 1.6)
+NameScreen::NameScreen(ScreenManager& mgr, bool& exitFlag) : manager(mgr), exitGame(exitFlag), nextButton("Graphics/Buttons/nextButton.png",{1200,680}, 1.6)
 , inputText(""), textBox({1000, 270, 250, 60}), textBoxActive(false), letterCount(0) {
 
-    Image backgroundImage = LoadImage("Graphics/NameScreen.png");
+    Image backgroundImage = LoadImage("Graphics/GeneralScreens/NameScreen.png");
     ImageResize(&backgroundImage, 1600, 900);
 
     // Converts image into texture

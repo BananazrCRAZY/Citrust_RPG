@@ -20,7 +20,7 @@ class Shop {
  public:
   Shop(const string& pathToItemsList);
   ~Shop();
-  string purchaseItem(Player* player, int itemIndex);
+  string purchaseItem(Player* player, unsigned itemIndex);
   void resetShop();
   void saveShop();
   int getItemPrice(unsigned index);
