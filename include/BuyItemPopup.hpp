@@ -1,6 +1,7 @@
 #pragma once
 #include "ScreenManager.hpp"
 #include "include/button.hpp"
+#include "include/SolidButton.hpp"
 #include "include/IndefinitePopup.hpp"
 #include <string>
 #include <raylib.h>
@@ -11,6 +12,7 @@ class BuyItemPopup : public IndefinitePopup {
     unsigned itemIndex;
     ScreenManager& manager;
     Button buyButton;
+    SolidButton icon;
 
     public:
         BuyItemPopup(Vector2 popupPosition, Vector2 popupSize, Vector2 buttonPosition, float buttonScale, const char *imagePath, 

@@ -18,4 +18,5 @@ protected:
     Vector2 size;
     bool visible;
     Button cancelButton;
+    Rectangle box;
 };

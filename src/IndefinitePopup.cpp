@@ -7,7 +7,8 @@ IndefinitePopup::IndefinitePopup(Vector2 popupPosition, Vector2 popupSize, Vecto
     position(popupPosition),
     size(popupSize),
     visible(false),
-    cancelButton(imagePath, buttonPosition, buttonScale)
+    cancelButton(imagePath, buttonPosition, buttonScale),
+    box({position.x, position.y, size.x, size.y})
 {}
 
 void IndefinitePopup::Update(const Vector2& mousePos, bool mouseClicked) {
@@ -17,7 +18,6 @@ void IndefinitePopup::Update(const Vector2& mousePos, bool mouseClicked) {
 
 void IndefinitePopup::Draw() {
     if (!visible) return;
-    Rectangle box = { position.x, position.y, size.x, size.y };
     DrawRectangleRec(box, LIGHTGRAY);
     DrawRectangleLinesEx(box, 3, DARKGRAY);
     cancelButton.Draw();

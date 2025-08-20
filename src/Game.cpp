@@ -290,6 +290,7 @@ void Game::loadInterlude() {
     string printThis;
     while (1) {
         screenManager.setInput(-1);
+        screenManager.setCalories(calories);
         // load interlude screen here
         while(screenManager.getInput() == -1) uiDraw();
         switch (screenManager.getInput()) {

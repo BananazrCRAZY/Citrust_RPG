@@ -6,15 +6,28 @@ using namespace std;
 ShopScreen::ShopScreen(ScreenManager& mgr, bool& exitFlag)
     : manager(mgr)
     , exitGame(exitFlag)
-    , item1(manager.getShopItem(0)->getIcon().c_str(), {285,300}, 332, 195)
-    , item2(manager.getShopItem(1)->getIcon().c_str(), {635,300}, 332, 195)
-    , item3(manager.getShopItem(2)->getIcon().c_str(), {982,300}, 332, 195)
-    , item4(manager.getShopItem(3)->getIcon().c_str(), {285,520}, 332, 195)
-    , item5(manager.getShopItem(4)->getIcon().c_str(), {635,520}, 332, 195)
-    , item6(manager.getShopItem(5)->getIcon().c_str(), {982,520}, 332, 195)
+    , item1("", {285,300}, 332, 195)
+    , item2("", {635,300}, 332, 195)
+    , item3("", {982,300}, 332, 195)
+    , item4("", {285,520}, 332, 195)
+    , item5("", {635,520}, 332, 195)
+    , item6("", {982,520}, 332, 195)
     , backButton("Graphics/Buttons/backButton.png", {50,750}, 0.8)
     , menu({400, 100}, {800, 700}, {500, 600}, .7, "Graphics/Buttons/cancelButton.png", 0, manager)
 {
+    if (manager.getShopItem(0) != nullptr) item1.setTexture(manager.getShopItem(0)->getIcon().c_str());
+    else item1.disableButton();
+    if (manager.getShopItem(1) != nullptr) item2.setTexture(manager.getShopItem(1)->getIcon().c_str());
+    else item2.disableButton();
+    if (manager.getShopItem(2) != nullptr) item3.setTexture(manager.getShopItem(2)->getIcon().c_str());
+    else item3.disableButton();
+    if (manager.getShopItem(3) != nullptr) item4.setTexture(manager.getShopItem(3)->getIcon().c_str());
+    else item4.disableButton();
+    if (manager.getShopItem(4) != nullptr) item5.setTexture(manager.getShopItem(4)->getIcon().c_str());
+    else item5.disableButton();
+    if (manager.getShopItem(5) != nullptr) item6.setTexture(manager.getShopItem(5)->getIcon().c_str());
+    else item6.disableButton();
+
     Image backgroundImage = LoadImage("Graphics/GeneralScreens/ShopScreen.png");
     ImageResize(&backgroundImage, 1600, 900);
 
@@ -34,6 +47,7 @@ void ShopScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     if (backButton.isPressed(mousePos, mouseClicked)) {
         manager.PopScreen();
         //need to go back to same screen as before, the interlude
+        return;
     }
 
     if (menu.isVisible()) {
@@ -93,6 +107,7 @@ void ShopScreen::Update(const Vector2& mousePos, bool mouseClicked) {
             item6.disableButton();
             break;
         default:
+            cout << "exit shopscreen"; 
             exit(1);
     }
 }
@@ -108,4 +123,6 @@ void ShopScreen::Draw() {
     item6.Draw();
     backButton.Draw();
     menu.Draw();
+    string calCount = "Calories: " + to_string(manager.getCalories());
+    DrawText(calCount.c_str(), 1300, 100, 35, BLACK);
 }

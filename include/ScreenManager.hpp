@@ -35,6 +35,8 @@ public:
     Boss* getBoss() const { return boss; }
     void setShopItems(Item** arr) { shopItems = arr; }
     Item* getShopItem(unsigned i) const { return shopItems[i]; }
+    void setCalories(int cal) { calories = cal; }
+    int getCalories() const { return calories; }
 
     std::shared_ptr<Popup> getPopup() const { return popup; }
     void ShowPopup(const std::string& msg); // convenience wrapper
@@ -54,6 +56,7 @@ private:
     int bossCount = 0;
     int tutorialCount = 0;
     Item** shopItems = nullptr;
+    int calories = 0;
 };
 
 #endif
