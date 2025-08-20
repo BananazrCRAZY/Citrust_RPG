@@ -6,3 +6,4 @@ The crown of a pineapple you recently defeated.
 0
 assets/status/PineappleCrown.txt
 0
+Graphics\Items\pineappleCrown.png

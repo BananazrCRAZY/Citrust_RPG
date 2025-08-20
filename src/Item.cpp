@@ -22,14 +22,15 @@ Item::Item(const string& file) : filePath(file), cooldown(0) {
   string statusFile;
   iFile >> statusFile;
   if (!iFile.good()) {
-    cerr << "Error with item file format fstream" << std::endl;
+    cerr << "Error: Item file format fstream at status file" << std::endl;
     exit(1);
   }
   effect = new Status(statusFile);
-  // added last minute, probabily good idea of have consumable and non consumable items
+  
   iFile >> useOnPlayer;
+  iFile >> iconPath;
   if (!iFile.good()) {
-    cerr << "Error with item file format fstream" << std::endl;
+    cerr << "Error: Item file format fstream" << std::endl;
     exit(1);
   }
   iFile.close();

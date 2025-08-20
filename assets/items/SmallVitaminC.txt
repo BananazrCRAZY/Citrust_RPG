@@ -6,3 +6,4 @@ A bottle of Vitamin C tablets. Makes your immune system stronger.
 100
 assets/status/RestorationA.txt
 1
+Graphics\Items\smallVitaminC.png

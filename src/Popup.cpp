@@ -29,7 +29,3 @@ void Popup::Draw() {
     int textWidth = MeasureText(message.c_str(), 20);
     DrawText(message.c_str(), box.x + (box.width - textWidth)/2, box.y + 30, 20, BLACK);
 }
-
-bool Popup::IsVisible() const {
-    return visible;
-}

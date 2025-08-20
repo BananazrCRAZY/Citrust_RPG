@@ -4,6 +4,8 @@
 #include "IScreen.hpp"
 #include "ScreenManager.hpp"
 #include "button.hpp"
+#include "SolidButton.hpp"
+#include "BuyItemPopup.hpp"
 #include <raylib.h>
 #include <memory>
 
@@ -20,14 +22,15 @@ class ShopScreen : public IScreen {
     private:
         ScreenManager& manager;
         bool& exitGame;
-        Button item1;
-        Button item2;
-        Button item3;
-        Button item4;
-        Button item5;
-        Button item6;
+        SolidButton item1;
+        SolidButton item2;
+        SolidButton item3;
+        SolidButton item4;
+        SolidButton item5;
+        SolidButton item6;
         Button backButton;
         Texture2D background;
+        BuyItemPopup menu;
 };
 
 #endif 

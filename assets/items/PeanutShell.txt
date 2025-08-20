@@ -6,3 +6,4 @@ The shell of a peanut who passed away in battle eons ago.
 40
 assets/status/ProtectionB.txt
 0
+Graphics\Items\peanutShell.png

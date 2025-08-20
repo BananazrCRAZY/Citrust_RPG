@@ -6,3 +6,4 @@ Expensive matcha imports results in this heavenly drink.
 100
 assets/status/Matchalicious.txt
 0
+Graphics\Items\icedMatchaLatte.png

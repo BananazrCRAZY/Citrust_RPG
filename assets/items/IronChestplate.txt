@@ -6,3 +6,4 @@ A basic chestplate made of iron.
 100
 assets/status/ProtectionA.txt
 0
+Graphics\Items\ironChestplate.png

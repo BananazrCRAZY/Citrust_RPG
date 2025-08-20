@@ -254,13 +254,17 @@ int Game::gameLoop() {
         if (battleResult == -1) {
             lose:
             if (savePoint != 5) delete boss->getItem();
+
+            // load lose screen here
+
             delete boss;
             boss = nullptr;
             return -1;
         }
         player->newItem(boss->getItem());
-        screenManager.ChangeScreen(make_unique<InterludeScreen>(screenManager, exitGame));
-        uiDraw();
+
+        // load win screen here
+
         delete boss;
         boss = nullptr;
         int addCalories = player->getLevel() * 400 / battleResult;
@@ -281,9 +285,12 @@ int Game::gameLoop() {
 
 void Game::loadInterlude() {
     shop->resetShop();
+    screenManager.setShopItems(shop->getItemsForSale());
+    screenManager.ChangeScreen(make_unique<InterludeScreen>(screenManager, exitGame));
     string printThis;
     while (1) {
         screenManager.setInput(-1);
+        screenManager.setCalories(calories);
         // load interlude screen here
         while(screenManager.getInput() == -1) uiDraw();
         switch (screenManager.getInput()) {
@@ -476,6 +483,9 @@ void Game::resetSave() {
 }
 
 string Game::checkBuyItem(int index) {
-    if (shop->getItemPrice(index) > calories) return "You cannot buy this. You are missing " + std::to_string(shop->getItemPrice(0)-calories) + " calories.";
+    int cost = shop->getItemPrice(index);
+    if (cost == -1) return "You have already purchased this item.";
+    if (cost > calories) return "You cannot buy this. You are missing " + std::to_string(shop->getItemPrice(0)-calories) + " calories.";
+    calories -= cost;
     return shop->purchaseItem(player, index);
 }

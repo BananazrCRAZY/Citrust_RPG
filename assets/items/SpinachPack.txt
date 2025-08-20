@@ -6,3 +6,4 @@ Although bitter, eating it makes you feel stronger
 25
 assets/status/LeafyGreen.txt
 0
+Graphics\Items\spinachPack.png

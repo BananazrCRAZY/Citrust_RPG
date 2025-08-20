@@ -9,11 +9,11 @@ using namespace std;
 TitleScreen::TitleScreen(ScreenManager& mgr, bool& exitFlag)
     : manager(mgr)
     , exitGame(exitFlag)
-    , startButton("Graphics/newButton.png", {650,300}, 1)
-    , loadButton("Graphics/loadButton.png", {650,450}, 1)
-    , quitButton("Graphics/quitButton.png", {648,576}, 1)
+    , startButton("Graphics/Buttons/newButton.png", {650,300}, 1)
+    , loadButton("Graphics/Buttons/loadButton.png", {650,450}, 1)
+    , quitButton("Graphics/Buttons/quitButton.png", {648,576}, 1)
 {
-    Image backgroundImage = LoadImage("Graphics/titleScreen.png");
+    Image backgroundImage = LoadImage("Graphics/GeneralScreens/titleScreen.png");
     ImageResize(&backgroundImage, 1600, 900);
 
     // Converts image into texture

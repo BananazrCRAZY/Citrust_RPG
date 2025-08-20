@@ -6,3 +6,4 @@ Extremely fast rotating knives meant to be put in a blender. No one knows who to
 10
 assets/status/AttackUpY.txt
 0
+Graphics\Items\blenderKnives.png

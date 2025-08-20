@@ -10,6 +10,8 @@
 	},
 	"files.associations": {
 		"iostream": "cpp",
-		"new": "cpp"
+		"new": "cpp",
+		"ostream": "cpp",
+		"string": "cpp"
 	}
 }

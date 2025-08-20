@@ -6,3 +6,4 @@ A throwable hand grenade that explodes with orange juice and leaves a cloud of t
 10
 assets/status/Explorangsion.txt
 1
+Graphics\Items\zestGrenade.png

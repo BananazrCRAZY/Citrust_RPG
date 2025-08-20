@@ -6,15 +6,15 @@ using namespace std;
 EquipmentScreen::EquipmentScreen(ScreenManager& mgr, bool& exitFlag)
     : manager(mgr)
     , exitGame(exitFlag)
-    , item1("Graphics/saveButton1.png", {650,300}, 0.8)
-    , item2("Graphics/saveButton2.png", {650,435}, 0.8)
-    , item3("Graphics/saveButton3.png", {650,576}, 0.8)
-    , item4("Graphics/saveButton1.png", {650,300}, 0.8)
-    , item5("Graphics/saveButton2.png", {650,435}, 0.8)
-    , item6("Graphics/saveButton3.png", {650,576}, 0.8)
-    , backButton("Graphics/backButton.png", {50,750}, 0.8)
+    , item1("Graphics/Buttons/saveButton1.png", {650,300}, 0.8)
+    , item2("Graphics/Buttons/saveButton2.png", {650,435}, 0.8)
+    , item3("Graphics/Buttons/saveButton3.png", {650,576}, 0.8)
+    , item4("Graphics/Buttons/saveButton1.png", {650,300}, 0.8)
+    , item5("Graphics/Buttons/saveButton2.png", {650,435}, 0.8)
+    , item6("Graphics/Buttons/saveButton3.png", {650,576}, 0.8)
+    , backButton("Graphics/Buttons/backButton.png", {50,750}, 0.8)
 {
-    Image backgroundImage = LoadImage("Graphics/EquippingScreen.png");
+    Image backgroundImage = LoadImage("Graphics/GeneralScreens/EquippingScreen.png");
     ImageResize(&backgroundImage, 1600, 900);
 
     // Converts image into texture

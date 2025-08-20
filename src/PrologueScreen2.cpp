@@ -8,10 +8,10 @@
 
 using namespace std;
 
-PrologueScreen2::PrologueScreen2 (ScreenManager& mgr, bool& exitFlag) : manager(mgr), exitGame(exitFlag), nextButton("Graphics/nextButton.png",{1260,720}, 1.4)
+PrologueScreen2::PrologueScreen2 (ScreenManager& mgr, bool& exitFlag) : manager(mgr), exitGame(exitFlag), nextButton("Graphics/Buttons/nextButton.png",{1260,720}, 1.4)
 {
 
-    Image backgroundImage = LoadImage("Graphics/PrologueScreen2.png");
+    Image backgroundImage = LoadImage("Graphics/GeneralScreens/PrologueScreen2.png");
     ImageResize(&backgroundImage, 1600, 900);
 
     // Converts image into texture
