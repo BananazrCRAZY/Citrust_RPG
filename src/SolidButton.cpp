@@ -23,7 +23,7 @@ void SolidButton::Draw() {
 bool SolidButton::isPressed(Vector2 mousePos, bool mousePressed) {
     if (!active) return false;
 
-    Rectangle buttonArea = {position.x, position.y, buttonWidth, buttonHeight};
+    buttonArea = {position.x, position.y, buttonWidth, buttonHeight};
     
     // if mouse is hovering over button area (rectangular shape) and is pressed
     if (CheckCollisionPointRec(mousePos, buttonArea) && mousePressed){

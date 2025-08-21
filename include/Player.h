@@ -24,7 +24,9 @@ class Player : public Fruit {
         void unequipItem(unsigned);
         void equipItem(unsigned);
         void setName(const string& newName) { name = newName; }
+        unsigned getNumberBattleItems() const { return battleItems.size(); }
         Item* getBattleItem(int i) const { return battleItems.at(i); }
+        unsigned getNumberInventoryItems() const { return items.size(); }
         Item* getInventoryItem(int i) const { return items.at(i); }
         void newItem(Item* item) { items.push_back(item); }
         void endOfBattle();

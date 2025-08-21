@@ -7,9 +7,10 @@
 
 using namespace std;
 
-InterludeScreen::InterludeScreen(ScreenManager& mgr, bool& exitFlag)
+InterludeScreen::InterludeScreen(ScreenManager& mgr, bool& exitFlag, Player* p)
     : manager(mgr)
     , exitGame(exitFlag)
+    , player(p)
     , shopButton("Graphics/Buttons/shopButton.png", {600,350}, 0.7)
     , inventoryButton("Graphics/Buttons/circleInventoryButton.png", {850,350}, 0.7)
     , bossButton("Graphics/Buttons/bossButton.png", {725,480}, 0.7)
@@ -35,7 +36,7 @@ void InterludeScreen::Update(const Vector2& mousePos, bool mouseClicked) {
         manager.PushScreen(make_unique<ShopScreen>(manager, exitGame));
     }
     if (inventoryButton.isPressed(mousePos, mouseClicked)) {
-        manager.PushScreen(make_unique<EquipmentScreen>(manager, exitGame));
+        manager.PushScreen(make_unique<EquipmentScreen>(manager, exitGame, player));
     }
     if (bossButton.isPressed(mousePos, mouseClicked)) {
         manager.setInput(7);
