@@ -3,6 +3,7 @@
 
 #include "IScreen.hpp"
 #include "ScreenManager.hpp"
+#include "Player.h"
 #include "button.hpp"
 #include <raylib.h>
 #include <memory>
@@ -11,7 +12,7 @@ using namespace std;
 
 class InterludeScreen : public IScreen {
     public:
-        InterludeScreen(ScreenManager& manager, bool& exitFlag);
+        InterludeScreen(ScreenManager& manager, bool& exitFlag, Player* p);
         ~InterludeScreen() override;
     
         void Update(const Vector2& mousePos, bool mouseClicked) override;
@@ -20,6 +21,7 @@ class InterludeScreen : public IScreen {
     private:
         ScreenManager& manager;
         bool& exitGame;
+        Player* player;
         Button shopButton;
         Button inventoryButton;
         Button bossButton;

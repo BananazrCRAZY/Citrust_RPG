@@ -9,11 +9,12 @@ class SolidButton {
         bool isPressed(Vector2 mousePos, bool mousePressed);
         void setTexture(const char* imagePath);
         void disableButton();
-    private:
+    protected:
         Texture2D texture;
         Vector2 position;           // Vector2 data type representing vector w/ x & y components
-        unsigned buttonWidth;
-        unsigned buttonHeight;
+        float buttonWidth;
+        float buttonHeight;
         Vector2 imagePosition;
         bool active = true;
+        Rectangle buttonArea;
 };

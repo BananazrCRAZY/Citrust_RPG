@@ -6,17 +6,16 @@
 using std::string;
 
 class IndefinitePopup {
-public:
-    IndefinitePopup(Vector2 popupPosition, Vector2 popupSize, Vector2 buttonPosition, float buttonScale, const char *imagePath);
+    public:
+        IndefinitePopup(Vector2 popupPosition, Vector2 popupSize, Vector2 buttonPosition, float buttonScale, const char *imagePath);
+        void Update(const Vector2& mousePos, bool mouseClicked);
+        void Draw();
+        bool isVisible() const;
 
-    void Show(const string& message);
-    void Update(const Vector2& mousePos, bool mouseClicked);
-    void Draw();
-
-protected:
-    Vector2 position;
-    Vector2 size;
-    bool visible;
-    Button cancelButton;
-    Rectangle box;
+    protected:
+        Vector2 position;
+        Vector2 size;
+        bool visible;
+        Button cancelButton;
+        Rectangle box;
 };

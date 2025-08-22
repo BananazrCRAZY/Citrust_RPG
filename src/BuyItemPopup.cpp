@@ -51,14 +51,16 @@ void BuyItemPopup::Draw() {
     string costText = "Cost: " + to_string(manager.getShopItem(itemIndex)->getCost());
     int costTextWidth = MeasureText(costText.c_str(), 20);
     DrawText(costText.c_str(), box.x + (box.width - costTextWidth)/2, box.y + 435, 20, BLACK);
+
+    string consumableText;
+    if (manager.getShopItem(itemIndex)->isConsumableTrue()) consumableText = "CONSUMABLE";
+    else consumableText = "NON-CONSUMABLE";
+    int consumableTextWidth = MeasureText(consumableText.c_str(), 18);
+    DrawText(consumableText.c_str(), box.x + (box.width - consumableTextWidth)/2, box.y + 630, 18, BLACK);
 }
 
 void BuyItemPopup::showItem(unsigned index) {
     itemIndex = index;
     icon.setTexture(manager.getShopItem(itemIndex)->getIcon().c_str());
     visible = true;
-}
-
-bool BuyItemPopup::isVisible() const {
-    return visible;
 }
