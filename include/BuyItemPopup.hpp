@@ -20,5 +20,4 @@ class BuyItemPopup : public IndefinitePopup {
         void Update(const Vector2& mousePos, bool mouseClicked);
         void Draw();
         void showItem(unsigned);
-        bool isVisible() const;
 };

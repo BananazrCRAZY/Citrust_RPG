@@ -286,7 +286,7 @@ int Game::gameLoop() {
 void Game::loadInterlude() {
     shop->resetShop();
     screenManager.setShopItems(shop->getItemsForSale());
-    screenManager.ChangeScreen(make_unique<InterludeScreen>(screenManager, exitGame));
+    screenManager.ChangeScreen(make_unique<InterludeScreen>(screenManager, exitGame, player));
     string printThis;
     while (1) {
         screenManager.setInput(-1);

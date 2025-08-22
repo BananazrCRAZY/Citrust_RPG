@@ -5,8 +5,8 @@ SolidButton::SolidButton (const char *imagePath, Vector2 buttonPosition, float b
     position(buttonPosition),
     buttonWidth(buttonWidth),
     buttonHeight(buttonHeight)
-    {
-        setTexture(imagePath);
+{
+    setTexture(imagePath);
 }
 
 // Destructor

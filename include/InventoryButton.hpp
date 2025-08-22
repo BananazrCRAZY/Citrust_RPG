@@ -12,9 +12,9 @@ class InventoryButton : public SolidButton {
         {}
 
         void Draw() {
-            SolidButton::Draw();
             DrawRectangleRec(buttonArea, buttonBack);
             DrawRectangleLinesEx(buttonArea, 2, BLACK);
+            SolidButton::Draw();
         }
 
         void changeBackingColor(Color backing) { buttonBack = backing; }

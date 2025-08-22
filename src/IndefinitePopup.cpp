@@ -22,3 +22,7 @@ void IndefinitePopup::Draw() {
     DrawRectangleLinesEx(box, 3, DARKGRAY);
     cancelButton.Draw();
 }
+
+bool IndefinitePopup::isVisible() const {
+    return visible;
+}
