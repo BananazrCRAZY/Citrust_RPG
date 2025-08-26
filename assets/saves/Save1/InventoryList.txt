@@ -1,3 +1,2 @@
 assets/bossItems/AppleCore.txt
 unequipped
-assets/bossItems/PearStem.txt

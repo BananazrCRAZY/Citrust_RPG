@@ -167,7 +167,7 @@ void Player::equipItem(unsigned index) {
         cerr << "Error addItem index problem" << std::endl;
         exit(1);
     }
-    if (!battleItems.at(index)->isConsumableTrue()) addStats(items.at(index)->getStatus());
+    if (!items.at(index)->isConsumableTrue()) addStats(items.at(index)->getStatus());
     battleItems.push_back(items.at(index));
     items.erase(items.begin() + index);
 }

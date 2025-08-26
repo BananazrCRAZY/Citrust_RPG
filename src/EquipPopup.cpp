@@ -7,19 +7,25 @@ using namespace std;
 EquipPopup::EquipPopup(Vector2 popupPosition, Vector2 popupSize, Vector2 buttonPosition, float buttonScale, const char *imagePath, unsigned index, ScreenManager& m, Player* p) : 
     IndefinitePopup(popupPosition, popupSize, buttonPosition, buttonScale, imagePath),
     itemIndex(index),
-    manager(m), 
+    manager(m),
     player(p),
-    equipButton("Graphics/Buttons/backButton.png", {900, 600}, .8),
+    equipped(false),
+    equipButton("Graphics/blank.png", {900, 600}, .8),
     icon("", {700, 200}, 200, 200)
 {}
 
 void EquipPopup::Update(const Vector2& mousePos, bool mouseClicked) {
     IndefinitePopup::Update(mousePos, mouseClicked);
 
-    if (player->getNumberInventoryItems() >= 6) return;
-    if (equipButton.isPressed(mousePos, mouseClicked)) {
+    if (!equipped) {
+        if (player->getNumberBattleItems() >= 6) return;
+        if (equipButton.isPressed(mousePos, mouseClicked)) {
+            visible = false;
+            manager.setInput(14+itemIndex);
+        }
+    } else if (equipButton.isPressed(mousePos, mouseClicked)) {
         visible = false;
-        manager.setInput(itemIndex+1);
+        manager.setInput(8+itemIndex);
     }
 }
 
@@ -29,11 +35,15 @@ void EquipPopup::Draw() {
     equipButton.Draw();
     icon.Draw();
 
-    string name = player->getInventoryItem(itemIndex)->getName();
+    string name;
+    if (equipped) name = player->getBattleItem(itemIndex)->getName();
+    else name = player->getInventoryItem(itemIndex)->getName();
     int textWidthName = MeasureText(name.c_str(), 30);
     DrawText(name.c_str(), box.x + (box.width - textWidthName)/2, box.y + 30, 30, BLACK);
 
-    string message = player->getInventoryItem(itemIndex)->getDescription();
+    string message;
+    if (equipped) message = player->getBattleItem(itemIndex)->getDescription();
+    else message = player->getInventoryItem(itemIndex)->getDescription();
     int textWidthDesc = MeasureText(message.c_str(), 20);
     if (textWidthDesc >= 700) {
         int charCount = 0;
@@ -50,17 +60,35 @@ void EquipPopup::Draw() {
     }
     DrawText(message.c_str(), box.x + (box.width - textWidthDesc)/2, box.y + 365, 20, BLACK);
 
-    string consumableText;
-    if (player->getInventoryItem(itemIndex)->isConsumableTrue()) consumableText = "CONSUMABLE";
-    else consumableText = "NON-CONSUMABLE";
+    string consumableText = "NON-CONSUMABLE";
+    if (equipped) {
+        if (player->getBattleItem(itemIndex)->isConsumableTrue()) consumableText = "CONSUMABLE";
+    } else if (player->getInventoryItem(itemIndex)->isConsumableTrue()) consumableText = "CONSUMABLE";
     int consumableTextWidth = MeasureText(consumableText.c_str(), 18);
     DrawText(consumableText.c_str(), box.x + (box.width - consumableTextWidth)/2, box.y + 630, 18, BLACK);
 }
 
 void EquipPopup::showItem(unsigned index) {
     itemIndex = index;
-    icon.setTexture(manager.getShopItem(itemIndex)->getIcon().c_str());
-    if (player->getNumberInventoryItems() >= 6) equipButton.SetTexture("", .8);
-    else equipButton.SetTexture("Graphics/Buttons/backButton.png", .8);
+    if (equipped) {
+        icon.setTexture(player->getBattleItem(itemIndex)->getIcon().c_str());
+        equipButton.SetTexture("Graphics/blank.png", .8);  // equipped item, can be unequipped
+    } else {
+        icon.setTexture(player->getInventoryItem(itemIndex)->getIcon().c_str());
+        if (player->getNumberBattleItems() >= 6) equipButton.SetTexture("Graphics/blank.png", .8);  // if non equipped item cant be equipped
+        else equipButton.SetTexture("Graphics/blank.png", .8);  // if non equipped item can be equipped
+    }
     visible = true;
+}
+
+void EquipPopup::setEquipped(bool set) {
+    equipped = set;
+}
+
+bool EquipPopup::isEquipped() const {
+    return equipped;
+}
+
+unsigned EquipPopup::getIndex() const {
+    return itemIndex;
 }

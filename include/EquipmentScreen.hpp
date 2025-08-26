@@ -6,7 +6,6 @@
 #include "IScreen.hpp"
 #include "Player.h"
 #include "ScreenManager.hpp"
-#include "UnequipPopup.hpp"
 #include <raylib.h>
 #include <memory>
 

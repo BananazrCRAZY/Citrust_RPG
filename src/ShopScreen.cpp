@@ -83,27 +83,27 @@ void ShopScreen::Update(const Vector2& mousePos, bool mouseClicked) {
         case -1:
             return;
         case 1:
-            item1.setTexture("");
+            item1.setTexture("Graphics/blank.png");
             item1.disableButton();
             break;
         case 2:
-            item2.setTexture("");
+            item2.setTexture("Graphics/blank.png");
             item2.disableButton();
             break;
         case 3:
-            item3.setTexture("");
+            item3.setTexture("Graphics/blank.png");
             item3.disableButton();
             break;
         case 4:
-            item4.setTexture("");
+            item4.setTexture("Graphics/blank.png");
             item4.disableButton();
             break;
         case 5:
-            item5.setTexture("");
+            item5.setTexture("Graphics/blank.png");
             item5.disableButton();
             break;
         case 6:
-            item6.setTexture("");
+            item6.setTexture("Graphics/blank.png");
             item6.disableButton();
             break;
         default:
