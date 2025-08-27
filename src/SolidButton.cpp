@@ -4,7 +4,8 @@
 SolidButton::SolidButton (const char *imagePath, Vector2 buttonPosition, float buttonWidth, float buttonHeight) :
     position(buttonPosition),
     buttonWidth(buttonWidth),
-    buttonHeight(buttonHeight)
+    buttonHeight(buttonHeight),
+    imagePathHolder(imagePath)
 {
     setTexture(imagePath);
 }
@@ -22,8 +23,6 @@ void SolidButton::Draw() {
 // Checks whether button is pressed by mouse
 bool SolidButton::isPressed(Vector2 mousePos, bool mousePressed) {
     if (!active) return false;
-
-    buttonArea = {position.x, position.y, buttonWidth, buttonHeight};
     
     // if mouse is hovering over button area (rectangular shape) and is pressed
     if (CheckCollisionPointRec(mousePos, buttonArea) && mousePressed){
@@ -31,6 +30,13 @@ bool SolidButton::isPressed(Vector2 mousePos, bool mousePressed) {
     }
 
     return false;
+}
+
+void SolidButton::updateImagePosition(float imageWidth, float imageHeight) {
+    buttonArea = {position.x, position.y, buttonWidth, buttonHeight};
+    float imageX = (buttonWidth / 2) - (imageWidth / 2);
+    float imageY = (buttonHeight / 2) - (imageHeight / 2);
+    imagePosition = { imageX + position.x, imageY + position.y };
 }
 
 void SolidButton::setTexture(const char* imagePath) {
@@ -45,23 +51,27 @@ void SolidButton::setTexture(const char* imagePath) {
     }
 
     ImageResize(&image, imageWidth, imageHeight);
-
     // Converts image into texture
     texture = LoadTextureFromImage(image);
 
     // Deletes image from heap as it is no longer needed
     UnloadImage(image);
 
-    // math to figure out where to center image
-    float imageX = buttonWidth / 2;
-    float x = imageWidth / 2;
-    imageX -= x;
-    imagePosition.x = imageX + position.x;
-
-    float imageY = buttonHeight / 2;
-    float y = imageHeight / 2;
-    imageY -= y;
-    imagePosition.y = imageY + position.y;
+    // recalc placement based on button position
+    updateImagePosition(imageWidth, imageHeight);
 }
 
 void SolidButton::disableButton() { active = false; }
+void SolidButton::enablebutton() { active = true; }
+float SolidButton::getButtonXPos() const { return position.x; }
+float SolidButton::getButtonYPos() const { return position.y; }
+
+void SolidButton::setButtonXPos(float x) {
+    position.x = x;
+    updateImagePosition(texture.width, texture.height);
+}
+
+void SolidButton::setButtonYPos(float y) {
+    position.y = y;
+    updateImagePosition(texture.width, texture.height);
+}

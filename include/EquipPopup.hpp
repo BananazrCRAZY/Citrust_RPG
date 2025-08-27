@@ -11,6 +11,7 @@ class EquipPopup : public IndefinitePopup {
     Button equipButton;
     SolidButton icon;
     Player* player;
+    bool equipped;
 
     public:
         EquipPopup(Vector2 popupPosition, Vector2 popupSize, Vector2 buttonPosition, float buttonScale, const char *imagePath, 
@@ -18,4 +19,7 @@ class EquipPopup : public IndefinitePopup {
         void Update(const Vector2& mousePos, bool mouseClicked);
         void Draw();
         void showItem(unsigned);
+        void setEquipped(bool);
+        bool isEquipped() const;
+        unsigned getIndex() const;
 };

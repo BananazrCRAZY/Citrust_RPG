@@ -8,7 +8,7 @@ BuyItemPopup::BuyItemPopup(Vector2 popupPosition, Vector2 popupSize, Vector2 but
     IndefinitePopup(popupPosition, popupSize, buttonPosition, buttonScale, imagePath),
     itemIndex(index),
     manager(sm),
-    buyButton("Graphics/Buttons/backButton.png", {900, 600}, .8),
+    buyButton("Graphics/blank.png", {900, 600}, .8),
     icon("", {700, 200}, 200, 200)
 {}
 

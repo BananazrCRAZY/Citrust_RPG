@@ -17,5 +17,5 @@ class InventoryButton : public SolidButton {
             SolidButton::Draw();
         }
 
-        void changeBackingColor(Color backing) { buttonBack = backing; }
+        void setBackingColor(Color backing) { buttonBack = backing; }
 };

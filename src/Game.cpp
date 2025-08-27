@@ -293,35 +293,44 @@ void Game::loadInterlude() {
         screenManager.setCalories(calories);
         // load interlude screen here
         while(screenManager.getInput() == -1) uiDraw();
-        switch (screenManager.getInput()) {
-            case 0:
-                exitGame = true;
-                return;
-            case 1:
-                printThis = checkBuyItem(0);
-                break;
-            case 2:
-                printThis = checkBuyItem(1);
-                break;
-            case 3:
-                printThis = checkBuyItem(2);
-                break;
-            case 4:
-                printThis = checkBuyItem(3);
-                break;
-            case 5:
-                printThis = checkBuyItem(4);
-                break;
-            case 6:
-                printThis = checkBuyItem(5);
-                break;
-            case 7:
-                return;
-            case 8:
-            // not sure how to equip and unequip items
-            default:
-                cerr << "Shop loop input error" << endl;
-                exit(1);
+        int inputNum = screenManager.getInput();
+        if (inputNum >= 8 && inputNum < (14 + player->getNumberInventoryItems())) {
+            if (inputNum < 14) {
+                printThis = "Unequipped " + player->getBattleItem(inputNum-8)->getName();
+                player->unequipItem(inputNum-8);
+            } else {
+                printThis = "Equipped " + player->getInventoryItem(inputNum-14)->getName();
+                player->equipItem(inputNum-14);
+            }
+        } else {
+            switch (inputNum) {
+                case 0:
+                    exitGame = true;
+                    return;
+                case 1:
+                    printThis = checkBuyItem(0);
+                    break;
+                case 2:
+                    printThis = checkBuyItem(1);
+                    break;
+                case 3:
+                    printThis = checkBuyItem(2);
+                    break;
+                case 4:
+                    printThis = checkBuyItem(3);
+                    break;
+                case 5:
+                    printThis = checkBuyItem(4);
+                    break;
+                case 6:
+                    printThis = checkBuyItem(5);
+                    break;
+                case 7:
+                    return;
+                default:
+                    cerr << "Shop loop input error" << endl;
+                    exit(1);
+            }
         }
         // print here
 
