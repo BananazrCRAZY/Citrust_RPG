@@ -23,21 +23,21 @@ EquipmentScreen::EquipmentScreen(ScreenManager& mgr, bool& exitFlag, Player* p)
     // Deletes image from heap as it is no longer needed
     UnloadImage(backgroundImage);
 
-    float xPos = 450;
+    float xPos = 465;
     for (unsigned i = 0; i < 6; i++) {
-        if (i < p->getNumberBattleItems()) equipped[i] = new InventoryButton(p->getBattleItem(i)->getIcon().c_str(), {xPos, 175}, 100, 100, RED);
+        if (i < p->getNumberBattleItems()) equipped[i] = new InventoryButton(p->getBattleItem(i)->getIcon().c_str(), {xPos, 135}, 135, 100, RED);
         else {
-            equipped[i] = new InventoryButton("Graphics/blank.png", {xPos, 175}, 100, 100, RED);
+            equipped[i] = new InventoryButton("Graphics/blank.png", {xPos, 135}, 135, 100, RED);
             equipped[i]->disableButton();
         }
-        xPos += 135;
+        xPos += 155;
     }
 
-    xPos = 200;
+    xPos = 210;
     for (unsigned i = 0; i < player->getNumberInventoryItems(); i++) {
-        unequipped[i] = new InventoryButton(p->getInventoryItem(i)->getIcon().c_str(), {xPos, 400}, 100, 100, WHITE);
+        unequipped[i] = new InventoryButton(p->getInventoryItem(i)->getIcon().c_str(), {xPos, 320}, 125, 125, WHITE);
         unequippedSize++;
-        xPos += 135;
+        xPos += 160;
     }
 }
 
@@ -87,7 +87,7 @@ void EquipmentScreen::Update(const Vector2& mousePos, bool mouseClicked) {
                     unequipped[unequippedSize]->setBackingColor(WHITE);
                     unequipped[unequippedSize]->setButtonXPos(xPos);
                     unequipped[unequippedSize]->setButtonYPos(yPos);
-                    equipped[5] = new InventoryButton("Graphics/blank.png", {1125, 175}, 100, 100, RED);
+                    equipped[5] = new InventoryButton("Graphics/blank.png", {1125, 135}, 135, 100, RED);
                     equipped[5]->disableButton();
                     unequippedSize++;
                 } else {
