@@ -30,6 +30,7 @@ class EquipmentScreen : public IScreen {
         Texture2D background;
         EquipPopup equipMenu;
 
+        // variables for scroll feature
         float scrollOffset = 0.0f;
         const int maxPerRow = 8;
         const int maxVisibleRows = 3;
@@ -38,7 +39,7 @@ class EquipmentScreen : public IScreen {
         const int itemHeight = 125;
         const int unequippedSpacingX = 160;
         const int unequippedSpacingY = 200;
-        Rectangle scrollPanel = {unequippedXStart, 320, maxPerRow * unequippedSpacingX, maxVisibleRows * unequippedSpacingY - 75};
+        Rectangle scrollPanel = {unequippedXStart, 320, maxPerRow * unequippedSpacingX, maxVisibleRows * unequippedSpacingY - (unequippedSpacingY - itemHeight)};
 
 };
 
