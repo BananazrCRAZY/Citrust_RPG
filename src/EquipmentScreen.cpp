@@ -25,20 +25,26 @@ EquipmentScreen::EquipmentScreen(ScreenManager& mgr, bool& exitFlag, Player* p)
 
     float xPos = 465;
     for (unsigned i = 0; i < 6; i++) {
-        if (i < p->getNumberBattleItems()) equipped[i] = new InventoryButton(p->getBattleItem(i)->getIcon().c_str(), {xPos, 135}, 135, 100, RED);
+        if (i < p->getNumberBattleItems()) equipped[i] = new InventoryButton(p->getBattleItem(i)->getIcon().c_str(), {xPos, 135}, itemWidth, itemHeight, RED);
         else {
-            equipped[i] = new InventoryButton("Graphics/blank.png", {xPos, 135}, 135, 100, RED);
+            equipped[i] = new InventoryButton("Graphics/blank.png", {xPos, 135}, itemWidth, itemHeight, RED);
             equipped[i]->disableButton();
         }
         xPos += 155;
     }
 
-    xPos = 210;
     for (unsigned i = 0; i < player->getNumberInventoryItems(); i++) {
-        unequipped[i] = new InventoryButton(p->getInventoryItem(i)->getIcon().c_str(), {xPos, 320}, 125, 125, WHITE);
+        int row = i / maxPerRow;
+        int col = i % maxPerRow;
+
+        float xPos = unequippedXStart + col * unequippedSpacingX;
+        float yPos = 320 + row * unequippedSpacingY;
+
+        unequipped[i] = new InventoryButton(p->getInventoryItem(i)->getIcon().c_str(), {xPos, yPos}, itemWidth, itemHeight, WHITE);
+
         unequippedSize++;
-        xPos += 160;
     }
+
 }
 
 EquipmentScreen::~EquipmentScreen() {
@@ -76,21 +82,21 @@ void EquipmentScreen::Update(const Vector2& mousePos, bool mouseClicked) {
                         equipped[i]->setButtonXPos(setX);
                     }
 
-                    float xPos = 200;
-                    float yPos = 400;
+                    float xPos = unequippedXStart;
+                    float yPos = 320;
                     if (unequippedSize != 0) {
                         yPos = unequipped[unequippedSize-1]->getButtonYPos();
-                        if (unequipped[unequippedSize-1]->getButtonXPos() >= 1400) yPos += 200;
-                        else xPos = unequipped[unequippedSize-1]->getButtonXPos() + 135;
+                        if (unequipped[unequippedSize-1]->getButtonXPos() >= 1300) yPos += unequippedSpacingY;
+                        else xPos = unequipped[unequippedSize-1]->getButtonXPos() + unequippedSpacingX;
                     }
 
                     unequipped[unequippedSize]->setBackingColor(WHITE);
                     unequipped[unequippedSize]->setButtonXPos(xPos);
                     unequipped[unequippedSize]->setButtonYPos(yPos);
-                    equipped[5] = new InventoryButton("Graphics/blank.png", {1125, 135}, 135, 100, RED);
+                    equipped[5] = new InventoryButton("Graphics/blank.png", {1240, 135}, itemWidth, itemHeight, RED);
                     equipped[5]->disableButton();
                     unequippedSize++;
-                } else {
+                } else {  // for equipping an item
                     InventoryButton* equippedItem = unequipped[equipMenu.getIndex()];
                     float previousX = unequipped[equipMenu.getIndex()]->getButtonXPos();
                     float previousY = unequipped[equipMenu.getIndex()]->getButtonYPos();
@@ -118,7 +124,7 @@ void EquipmentScreen::Update(const Vector2& mousePos, bool mouseClicked) {
         return;
     }
 
-    // equipped item buttons
+    // equipped item buttonsm press check
     for (unsigned i = 0; i < 6; i++) {
         if (equipped[i]->isPressed(mousePos, mouseClicked)) {
             equipMenu.setEquipped(true);
@@ -127,21 +133,52 @@ void EquipmentScreen::Update(const Vector2& mousePos, bool mouseClicked) {
         }
     }
 
+    // unequipped item buttons press check
     for (unsigned i = 0; i < unequippedSize; i++) {
-        if (unequipped[i]->isPressed(mousePos, mouseClicked)) {
-            equipMenu.setEquipped(false);
-            equipMenu.showItem(i);
-            return;
+        // Only check if mouse is inside the visible panel
+        if (CheckCollisionPointRec(mousePos, scrollPanel)) {
+            if (unequipped[i]->isPressed(mousePos, mouseClicked)) {
+                equipMenu.setEquipped(false);
+                equipMenu.showItem(i);
+                return;
+            }
         }
     }
+
+    // Scroll only when mouse is inside the unequipped panel
+    if (CheckCollisionPointRec(mousePos, scrollPanel)) {
+        scrollOffset += GetMouseWheelMove() * 30.0f; // scroll speed
+    }
+
+    // compute total rows
+    int totalRows = (unequippedSize + maxPerRow - 1) / maxPerRow;
+    float maxScroll = totalRows * unequippedSpacingY - maxVisibleRows * unequippedSpacingY;
+    if (maxScroll < 0) maxScroll = 0;
+
+    // clamp
+    if (scrollOffset > 0) scrollOffset = 0;
+    if (scrollOffset < -maxScroll) scrollOffset = -maxScroll;
+
 }
 
 void EquipmentScreen::Draw() {
     DrawTexture(background, 0, 0, WHITE);
 
-    // need to draw items
     for (unsigned i = 0; i < 6; i++) equipped[i]->Draw();
-    for (unsigned i = 0; i < unequippedSize; i++) unequipped[i]->Draw();
+
+    // Clip unequipped items to panel
+    BeginScissorMode(unequippedXStart, 320, maxPerRow * unequippedSpacingX, maxVisibleRows * unequippedSpacingY - 75);
+
+    for (unsigned i = 0; i < unequippedSize; i++) {
+        // offset by scroll
+        unequipped[i]->setButtonYPos(320 + (i / maxPerRow) * unequippedSpacingY + scrollOffset);
+        unequipped[i]->setButtonXPos(unequippedXStart + (i % maxPerRow) * unequippedSpacingX);
+
+        unequipped[i]->Draw();
+    }
+
+    EndScissorMode();
+
     if (equipMenu.isVisible()) equipMenu.Draw();
     backButton.Draw();
 }
