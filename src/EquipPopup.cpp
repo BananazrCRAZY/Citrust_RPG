@@ -72,11 +72,11 @@ void EquipPopup::showItem(unsigned index) {
     itemIndex = index;
     if (equipped) {
         icon.setTexture(player->getBattleItem(itemIndex)->getIcon().c_str());
-        equipButton.SetTexture("Graphics/blank.png", .8);  // equipped item, can be unequipped
+        equipButton.SetTexture("Graphics/Buttons/unequipButton.png", .84);  // equipped item, can be unequipped
     } else {
         icon.setTexture(player->getInventoryItem(itemIndex)->getIcon().c_str());
-        if (player->getNumberBattleItems() >= 6) equipButton.SetTexture("Graphics/blank.png", .8);  // if non equipped item cant be equipped
-        else equipButton.SetTexture("Graphics/blank.png", .8);  // if non equipped item can be equipped
+        if (player->getNumberBattleItems() >= 6) equipButton.SetTexture("Graphics/Buttons/equipButtonGray.png", .82);  // if non equipped item cant be equipped
+        else equipButton.SetTexture("Graphics/Buttons/equipButton.png", .82);  // if non equipped item can be equipped
     }
     visible = true;
 }
