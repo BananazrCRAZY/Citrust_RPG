@@ -404,44 +404,42 @@ int Game::battleLoop(Boss* boss) {
 }
 
 void Game::playerTurn(Boss* boss) {
-    string print;
     redoTurn:
+    screenManager.setInput(-1);
     while (screenManager.getInput() == -1) uiDraw();
     switch (screenManager.getInput()) {
         case 0:
-            print = player->basicAttack(boss);
+            screenManager.ShowPopup(player->basicAttack(boss));
             break;
         case 1:
             if (player->getRechargeCount() <= 0) {
-                screenManager.setInput(-1);
                 screenManager.ShowPopup("Not Enough Skill Points");
                 goto redoTurn;
             }
-            print = player->specialAttack(boss);
+            screenManager.ShowPopup(player->specialAttack(boss));
             break;
         case 2:
-            print = player->useItem(boss, 0);
-            break;
+            screenManager.ShowPopup(player->useItem(boss, 0));
+            goto redoTurn;
         case 3:
-            print = player->useItem(boss, 1);
-            break;
+            screenManager.ShowPopup(player->useItem(boss, 1));
+            goto redoTurn;
         case 4:
-            print = player->useItem(boss, 2);
-            break;
+            screenManager.ShowPopup(player->useItem(boss, 2));
+            goto redoTurn;
         case 5:
-            print = player->useItem(boss, 3);
-            break;
+            screenManager.ShowPopup(player->useItem(boss, 3));
+            goto redoTurn;
         case 6:
-            print = player->useItem(boss, 4);
-            break;
+            screenManager.ShowPopup(player->useItem(boss, 4));
+            goto redoTurn;
         case 7:
-            print = player->useItem(boss, 5);
-            break;
+            screenManager.ShowPopup(player->useItem(boss, 5));
+            goto redoTurn;
         default:
             cerr << "Player turn input error" << endl;
             exit(1);
     }
-    screenManager.ShowPopup(print);
 }
 
 void Game::enemyTurn(Boss* boss) {

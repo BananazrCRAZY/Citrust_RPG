@@ -13,6 +13,7 @@ BuyItemPopup::BuyItemPopup(Vector2 popupPosition, Vector2 popupSize, Vector2 but
 {}
 
 void BuyItemPopup::Update(const Vector2& mousePos, bool mouseClicked) {
+    if (!visible) return;
     IndefinitePopup::Update(mousePos, mouseClicked);
 
     if (buyButton.isPressed(mousePos, mouseClicked)) {

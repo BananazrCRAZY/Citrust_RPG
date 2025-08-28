@@ -15,6 +15,7 @@ EquipPopup::EquipPopup(Vector2 popupPosition, Vector2 popupSize, Vector2 buttonP
 {}
 
 void EquipPopup::Update(const Vector2& mousePos, bool mouseClicked) {
+    if (!visible) return;
     IndefinitePopup::Update(mousePos, mouseClicked);
 
     if (!equipped) {

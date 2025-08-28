@@ -44,6 +44,7 @@ string Item::getName() const { return name; }
 string Item::getDescription() const { return description; }
 int Item::getCost() const { return cost; }
 int Item::getCooldown() const { return cooldown; }
+int Item::getCooldownDefault() const { return cooldownDefault; }
 double Item::getAppearanceProbabiity() const { return appearanceProbability; }
 
 void Item::use(Fruit* target) {
@@ -54,5 +55,7 @@ void Item::use(Fruit* target) {
 void Item::decreaseCooldown() {
   cooldown--;
 }
+
+void Item::resetCooldown() { cooldown = 0; }
 
 bool Item::isConsumableTrue() const { return isConsumable; }

@@ -137,7 +137,7 @@ void AppleBossScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     }
 
     if (inventoryButton.isPressed(mousePos, mouseClicked)) {
-        manager.PushScreen(make_unique<InventoryScreen>(manager, exitGame));
+        manager.PushScreen(make_unique<InventoryScreen>(manager, exitGame, player));
     }
 
     if (skillButton.isPressed(mousePos, mouseClicked)) {
