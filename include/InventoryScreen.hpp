@@ -1,9 +1,11 @@
 #ifndef INVENTORYSCREEN_HPP
 #define INVENTORYSCREEN_HPP
 
+#include "InventoryPopup.hpp"
 #include "IScreen.hpp"
+#include "Player.h"
 #include "ScreenManager.hpp"
-#include "button.hpp"
+#include "SolidButton.hpp"
 #include <raylib.h>
 #include <memory>
 
@@ -11,7 +13,7 @@ using namespace std;
 
 class InventoryScreen : public IScreen {
     public:
-        InventoryScreen(ScreenManager& manager, bool& exitFlag);
+        InventoryScreen(ScreenManager& manager, bool& exitFlag, Player* p);
         ~InventoryScreen() override;
     
         void Update(const Vector2& mousePos, bool mouseClicked) override;
@@ -20,14 +22,11 @@ class InventoryScreen : public IScreen {
     private:
         ScreenManager& manager;
         bool& exitGame;
-        Button item1;
-        Button item2;
-        Button item3;
-        Button item4;
-        Button item5;
-        Button item6;
+        Player* player;
+        SolidButton* buttons[6];
         Button backButton;
         Texture2D background;
+        InventoryPopup menu;
 };
 
 #endif 

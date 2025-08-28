@@ -69,6 +69,18 @@ void Player::endOfBattle() {
     hp = maxHp->getTotal();
     rechargeCount = 2;
     turn = 1;
+    for (unsigned i = 0; i < battleItems.size(); i++) {
+        if (battleItems.at(i)->isConsumableTrue()) battleItems.at(i)->resetCooldown();
+    }
+}
+
+void Player::endOfTurn() {
+    Fruit::endOfTurn();
+    for (unsigned i = 0; i < battleItems.size(); i++) {
+        if (battleItems.at(i)->isConsumableTrue()) {
+            if (battleItems.at(i)->getCooldown() > 0) battleItems.at(i)->decreaseCooldown();
+        }
+    }
 }
 
 // boss may not be used, would've had selector to use on player or boss
@@ -78,14 +90,15 @@ string Player::useItem(Fruit* boss, unsigned itemIndex) {
         cerr << "Error useItem index problem" << std::endl;
         exit(1);
     }
-    if (!battleItems.at(itemIndex)->isConsumableTrue()) return "This is not a consumable.";
-    if (battleItems.at(itemIndex)->getCooldown() > 0) return "Item is on cooldown.";
+    if (!battleItems.at(itemIndex)->isConsumableTrue()) return "This is Not a Consumable.";
+    if (battleItems.at(itemIndex)->getCooldown() > 0) return "Item is on Cooldown.";
+    if (rechargeCount <= 0) return "Not enough Skill Points.";
+    rechargeCount--;
     if (battleItems.at(itemIndex)->isUseOnPlayer()) {
         battleItems.at(itemIndex)->use(this);
         return name + " used " + battleItems.at(itemIndex)->getName() + " on " + name + ".";
     }
     battleItems.at(itemIndex)->use(boss);
-    rechargeCount -= 2;
     return name + " used " + battleItems.at(itemIndex)->getName() + " on " + boss->getName() + ".";
 }
 
@@ -131,16 +144,16 @@ void Player::resetPlayerSave() {
         exit(1);
     }
 
-    oFile << "null name" << '\n';
-    oFile << 1 << '\n';
-    oFile << 200 << '\n';
-    oFile << 200 << '\n';
-    oFile << 150 << '\n';
-    oFile << 75 << '\n';
-    oFile << 100 << '\n';
-    oFile << 10 << '\n';
-    oFile << 10 << '\n';
-    oFile << 50 << '\n';
+    oFile << "null name" << '\n';  // name
+    oFile << 1 << '\n';  // level
+    oFile << 200 << '\n';  // max hp
+    oFile << 200 << '\n';  // hp
+    oFile << 150 << '\n';  // atk
+    oFile << 75 << '\n';  // def
+    oFile << 100 << '\n';  // arts
+    oFile << 10 << '\n';  // res
+    oFile << 10 << '\n';  // crit rate
+    oFile << 50 << '\n';  // crit dmg
     oFile.close();
 
     oFile.open(inventoryList, std::ios::trunc);
@@ -186,10 +199,10 @@ void Player::clearStats() {
 }
 
 void Player::reAddStats() {
-    for (unsigned i = 0; i < battleItems.size(); ++i) {
+    for (unsigned i = 0; i < battleItems.size(); i++) {
         if (!battleItems.at(i)->isConsumableTrue()) {
             effects.push_back(battleItems.at(i)->getStatus());
-            addStats(effects.at(i));
+            addStats(effects.at(effects.size()-1));
         }
     }
 }

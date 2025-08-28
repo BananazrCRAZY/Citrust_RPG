@@ -4,16 +4,12 @@
 
 using namespace std;
 
-InventoryScreen::InventoryScreen(ScreenManager& mgr, bool& exitFlag)
+InventoryScreen::InventoryScreen(ScreenManager& mgr, bool& exitFlag, Player* p)
     : manager(mgr)
     , exitGame(exitFlag)
-    , item1("Graphics/Buttons/saveButton1.png", {650,300}, 0.8)
-    , item2("Graphics/Buttons/saveButton2.png", {650,435}, 0.8)
-    , item3("Graphics/Buttons/saveButton3.png", {650,576}, 0.8)
-    , item4("Graphics/Buttons/saveButton1.png", {650,300}, 0.8)
-    , item5("Graphics/Buttons/saveButton2.png", {650,435}, 0.8)
-    , item6("Graphics/Buttons/saveButton3.png", {650,576}, 0.8)
+    , player(p)
     , backButton("Graphics/Buttons/backButton.png", {1350,750}, 0.8)
+    , menu({400, 100}, {800, 700}, {500, 600}, .7, "Graphics/Buttons/cancelButton.png", 0, manager, p)
 {
     Image backgroundImage = LoadImage("Graphics/GeneralScreens/InventoryScreen.png");
     ImageResize(&backgroundImage, 1600, 900);
@@ -24,47 +20,48 @@ InventoryScreen::InventoryScreen(ScreenManager& mgr, bool& exitFlag)
     // Deletes image from heap as it is no longer needed
     UnloadImage(backgroundImage);
 
+    int xStart = 285;
+    int xSpacing = 350;
+    int yStart = 300;
+    int ySpacing = 220;
+    int buttonWidth = 332;
+    int buttonHeight = 195;
+    for (unsigned i = 0; i < player->getNumberBattleItems(); i++) {
+        int xPos = xStart + xSpacing * (i % 3);
+        int yPos = yStart + ySpacing * (i / 3);
+        buttons[i] = new SolidButton(player->getBattleItem(i)->getIcon().c_str(), {(float)xPos, (float)yPos}, buttonWidth, buttonHeight);
+    }
+    for (unsigned i = player->getNumberBattleItems(); i < 6; i++) buttons[i] = nullptr;
 }
 
 InventoryScreen::~InventoryScreen() {
     UnloadTexture(background);
+    for (unsigned i = 0; i < player->getNumberBattleItems(); i++) delete buttons[i];
 }
 
 void InventoryScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     if (backButton.isPressed(mousePos, mouseClicked)) {
         manager.PopScreen();
-        //need to go back to same screen as before in boss fight
+        return;
     }
 
-    if(item1.isPressed(mousePos, mouseClicked)) {
-        manager.setInput(2);
-        manager.PopScreen();
+    if (menu.isVisible()) {
+        menu.Update(mousePos, mouseClicked);
+        return;
     }
-    if(item2.isPressed(mousePos, mouseClicked)) {
-        manager.setInput(3);
-        manager.PopScreen();
-    }
-    if(item3.isPressed(mousePos, mouseClicked)) {
-        manager.setInput(4);
-        manager.PopScreen();
-    }
-    if(item4.isPressed(mousePos, mouseClicked)) {
-        manager.setInput(5);
-        manager.PopScreen();
-    }
-    if(item5.isPressed(mousePos, mouseClicked)) {
-        manager.setInput(6);
-        manager.PopScreen();
-    }
-    if(item6.isPressed(mousePos, mouseClicked)) {
-        manager.setInput(7);
-        manager.PopScreen();
+
+    for (unsigned i = 0; i < player->getNumberBattleItems(); i++) {
+        if (buttons[i]->isPressed(mousePos, mouseClicked))  {
+            menu.showItem(i);
+            return;
+        }
     }
 }
 
 void InventoryScreen::Draw() {
     DrawTexture(background, 0, 0, WHITE);
 
-    // need to draw items
+    for (unsigned i = 0; i < player->getNumberBattleItems(); i++) buttons[i]->Draw();
+    if (menu.isVisible()) menu.Draw();
     backButton.Draw();
 }

@@ -1,2 +1,8 @@
 assets/bossItems/AppleCore.txt
+assets/items/IronChestplate.txt
+assets/items/PureVanillaExtract.txt
+assets/items/PeanutShell.txt
+assets/items/FirstAidKit.txt
+assets/items/HoneyTea.txt
 unequipped
+assets/items/MediumVitaminC.txt

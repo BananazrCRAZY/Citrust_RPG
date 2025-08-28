@@ -24,14 +24,17 @@ class Item {
   ~Item();
   void use(Fruit* target);
   void decreaseCooldown();
+  void resetCooldown();
+
   string getFilePath() const { return filePath; }
   string getName() const;
   string getDescription() const;
   int getCost() const;
   int getCooldown() const;
+  int getCooldownDefault() const;
   double getAppearanceProbabiity() const;
-  bool isConsumableTrue() const;
   Status* getStatus() const { return effect; }
-  bool isUseOnPlayer() const { return useOnPlayer; }
   string getIcon() const { return iconPath; }
+  bool isConsumableTrue() const;
+  bool isUseOnPlayer() const { return useOnPlayer; }
 };
