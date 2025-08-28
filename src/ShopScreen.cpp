@@ -6,12 +6,12 @@ using namespace std;
 ShopScreen::ShopScreen(ScreenManager& mgr, bool& exitFlag)
     : manager(mgr)
     , exitGame(exitFlag)
-    , item1("", {285,300}, 332, 195)
-    , item2("", {635,300}, 332, 195)
-    , item3("", {982,300}, 332, 195)
-    , item4("", {285,520}, 332, 195)
-    , item5("", {635,520}, 332, 195)
-    , item6("", {982,520}, 332, 195)
+    , item1("Graphics/Objects/soldOut.png", {285,300}, 332, 195)
+    , item2("Graphics/Objects/soldOut.png", {635,300}, 332, 195)
+    , item3("Graphics/Objects/soldOut.png", {982,300}, 332, 195)
+    , item4("Graphics/Objects/soldOut.png", {285,520}, 332, 195)
+    , item5("Graphics/Objects/soldOut.png", {635,520}, 332, 195)
+    , item6("Graphics/Objects/soldOut.png", {982,520}, 332, 195)
     , backButton("Graphics/Buttons/backButton.png", {50,750}, 0.8)
     , menu({400, 100}, {800, 700}, {500, 600}, .7, "Graphics/Buttons/cancelButton.png", 0, manager)
 {
@@ -83,27 +83,27 @@ void ShopScreen::Update(const Vector2& mousePos, bool mouseClicked) {
         case -1:
             return;
         case 1:
-            item1.setTexture("Graphics/blank.png");
+            item1.setTexture("Graphics/Objects/soldOut.png");
             item1.disableButton();
             break;
         case 2:
-            item2.setTexture("Graphics/blank.png");
+            item2.setTexture("Graphics/Objects/soldOut.png");
             item2.disableButton();
             break;
         case 3:
-            item3.setTexture("Graphics/blank.png");
+            item3.setTexture("Graphics/Objects/soldOut.png");
             item3.disableButton();
             break;
         case 4:
-            item4.setTexture("Graphics/blank.png");
+            item4.setTexture("Graphics/Objects/soldOut.png");
             item4.disableButton();
             break;
         case 5:
-            item5.setTexture("Graphics/blank.png");
+            item5.setTexture("Graphics/Objects/soldOut.png");
             item5.disableButton();
             break;
         case 6:
-            item6.setTexture("Graphics/blank.png");
+            item6.setTexture("Graphics/Objects/soldOut.png");
             item6.disableButton();
             break;
         default:

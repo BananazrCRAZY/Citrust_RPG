@@ -43,8 +43,8 @@ void SolidButton::setTexture(const char* imagePath) {
     // Uses Image class first as it is resizeable to scale; Texture class is not
     Image image = LoadImage(imagePath);
 
-    int imageWidth = static_cast<int>(image.width * .3);
-    int imageHeight = static_cast<int>(image.height * .3);
+    int imageWidth = image.width;
+    int imageHeight = image.height;
     while (imageHeight >= buttonHeight || imageWidth >= buttonWidth) {
         imageHeight *= .85;
         imageWidth *= .85;
