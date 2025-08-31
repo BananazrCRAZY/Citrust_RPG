@@ -48,6 +48,8 @@ class Fruit {
         int getCritDmg() const { return critDmg->getTotal(); }
         int getRechargeCount() const { return rechargeCount; }
         int getTurn() const { return turn; }
+        Status* getEffect(unsigned index) const { return effects.at(index); }
+        unsigned getNumberOfEffects() const { return effects.size(); }
         void setMaxHpAdd(int change);
         void setHp(int change);
         void setAttackAdd(int change) { attack->add(change); }

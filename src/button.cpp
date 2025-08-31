@@ -8,6 +8,7 @@ Button::Button (const char *imagePath, Vector2 imagePosition, float scale) {
 
     int newWidth = static_cast<int>(image.width * scale);
     int newHeight = static_cast<int>(image.height * scale);
+    size = {(float)newWidth, (float)newHeight};
 
     ImageResize(&image, newWidth, newHeight);
 
@@ -56,3 +57,7 @@ void Button::SetTexture(const char* imagePath, float scale) {
     UnloadImage(image);
 }
 
+float Button::getXPos() const { return position.x; }
+float Button::getYPos() const { return position.y; }
+float Button::getXSize() const { return size.x; }
+float Button::getYSize() const { return size.y; }

@@ -3,6 +3,7 @@
 
 #include "IScreen.hpp"
 #include "ScreenManager.hpp"
+#include "StatsPopup.hpp"
 #include "Popup.hpp"
 #include "button.hpp"
 #include <raylib.h>
@@ -27,6 +28,8 @@ class AppleBossScreen : public IScreen {
         Button skillButton;
         Button attackButton;
         Button inventoryButton;
+        Button statsButton;
+        StatsPopup menu;
 };
 
 #endif 

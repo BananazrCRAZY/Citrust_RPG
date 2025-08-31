@@ -49,9 +49,14 @@ AppleBossScreen::AppleBossScreen(ScreenManager& mgr, bool& exitFlag)
     , skillButton("Graphics/Buttons/skillButton.png", {1210,673}, 0.33)
     , attackButton("Graphics/Buttons/attackButton.png", {1068,710}, 0.31)
     , inventoryButton("Graphics/Buttons/inventoryButton.png", {1270,550}, 0.25)
+    , statsButton("Graphics/Buttons/statsButton.png", {180, 275}, .8)
+    , menu({800, 75}, {500, 750}, {805, 80}, .5, "Graphics/Buttons/xCloseButton.png", manager.getBoss(), manager.getPlayer())
 {
-    Image backgroundImage = LoadImage("Graphics/BossScreens/AppleBossScreen.png");
+    Image backgroundImage;
     switch (manager.GetBossCount()) {
+        case 0:
+            backgroundImage = LoadImage("Graphics/BossScreens/AppleBossScreen.png");
+            break;
         case 1:
             backgroundImage = LoadImage("Graphics/BossScreens/PearBossScreen.png");
             break;
@@ -79,9 +84,9 @@ AppleBossScreen::AppleBossScreen(ScreenManager& mgr, bool& exitFlag)
         case 9:
             backgroundImage = LoadImage("Graphics/BossScreens/WatermelonBossScreen.png");
             break;
-        // default:
-        //     cerr << "boss load background image error" << endl;
-        //     exit(1);
+        default:
+            cerr << "boss load background image error" << endl;
+            exit(1);
     }
     
     ImageResize(&backgroundImage, 1600, 900);
@@ -98,6 +103,11 @@ AppleBossScreen::~AppleBossScreen() {
 }
 
 void AppleBossScreen::Update(const Vector2& mousePos, bool mouseClicked) {
+    if (menu.isVisible()) {
+        menu.Update(mousePos, mouseClicked, manager);
+        return;
+    }
+
     Player* player = manager.getPlayer();  // Access persistent player object
     Boss* boss = manager.getBoss();
     if (boss == nullptr) exit(1);
@@ -145,6 +155,8 @@ void AppleBossScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     }
 
     manager.getPopup()->Update();
+
+    if (statsButton.isPressed(mousePos, mouseClicked)) menu.showStats();
 }
 
 void AppleBossScreen::Draw() {
@@ -155,6 +167,12 @@ void AppleBossScreen::Draw() {
     skillButton.Draw();
     attackButton.Draw();
     inventoryButton.Draw();
+    statsButton.Draw();
+
+    string hp = to_string(manager.getPlayer()->getHp()) + " / " + to_string(manager.getPlayer()->getMaxHp());
+    DrawText(hp.c_str(), 620, 790, 30, BLACK);
+
+    if (menu.isVisible()) menu.Draw();
 
     manager.getPopup()->Draw();
 }
