@@ -1,4 +1,4 @@
-ATK Up γ
+ATK Up Gamma
 Increases ATK by 40%, increases CRIT Rate by 40%, and increases CRIT DMG by 20%.
 -1
 1

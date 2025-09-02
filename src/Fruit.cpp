@@ -108,6 +108,8 @@ void Fruit::removeStats(Status* status) {
     res->add(-1 * status->getResChange());
     critRate->add(-1 * status->getCritRateChange());
     critDmg->add(-1 * status->getCritDamageChange());
+
+    if (hp > getMaxHp()) hp = getMaxHp();
 }
 
 void Fruit::addStats(Status* status) {
@@ -127,6 +129,19 @@ void Fruit::addStats(Status* status) {
     critDmg->add(status->getCritDamageChange());
     setRechargeCount(status->getRechargeCountChange());
     setTurn(status->getTurnChange());
+    if (hp >= getMaxHp()) hp = getMaxHp();
+    else {
+        if (status->isPercentBased()) setHp(status->getMaxHpChange()/100 * maxHp->getBase());
+        else setHp(status->getMaxHpChange());
+
+        if (hp > getMaxHp()) hp = getMaxHp();
+    }
+}
+
+void Fruit::removeEffect(Status* effect) {
+    for (unsigned i = 0; i < effects.size(); i++)
+        if (effects.at(i) == effect) effects.erase(effects.begin()+i);
+    removeStats(effect);
 }
 
 void Fruit::addEffect(Status* effect) {
@@ -137,16 +152,15 @@ void Fruit::addEffect(Status* effect) {
 // goes through effects and add to recharge, does not check dead
 void Fruit::endOfTurn() {
     for (unsigned i = 0; i < effects.size(); i++) {
+        if (effects.at(i)->isPercentBased()) setHp(effects.at(i)->getHpChange() * maxHp->getTotal() / 100);
+        else setHp(effects.at(i)->getHpChange());
+
         if (effects.at(i)->getTurns() == 0) {
             removeStats(effects.at(i));
             if (effects.at(i)->isDeleteThisStatus()) delete effects.at(i);
             else effects.at(i)->resetStatusTurns();
             effects.erase(effects.begin()+i);
-        } else {
-            if (effects.at(i)->isPercentBased()) setHp(effects.at(i)->getHpChange() * maxHp->getTotal());
-            else setHp(effects.at(i)->getHpChange());
-            effects.at(i)->decreaseTurn();
-        }
+        } else effects.at(i)->decreaseTurn();
     }
     setRechargeCount(1);
     turn--;

@@ -373,6 +373,7 @@ void Game::loadLose() {
 }
 
 int Game::battleLoop(Boss* boss) {
+    player->setHp(player->getMaxHp());
     int battleCycle = 1;
     while (battleCycle < 100) {
         screenManager.setInput(-1);

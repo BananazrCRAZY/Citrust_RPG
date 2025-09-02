@@ -1,4 +1,4 @@
-Protection β
+Protection Beta
 Increases Max HP by 15% and DEF by 10%.
 -1
 1

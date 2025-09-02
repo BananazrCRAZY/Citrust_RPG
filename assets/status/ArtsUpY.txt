@@ -1,4 +1,4 @@
-Arts Up γ
+Arts Up Gamma
 Increases Arts ATK by 45%, and increases RES by 10. Furthermore, increases CRIT Rate by 20%.
 -1
 1
