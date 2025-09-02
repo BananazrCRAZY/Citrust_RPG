@@ -17,6 +17,9 @@
 		"compare": "cpp",
 		"memory_resource": "cpp",
 		"type_traits": "cpp",
-		"format": "cpp"
+		"format": "cpp",
+		"*.m": "cpp",
+		"chrono": "cpp",
+		"variant": "cpp"
 	}
 }

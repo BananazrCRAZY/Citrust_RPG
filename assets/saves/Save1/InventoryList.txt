@@ -1,8 +1,8 @@
-assets/bossItems/AppleCore.txt
 assets/items/IronChestplate.txt
-assets/items/PureVanillaExtract.txt
+assets/items/MediumVitaminC.txt
 assets/items/PeanutShell.txt
 assets/items/FirstAidKit.txt
 assets/items/HoneyTea.txt
+assets/bossItems/AppleCore.txt
 unequipped
-assets/items/MediumVitaminC.txt
+assets/items/PureVanillaExtract.txt

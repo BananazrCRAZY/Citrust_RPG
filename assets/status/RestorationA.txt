@@ -1,6 +1,6 @@
-Restoration α
+Restoration Alpha
 Heals 15% of Max HP.
--1
+0
 1
 15
 0

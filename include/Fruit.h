@@ -64,6 +64,7 @@ class Fruit {
             if (rechargeCount > 5) rechargeCount = 5;
         }
         void setTurn(int change) { turn += change; }
+        void removeEffect(Status*);
         void addEffect(Status*);
         bool isDead() const;
         void endOfTurn();

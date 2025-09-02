@@ -21,17 +21,19 @@ class StatsPopup : public IndefinitePopup {
     bool needToUpdateEffects;
     TextButton* playerEffects[20];
     TextButton* bossEffects[6];
+    unsigned playerEffectsSize, bossEffectsSize;
     int playerXStart, bossXStart;
 
     float scrollOffset = 0.0f;
-    const int maxVisibleRows = 6;
+    const int maxVisibleRows = 4;
     const float statusWidth = 400;
     const float statusHeight = 75;
-    const int statusSpacingY = 200;
+    const int statusSpacingY = 80;
+    const float yStarting = 460;
     Rectangle scrollPanel;
 
     void updatePosition(float newXPos);
-    void deleteEffectVectors();
+    void deleteEffectArrays();
 
     public:
         StatsPopup(Vector2 popupPosition, Vector2 popupSize, Vector2 buttonPosition, float buttonScale, const char *imagePath, 

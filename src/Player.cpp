@@ -25,7 +25,11 @@ Player::Player(const string& file, const string& itemFile) : Fruit(file),  inven
 
         item = new Item(output);
         if (unequipped) items.push_back(item);
-        else battleItems.push_back(item);
+        else {
+            battleItems.push_back(item);
+            if (!battleItems.at(battleItems.size()-1)->isConsumableTrue()) 
+                addEffect(battleItems.at(battleItems.size()-1)->getStatus());
+        }
     }
     iFile.close();
 }
@@ -170,7 +174,7 @@ void Player::unequipItem(unsigned index) {
         cerr << "Error removeItem index problem" << std::endl;
         exit(1);
     }
-    if (!battleItems.at(index)->isConsumableTrue()) removeStats(battleItems.at(index)->getStatus());
+    if (!battleItems.at(index)->isConsumableTrue()) removeEffect(battleItems.at(index)->getStatus());
     items.push_back(battleItems.at(index));
     battleItems.erase(battleItems.begin() + index);
 }
@@ -180,7 +184,7 @@ void Player::equipItem(unsigned index) {
         cerr << "Error addItem index problem" << std::endl;
         exit(1);
     }
-    if (!items.at(index)->isConsumableTrue()) addStats(items.at(index)->getStatus());
+    if (!items.at(index)->isConsumableTrue()) addEffect(items.at(index)->getStatus());
     battleItems.push_back(items.at(index));
     items.erase(items.begin() + index);
 }

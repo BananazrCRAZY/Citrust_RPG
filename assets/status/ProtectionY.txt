@@ -1,4 +1,4 @@
-Protection γ
+Protection Gamma
 Increases Max HP by 20% and DEF by 20%. Furthermore, increases RES by 5.
 -1
 1

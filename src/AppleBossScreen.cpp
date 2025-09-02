@@ -172,7 +172,6 @@ void AppleBossScreen::Draw() {
     string hp = to_string(manager.getPlayer()->getHp()) + " / " + to_string(manager.getPlayer()->getMaxHp());
     DrawText(hp.c_str(), 620, 790, 30, BLACK);
 
-    if (menu.isVisible()) menu.Draw();
-
     manager.getPopup()->Draw();
+    if (menu.isVisible()) menu.Draw();
 }
