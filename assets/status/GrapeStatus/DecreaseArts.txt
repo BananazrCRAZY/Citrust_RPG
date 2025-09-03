@@ -1,4 +1,4 @@
-Grape Effect Arts
+Arts Down
 Decrease arts by 10%.
 2
 1

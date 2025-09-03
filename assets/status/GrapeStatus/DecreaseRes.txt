@@ -1,5 +1,5 @@
-Grape Effect Arts
-Decrease arts by 5%.
+Resistance Down
+Decrease res by 5%.
 2
 1
 0

@@ -1,1 +1,7 @@
+assets/items/IronSword.txt
+assets/bossItems/AppleCore.txt
+assets/items/ColorPalette.txt
+assets/items/IcedMatchaLatte.txt
+assets/bossItems/PearStem.txt
+assets/bossItems/StrawberrySeed.txt
 unequipped

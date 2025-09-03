@@ -94,11 +94,11 @@ void Game::runGame() {
                     resetSave();
                     break;
                 case 6:
-                    openFile("assets/saves/Save1/Game.txt");
+                    openFile("assets/saves/Save2/Game.txt");
                     resetSave();
                     break;
                 case 7:
-                    openFile("assets/saves/Save1/Game.txt");
+                    openFile("assets/saves/Save3/Game.txt");
                     resetSave();
                     break;
                 default:
@@ -154,6 +154,7 @@ void Game::resetGame() {
     player = nullptr;
     delete shop;
     shop = nullptr;
+    savePoint = -1;
 }
 
 void Game::openFile(string file) {
@@ -503,6 +504,8 @@ void Game::resetSave() {
 
     shop->resetShopSave();
     player->resetPlayerSave();
+
+    resetGame();
 }
 
 string Game::checkBuyItem(int index) {
