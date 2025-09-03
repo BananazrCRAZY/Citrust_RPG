@@ -171,6 +171,13 @@ void AppleBossScreen::Draw() {
 
     string hp = to_string(manager.getPlayer()->getHp()) + " / " + to_string(manager.getPlayer()->getMaxHp());
     DrawText(hp.c_str(), 620, 790, 30, BLACK);
+    string playerLvl = "LVL " + to_string(manager.getPlayer()->getLevel());
+    DrawText(playerLvl.c_str(), 612, 745, 27, BLACK);
+
+    string bossName = manager.getBoss()->getName();
+    DrawText(bossName.c_str(), 970, 90, 40, BLACK);
+    string bossLvl = "LVL " + to_string(manager.getBoss()->getLevel());
+    DrawText(bossLvl.c_str(), 972, 140, 30, BLACK);
 
     manager.getPopup()->Draw();
     if (menu.isVisible()) menu.Draw();
