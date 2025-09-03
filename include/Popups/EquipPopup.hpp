@@ -1,9 +1,9 @@
 #pragma once
-#include "button.hpp"
+#include "include/Buttons/button.hpp"
 #include "IndefinitePopup.hpp"
 #include "include/Objects/Player.h"
 #include "include/Screens/ScreenManager.hpp"
-#include "SolidButton.hpp"
+#include "include/Buttons/SolidButton.hpp"
 
 class EquipPopup : public IndefinitePopup {
     unsigned itemIndex;
