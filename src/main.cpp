@@ -1,4 +1,4 @@
-#include "../include/Game.h"
+#include "include/Objects/Game.h"
 #include <iostream>
 
 int main() {   

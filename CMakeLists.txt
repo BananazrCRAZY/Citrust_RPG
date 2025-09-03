@@ -16,11 +16,11 @@ add_subdirectory(tests/googletest)
 
 # Add source code as a library
 add_library(FruitLib
-    src/Fruit.cpp
-    src/Player.cpp
-    src/Item.cpp
-    src/Shop.cpp
-    src/Status.cpp
+    src/Objects/Fruit.cpp
+    src/Objects/Player.cpp
+    src/Objects/Item.cpp
+    src/Objects/Shop.cpp
+    src/Objects/Status.cpp
 )
 
 # Add the test executable
