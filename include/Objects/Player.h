@@ -11,7 +11,6 @@ class Player : public Fruit {
     vector<Item*> items;
     vector<Item*> battleItems;
     string inventoryList;
-    void levelUp();
     void clearStats();
     void reAddStats();
 
@@ -29,6 +28,7 @@ class Player : public Fruit {
         unsigned getNumberInventoryItems() const { return items.size(); }
         Item* getInventoryItem(int i) const { return items.at(i); }
         void newItem(Item* item) { items.push_back(item); }
+        void levelUp();
         void endOfBattle();
         void endOfTurn();
         void resetPlayerSave();

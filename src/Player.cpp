@@ -69,10 +69,11 @@ void Player::levelUp() {
 }
 
 void Player::endOfBattle() {
-    levelUp();
     hp = maxHp->getTotal();
     rechargeCount = 2;
     turn = 1;
+    clearStats();
+    reAddStats();
     for (unsigned i = 0; i < battleItems.size(); i++) {
         if (battleItems.at(i)->isConsumableTrue()) battleItems.at(i)->resetCooldown();
     }

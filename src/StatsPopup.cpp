@@ -33,6 +33,7 @@ void StatsPopup::Update(const Vector2& mousePos, bool mouseClicked, ScreenManage
     if (!visible) return;
     if (cancelButton.isPressed(mousePos, mouseClicked)) {
         deleteEffectArrays();
+        scrollOffset = 0;
         isShowingPlayerStats = true;
         visible = false;
         return;

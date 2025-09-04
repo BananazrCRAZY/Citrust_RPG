@@ -12,12 +12,14 @@
 #include "include/bossHeaders/Watermelon.h"
 #include "include/Objects/Shop.h"
 #include "include/Buttons/button.hpp"
-#include "include/Screens/ScreenManager.hpp"
-#include "include/Screens/TitleScreen.hpp"
+#include "include/Screens/AppleBossScreen.hpp"
+#include "include/Screens/InterludeScreen.hpp"
+#include "include/Screens/LoseScreen.hpp"
 #include "include/Screens/NameScreen.hpp"
 #include "include/Screens/PrologueScreen1.hpp"
-#include "include/Screens/InterludeScreen.hpp"
-#include "include/Screens/AppleBossScreen.hpp"
+#include "include/Screens/ScreenManager.hpp"
+#include "include/Screens/TitleScreen.hpp"
+#include "include/Screens/WinScreen.hpp"
 #include <raylib.h>
 #include <fstream>
 #include <iostream>
@@ -219,6 +221,7 @@ void Game::startGame(int input) {
 
 int Game::gameLoop() {
     Boss* boss = nullptr;
+    player->endOfBattle();
     while (!exitGame) {
         // need ui to show screen based on savePoint (dialogue)
         switch (savePoint) {
@@ -287,7 +290,7 @@ int Game::gameLoop() {
             lose:
             if (savePoint != 5) delete boss->getItem();
 
-            // screenManager.ChangeScreen(make_unique<LoseScreen>(screenManager, exitGame));
+            screenManager.ChangeScreen(make_unique<LoseScreen>(screenManager));
             delete boss;
             boss = nullptr;
 
@@ -299,14 +302,18 @@ int Game::gameLoop() {
 
         delete boss;
         boss = nullptr;
-        int addCalories = player->getLevel() * 400 / battleResult;
+        int addCalories = player->getLevel() * 550 / battleResult;
         if (addCalories < 75) addCalories = 75;
         calories += addCalories;
+        player->levelUp();
         player->endOfBattle();
         screenManager.AddBossCount(1);
 
         // end of game
-        if (savePoint == 9) return loadEndOfGame(); 
+        if (savePoint == 9) {
+            screenManager.ChangeScreen(make_unique<LoseScreen>(screenManager));
+            return loadEndOfGame();
+        }
 
         loadInterlude();
         savePoint++;
@@ -389,7 +396,6 @@ int Game::loadEndOfGame() {
 }
 
 int Game::battleLoop(Boss* boss) {
-    player->setHp(player->getMaxHp());
     int battleCycle = 1;
     while (battleCycle < 100) {
         screenManager.setInput(-1);

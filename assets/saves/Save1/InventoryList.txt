@@ -5,3 +5,8 @@ assets/items/IcedMatchaLatte.txt
 assets/bossItems/PearStem.txt
 assets/bossItems/StrawberrySeed.txt
 unequipped
+assets/bossItems/StrawberrySeed.txt
+assets/bossItems/Grapevine.txt
+assets/bossItems/Dekopeel.txt
+assets/bossItems/DriedMango.txt
+assets/bossItems/PineappleCrown.txt
