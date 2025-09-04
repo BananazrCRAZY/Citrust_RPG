@@ -1,4 +1,4 @@
-8
+3
 3153
 assets/saves/Save1/Player.txt
 assets/saves/Save1/InventoryList.txt

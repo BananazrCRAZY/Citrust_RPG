@@ -399,9 +399,8 @@ int Game::battleLoop(Boss* boss) {
     int battleCycle = 1;
     while (battleCycle < 100) {
         screenManager.setInput(-1);
-        while (player->getTurn() > 0) {
+        while (player->getTurn() > 0 && !screenManager.isPopup()) {
             uiDraw();
-            usleep(1500000);
             playerTurn(boss);
             if (player->isDead()) return -1;
             if (boss->isDead()) return battleCycle;
@@ -409,9 +408,8 @@ int Game::battleLoop(Boss* boss) {
             if (player->isDead()) return -1;
             uiDraw();
         }
-        while (boss->getTurn() > 0) {
+        while (boss->getTurn() > 0 && !screenManager.isPopup()) {
             uiDraw();
-            usleep(1500000);
             enemyTurn(boss);
             if (player->isDead()) return -1;
             if (boss->isDead()) return battleCycle;
@@ -419,9 +417,12 @@ int Game::battleLoop(Boss* boss) {
             if (boss->isDead()) return battleCycle;
             uiDraw();
         }
-        player->setTurn(1);
-        boss->setTurn(1);
-        battleCycle++;
+        if (player->getTurn() <= 0 && boss->getTurn() <= 0 && !screenManager.isPopup()) {
+            player->setTurn(1);
+            boss->setTurn(1);
+            battleCycle++;
+        }
+        uiDraw();
     }
     return -1;
 }

@@ -40,6 +40,7 @@ public:
 
     std::shared_ptr<Popup> getPopup() const { return popup; }
     void ShowPopup(const std::string& msg); // convenience wrapper
+    bool isPopup() { return popup->isVisible(); }
 
     void AddBossCount(int count) { bossCount += count; }
     int GetBossCount() const { return bossCount; }
