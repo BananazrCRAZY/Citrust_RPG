@@ -42,7 +42,7 @@ Game::Game() : savePoint(-1), player(nullptr), shop(nullptr), exitGame(false) {
 }
 
 void Game::uiDraw() {
-// Notes current mouse position and if mouse is pressed
+    // Notes current mouse position and if mouse is pressed
     Vector2 mousePosition = GetMousePosition();
     bool mousePressed = IsMouseButtonPressed(MOUSE_BUTTON_LEFT);
     screenManager.Update(mousePosition, mousePressed);
@@ -58,7 +58,6 @@ void Game::runGame() {
     screenManager.ChangeScreen(make_unique<TitleScreen>(screenManager, exitGame));
 
     bool gotFile = false;
-    bool gotName = true;
     bool setName = true;
     bool gameLoopReady = false;
     int winGame = 0;
@@ -87,7 +86,10 @@ void Game::runGame() {
                 case 4:
                     startGame(screenManager.getInput());
                     gotFile = true;
-                    if (savePoint == 0) gotName = false;
+                    if (savePoint == 0) {
+                        screenManager.ChangeScreen(make_unique<NameScreen>(screenManager, exitGame));
+                        setName = false;
+                    }
                     screenManager.setPlayer(player);
                     screenManager.AddBossCount(savePoint);
                     break;
@@ -109,13 +111,6 @@ void Game::runGame() {
             }
             screenManager.setInput(-1);
         }
-        if (!gotName) {
-            if (savePoint == 0) {
-                screenManager.ChangeScreen(make_unique<NameScreen>(screenManager, exitGame));
-                gotName = true;
-                setName = false;
-            }
-        }
         if (!setName) {
             if (screenManager.GetPlayerName() != "") {
                 player->setName(screenManager.GetPlayerName());
@@ -134,7 +129,6 @@ void Game::runGame() {
                     // return to main menu
                     resetGame();
                     gotFile = false;
-                    gotName = true;
                     setName = true;
                     gameLoopReady = false;
                     break;
@@ -156,7 +150,8 @@ void Game::resetGame() {
     player = nullptr;
     delete shop;
     shop = nullptr;
-    savePoint = -1;
+    savePoint = -10000000;
+    screenManager.SetPlayerName("");
 }
 
 void Game::openFile(string file) {
@@ -378,6 +373,7 @@ void Game::loadInterlude() {
 
 int Game::loadEndOfGame() {
     screenManager.setInput(-1);
+    uiDraw();
     while(screenManager.getInput() == -1) uiDraw();
     switch(screenManager.getInput()) {
         case 0:

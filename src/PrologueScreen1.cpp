@@ -18,6 +18,7 @@ PrologueScreen1::PrologueScreen1 (ScreenManager& mgr, bool& exitFlag) : manager(
 
     // Deletes image from heap as it is no longer needed
     UnloadImage(backgroundImage);
+    cout <<  "\nPrologue created \n";
 }
 
 PrologueScreen1::~PrologueScreen1() {
@@ -27,7 +28,7 @@ PrologueScreen1::~PrologueScreen1() {
 void PrologueScreen1::Update(const Vector2& mousePos, bool mouseClicked) {
 
     if (nextButton.isPressed(mousePos, mouseClicked)) {
-        cout <<  "Prologue Next entered: " <<  endl;
+        cout <<  "\nPrologue Next entered: \n";
         manager.ChangeScreen(make_unique<PrologueScreen2>(manager, exitGame));
     }
 }
