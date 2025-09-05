@@ -19,7 +19,9 @@ class Grape : public Boss {
     };
 
     public:
-        Grape(const string& main, const string& item, int required) : Boss(main, item, required) {}
+        Grape(const string& main, const string& item, int required) : Boss(main, item, required) {
+            addEffect(new Status("assets/status/BossProxyStatus/GrapeBurst.txt"));
+        }
 
         string specialAttack(Fruit* target) {
             rechargeCount -= 2;

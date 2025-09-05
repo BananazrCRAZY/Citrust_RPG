@@ -1,0 +1,15 @@
+Apple a Day keeps the Doctor Away
+Heals 5% of MAX HP every turn.
+-1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1

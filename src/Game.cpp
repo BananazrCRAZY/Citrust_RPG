@@ -53,6 +53,14 @@ void Game::uiDraw() {
     EndDrawing();
 }
 
+void Game::closeGameCheck() {
+    if (WindowShouldClose()) {
+        resetGame();
+        CloseWindow();
+        exit(0);
+    }
+}
+
 void Game::runGame() {
     resetGame();
     screenManager.ChangeScreen(make_unique<TitleScreen>(screenManager, exitGame));
@@ -64,14 +72,8 @@ void Game::runGame() {
     screenManager.setInput(-1);
 
     // Game Loop: keep running while window isn't closed and exitGame bool isn't flagged
-    while ((WindowShouldClose() == false) && (!exitGame)) {
+    while (!WindowShouldClose() && !exitGame) {
         uiDraw();
-
-        // // Notes current mouse position and if mouse is pressed
-        // Vector2 mousePosition = GetMousePosition();
-        // bool mousePressed = IsMouseButtonPressed(MOUSE_BUTTON_LEFT);
-
-        // screenManager.Update(mousePosition, mousePressed);
 
         if (!gotFile) {
             // 1: new game -> loads save 1
@@ -241,7 +243,6 @@ int Game::gameLoop() {
                 break;
             case 5:
                 boss = new MangoGreen("assets/bosses/MangoGreen.txt", "assets/bossItems/DriedMango.txt", -1);
-                delete boss->getItem();
                 break;
             case 7:
                 boss = new Pineapple("assets/bosses/Pineapple.txt", "assets/bossItems/PineappleCrown.txt", 1000);
@@ -264,6 +265,7 @@ int Game::gameLoop() {
             if (battleResult != -1) {
                 // if player used special attack to defeat phase 1
                 if (screenManager.getInput() == 1) player->setRechargeCount(1);
+                delete boss->getItem();
                 delete boss;
                 savePoint++;
                 boss = new MangoRed("assets/bosses/MangoRed.txt", "assets/bossItems/DriedMango.txt", -1);
@@ -320,7 +322,7 @@ void Game::loadInterlude() {
         screenManager.setInput(-1);
         screenManager.setCalories(calories);
         // load interlude screen here
-        while(screenManager.getInput() == -1) uiDraw();
+        whileUiDrawLoop(-1);
         int inputNum = screenManager.getInput();
         if (inputNum >= 8 && inputNum < (14 + player->getNumberInventoryItems())) {
             if (inputNum < 14) {
@@ -367,8 +369,7 @@ void Game::loadInterlude() {
 
 int Game::loadEndOfGame() {
     screenManager.setInput(-1);
-    uiDraw();
-    while(screenManager.getInput() == -1) uiDraw();
+    whileUiDrawLoop(-1);
     switch(screenManager.getInput()) {
         case 0:
             // exit game
@@ -414,6 +415,11 @@ int Game::battleLoop(Boss* boss) {
             battleCycle++;
         }
         uiDraw();
+        if (WindowShouldClose()) {
+            delete boss->getItem();
+            delete boss;
+            closeGameCheck();
+        }
     }
     return -1;
 }
@@ -421,7 +427,7 @@ int Game::battleLoop(Boss* boss) {
 void Game::playerTurn(Boss* boss) {
     redoTurn:
     screenManager.setInput(-1);
-    while (screenManager.getInput() == -1) uiDraw();
+    whileUiDrawLoop(-1);
     switch (screenManager.getInput()) {
         case 0:
             screenManager.ShowPopup(player->basicAttack(boss));
@@ -512,4 +518,11 @@ string Game::checkBuyItem(int index) {
     if (cost > calories) return "You cannot buy this. You are missing " + std::to_string(shop->getItemPrice(0)-calories) + " calories.";
     calories -= cost;
     return shop->purchaseItem(player, index);
+}
+
+void Game::whileUiDrawLoop(int equal) {
+    while (screenManager.getInput() == equal) {
+        uiDraw();
+        closeGameCheck();
+    }
 }

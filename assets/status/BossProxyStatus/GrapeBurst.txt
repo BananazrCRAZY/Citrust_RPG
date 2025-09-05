@@ -1,0 +1,15 @@
+Grape Burst
+Every 4 attacks gain an additional TURN.
+-1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1

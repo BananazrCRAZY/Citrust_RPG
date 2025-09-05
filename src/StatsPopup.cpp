@@ -17,12 +17,12 @@ StatsPopup::StatsPopup(Vector2 popupPosition, Vector2 popupSize, Vector2 buttonP
     playerTurn(0),
     needToUpdateEffects(true),
     playerEffectsSize(0),
-    bossEffectsSize(0),
-    playerXStart(position.x)
+    bossEffectsSize(0)
+    // playerXStart(position.x)
 {
     scrollPanel = {position.x + 35, yStarting - statusSpacingY + statusHeight, (float)statusWidth + 30, (float)maxVisibleRows * statusSpacingY + 5};
 
-    bossXStart = 1600 - playerXStart - size.x;
+    // bossXStart = 1600 - playerXStart - size.x;
 }
 
 StatsPopup::~StatsPopup() {
@@ -36,6 +36,8 @@ void StatsPopup::Update(const Vector2& mousePos, bool mouseClicked, ScreenManage
         scrollOffset = 0;
         isShowingPlayerStats = true;
         visible = false;
+        playerStatsButton.setColor(LIGHTGRAY);
+        bossStatsButton.setColor(GRAY);
         return;
     }
 
@@ -43,7 +45,7 @@ void StatsPopup::Update(const Vector2& mousePos, bool mouseClicked, ScreenManage
         boss = manager.getBoss();
         if (playerStatsButton.isPressed(mousePos, mouseClicked)) {
             isShowingPlayerStats = true;
-            updatePosition(playerXStart);
+            // updatePosition(playerXStart);
             playerStatsButton.setColor(LIGHTGRAY);
             bossStatsButton.setColor(GRAY);
             player = manager.getPlayer();
@@ -54,7 +56,7 @@ void StatsPopup::Update(const Vector2& mousePos, bool mouseClicked, ScreenManage
         player = manager.getPlayer();
         if (bossStatsButton.isPressed(mousePos, mouseClicked)) {
             isShowingPlayerStats = false;
-            updatePosition(bossXStart);
+            // updatePosition(bossXStart);
             playerStatsButton.setColor(GRAY);
             bossStatsButton.setColor(LIGHTGRAY);
             boss = manager.getBoss();
@@ -62,27 +64,26 @@ void StatsPopup::Update(const Vector2& mousePos, bool mouseClicked, ScreenManage
     }
 
     if (needToUpdateEffects) {
-        if (isShowingPlayerStats) {
-            for (unsigned i = 0; i < player->getNumberOfEffects(); i++) {
-                string text;
-                if (player->getEffect(i)->getTurns() < 0) text = player->getEffect(i)->getName();
-                else text = player->getEffect(i)->getName() + "  (" + to_string(player->getEffect(i)->getTurns()) + ")";
-                playerEffects[i] = new TextButton({(float)playerXStart + 50, yStarting + statusSpacingY * playerEffectsSize},
-                    {statusWidth, statusHeight}, text, WHITE, 20);
-                playerEffectsSize++;
-            }
-            for (unsigned i = playerEffectsSize; i < 20; i++) playerEffects[i] = nullptr;
-        } else {
-            for (unsigned i = 0; i < boss->getNumberOfEffects(); i++) {
-                string text;
-                if (boss->getEffect(i)->getTurns() < 0) text = boss->getEffect(i)->getName();
-                else text = boss->getEffect(i)->getName() + "  (" + to_string(boss->getEffect(i)->getTurns()) + ")";
-                bossEffects[i] = new TextButton({(float)bossXStart + 50, yStarting + statusSpacingY * bossEffectsSize}, 
-                    {statusWidth, statusHeight}, text, WHITE, 20);
-                bossEffectsSize++;
-            }
-            for (unsigned i = bossEffectsSize; i < 6; i++) bossEffects[i] = nullptr;
+        for (unsigned i = 0; i < player->getNumberOfEffects(); i++) {
+            string text;
+            if (player->getEffect(i)->getTurns() < 0) text = player->getEffect(i)->getName();
+            else text = player->getEffect(i)->getName() + "  (" + to_string(player->getEffect(i)->getTurns()+1) + ")";
+            playerEffects[i] = new TextButton({(float)position.x + 50, yStarting + statusSpacingY * playerEffectsSize},
+                {statusWidth, statusHeight}, text, WHITE, 20);
+            playerEffectsSize++;
         }
+        for (unsigned i = playerEffectsSize; i < 20; i++) playerEffects[i] = nullptr;
+
+        for (unsigned i = 0; i < boss->getNumberOfEffects(); i++) {
+            string text;
+            if (boss->getEffect(i)->getTurns() < 0) text = boss->getEffect(i)->getName();
+            else text = boss->getEffect(i)->getName() + "  (" + to_string(boss->getEffect(i)->getTurns()+1) + ")";
+            bossEffects[i] = new TextButton({(float)position.x + 50, yStarting + statusSpacingY * bossEffectsSize}, 
+                {statusWidth, statusHeight}, text, WHITE, 20);
+            bossEffectsSize++;
+        }
+        for (unsigned i = bossEffectsSize; i < 6; i++) bossEffects[i] = nullptr;
+
         playerTurn = player->getTurn();
     }
 
@@ -185,17 +186,31 @@ void StatsPopup::Draw() {
     }
 }
 
-void StatsPopup::showStats() {
-    visible = true;
+void StatsPopup::toggleVisible() {
+    visible = !visible;
+    if (!visible) {
+        deleteEffectArrays();
+        scrollOffset = 0;
+        isShowingPlayerStats = true;
+        playerStatsButton.setColor(LIGHTGRAY);
+        bossStatsButton.setColor(GRAY);
+    }
 }
 
-void StatsPopup::updatePosition(float newXPos) {
-
-}
+// void StatsPopup::updatePosition(float newXPos) {
+//     position.x = newXPos;
+//     scrollPanel.x = newXPos+35;
+//     box.x = newXPos;
+//     cancelButton.setXPos(newXPos+5);
+//     playerStatsButton.setButtonXPos(cancelButton.getXPos() + cancelButton.getXSize() + (cancelButton.getXPos()-position.x));
+//     bossStatsButton.setButtonXPos(playerStatsButton.getXPos() + playerStatsButton.getXSize());
+// }
 
 void StatsPopup::deleteEffectArrays() {
-    for (unsigned i = 0; i < playerEffectsSize; i++) delete playerEffects[i];
-    for (unsigned i = 0; i < bossEffectsSize; i++) delete bossEffects[i];
+    if (isShowingPlayerStats)
+        for (unsigned i = 0; i < playerEffectsSize; i++) delete playerEffects[i];
+    else
+        for (unsigned i = 0; i < bossEffectsSize; i++) delete bossEffects[i];
     playerEffectsSize = 0;
     bossEffectsSize = 0;
     needToUpdateEffects = true;

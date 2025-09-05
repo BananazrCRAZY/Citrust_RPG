@@ -22,7 +22,7 @@ class StatsPopup : public IndefinitePopup {
     TextButton* playerEffects[20];
     TextButton* bossEffects[6];
     unsigned playerEffectsSize, bossEffectsSize;
-    int playerXStart, bossXStart;
+    // int playerXStart, bossXStart;
 
     float scrollOffset = 0.0f;
     const int maxVisibleRows = 4;
@@ -41,5 +41,5 @@ class StatsPopup : public IndefinitePopup {
         ~StatsPopup();
         void Update(const Vector2& mousePos, bool mouseClicked, ScreenManager& manager);
         void Draw();
-        void showStats();
+        void toggleVisible();
 };

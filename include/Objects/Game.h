@@ -34,8 +34,10 @@ class Game {
     string checkBuyItem(int);
     void resetGame();
     void uiDraw();
+    void closeGameCheck();
     void resetSave();
     bool isNewSave(string);
+    void whileUiDrawLoop(int equal);
 
     public:
         Game();

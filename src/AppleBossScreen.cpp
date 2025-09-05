@@ -104,6 +104,8 @@ AppleBossScreen::~AppleBossScreen() {
 }
 
 void AppleBossScreen::Update(const Vector2& mousePos, bool mouseClicked) {
+    if (statsButton.isPressed(mousePos, mouseClicked)) menu.toggleVisible();
+
     if (menu.isVisible()) {
         menu.Update(mousePos, mouseClicked, manager);
         return;
@@ -156,8 +158,6 @@ void AppleBossScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     }
 
     manager.getPopup()->Update();
-
-    if (statsButton.isPressed(mousePos, mouseClicked)) menu.showStats();
 }
 
 void AppleBossScreen::Draw() {
