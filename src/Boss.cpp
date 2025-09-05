@@ -1,6 +1,6 @@
-#include "include/Boss.h"
-#include "include/Item.h"
-#include "include/Status.h"
+#include "include/bossHeaders/Boss.h"
+#include "include/Objects/Item.h"
+#include "include/Objects/Status.h"
 #include <string>
 #include <fstream>
 #include <iostream>

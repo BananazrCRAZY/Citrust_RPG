@@ -1,7 +1,7 @@
-#include "include/NameScreen.hpp"
-#include "include/GameScreen.hpp"
-#include "include/TitleScreen.hpp"
-#include "include/PrologueScreen1.hpp"
+#include "include/Screens/NameScreen.hpp"
+#include "include/Screens/GameScreen.hpp"
+#include "include/Screens/TitleScreen.hpp"
+#include "include/Screens/PrologueScreen1.hpp"
 #include <iostream>
 
 using namespace std;

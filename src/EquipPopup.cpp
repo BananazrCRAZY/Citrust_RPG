@@ -1,4 +1,4 @@
-#include "include/EquipPopup.hpp"
+#include "include/Popups/EquipPopup.hpp"
 #include <iostream>
 #include <raylib.h>
 

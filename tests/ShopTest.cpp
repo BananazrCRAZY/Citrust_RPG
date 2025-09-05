@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
-#include "Shop.h"
+#include "include/Objects/Shop.h"
 #include <vector>
 
 using testing::Contains;

@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "Status.h"
+#include "include/Objects/Status.h"
 
 TEST(StatusTests, constructorFailFile) {
     EXPECT_DEATH(Status s(""), ".*status file.*");

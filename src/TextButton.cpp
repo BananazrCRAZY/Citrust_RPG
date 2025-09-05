@@ -1,4 +1,4 @@
-#include "include/TextButton.hpp"
+#include "include/Buttons/TextButton.hpp"
 
 TextButton::TextButton (Vector2 buttonPos, Vector2 buttonSize, string initialText, Color color, int fSize) :
     textButtonPosition(buttonPos)

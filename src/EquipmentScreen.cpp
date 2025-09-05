@@ -1,4 +1,4 @@
-#include "include/EquipmentScreen.hpp"
+#include "include/Screens/EquipmentScreen.hpp"
 #include <iostream>
 #include <raylib.h>
 

@@ -1,4 +1,4 @@
-Grape Effect Attack
+Attack Down
 Decrease attack by 10%.
 2
 1
@@ -12,3 +12,4 @@ Decrease attack by 10%.
 0
 0
 0
+1

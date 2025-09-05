@@ -1,5 +1,5 @@
-#include "include/AppleBossScreen.hpp"
-#include "include/InventoryScreen.hpp"
+#include "include/Screens/AppleBossScreen.hpp"
+#include "include/Screens/InventoryScreen.hpp"
 #include <iostream>
 
 using namespace std;

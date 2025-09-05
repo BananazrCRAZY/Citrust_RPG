@@ -1,4 +1,4 @@
-#include "include/SolidButton.hpp"
+#include "include/Buttons/SolidButton.hpp"
 
 // Button Constructor
 SolidButton::SolidButton (const char *imagePath, Vector2 buttonPosition, float buttonWidth, float buttonHeight) :

@@ -1,5 +1,5 @@
-#include "include/GameScreen.hpp"
-#include "include/TitleScreen.hpp"
+#include "include/Screens/GameScreen.hpp"
+#include "include/Screens/TitleScreen.hpp"
 #include <iostream>
 
 using namespace std;

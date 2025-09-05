@@ -1,4 +1,4 @@
-#include "include/InventoryPopup.hpp"
+#include "include/Popups/InventoryPopup.hpp"
 #include <iostream>
 #include <raylib.h>
 

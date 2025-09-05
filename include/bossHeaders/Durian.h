@@ -1,6 +1,6 @@
 #pragma once
-#include "include/Boss.h"
-#include "include/Status.h"
+#include "Boss.h"
+#include "include/Objects/Status.h"
 #include <string>
 
 using std::string;

@@ -1,4 +1,4 @@
-#include "include/Player.h"
+#include "include/Objects/Player.h"
 #include <iostream>
 #include <fstream>
 #include <stdexcept>
@@ -35,8 +35,12 @@ Player::Player(const string& file, const string& itemFile) : Fruit(file),  inven
 }
 
 Player::~Player() {
+    clearEffectsVector();
+    effects.clear();
     for (unsigned i = 0; i < battleItems.size(); i++) delete battleItems.at(i);
+    battleItems.clear();
     for (unsigned i = 0; i < items.size(); i++) delete items.at(i);
+    items.clear();
 }
 
 // Deals Physical DMG and Arts DMG equal to ATK and Arts ATK respectively. Damage dealt is counted as once instance of damage. However, each type of damage has its own chance to crit.
@@ -69,10 +73,11 @@ void Player::levelUp() {
 }
 
 void Player::endOfBattle() {
-    levelUp();
     hp = maxHp->getTotal();
     rechargeCount = 2;
     turn = 1;
+    clearStats();
+    reAddStats();
     for (unsigned i = 0; i < battleItems.size(); i++) {
         if (battleItems.at(i)->isConsumableTrue()) battleItems.at(i)->resetCooldown();
     }

@@ -1,7 +1,7 @@
-#include "include/InterludeScreen.hpp"
-#include "include/AppleBossScreen.hpp"
-#include "include/ShopScreen.hpp"
-#include "include/EquipmentScreen.hpp"
+#include "include/Screens/InterludeScreen.hpp"
+#include "include/Screens/AppleBossScreen.hpp"
+#include "include/Screens/ShopScreen.hpp"
+#include "include/Screens/EquipmentScreen.hpp"
 
 #include <iostream>
 

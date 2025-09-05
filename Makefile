@@ -722,8 +722,10 @@ endif
 #  ↓↓↓  ↓↓↓  ↓↓↓  HERE IS THE CHANGE FROM “Option 1” (no more infinite recursion)  ↓↓↓  ↓↓↓  ↓↓↓
 #─────────────────────────────────────────────────────────────────────
 
-# Expand every .cpp in src/ into OBJS
-OBJS := $(wildcard src/*.cpp)
+# Find all .cpp files under src/ and its subdirectories
+SRC_DIR := src
+CPP_FILES := $(shell find $(SRC_DIR) -name '*.cpp')
+OBJS := $(CPP_FILES:.cpp=.o)
 
 # Default target: build the project named $(PROJECT_NAME).
 all: $(PROJECT_NAME)

@@ -1,5 +1,5 @@
-#include "include/Shop.h"
-#include "include/Player.h"
+#include "include/Objects/Shop.h"
+#include "include/Objects/Player.h"
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
@@ -106,7 +106,7 @@ void Shop::resetShopSave() {
   }
 
   string output = "";
-  while(iFile >> output) oFile << output;
+  while(iFile >> output) oFile << output << '\n';
 
   iFile.close();
   oFile.close();

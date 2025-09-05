@@ -1,4 +1,4 @@
-Grape Effect Crit Rate
+Crit Rate Down
 Decrease crit rate by 5%.
 2
 1
@@ -12,3 +12,4 @@ Decrease crit rate by 5%.
 0
 0
 0
+1

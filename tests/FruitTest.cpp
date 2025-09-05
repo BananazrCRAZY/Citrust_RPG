@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
-#include "../include/Player.h"
-#include "../include/Boss.h"
+#include "include/Objects/Player.h"
+#include "include/bossHeaders/Boss.h"
 
 #include <string>
 using std::string;

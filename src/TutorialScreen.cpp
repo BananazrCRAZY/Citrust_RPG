@@ -1,7 +1,7 @@
-#include "include/TutorialScreen.hpp"
-#include "include/TitleScreen.hpp"
-#include "include/NameScreen.hpp"
-#include "include/AppleBossScreen.hpp"
+#include "include/Screens/TutorialScreen.hpp"
+#include "include/Screens/TitleScreen.hpp"
+#include "include/Screens/NameScreen.hpp"
+#include "include/Screens/AppleBossScreen.hpp"
 #include <iostream>
 
 using namespace std;
@@ -68,7 +68,8 @@ TutorialScreen::~TutorialScreen() {
 void TutorialScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     if (IsKeyPressed(KEY_SPACE)) {
         if (manager.GetTutorialCount() == 12) {
-            manager.ChangeScreen(make_unique<AppleBossScreen>(manager, exitGame));
+            // signals that it's time to move on to gameLoop
+            manager.setInput(1);
         } else {
             manager.AddTutorialCount(1);
             manager.ChangeScreen(make_unique<TutorialScreen>(manager, exitGame));
