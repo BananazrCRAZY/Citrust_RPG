@@ -49,19 +49,30 @@ Fruit::Fruit(const string& file) :
     }
 
 Fruit::~Fruit() {
-    clearEffectsVector();
     delete maxHp;
+    maxHp = nullptr;
     delete attack;
+    attack = nullptr;
     delete defense;
+    defense = nullptr;
     delete arts;
+    arts = nullptr;
     delete res;
+    res = nullptr;
     delete critRate;
+    critRate = nullptr;
     delete critDmg;
+    critDmg = nullptr;
+    // need to call clearEffectsVector in derived classes
 }
 
 void Fruit::clearEffectsVector() {
-    for (unsigned i = 0; i < effects.size(); i++) {
-        if (effects.at(i)->isDeleteThisStatus()) delete effects.at(i);
+    for (int i = 0; i < effects.size(); i++) {
+        if (effects.at(i)->isDeleteThisStatus()) {
+            delete effects.at(i);
+            effects.erase(effects.begin()+i);
+            i--;
+        }
     }
 }
 
@@ -160,6 +171,7 @@ void Fruit::endOfTurn() {
             if (effects.at(i)->isDeleteThisStatus()) delete effects.at(i);
             else effects.at(i)->resetStatusTurns();
             effects.erase(effects.begin()+i);
+            i--;
         } else effects.at(i)->decreaseTurn();
     }
     setRechargeCount(1);

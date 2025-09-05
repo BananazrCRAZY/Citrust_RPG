@@ -32,7 +32,7 @@ using std::string;
 using std::ifstream;
 using std::endl;
 
-Game::Game() : savePoint(-1), player(nullptr), shop(nullptr), exitGame(false) {
+Game::Game() : savePoint(-10000), player(nullptr), shop(nullptr), exitGame(false) {
     // Setup!
     InitWindow(1600, 900, "Citrust RPG");          // window length 1920 x 1080
     SetTargetFPS(60);
@@ -60,7 +60,7 @@ void Game::runGame() {
     bool gotFile = false;
     bool setName = true;
     bool gameLoopReady = false;
-    int winGame = 0;
+    int winGame = -10000;
     screenManager.setInput(-1);
 
     // Game Loop: keep running while window isn't closed and exitGame bool isn't flagged
@@ -79,6 +79,7 @@ void Game::runGame() {
             // 5, 6, 7: delete save 1, 2, 3
             switch(screenManager.getInput()) {
                 case -1:
+                    // pass through value
                     break;
                 case 1:
                 case 2:
@@ -91,7 +92,7 @@ void Game::runGame() {
                         setName = false;
                     }
                     screenManager.setPlayer(player);
-                    screenManager.AddBossCount(savePoint);
+                    screenManager.setBossCount(savePoint);
                     break;
                 case 5:
                     openFile("assets/saves/Save1/Game.txt");
@@ -115,9 +116,9 @@ void Game::runGame() {
             if (screenManager.GetPlayerName() != "") {
                 player->setName(screenManager.GetPlayerName());
                 setName = true;
-                gameLoopReady = true;
             }
         }
+        if (screenManager.getInput() == 1) gameLoopReady = true;
         if (gameLoopReady || savePoint > 0) {
             winGame = gameLoop();
             switch (winGame) {
@@ -131,6 +132,8 @@ void Game::runGame() {
                     gotFile = false;
                     setName = true;
                     gameLoopReady = false;
+                    screenManager.ChangeScreen(make_unique<TitleScreen>(screenManager, exitGame));
+                    screenManager.setInput(-1);
                     break;
                 case 1:
                     // try again
@@ -215,6 +218,7 @@ void Game::startGame(int input) {
 }
 
 int Game::gameLoop() {
+    cout << "entered game loop\n";
     Boss* boss = nullptr;
     player->endOfBattle();
     while (!exitGame) {
@@ -222,40 +226,31 @@ int Game::gameLoop() {
         switch (savePoint) {
             case 0:
                 boss = new Apple("assets/bosses/Apple.txt", "assets/bossItems/AppleCore.txt", -1);
-                screenManager.ChangeScreen(make_unique<PrologueScreen1>(screenManager, exitGame));
                 break;
             case 1:
                 boss = new Pear("assets/bosses/Pear.txt", "assets/bossItems/PearStem.txt", -1);
-                screenManager.ChangeScreen(make_unique<AppleBossScreen>(screenManager, exitGame));
                 break;
             case 2:
                 boss = new Strawberry("assets/bosses/Strawberry.txt", "assets/bossItems/StrawberrySeed.txt", 3);
-                screenManager.ChangeScreen(make_unique<AppleBossScreen>(screenManager, exitGame));
                 break;
             case 3:
                 boss = new Grape("assets/bosses/Grape.txt", "assets/bossItems/Grapevine.txt", 4);
-                screenManager.ChangeScreen(make_unique<AppleBossScreen>(screenManager, exitGame));
                 break;
             case 4:
                 boss = new Dekopon(playerFile, "assets/bossItems/Dekopeel.txt", 3);
-                screenManager.ChangeScreen(make_unique<AppleBossScreen>(screenManager, exitGame));
                 break;
             case 5:
                 boss = new MangoGreen("assets/bosses/MangoGreen.txt", "assets/bossItems/DriedMango.txt", -1);
                 delete boss->getItem();
-                screenManager.ChangeScreen(make_unique<AppleBossScreen>(screenManager, exitGame));
                 break;
             case 7:
                 boss = new Pineapple("assets/bosses/Pineapple.txt", "assets/bossItems/PineappleCrown.txt", 1000);
-                screenManager.ChangeScreen(make_unique<AppleBossScreen>(screenManager, exitGame));
                 break;
             case 8:
                 boss = new Durian("assets/bosses/Durian.txt", "assets/bossItems/DurianThorn.txt", -1);
-                screenManager.ChangeScreen(make_unique<AppleBossScreen>(screenManager, exitGame));
                 break;
             case 9:
                 boss = new Watermelon("assets/bosses/Watermelon.txt", "assets/bossItems/DurianThorn.txt", 1000);
-                screenManager.ChangeScreen(make_unique<AppleBossScreen>(screenManager, exitGame));
                 break;
             default:
                 cerr << "Game loop input error" << endl;
@@ -274,7 +269,6 @@ int Game::gameLoop() {
                 boss = new MangoRed("assets/bosses/MangoRed.txt", "assets/bossItems/DriedMango.txt", -1);
                 screenManager.setBoss(boss);
                 screenManager.AddBossCount(1);
-                screenManager.ChangeScreen(make_unique<AppleBossScreen>(screenManager, exitGame));
                 uiDraw();
                 int battleResult2 = battleLoop(boss);
                 if (battleResult2 == -1) goto lose;
@@ -314,7 +308,7 @@ int Game::gameLoop() {
         savePoint++;
         saveGame();
     }
-    return 0;
+    return -100;
 }
 
 void Game::loadInterlude() {
@@ -392,7 +386,8 @@ int Game::loadEndOfGame() {
 }
 
 int Game::battleLoop(Boss* boss) {
-    int battleCycle = 1;
+    unsigned battleCycle = 1;
+    screenManager.ChangeScreen(make_unique<AppleBossScreen>(screenManager, exitGame, battleCycle));
     while (battleCycle < 100) {
         screenManager.setInput(-1);
         while (player->getTurn() > 0 && !screenManager.isPopup()) {

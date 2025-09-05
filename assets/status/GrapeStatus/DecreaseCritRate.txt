@@ -12,3 +12,4 @@ Decrease crit rate by 5%.
 0
 0
 0
+1

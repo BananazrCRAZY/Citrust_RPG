@@ -40,9 +40,10 @@ static const char* spTextures[] = {
 
 
 
-AppleBossScreen::AppleBossScreen(ScreenManager& mgr, bool& exitFlag)
+AppleBossScreen::AppleBossScreen(ScreenManager& mgr, bool& exitFlag, unsigned& cycle)
     : manager(mgr)
     , exitGame(exitFlag)
+    , battleCycle(cycle)
     , playerHPButton("Graphics/HPBars/player100HP.png", {600,765}, 0.4)
     , bossHPButton("Graphics/HPBars/boss100HP.png", {400,100}, 0.5)
     , spCounterButton("Graphics/SkillPoints/zeroSP.png", {850,705}, 0.35)
@@ -178,6 +179,9 @@ void AppleBossScreen::Draw() {
     DrawText(bossName.c_str(), 415, 175, 40, BLACK);
     string bossLvl = "LVL " + to_string(manager.getBoss()->getLevel());
     DrawText(bossLvl.c_str(), 825, 185, 30, BLACK);
+
+    string cycleCount = "CYCLE: " + to_string(battleCycle);
+    DrawText(cycleCount.c_str(), 200, 100, 28, BLACK);
 
     manager.getPopup()->Draw();
     if (menu.isVisible()) menu.Draw();

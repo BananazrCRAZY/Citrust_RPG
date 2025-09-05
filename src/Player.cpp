@@ -35,8 +35,12 @@ Player::Player(const string& file, const string& itemFile) : Fruit(file),  inven
 }
 
 Player::~Player() {
+    clearEffectsVector();
+    effects.clear();
     for (unsigned i = 0; i < battleItems.size(); i++) delete battleItems.at(i);
+    battleItems.clear();
     for (unsigned i = 0; i < items.size(); i++) delete items.at(i);
+    items.clear();
 }
 
 // Deals Physical DMG and Arts DMG equal to ATK and Arts ATK respectively. Damage dealt is counted as once instance of damage. However, each type of damage has its own chance to crit.

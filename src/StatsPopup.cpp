@@ -64,15 +64,21 @@ void StatsPopup::Update(const Vector2& mousePos, bool mouseClicked, ScreenManage
     if (needToUpdateEffects) {
         if (isShowingPlayerStats) {
             for (unsigned i = 0; i < player->getNumberOfEffects(); i++) {
+                string text;
+                if (player->getEffect(i)->getTurns() < 0) text = player->getEffect(i)->getName();
+                else text = player->getEffect(i)->getName() + "  (" + to_string(player->getEffect(i)->getTurns()) + ")";
                 playerEffects[i] = new TextButton({(float)playerXStart + 50, yStarting + statusSpacingY * playerEffectsSize},
-                    {statusWidth, statusHeight}, player->getEffect(i)->getName(), WHITE, 20);
+                    {statusWidth, statusHeight}, text, WHITE, 20);
                 playerEffectsSize++;
             }
             for (unsigned i = playerEffectsSize; i < 20; i++) playerEffects[i] = nullptr;
         } else {
             for (unsigned i = 0; i < boss->getNumberOfEffects(); i++) {
+                string text;
+                if (boss->getEffect(i)->getTurns() < 0) text = boss->getEffect(i)->getName();
+                else text = boss->getEffect(i)->getName() + "  (" + to_string(boss->getEffect(i)->getTurns()) + ")";
                 bossEffects[i] = new TextButton({(float)bossXStart + 50, yStarting + statusSpacingY * bossEffectsSize}, 
-                    {statusWidth, statusHeight}, boss->getEffect(i)->getName(), WHITE, 20);
+                    {statusWidth, statusHeight}, text, WHITE, 20);
                 bossEffectsSize++;
             }
             for (unsigned i = bossEffectsSize; i < 6; i++) bossEffects[i] = nullptr;

@@ -12,3 +12,4 @@ Decrease crit damage by 20%.
 -20
 0
 0
+1

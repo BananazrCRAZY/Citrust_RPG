@@ -13,7 +13,7 @@ using namespace std;
 
 class AppleBossScreen : public IScreen {
     public:
-        AppleBossScreen(ScreenManager& manager, bool& exitFlag);
+        AppleBossScreen(ScreenManager& manager, bool& exitFlag, unsigned& cycle);
         ~AppleBossScreen() override;
         void Update(const Vector2& mousePos, bool mouseClicked) override;
         void Draw() override;
@@ -21,6 +21,7 @@ class AppleBossScreen : public IScreen {
     private:
         ScreenManager& manager;
         bool& exitGame;
+        unsigned battleCycle;
         Texture2D background;
         Button playerHPButton;
         Button bossHPButton;

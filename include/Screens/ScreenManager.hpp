@@ -43,6 +43,7 @@ public:
     bool isPopup() { return popup->isVisible(); }
 
     void AddBossCount(int count) { bossCount += count; }
+    void setBossCount(int count) { bossCount = count; }
     int GetBossCount() const { return bossCount; }
 
     void AddTutorialCount(int count) { tutorialCount += count; }

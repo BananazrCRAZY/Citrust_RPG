@@ -16,7 +16,12 @@ class Boss : public Fruit {
             Fruit(mainFile), 
             itemDrop(new Item(itemF)), 
             requiredBossCharge(requiredCharge), 
-            bossAbilityCharge(1) {}
+            bossAbilityCharge(1)
+        {}
+        ~Boss() {
+            clearEffectsVector();
+            effects.clear();
+        }
         virtual string specialAttack(Fruit*) = 0;
         virtual string bossAbility() = 0;
         int getBossAbilityCharge() { return bossAbilityCharge; }
