@@ -181,7 +181,7 @@ void AppleBossScreen::Draw() {
     DrawText(bossLvl.c_str(), 825, 185, 30, BLACK);
 
     string cycleCount = "CYCLE: " + to_string(battleCycle);
-    DrawText(cycleCount.c_str(), 200, 100, 28, BLACK);
+    DrawText(cycleCount.c_str(), 200, 80, 30, BLACK);
 
     manager.getPopup()->Draw();
     if (menu.isVisible()) menu.Draw();

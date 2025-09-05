@@ -21,7 +21,7 @@ class AppleBossScreen : public IScreen {
     private:
         ScreenManager& manager;
         bool& exitGame;
-        unsigned battleCycle;
+        unsigned& battleCycle;
         Texture2D background;
         Button playerHPButton;
         Button bossHPButton;
