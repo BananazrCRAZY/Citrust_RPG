@@ -8,7 +8,7 @@ class Popup {
 public:
     Popup(float duration = 1.0f);
 
-    void Show(const std::string& message);
+    void Show(const string& message);
     void Update();
     void Draw();
     bool isVisible();

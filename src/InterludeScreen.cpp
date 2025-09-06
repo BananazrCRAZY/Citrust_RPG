@@ -32,6 +32,7 @@ InterludeScreen::~InterludeScreen() {
 }
 
 void InterludeScreen::Update(const Vector2& mousePos, bool mouseClicked) {
+    mainPopup.Update();
     if (shopButton.isPressed(mousePos, mouseClicked)) {
         manager.PushScreen(make_unique<ShopScreen>(manager, exitGame));
     }
@@ -52,4 +53,5 @@ void InterludeScreen::Draw() {
     inventoryButton.Draw();
     bossButton.Draw();
     quitButton.Draw();
+    mainPopup.Draw();
 }

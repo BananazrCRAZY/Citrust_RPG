@@ -12,7 +12,7 @@ class Pineapple : public Boss {
             rechargeCount -= 2;
             target->addEffect(new Status(dotFile));
             target->addEffect(new Status(dotFile));
-            return target->getName() + ": Inflicted with DoT by " + name + ".";
+            return name + ": Gave " + target->getName() + " DoT.";
         }
 
         // not used need to change
@@ -23,13 +23,16 @@ class Pineapple : public Boss {
         string basicAttack(Fruit* target) override {
             string returnStr;
             int damage = arts->getTotal();
-            if (checkIfCrit()) damage = damage * (critDmg->getTotal()/100 + 1);
+            if (checkIfCrit()) {
+                damage = damage * (critDmg->getTotal()/100 + 1);
+                returnStr += "CRIT!\n";
+            }
             damage *= (1 - (target->getRes() / 100.0));
             if (damage <= 0) returnStr = name + " did 0 damage.\n";
             target->setHp(-1*damage);
             returnStr = name + ": Dealt " + std::to_string(damage) + " damage.\n";
 
             target->addEffect(new Status(dotFile));
-            return returnStr + target->getName() + ": Inflicted with DoT by " + name + ".";
+            return returnStr + name + ": Gave " + target->getName() + " DoT.";
         }
 };

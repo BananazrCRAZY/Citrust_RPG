@@ -40,6 +40,8 @@ ShopScreen::~ShopScreen() {
 }
 
 void ShopScreen::Update(const Vector2& mousePos, bool mouseClicked) {
+    mainPopup.Update();
+    
     if (backButton.isPressed(mousePos, mouseClicked)) {
         manager.PopScreen();
         //need to go back to same screen as before, the interlude
@@ -89,4 +91,6 @@ void ShopScreen::Draw() {
     menu.Draw();
     string calCount = "Calories: " + to_string(manager.getCalories());
     DrawText(calCount.c_str(), 1300, 100, 35, BLACK);
+
+    mainPopup.Draw();
 }

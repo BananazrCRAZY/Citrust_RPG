@@ -40,6 +40,8 @@ InventoryScreen::~InventoryScreen() {
 }
 
 void InventoryScreen::Update(const Vector2& mousePos, bool mouseClicked) {
+    if (manager.isPopup()) manager.getPopup()->Update();
+    
     if (backButton.isPressed(mousePos, mouseClicked)) {
         manager.PopScreen();
         return;
@@ -64,4 +66,6 @@ void InventoryScreen::Draw() {
     for (unsigned i = 0; i < player->getNumberBattleItems(); i++) buttons[i]->Draw();
     if (menu.isVisible()) menu.Draw();
     backButton.Draw();
+
+    if (manager.isPopup()) manager.getPopup()->Draw();
 }

@@ -100,14 +100,17 @@ void Game::runGame() {
                 case 5:
                     openFile("assets/saves/Save1/Game.txt");
                     resetSave();
+                    mainPopup.show("Deleted Save 1", 60, BLACK, LIGHTGRAY);
                     break;
                 case 6:
                     openFile("assets/saves/Save2/Game.txt");
                     resetSave();
+                    mainPopup.show("Deleted Save 2", 60, BLACK, LIGHTGRAY);
                     break;
                 case 7:
                     openFile("assets/saves/Save3/Game.txt");
                     resetSave();
+                    mainPopup.show("Deleted Save 3", 60, BLACK, LIGHTGRAY);
                     break;
                 default:
                     cerr << "Error: runGame(), if !gotFile, switch case, sm input error" << endl;
@@ -259,6 +262,7 @@ int Game::gameLoop() {
         }
         screenManager.setBoss(boss);
         uiDraw();
+        mainPopup.show("FIGHT", 100, RED, GREEN);
         // battleResult: -1 is a loss, if positive then it's the number of cycles
         int battleResult = battleLoop(boss);
         if (savePoint == 5) {
@@ -366,8 +370,7 @@ void Game::loadInterlude() {
                     exit(1);
             }
         }
-        // print here
-        cout << printThis << '\n';
+        mainPopup.show(printThis, 60, BLACK, LIGHTGRAY);
     }
 }
 

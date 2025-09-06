@@ -104,6 +104,8 @@ AppleBossScreen::~AppleBossScreen() {
 }
 
 void AppleBossScreen::Update(const Vector2& mousePos, bool mouseClicked) {
+    mainPopup.Update();
+    if (manager.isPopup()) manager.getPopup()->Update();
     if (statsButton.isPressed(mousePos, mouseClicked)) menu.toggleVisible();
 
     if (menu.isVisible()) {
@@ -156,8 +158,6 @@ void AppleBossScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     if (skillButton.isPressed(mousePos, mouseClicked)) {
         manager.setInput(1);
     }
-
-    manager.getPopup()->Update();
 }
 
 void AppleBossScreen::Draw() {
@@ -183,6 +183,7 @@ void AppleBossScreen::Draw() {
     string cycleCount = "CYCLE: " + to_string(battleCycle);
     DrawText(cycleCount.c_str(), 200, 80, 30, BLACK);
 
-    manager.getPopup()->Draw();
+    if (manager.isPopup()) manager.getPopup()->Draw();
     if (menu.isVisible()) menu.Draw();
+    mainPopup.Draw();
 }

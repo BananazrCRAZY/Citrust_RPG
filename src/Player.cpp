@@ -45,20 +45,22 @@ Player::~Player() {
 
 // Deals Physical DMG and Arts DMG equal to ATK and Arts ATK respectively. Damage dealt is counted as once instance of damage. However, each type of damage has its own chance to crit.
 string Player::specialAttack(Fruit* target) {
-  int physDmg = attack->getTotal();
-  int artsDmg = arts->getTotal();
-  if (checkIfCrit()) {
-    physDmg *= (critDmg->getTotal()/100.0 + 1);
-    artsDmg *= (critDmg->getTotal()/100.0 + 1);
-  }
-  physDmg -= target->getDefense();
-  artsDmg *= (1.0 - (target->getRes()/100.0));
-  int damageDealt = physDmg + artsDmg;
-  if (damageDealt <= 0) return name + ": Dealt 0 damage.";
-  target->setHp(-1 * damageDealt);
+    string returnThis = "";
+    int physDmg = attack->getTotal();
+    int artsDmg = arts->getTotal();
+    if (checkIfCrit()) {
+        physDmg *= (critDmg->getTotal()/100.0 + 1);
+        artsDmg *= (critDmg->getTotal()/100.0 + 1);
+        returnThis += "CRIT!\n";
+    }
+    physDmg -= target->getDefense();
+    artsDmg *= (1.0 - (target->getRes()/100.0));
+    int damageDealt = physDmg + artsDmg;
+    if (damageDealt <= 0) return returnThis + name + ": Dealt 0 damage.";
+    target->setHp(-1 * damageDealt);
 
-  rechargeCount -= 2;
-  return name + ": Dealt " + std::to_string(damageDealt) + " damage.";
+    rechargeCount -= 2;
+    return returnThis + name + ": Dealt " + std::to_string(damageDealt) + " damage.";
 }
 
 void Player::levelUp() {
@@ -67,8 +69,8 @@ void Player::levelUp() {
     level++;
     maxHp->addBase(275);
     attack->addBase(140);
-    arts->addBase(130);
     defense->addBase(60);
+    arts->addBase(130);
     reAddStats();
 }
 
