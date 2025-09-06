@@ -18,18 +18,14 @@ void EquipPopup::Update(const Vector2& mousePos, bool mouseClicked) {
     if (!visible) return;
     IndefinitePopup::Update(mousePos, mouseClicked);
 
-    cout << "updating\n";
     if (!equipped) {
-        cout << "not equipped\n";
         if (player->getNumberBattleItems() >= 6) return;
         if (equipButton.isPressed(mousePos, mouseClicked)) {
-            cout << "pressed\n";
             visible = false;
             manager.setInput(14+itemIndex);
             return;
         }
     } else if (equipButton.isPressed(mousePos, mouseClicked)) {
-        cout << "wrong press\n";
         visible = false;
         manager.setInput(8+itemIndex);
         return;
@@ -65,7 +61,28 @@ void EquipPopup::Draw() {
         }
         textWidthDesc = MeasureText(message.c_str(), 20);
     }
-    DrawText(message.c_str(), box.x + (box.width - textWidthDesc)/2, box.y + 365, 20, BLACK);
+    DrawText(message.c_str(), box.x + (box.width - textWidthDesc)/2, box.y + 340, 20, BLACK);
+
+    string effectDesc;
+    if (equipped) effectDesc = player->getBattleItem(itemIndex)->getStatus()->getName()
+        + ": " + player->getBattleItem(itemIndex)->getStatus()->getDescription();
+    else effectDesc = player->getInventoryItem(itemIndex)->getStatus()->getName()
+        + ": " + player->getInventoryItem(itemIndex)->getStatus()->getDescription();
+    int effectDescWidth = MeasureText(effectDesc.c_str(), 20);
+    if (effectDescWidth >= 700) {
+        int charCount = 0;
+        for (int i = 0; i < effectDesc.length(); i++) {
+            if (charCount > 65) {
+                if (effectDesc[i] == ' ') {
+                    effectDesc[i] = '\n';
+                    charCount = 0;
+                }
+            }
+            charCount++;
+        }
+        effectDescWidth = MeasureText(effectDesc.c_str(), 20);
+    }
+    DrawText(effectDesc.c_str(), box.x + (box.width - effectDescWidth)/2, box.y + 415, 20, BLACK);
 
     string consumableText = "NON-CONSUMABLE";
     if (equipped) {

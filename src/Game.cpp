@@ -19,6 +19,7 @@
 #include "include/Screens/PrologueScreen1.hpp"
 #include "include/Screens/ScreenManager.hpp"
 #include "include/Screens/TitleScreen.hpp"
+#include "include/Screens/VictoryScreen.hpp"
 #include "include/Screens/WinScreen.hpp"
 #include <raylib.h>
 #include <fstream>
@@ -99,14 +100,17 @@ void Game::runGame() {
                 case 5:
                     openFile("assets/saves/Save1/Game.txt");
                     resetSave();
+                    mainPopup.show("Deleted Save 1", 60, BLACK, LIGHTGRAY);
                     break;
                 case 6:
                     openFile("assets/saves/Save2/Game.txt");
                     resetSave();
+                    mainPopup.show("Deleted Save 2", 60, BLACK, LIGHTGRAY);
                     break;
                 case 7:
                     openFile("assets/saves/Save3/Game.txt");
                     resetSave();
+                    mainPopup.show("Deleted Save 3", 60, BLACK, LIGHTGRAY);
                     break;
                 default:
                     cerr << "Error: runGame(), if !gotFile, switch case, sm input error" << endl;
@@ -258,6 +262,7 @@ int Game::gameLoop() {
         }
         screenManager.setBoss(boss);
         uiDraw();
+        mainPopup.show("FIGHT", 100, RED, GREEN);
         // battleResult: -1 is a loss, if positive then it's the number of cycles
         int battleResult = battleLoop(boss);
         if (savePoint == 5) {
@@ -288,7 +293,7 @@ int Game::gameLoop() {
         }
         player->newItem(boss->getItem());
 
-        // load win screen here
+        screenManager.ChangeScreen(make_unique<VictoryScreen>(screenManager));
 
         delete boss;
         boss = nullptr;
@@ -298,6 +303,10 @@ int Game::gameLoop() {
         player->levelUp();
         player->endOfBattle();
         screenManager.AddBossCount(1);
+
+        // while player is still on victory screen
+        screenManager.setInput(-1);
+        whileUiDrawLoop(-1);
 
         // end of game
         if (savePoint == 9) {
@@ -322,11 +331,6 @@ void Game::loadInterlude() {
         screenManager.setCalories(calories);
         // load interlude screen here
         whileUiDrawLoop(-1);
-
-        cout << "selected, input: " << screenManager.getInput() << '\n';
-        cout << player->getNumberBattleItems() << ": battle items\n";
-        cout << player->getNumberInventoryItems() << ": inventory items\n";
-        
         int inputNum = screenManager.getInput();
         if (inputNum >= 8 && inputNum < (14 + player->getNumberInventoryItems())) {
             if (inputNum < 14) {
@@ -366,8 +370,7 @@ void Game::loadInterlude() {
                     exit(1);
             }
         }
-        // print here
-        cout << printThis << '\n';
+        mainPopup.show(printThis, 60, BLACK, LIGHTGRAY);
     }
 }
 

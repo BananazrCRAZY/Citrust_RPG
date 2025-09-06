@@ -1,4 +1,4 @@
-1
+0
 0
 assets/saves/Save2/Player.txt
 assets/saves/Save2/InventoryList.txt

@@ -60,6 +60,7 @@ EquipmentScreen::~EquipmentScreen() {
 }
 
 void EquipmentScreen::Update(const Vector2& mousePos, bool mouseClicked) {
+    mainPopup.Update();
     if (backButton.isPressed(mousePos, mouseClicked)) {
         manager.PopScreen();
         //need to go back to same screen as before, the interlude
@@ -178,6 +179,8 @@ void EquipmentScreen::Draw() {
     }
 
     EndScissorMode();
+
+    mainPopup.Draw();
 
     if (equipMenu.isVisible()) equipMenu.Draw();
     backButton.Draw();

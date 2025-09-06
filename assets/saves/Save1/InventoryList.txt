@@ -1,1 +1,3 @@
+assets/items/SmallVitaminC.txt
+assets/bossItems/AppleCore.txt
 unequipped

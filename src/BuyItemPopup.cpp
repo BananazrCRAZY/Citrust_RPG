@@ -47,11 +47,29 @@ void BuyItemPopup::Draw() {
         }
         textWidthDesc = MeasureText(message.c_str(), 20);
     }
-    DrawText(message.c_str(), box.x + (box.width - textWidthDesc)/2, box.y + 365, 20, BLACK);
+    DrawText(message.c_str(), box.x + (box.width - textWidthDesc)/2, box.y + 340, 20, BLACK);
+
+    string effectDesc = manager.getShopItem(itemIndex)->getStatus()->getName() 
+        + ": " + manager.getShopItem(itemIndex)->getStatus()->getDescription();
+    int effectDescWidth = MeasureText(effectDesc.c_str(), 20);
+    if (effectDescWidth >= 700) {
+        int charCount = 0;
+        for (int i = 0; i < effectDesc.length(); i++) {
+            if (charCount > 65) {
+                if (effectDesc[i] == ' ') {
+                    effectDesc[i] = '\n';
+                    charCount = 0;
+                }
+            }
+            charCount++;
+        }
+        effectDescWidth = MeasureText(effectDesc.c_str(), 20);
+    }
+    DrawText(effectDesc.c_str(), box.x + (box.width - effectDescWidth)/2, box.y + 415, 20, BLACK);
 
     string costText = "Cost: " + to_string(manager.getShopItem(itemIndex)->getCost());
     int costTextWidth = MeasureText(costText.c_str(), 20);
-    DrawText(costText.c_str(), box.x + (box.width - costTextWidth)/2, box.y + 435, 20, BLACK);
+    DrawText(costText.c_str(), box.x + (box.width - costTextWidth)/2, box.y + 480, 20, BLACK);
 
     string consumableText;
     if (manager.getShopItem(itemIndex)->isConsumableTrue()) consumableText = "CONSUMABLE";

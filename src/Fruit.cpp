@@ -88,12 +88,16 @@ void Fruit::setHp(int change) {
 }
 
 string Fruit::basicAttack(Fruit* target) {
+    string returnThis = "";
     int damage = attack->getTotal();
-    if (checkIfCrit()) damage = damage * (critDmg->getTotal()/100.0 + 1);
+    if (checkIfCrit()) {
+        damage = damage * (critDmg->getTotal()/100.0 + 1);
+        returnThis += "CRIT!\n";
+    }
     damage = damage - target->getDefense();
-    if (damage <= 0) return name + " did 0 damage.";
+    if (damage <= 0) return returnThis + name + " did 0 damage.";
     target->setHp(-1*damage);
-    return name + ": Dealt " + std::to_string(damage) + " damage.";
+    return returnThis + name + ": Dealt " + std::to_string(damage) + " damage.";
 }
 
 bool Fruit::checkIfCrit() {

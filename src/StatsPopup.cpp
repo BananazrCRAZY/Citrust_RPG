@@ -43,6 +43,15 @@ void StatsPopup::Update(const Vector2& mousePos, bool mouseClicked, ScreenManage
 
     if (!isShowingPlayerStats) {
         boss = manager.getBoss();
+        for (unsigned i = 0; i < bossEffectsSize; i++) {
+            // Only check if mouse is inside the visible panel
+            if (CheckCollisionPointRec(mousePos, scrollPanel)) {
+                if (bossEffects[i]->isPressed(mousePos, mouseClicked)) {
+                    mainPopup.show(boss->getEffect(i)->getDescription(), 30, BLACK, WHITE);
+                    return;
+                }
+            }
+        }
         if (playerStatsButton.isPressed(mousePos, mouseClicked)) {
             isShowingPlayerStats = true;
             // updatePosition(playerXStart);
@@ -54,6 +63,15 @@ void StatsPopup::Update(const Vector2& mousePos, bool mouseClicked, ScreenManage
     
     if (isShowingPlayerStats) {
         player = manager.getPlayer();
+        for (unsigned i = 0; i < playerEffectsSize; i++) {
+            // Only check if mouse is inside the visible panel
+            if (CheckCollisionPointRec(mousePos, scrollPanel)) {
+                if (playerEffects[i]->isPressed(mousePos, mouseClicked)) {
+                    mainPopup.show(player->getEffect(i)->getDescription(), 30, BLACK, WHITE);
+                    return;
+                }
+            }
+        }
         if (bossStatsButton.isPressed(mousePos, mouseClicked)) {
             isShowingPlayerStats = false;
             // updatePosition(bossXStart);

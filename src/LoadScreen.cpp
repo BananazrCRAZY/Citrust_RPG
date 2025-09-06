@@ -33,6 +33,7 @@ LoadScreen::~LoadScreen() {
 }
 
 void LoadScreen::Update(const Vector2& mousePos, bool mouseClicked) {
+    mainPopup.Update();
     if (saveButton1.isPressed(mousePos, mouseClicked)) {
         if (deleteSave) manager.setInput(5);
         else manager.setInput(2);
@@ -69,4 +70,6 @@ void LoadScreen::Draw() {
     trashButton.Draw();
     DrawRectangleLinesEx(trashBorder, 3, DARKGRAY);
     backButton.Draw();
+
+    mainPopup.Draw();
 }

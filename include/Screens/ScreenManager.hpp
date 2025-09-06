@@ -3,10 +3,12 @@
 
 #include <memory>
 #include <raylib.h>
+#include "include/Global.hpp"
 #include "IScreen.hpp"
 #include "include/Objects/Player.h"
 #include "include/bossHeaders/Boss.h"
 #include "include/Objects/Item.h"
+#include "include/Popups/CenterPopup.hpp"
 #include "include/Popups/Popup.hpp"
 #include <string>
 
