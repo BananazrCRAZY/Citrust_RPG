@@ -124,7 +124,7 @@ void EquipmentScreen::Update(const Vector2& mousePos, bool mouseClicked) {
         return;
     }
 
-    // equipped item buttonsm press check
+    // equipped item buttons press check
     for (unsigned i = 0; i < 6; i++) {
         if (equipped[i]->isPressed(mousePos, mouseClicked)) {
             equipMenu.setEquipped(true);

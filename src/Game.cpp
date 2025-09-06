@@ -220,7 +220,6 @@ void Game::startGame(int input) {
 }
 
 int Game::gameLoop() {
-    cout << "entered game loop\n";
     Boss* boss = nullptr;
     player->endOfBattle();
     while (!exitGame) {
@@ -323,6 +322,11 @@ void Game::loadInterlude() {
         screenManager.setCalories(calories);
         // load interlude screen here
         whileUiDrawLoop(-1);
+
+        cout << "selected, input: " << screenManager.getInput() << '\n';
+        cout << player->getNumberBattleItems() << ": battle items\n";
+        cout << player->getNumberInventoryItems() << ": inventory items\n";
+        
         int inputNum = screenManager.getInput();
         if (inputNum >= 8 && inputNum < (14 + player->getNumberInventoryItems())) {
             if (inputNum < 14) {
@@ -363,7 +367,7 @@ void Game::loadInterlude() {
             }
         }
         // print here
-
+        cout << printThis << '\n';
     }
 }
 
@@ -391,22 +395,20 @@ int Game::battleLoop(Boss* boss) {
     screenManager.ChangeScreen(make_unique<AppleBossScreen>(screenManager, exitGame, battleCycle));
     while (battleCycle < 100) {
         screenManager.setInput(-1);
+        if (!screenManager.isPopup()) {
+            if (player->isDead()) return -1;
+            else if (boss->isDead()) return battleCycle;
+        }
         while (player->getTurn() > 0 && !screenManager.isPopup()) {
             uiDraw();
             playerTurn(boss);
-            if (player->isDead()) return -1;
-            if (boss->isDead()) return battleCycle;
             player->endOfTurn();
-            if (player->isDead()) return -1;
             uiDraw();
         }
         while (boss->getTurn() > 0 && !screenManager.isPopup()) {
             uiDraw();
             enemyTurn(boss);
-            if (player->isDead()) return -1;
-            if (boss->isDead()) return battleCycle;
             boss->endOfTurn();
-            if (boss->isDead()) return battleCycle;
             uiDraw();
         }
         if (player->getTurn() <= 0 && boss->getTurn() <= 0 && !screenManager.isPopup()) {

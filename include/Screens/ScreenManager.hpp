@@ -58,7 +58,7 @@ private:
     int bossCount = 0;
     int tutorialCount = 0;
     Item** shopItems = nullptr;
-    int calories = 0;
+    int calories;
 };
 
 #endif

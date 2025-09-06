@@ -18,15 +18,21 @@ void EquipPopup::Update(const Vector2& mousePos, bool mouseClicked) {
     if (!visible) return;
     IndefinitePopup::Update(mousePos, mouseClicked);
 
+    cout << "updating\n";
     if (!equipped) {
+        cout << "not equipped\n";
         if (player->getNumberBattleItems() >= 6) return;
         if (equipButton.isPressed(mousePos, mouseClicked)) {
+            cout << "pressed\n";
             visible = false;
             manager.setInput(14+itemIndex);
+            return;
         }
     } else if (equipButton.isPressed(mousePos, mouseClicked)) {
+        cout << "wrong press\n";
         visible = false;
         manager.setInput(8+itemIndex);
+        return;
     }
 }
 
@@ -71,6 +77,7 @@ void EquipPopup::Draw() {
 
 void EquipPopup::showItem(unsigned index) {
     itemIndex = index;
+    cout << to_string(itemIndex) << ": item index\n";
     if (equipped) {
         icon.setTexture(player->getBattleItem(itemIndex)->getIcon().c_str());
         equipButton.SetTexture("Graphics/Buttons/unequipButton.png", .84);  // equipped item, can be unequipped
@@ -84,6 +91,9 @@ void EquipPopup::showItem(unsigned index) {
 
 void EquipPopup::setEquipped(bool set) {
     equipped = set;
+    cout << "setEquipped: ";
+    if (equipped) cout << "true\n";
+    else cout << "false\n";
 }
 
 bool EquipPopup::isEquipped() const {

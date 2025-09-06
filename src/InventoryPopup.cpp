@@ -10,10 +10,8 @@ InventoryPopup::InventoryPopup(Vector2 popupPosition, Vector2 popupSize, Vector2
     manager(mgr),
     player(p),
     useButton("Graphics/Buttons/useButtonGray.png", {900, 600}, .81),
-    icon(player->getBattleItem(index)->getIcon().c_str(), {700, 200}, 200, 200)
-{
-    setUsable();
-}
+    icon("", {700, 200}, 200, 200)
+{}
 
 void InventoryPopup::Update(const Vector2& mousePos, bool mouseClicked) {
     if (!visible) return;
