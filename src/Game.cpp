@@ -19,6 +19,7 @@
 #include "include/Screens/PrologueScreen1.hpp"
 #include "include/Screens/ScreenManager.hpp"
 #include "include/Screens/TitleScreen.hpp"
+#include "include/Screens/VictoryScreen.hpp"
 #include "include/Screens/WinScreen.hpp"
 #include <raylib.h>
 #include <fstream>
@@ -288,7 +289,7 @@ int Game::gameLoop() {
         }
         player->newItem(boss->getItem());
 
-        // load win screen here
+        screenManager.ChangeScreen(make_unique<VictoryScreen>(screenManager));
 
         delete boss;
         boss = nullptr;
@@ -298,6 +299,10 @@ int Game::gameLoop() {
         player->levelUp();
         player->endOfBattle();
         screenManager.AddBossCount(1);
+
+        // while player is still on victory screen
+        screenManager.setInput(-1);
+        whileUiDrawLoop(-1);
 
         // end of game
         if (savePoint == 9) {
@@ -322,11 +327,6 @@ void Game::loadInterlude() {
         screenManager.setCalories(calories);
         // load interlude screen here
         whileUiDrawLoop(-1);
-
-        cout << "selected, input: " << screenManager.getInput() << '\n';
-        cout << player->getNumberBattleItems() << ": battle items\n";
-        cout << player->getNumberInventoryItems() << ": inventory items\n";
-        
         int inputNum = screenManager.getInput();
         if (inputNum >= 8 && inputNum < (14 + player->getNumberInventoryItems())) {
             if (inputNum < 14) {

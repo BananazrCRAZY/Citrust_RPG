@@ -18,18 +18,14 @@ void EquipPopup::Update(const Vector2& mousePos, bool mouseClicked) {
     if (!visible) return;
     IndefinitePopup::Update(mousePos, mouseClicked);
 
-    cout << "updating\n";
     if (!equipped) {
-        cout << "not equipped\n";
         if (player->getNumberBattleItems() >= 6) return;
         if (equipButton.isPressed(mousePos, mouseClicked)) {
-            cout << "pressed\n";
             visible = false;
             manager.setInput(14+itemIndex);
             return;
         }
     } else if (equipButton.isPressed(mousePos, mouseClicked)) {
-        cout << "wrong press\n";
         visible = false;
         manager.setInput(8+itemIndex);
         return;
