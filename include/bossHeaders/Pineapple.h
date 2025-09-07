@@ -7,12 +7,12 @@ class Pineapple : public Boss {
     string dotFile = "assets/status/DoT.txt";
 
     public:
-        Pineapple(const string& main, const string& item, int required) : Boss(main, item, required) {}
+        Pineapple(const string& main, const string& item, int required, const string& proxy) : Boss(main, item, required, proxy) {}
         string specialAttack(Fruit* target) {
             rechargeCount -= 2;
             target->addEffect(new Status(dotFile));
             target->addEffect(new Status(dotFile));
-            return name + ": Gave " + target->getName() + " DoT.";
+            return name + ": Wounded " + target->getName() + ".";
         }
 
         // not used need to change
@@ -33,6 +33,6 @@ class Pineapple : public Boss {
             returnStr = name + ": Dealt " + std::to_string(damage) + " damage.\n";
 
             target->addEffect(new Status(dotFile));
-            return returnStr + name + ": Gave " + target->getName() + " DoT.";
+            return returnStr + name + ": Wounded " + target->getName() + ".";
         }
 };

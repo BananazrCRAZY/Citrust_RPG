@@ -230,31 +230,31 @@ int Game::gameLoop() {
         // need ui to show screen based on savePoint (dialogue)
         switch (savePoint) {
             case 0:
-                boss = new Apple("assets/bosses/Apple.txt", "assets/bossItems/AppleCore.txt", -1);
+                boss = new Apple("assets/bosses/Apple.txt", "assets/bossItems/AppleCore.txt", -1, "assets/status/BossProxyStatus/AppleHeal.txt");
                 break;
             case 1:
-                boss = new Pear("assets/bosses/Pear.txt", "assets/bossItems/PearStem.txt", -1);
+                boss = new Pear("assets/bosses/Pear.txt", "assets/bossItems/PearStem.txt", -1, "assets/status/BossProxyStatus/Crispy.txt");
                 break;
             case 2:
-                boss = new Strawberry("assets/bosses/Strawberry.txt", "assets/bossItems/StrawberrySeed.txt", 3);
+                boss = new Strawberry("assets/bosses/Strawberry.txt", "assets/bossItems/StrawberrySeed.txt", 3, "assets/status/BossProxyStatus/Seedless.txt");
                 break;
             case 3:
-                boss = new Grape("assets/bosses/Grape.txt", "assets/bossItems/Grapevine.txt", 4);
+                boss = new Grape("assets/bosses/Grape.txt", "assets/bossItems/Grapevine.txt", 4, "assets/status/BossProxyStatus/GrapeBurst.txt");
                 break;
             case 4:
-                boss = new Dekopon(playerFile, "assets/bossItems/Dekopeel.txt", 3);
+                boss = new Dekopon(playerFile, "assets/bossItems/Dekopeel.txt", 3, "assets/status/BossProxyStatus/Imposter.txt");
                 break;
             case 5:
-                boss = new MangoGreen("assets/bosses/MangoGreen.txt", "assets/bossItems/DriedMango.txt", -1);
+                boss = new MangoGreen("assets/bosses/MangoGreen.txt", "assets/bossItems/DriedMango.txt", -1, "assets/status/BossProxyStatus/Rage.txt");
                 break;
             case 7:
-                boss = new Pineapple("assets/bosses/Pineapple.txt", "assets/bossItems/PineappleCrown.txt", 1000);
+                boss = new Pineapple("assets/bosses/Pineapple.txt", "assets/bossItems/PineappleCrown.txt", 1000, "assets/status/BossProxyStatus/Thorns.txt");
                 break;
             case 8:
-                boss = new Durian("assets/bosses/Durian.txt", "assets/bossItems/DurianThorn.txt", -1);
+                boss = new Durian("assets/bosses/Durian.txt", "assets/bossItems/DurianThorn.txt", -1, "assets/status/BossProxyStatus/Thorns.txt");
                 break;
             case 9:
-                boss = new Watermelon("assets/bosses/Watermelon.txt", "assets/bossItems/DurianThorn.txt", 1000);
+                boss = new Watermelon("assets/bosses/Watermelon.txt", "assets/bossItems/DurianThorn.txt", 1000, "assets/status/BossProxyStatus/Shell.txt");
                 break;
             default:
                 cerr << "Game loop input error" << endl;
@@ -272,7 +272,7 @@ int Game::gameLoop() {
                 delete boss->getItem();
                 delete boss;
                 savePoint++;
-                boss = new MangoRed("assets/bosses/MangoRed.txt", "assets/bossItems/DriedMango.txt", -1);
+                boss = new MangoRed("assets/bosses/MangoRed.txt", "assets/bossItems/DriedMango.txt", -1, "assets/status/BossProxyStatus/Rage.txt");
                 screenManager.setBoss(boss);
                 screenManager.AddBossCount(1);
                 uiDraw();
@@ -370,7 +370,7 @@ void Game::loadInterlude() {
                     exit(1);
             }
         }
-        mainPopup.show(printThis, 60, BLACK, LIGHTGRAY);
+        mainPopup.show(printThis, 50, BLACK, LIGHTGRAY);
     }
 }
 
@@ -520,7 +520,7 @@ void Game::resetSave() {
 string Game::checkBuyItem(int index) {
     int cost = shop->getItemPrice(index);
     if (cost == -1) return "You have already purchased this item.";
-    if (cost > calories) return "You cannot buy this. You are missing " + std::to_string(shop->getItemPrice(0)-calories) + " calories.";
+    if (cost > calories) return "You cannot buy this. You are missing " + std::to_string(shop->getItemPrice(index)-calories) + " calories.";
     calories -= cost;
     return shop->purchaseItem(player, index);
 }

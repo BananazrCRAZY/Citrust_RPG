@@ -5,7 +5,7 @@ using std::to_string;
 
 class Dekopon : public Boss {
     public:
-        Dekopon(const string& main, const string& item, int required) : Boss(main, item, required) {
+        Dekopon(const string& main, const string& item, int required, const string& proxy) : Boss(main, item, required, proxy) {
             name = "Dekopon";
             level = 50;
         }
@@ -15,7 +15,7 @@ class Dekopon : public Boss {
             if (target->getHp() <= amount) target->setHp(-1 * (target->getHp() - 1));
             else target->setHp(-1 * amount);
             rechargeCount -= 2;
-            return name + ": Absorbed 20% of " + target->getName() + "\'s hp.";
+            return name + ": Absorbed 20% of " + target->getName() + "\'s HP.";
         }
 
         string bossAbility() {

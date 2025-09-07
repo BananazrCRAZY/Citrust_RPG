@@ -11,16 +11,22 @@ class Durian : public Boss {
     int damageTaken = 0;
 
     public:
-        Durian(const string& main, const string& item, int required) : Boss(main, item, required) {}
+        Durian(const string& main, const string& item, int required, const string& proxy) : Boss(main, item, required, proxy) {
+            addEffect(new Status("assets/status/BossProxyStatus/Berserk.txt"));
+        }
 
         string specialAttack(Fruit* target) {
+            string returnThis = "";
             int damage = attack->getTotal() * 3;
-            if (checkIfCrit()) damage = damage * (critDmg->getTotal()/100 + 1);
+            if (checkIfCrit()) {
+                returnThis += "CRIT!\n";
+                damage *= (critDmg->getTotal() / 100.0 + 1);
+            }
             damage = damage - (target->getDefense() * .5);
-            if (damage <= 0) return name + " did 0 damage.";
+            if (damage <= 0) return returnThis + name + " did 0 damage.";
             target->setHp(-1*damage);
             rechargeCount -= 2;
-            return name + ": Dealt " + to_string(damage) + " damage.";
+            return returnThis + name + ": Dealt " + to_string(damage) + " damage.";
         }
 
         string bossAbility() {
@@ -36,6 +42,6 @@ class Durian : public Boss {
             string returnStr = Fruit::basicAttack(target) + '\n';
 
             target->addEffect(new Status(effectFile));
-            return returnStr + target->getName() + ": Inflicted with DoT by " + name + ".";
+            return returnStr + name + ": Wounded " + target->getName() + ".";
         }
 };

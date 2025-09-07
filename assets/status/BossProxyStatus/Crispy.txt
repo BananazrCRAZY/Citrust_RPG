@@ -1,0 +1,15 @@
+Crispy
+Increases CRIT DMG by 25% every turn.
+-1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1

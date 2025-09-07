@@ -3,7 +3,7 @@
 
 class Apple : public Boss {
     public:
-        Apple(const string& main, const string& item, int required) : Boss(main, item, required) {}
+        Apple(const string& main, const string& item, int required, const string& proxy) : Boss(main, item, required, proxy) {}
         string specialAttack(Fruit* target) {
             rechargeCount -= 2;
             int damage = attack->getTotal() * 2 - target->getDefense();
@@ -15,6 +15,6 @@ class Apple : public Boss {
         string bossAbility() {
             int amount = maxHp->getTotal() * .05;
             setHp(amount);
-            return name + ": Healed " + std::to_string(amount) + " hp.";
+            return name + ": Healed " + std::to_string(amount) + " HP.";
         }
 };

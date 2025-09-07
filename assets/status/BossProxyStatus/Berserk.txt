@@ -1,0 +1,15 @@
+Berserk
+Increases ATK by 10% of damage taken.
+-1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
