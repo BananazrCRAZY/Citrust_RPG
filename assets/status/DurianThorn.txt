@@ -1,5 +1,5 @@
 Durian Thorn
-Increases Arts ATK by 50%, but decreases ATK by 30% and DEF by 20%, and decreases CRIT DMG by 20%.
+Increases ARTS by 50%, but decreases ATK by 30%, DEF by 20%, and CRIT DMG by 20%.
 -1
 1
 0
@@ -10,5 +10,6 @@ Increases Arts ATK by 50%, but decreases ATK by 30% and DEF by 20%, and decrease
 0
 0
 -20
+0
 0
 0

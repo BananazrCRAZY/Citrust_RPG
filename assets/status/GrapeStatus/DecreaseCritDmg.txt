@@ -1,5 +1,5 @@
 Crit Damage Down
-Decrease crit damage by 20%.
+Decrease CRIT DMG by 20%.
 2
 1
 0

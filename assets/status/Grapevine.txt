@@ -1,5 +1,5 @@
 Grapevine
-Immediately grants the player 1 extra turn after the current turn and 1 extra skill point.
+Grants the player 1 extra TURN and SKILL POINT.
 2
 0
 0
@@ -12,3 +12,4 @@ Immediately grants the player 1 extra turn after the current turn and 1 extra sk
 0
 1
 1
+0

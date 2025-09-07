@@ -1,5 +1,5 @@
 Defense Down
-Decrease defense by 10%.
+Decrease DEF by 10%.
 2
 1
 0
