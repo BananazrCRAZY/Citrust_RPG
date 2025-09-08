@@ -1,0 +1,15 @@
+Seedless
+Decreases DEF for every attack.
+-1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1

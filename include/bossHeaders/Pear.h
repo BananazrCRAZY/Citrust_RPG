@@ -3,7 +3,7 @@
 
 class Pear : public Boss {
     public:
-        Pear(const string& main, const string& item, int required) : Boss(main, item, required) {}
+        Pear(const string& main, const string& item, int required, const string& proxy) : Boss(main, item, required, proxy) {}
         string specialAttack(Fruit* target) {
             string returnThis = "";
             rechargeCount -= 2;
@@ -20,7 +20,7 @@ class Pear : public Boss {
         }
 
         string bossAbility() {
-            critRate->add(2);
-            return name + ": Crit Rate Increased.";
+            critDmg->add(25);
+            return name + ": CRIT DMG Increased.";
         }
 };

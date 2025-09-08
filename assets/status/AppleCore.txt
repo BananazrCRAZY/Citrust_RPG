@@ -1,9 +1,10 @@
 Apple Core
-Increases Max HP by 10%. Every turn, restores 2% of Max HP.
+Increases MAX HP by 10% and heals 2% of MAX HP every turn.
 -1
 1
 2
 10
+0
 0
 0
 0

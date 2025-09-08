@@ -118,27 +118,35 @@ void AppleBossScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     if (boss == nullptr) exit(1);
 
     int index;
-    if (player->getMaxHp() == 0) index = 0;
-    else index = 5 * player->getHp() / player->getMaxHp();
+    if (player->getMaxHp() == 0 || player->getHp() == 0) index = 0;
+    else {
+        double check = 5 * player->getHp() / player->getMaxHp();
+        if (check < 1 && check > 0) index = 1;
+        else index = check;
 
-    if (index > 5) index = 5;
-    if (index < 0) index = 0;
-    static int lastIndex = -1;
-    if (index != lastIndex) {               // doesn't access array index out of bounds
-        playerHPButton.SetTexture(playerHPTextures[index], 0.40f);
-        lastIndex = index;
+        if (index >= 5) index = 5;
+        if (index <= 0) index = 0;
+        static int lastIndex = -1;
+        if (index != lastIndex) {               // doesn't access array index out of bounds
+            playerHPButton.SetTexture(playerHPTextures[index], 0.40f);
+            lastIndex = index;
+        }
     }
     
     int indexBossHp;
-    if (boss->getMaxHp() == 0) indexBossHp = 0;
-    else indexBossHp = 5 * boss->getHp() / boss->getMaxHp();
+    if (boss->getMaxHp() == 0 || boss->getHp() == 0) indexBossHp = 0;
+    else {
+        double check = 5 * boss->getHp() / boss->getMaxHp();
+        if (check < 1 && check > 0) indexBossHp = 1;
+        else indexBossHp = check;
 
-    if (indexBossHp > 5) indexBossHp = 5;
-    if (indexBossHp < 0) indexBossHp = 0;
-    static int lastBossIndex = -1;
-    if (indexBossHp != lastBossIndex) {
-        bossHPButton.SetTexture(bossHPTextures[indexBossHp], 0.50f);
-        lastBossIndex = indexBossHp;
+        if (indexBossHp >= 5) indexBossHp = 5;
+        if (indexBossHp <= 0) indexBossHp = 0;
+        static int lastBossIndex = -1;
+        if (indexBossHp != lastBossIndex) {
+            bossHPButton.SetTexture(bossHPTextures[indexBossHp], 0.50f);
+            lastBossIndex = indexBossHp;
+        }
     }
     
     int skillPts = player->getRechargeCount();

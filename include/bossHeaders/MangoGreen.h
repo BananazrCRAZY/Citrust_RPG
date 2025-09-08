@@ -5,7 +5,7 @@ using std::to_string;
 
 class MangoGreen : public Boss {
     public:
-        MangoGreen(const string& main, const string& item, int required) : Boss(main, item, required) {}
+        MangoGreen(const string& main, const string& item, int required, const string& proxy) : Boss(main, item, required, proxy) {}
         string specialAttack(Fruit* target) {
             rechargeCount -= 2;
             string returnStr = "";
@@ -16,14 +16,15 @@ class MangoGreen : public Boss {
                 returnStr += (name + ": Dealt " + std::to_string(damage) + " damage.\n");
             }
             target->setAttackAdd(-20);
-            return returnStr + target->getName() + ": Attack decreased by " + name + ".";
+            return returnStr + name + ": Decreased " + target->getName() + "'s ATK.";
         }
 
+        // increases attack if half hp
         string bossAbility() {
             if (hp < (maxHp->getTotal() / 2)) {
                 requiredBossCharge = 101;
-                attack->add(100);
-                return name + ": Attack increased.";
+                attack->add(150);
+                return name + ": ATK increased.";
             }
             return "";
         }

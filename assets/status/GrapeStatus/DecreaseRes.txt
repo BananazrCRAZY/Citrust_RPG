@@ -1,5 +1,5 @@
 Resistance Down
-Decrease resistance by 5%.
+Decrease RES by 5%.
 2
 1
 0

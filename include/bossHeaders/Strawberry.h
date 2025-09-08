@@ -7,7 +7,7 @@ using std::to_string;
 
 class Strawberry : public Boss {
     public:
-        Strawberry(const string& main, const string& item, int required) : Boss(main, item, required) {}
+        Strawberry(const string& main, const string& item, int required, const string& proxy) : Boss(main, item, required, proxy) {}
         string specialAttack(Fruit* target) {
             rechargeCount -= 2;
             int defenseLower = 0;
@@ -22,7 +22,7 @@ class Strawberry : public Boss {
                 }
                 defenseLower += (defense->getBase() * .01);
             }
-            returnStatement += (name + ": Lost " + to_string(defenseLower) + " defense.");
+            returnStatement += (name + ": Lost " + to_string(defenseLower) + " DEF.");
             defense->add(-1 * defenseLower);
             return returnStatement;
         }
@@ -31,6 +31,6 @@ class Strawberry : public Boss {
             bossAbilityCharge -= requiredBossCharge;
             int change = defense->getBase() * .03;
             defense->add(-1 * change);
-            return name + ": Lost " + to_string(change) + " defense.";
+            return name + ": Lost " + to_string(change) + " DEF.";
         }
 };

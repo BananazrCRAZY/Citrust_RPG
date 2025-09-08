@@ -1,5 +1,5 @@
 Crit Rate Down
-Decrease crit rate by 5%.
+Decrease CRIT RATE by 5%.
 2
 1
 0

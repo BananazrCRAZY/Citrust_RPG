@@ -1,5 +1,5 @@
 Attack Down
-Decrease attack by 10%.
+Decrease ATK by 10%.
 2
 1
 0

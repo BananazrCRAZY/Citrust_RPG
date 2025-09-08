@@ -1,5 +1,5 @@
 Dried Mango
-Increases ATK and Arts ATK by 8%, but consumes 3% of Max HP every turn. Furthermore, increases CRIT Rate by 5% and CRIT DMG by 15%.
+Increases ATK and ARTS by 8%, CRIT RATE by 5%, and CRIT DMG by 15%, but consumes 3% of MAX HP every turn.
 -1
 1
 -3
@@ -10,5 +10,6 @@ Increases ATK and Arts ATK by 8%, but consumes 3% of Max HP every turn. Furtherm
 0
 5
 15
+0
 0
 0

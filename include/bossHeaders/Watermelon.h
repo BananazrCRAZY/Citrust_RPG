@@ -5,7 +5,7 @@ using std::to_string;
 
 class Watermelon : public Boss {
     public:
-        Watermelon(const string& main, const string& item, int required) : Boss(main, item, required) {}
+        Watermelon(const string& main, const string& item, int required, const string& proxy) : Boss(main, item, required, proxy) {}
         string specialAttack(Fruit* target) {
             string returnStr;
             int damage = attack->getTotal() * 4 - target->getDefense();
@@ -13,11 +13,11 @@ class Watermelon : public Boss {
             target->setHp(-1*damage);
             returnStr = name + ": Dealt " + to_string(damage) + " damage.\n";
 
-            attack->addBase(50);
-            defense->addBase(-50);
-            res->addBase(7);
+            attack->addBase(-30);
+            defense->addBase(50);
+            res->addBase(5);
             rechargeCount -= 2;
-            return returnStr + name + ": Attack and res increased, and defense decreased.\n";
+            return returnStr + name + ": DEF and RES increased.\n" + name + ": ATK decreased.\n";
         }
 
         // doesn't use

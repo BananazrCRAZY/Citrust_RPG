@@ -17,7 +17,8 @@ StatsPopup::StatsPopup(Vector2 popupPosition, Vector2 popupSize, Vector2 buttonP
     playerTurn(0),
     needToUpdateEffects(true),
     playerEffectsSize(0),
-    bossEffectsSize(0)
+    bossEffectsSize(0),
+    isShowingPlayerStats(true)
     // playerXStart(position.x)
 {
     scrollPanel = {position.x + 35, yStarting - statusSpacingY + statusHeight, (float)statusWidth + 30, (float)maxVisibleRows * statusSpacingY + 5};
