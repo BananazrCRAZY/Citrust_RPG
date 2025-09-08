@@ -120,8 +120,8 @@ void AppleBossScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     int index;
     if (player->getMaxHp() == 0 || player->getHp() == 0) index = 0;
     else {
-        double check = 5 * player->getHp() / player->getMaxHp();
-        if (check < 1 && check > 0) index = 1;
+        double check = 5.0 * player->getHp() / player->getMaxHp();
+        if (check <= 1 && check > 0) index = 1;
         else index = check;
 
         if (index >= 5) index = 5;
@@ -136,8 +136,8 @@ void AppleBossScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     int indexBossHp;
     if (boss->getMaxHp() == 0 || boss->getHp() == 0) indexBossHp = 0;
     else {
-        double check = 5 * boss->getHp() / boss->getMaxHp();
-        if (check < 1 && check > 0) indexBossHp = 1;
+        double check = 5.0 * boss->getHp() / boss->getMaxHp();
+        if (check <= 1 && check > 0) indexBossHp = 1;
         else indexBossHp = check;
 
         if (indexBossHp >= 5) indexBossHp = 5;

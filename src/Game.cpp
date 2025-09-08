@@ -293,13 +293,14 @@ int Game::gameLoop() {
         }
         player->newItem(boss->getItem());
 
-        screenManager.ChangeScreen(make_unique<VictoryScreen>(screenManager));
-
-        delete boss;
-        boss = nullptr;
         int addCalories = player->getLevel() * 550 / battleResult;
         if (addCalories < 75) addCalories = 75;
         calories += addCalories;
+
+        screenManager.ChangeScreen(make_unique<VictoryScreen>(screenManager, addCalories));
+
+        delete boss;
+        boss = nullptr;
         player->levelUp();
         player->endOfBattle();
         screenManager.AddBossCount(1);
@@ -310,7 +311,7 @@ int Game::gameLoop() {
 
         // end of game
         if (savePoint == 9) {
-            screenManager.ChangeScreen(make_unique<LoseScreen>(screenManager));
+            screenManager.ChangeScreen(make_unique<WinScreen>(screenManager));
             return loadEndOfGame();
         }
 

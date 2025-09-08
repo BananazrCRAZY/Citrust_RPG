@@ -3,7 +3,10 @@
 
 using namespace std;
 
-VictoryScreen::VictoryScreen (ScreenManager& mgr) : manager(mgr), nextButton("Graphics/Buttons/nextButton.png",{1200,680}, 1.6)
+VictoryScreen::VictoryScreen (ScreenManager& mgr, int cal) : 
+    manager(mgr), 
+    nextButton("Graphics/Buttons/nextButton.png",{1200,680}, 1.6),
+    calories(cal)
 {
 
     Image backgroundImage = LoadImage("Graphics/GeneralScreens/victoryScreen.png");
@@ -29,5 +32,9 @@ void VictoryScreen::Update(const Vector2& mousePos, bool mouseClicked) {
 
 void VictoryScreen::Draw() {
     DrawTexture(background, 0, 0, WHITE);
+
+    string calText = "You Obtained " + to_string(calories) + " Calories!";
+    int calTextWidth = MeasureText(calText.c_str(), 33);
+    DrawText(calText.c_str(), 800 - calTextWidth/2, 710, 33, BLACK);
     nextButton.Draw();
 }

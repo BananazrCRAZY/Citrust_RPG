@@ -12,7 +12,7 @@ using namespace std;
 
 class VictoryScreen : public IScreen {
     public:
-        VictoryScreen(ScreenManager& manager);
+        VictoryScreen(ScreenManager& manager, int cal);
         ~VictoryScreen() override;
     
         void Update(const Vector2& mousePos, bool mouseClicked) override;
@@ -23,6 +23,7 @@ class VictoryScreen : public IScreen {
         ScreenManager& manager;
         Texture2D background;
         Button nextButton;
+        int calories;
         
 };
 

@@ -2,8 +2,8 @@
 
 WinScreen::WinScreen(ScreenManager& manager) :
     manager(manager),
-    exitGameButton("Graphics/Buttons/quitButton.png", {725, 350}, 0.7),
-    toTitleScreenButton("Graphics/Buttons/titleScreenButton.png", {725, 475}, 0.7)
+    exitGameButton("Graphics/Buttons/quitButton.png", {650, 420}, 1),
+    toTitleScreenButton("Graphics/Buttons/titleScreenButton.png", {695, 290}, 1)
 {
     Image backgroundImage = LoadImage("Graphics/GeneralScreens/winScreen.png");
     ImageResize(&backgroundImage, 1600, 900);
