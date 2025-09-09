@@ -40,15 +40,9 @@ TutorialScreen::TutorialScreen(ScreenManager& mgr, bool& exitFlag)
             case 9:
                 backgroundImage = LoadImage("Graphics/TutorialScreens/TutorialScreen10.png");
                 break;
-            case 10:
-                backgroundImage = LoadImage("Graphics/TutorialScreens/TutorialScreen11.png");
-                break;
-            case 11:
-                backgroundImage = LoadImage("Graphics/TutorialScreens/TutorialScreen12.png");
-                break;
-            case 12:
-                backgroundImage = LoadImage("Graphics/TutorialScreens/TutorialScreen13.png");
-                break;
+            default:
+                cerr << "Error: TutorialScreen class, switch case";
+                exit(1);
     }
 
     ImageResize(&backgroundImage, 1600, 900);
@@ -67,7 +61,7 @@ TutorialScreen::~TutorialScreen() {
 
 void TutorialScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     if (IsKeyPressed(KEY_SPACE)) {
-        if (manager.GetTutorialCount() == 12) {
+        if (manager.GetTutorialCount() == 9) {
             // signals that it's time to move on to gameLoop
             manager.setInput(1);
         } else {
