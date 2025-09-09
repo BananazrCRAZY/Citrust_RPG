@@ -9,10 +9,38 @@ using namespace std;
 TutorialScreen::TutorialScreen(ScreenManager& mgr, bool& exitFlag)
     : manager(mgr)
     , exitGame(exitFlag)
+    , tutorialCount(0)
 {
-    Image backgroundImage = LoadImage("Graphics/TutorialScreens/TutorialScreen1.png");
+    newScreen();
+}
+
+TutorialScreen::~TutorialScreen() {
+    UnloadTexture(background);
+}
+
+void TutorialScreen::Update(const Vector2& mousePos, bool mouseClicked) {
+    if (IsKeyPressed(KEY_SPACE)) {
+        if (tutorialCount == 9) {
+            // signals that it's time to move on to gameLoop
+            manager.setInput(1);
+        } else {
+            tutorialCount++;
+            newScreen();
+        }
+    }
+}
+
+void TutorialScreen::Draw() {
+    DrawTexture(background, 0, 0, WHITE);
+}
+
+void TutorialScreen::newScreen() {
+    Image backgroundImage;
     
-    switch (manager.GetTutorialCount()) {
+    switch (tutorialCount) {
+            case 0:
+                backgroundImage = LoadImage("Graphics/TutorialScreens/TutorialScreen1.png");
+                break;
             case 1:
                 backgroundImage = LoadImage("Graphics/TutorialScreens/TutorialScreen2.png");
                 break;
@@ -52,25 +80,4 @@ TutorialScreen::TutorialScreen(ScreenManager& mgr, bool& exitFlag)
 
     // Deletes image from heap as it is no longer needed
     UnloadImage(backgroundImage);
-
-}
-
-TutorialScreen::~TutorialScreen() {
-    UnloadTexture(background);
-}
-
-void TutorialScreen::Update(const Vector2& mousePos, bool mouseClicked) {
-    if (IsKeyPressed(KEY_SPACE)) {
-        if (manager.GetTutorialCount() == 9) {
-            // signals that it's time to move on to gameLoop
-            manager.setInput(1);
-        } else {
-            manager.AddTutorialCount(1);
-            manager.ChangeScreen(make_unique<TutorialScreen>(manager, exitGame));
-        }
-    }
-}
-
-void TutorialScreen::Draw() {
-    DrawTexture(background, 0, 0, WHITE);
 }

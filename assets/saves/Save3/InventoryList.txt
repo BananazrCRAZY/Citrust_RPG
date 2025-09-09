@@ -1,9 +1,1 @@
-assets/bossItems/AppleCore.txt
-assets/items/ColorPalette.txt
-assets/items/IronSword.txt
-assets/items/PureVanillaExtract.txt
-assets/items/HoneyTea.txt
-assets/items/IcedMatchaLatte.txt
 unequipped
-assets/bossItems/PearStem.txt
-assets/bossItems/StrawberrySeed.txt
