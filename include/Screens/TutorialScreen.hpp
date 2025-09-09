@@ -21,6 +21,9 @@ class TutorialScreen : public IScreen {
         ScreenManager& manager;
         bool& exitGame;
         Texture2D background;
+        int tutorialCount;
+        
+        void newScreen();
 };
 
 #endif 
