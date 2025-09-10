@@ -55,7 +55,7 @@ void BuyItemPopup::Draw() {
     if (effectDescWidth >= 700) {
         int charCount = 0;
         for (int i = 0; i < effectDesc.length(); i++) {
-            if (charCount > 65) {
+            if (charCount > 59) {
                 if (effectDesc[i] == ' ') {
                     effectDesc[i] = '\n';
                     charCount = 0;

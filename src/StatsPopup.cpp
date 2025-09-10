@@ -48,7 +48,7 @@ void StatsPopup::Update(const Vector2& mousePos, bool mouseClicked, ScreenManage
             // Only check if mouse is inside the visible panel
             if (CheckCollisionPointRec(mousePos, scrollPanel)) {
                 if (bossEffects[i]->isPressed(mousePos, mouseClicked)) {
-                    mainPopup.show(boss->getEffect(i)->getDescription(), 30, BLACK, WHITE);
+                    mainPopup.show(reshapeText(boss->getEffect(i)->getDescription()).c_str(), mainPopupFontSize, BLACK, WHITE);
                     return;
                 }
             }
@@ -68,7 +68,7 @@ void StatsPopup::Update(const Vector2& mousePos, bool mouseClicked, ScreenManage
             // Only check if mouse is inside the visible panel
             if (CheckCollisionPointRec(mousePos, scrollPanel)) {
                 if (playerEffects[i]->isPressed(mousePos, mouseClicked)) {
-                    mainPopup.show(player->getEffect(i)->getDescription(), 30, BLACK, WHITE);
+                    mainPopup.show(reshapeText(player->getEffect(i)->getDescription()).c_str(), mainPopupFontSize, BLACK, WHITE);
                     return;
                 }
             }
@@ -233,4 +233,21 @@ void StatsPopup::deleteEffectArrays() {
     playerEffectsSize = 0;
     bossEffectsSize = 0;
     needToUpdateEffects = true;
+}
+
+string StatsPopup::reshapeText(string text) const {
+    int descWidth = MeasureText(text.c_str(), mainPopupFontSize);
+    if (descWidth >= 1000) {
+        int charCount = 0;
+        for (int i = 0; i < text.length(); i++) {
+            if (charCount > 59) {
+                if (text[i] == ' ') {
+                    text[i] = '\n';
+                    charCount = 0;
+                }
+            }
+            charCount++;
+        }
+    }
+    return text;
 }

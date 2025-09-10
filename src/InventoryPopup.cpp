@@ -40,7 +40,7 @@ void InventoryPopup::Draw() {
     if (textWidthDesc >= 700) {
         int charCount = 0;
         for (int i = 0; i < message.length(); i++) {
-            if (charCount > 65) {
+            if (charCount > 59) {
                 if (message[i] == ' ') {
                     message[i] = '\n';
                     charCount = 0;

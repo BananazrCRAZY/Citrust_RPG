@@ -22,6 +22,7 @@ class StatsPopup : public IndefinitePopup {
     TextButton* playerEffects[20];
     TextButton* bossEffects[6];
     unsigned playerEffectsSize, bossEffectsSize;
+    int mainPopupFontSize = 30;
     // int playerXStart, bossXStart;
 
     float scrollOffset = 0.0f;
@@ -34,6 +35,7 @@ class StatsPopup : public IndefinitePopup {
 
     void updatePosition(float newXPos);
     void deleteEffectArrays();
+    string reshapeText(string text) const;
 
     public:
         StatsPopup(Vector2 popupPosition, Vector2 popupSize, Vector2 buttonPosition, float buttonScale, const char *imagePath, 
