@@ -5,18 +5,14 @@
 using namespace std;
 
 BuyItemPopup::BuyItemPopup(Vector2 popupPosition, Vector2 popupSize, Vector2 buttonPosition, float buttonScale, const char *imagePath, unsigned index, ScreenManager& sm) : 
-    IndefinitePopup(popupPosition, popupSize, buttonPosition, buttonScale, imagePath),
-    itemIndex(index),
-    manager(sm),
-    buyButton("Graphics/Buttons/buyButton.png", {900, 600}, .81),
-    icon("", {700, 200}, 200, 200)
+    ItemPopup(popupPosition, popupSize, buttonPosition, buttonScale, imagePath, index, sm, "Graphics/Buttons/buyButton.png")
 {}
 
 void BuyItemPopup::Update(const Vector2& mousePos, bool mouseClicked) {
     if (!visible) return;
     IndefinitePopup::Update(mousePos, mouseClicked);
 
-    if (buyButton.isPressed(mousePos, mouseClicked)) {
+    if (secondButton.isPressed(mousePos, mouseClicked)) {
         visible = false;
         manager.setInput(itemIndex+1);
     }
@@ -24,55 +20,43 @@ void BuyItemPopup::Update(const Vector2& mousePos, bool mouseClicked) {
 
 void BuyItemPopup::Draw() {
     if (!visible) return;
-    IndefinitePopup::Draw();
-    buyButton.Draw();
-    icon.Draw();
+    ItemPopup::Draw();
 
     string name = manager.getShopItem(itemIndex)->getName();
     int textWidthName = MeasureText(name.c_str(), 30);
     DrawText(name.c_str(), box.x + (box.width - textWidthName)/2, box.y + 30, 30, BLACK);
 
-    string message = manager.getShopItem(itemIndex)->getDescription();
-    int textWidthDesc = MeasureText(message.c_str(), 20);
-    if (textWidthDesc >= 700) {
-        int charCount = 0;
-        for (int i = 0; i < message.length(); i++) {
-            if (charCount > 65) {
-                if (message[i] == ' ') {
-                    message[i] = '\n';
-                    charCount = 0;
-                }
-            }
-            charCount++;
-        }
-        textWidthDesc = MeasureText(message.c_str(), 20);
+    if (needToUpdateDesc) {
+        string message = manager.getShopItem(itemIndex)->getDescription();
+        reshapeMsg(message, itemDesc, itemLines, 20);
     }
-    DrawText(message.c_str(), box.x + (box.width - textWidthDesc)/2, box.y + 340, 20, BLACK);
+    for (unsigned i = 0; i < itemLines; i++) {
+        int textWidthDesc = MeasureText(itemDesc[i].c_str(), 20);
+        DrawText(itemDesc[i].c_str(), box.x + (box.width - textWidthDesc)/2, box.y + 340 + i * 23, 20, BLACK);
+    }
 
-    string effectDesc = manager.getShopItem(itemIndex)->getStatus()->getName() 
-        + ": " + manager.getShopItem(itemIndex)->getStatus()->getDescription();
-    int effectDescWidth = MeasureText(effectDesc.c_str(), 20);
-    if (effectDescWidth >= 700) {
-        int charCount = 0;
-        for (int i = 0; i < effectDesc.length(); i++) {
-            if (charCount > 59) {
-                if (effectDesc[i] == ' ') {
-                    effectDesc[i] = '\n';
-                    charCount = 0;
-                }
-            }
-            charCount++;
-        }
-        effectDescWidth = MeasureText(effectDesc.c_str(), 20);
+    if (needToUpdateDesc) {
+        string effectDescMsg = manager.getShopItem(itemIndex)->getStatus()->getName() 
+            + ": " + manager.getShopItem(itemIndex)->getStatus()->getDescription();
+        reshapeMsg(effectDescMsg, effectDesc, effectLines, 20);
+        needToUpdateDesc = false;
     }
-    DrawText(effectDesc.c_str(), box.x + (box.width - effectDescWidth)/2, box.y + 415, 20, BLACK);
+    for (unsigned i = 0; i < effectLines; i++) {
+        int effectDescWidth = MeasureText(effectDesc[i].c_str(), 20);
+        DrawText(effectDesc[i].c_str(), box.x + (box.width - effectDescWidth)/2, box.y + 415 + i * 23, 20, BLACK);
+    }
 
     string costText = "Cost: " + to_string(manager.getShopItem(itemIndex)->getCost());
     int costTextWidth = MeasureText(costText.c_str(), 20);
     DrawText(costText.c_str(), box.x + (box.width - costTextWidth)/2, box.y + 480, 20, BLACK);
 
     string consumableText;
-    if (manager.getShopItem(itemIndex)->isConsumableTrue()) consumableText = "CONSUMABLE";
+    if (manager.getShopItem(itemIndex)->isConsumableTrue()) {
+        consumableText = "CONSUMABLE: Lasts ";
+        if (manager.getShopItem(itemIndex)->getTurnsLast() == 0)
+            consumableText += to_string(manager.getShopItem(itemIndex)->getTurnsLast()+1) + " Turn";
+        else consumableText += to_string(manager.getShopItem(itemIndex)->getTurnsLast()+1) + " Turns";
+    }
     else consumableText = "NON-CONSUMABLE";
     int consumableTextWidth = MeasureText(consumableText.c_str(), 18);
     DrawText(consumableText.c_str(), box.x + (box.width - consumableTextWidth)/2, box.y + 630, 18, BLACK);
@@ -81,5 +65,6 @@ void BuyItemPopup::Draw() {
 void BuyItemPopup::showItem(unsigned index) {
     itemIndex = index;
     icon.setTexture(manager.getShopItem(itemIndex)->getIcon().c_str());
+    needToUpdateDesc = true;
     visible = true;
 }

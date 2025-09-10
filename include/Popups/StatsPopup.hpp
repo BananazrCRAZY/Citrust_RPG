@@ -35,7 +35,6 @@ class StatsPopup : public IndefinitePopup {
 
     void updatePosition(float newXPos);
     void deleteEffectArrays();
-    string reshapeText(string text) const;
 
     public:
         StatsPopup(Vector2 popupPosition, Vector2 popupSize, Vector2 buttonPosition, float buttonScale, const char *imagePath, 

@@ -319,7 +319,7 @@ int Game::gameLoop() {
         savePoint++;
         saveGame();
     }
-    return -100;
+    return -1;
 }
 
 void Game::loadInterlude() {
@@ -434,15 +434,17 @@ void Game::playerTurn(Boss* boss) {
     redoTurn:
     screenManager.setInput(-1);
     whileUiDrawLoop(-1);
+    if (screenManager.getInput() > 0 && screenManager.getInput() < 8) {
+        if (player->getRechargeCount() <= 0) {
+            screenManager.ShowPopup("Not Enough Skill Points");
+            goto redoTurn;
+        }
+    }
     switch (screenManager.getInput()) {
         case 0:
             screenManager.ShowPopup(player->basicAttack(boss));
             break;
         case 1:
-            if (player->getRechargeCount() <= 0) {
-                screenManager.ShowPopup("Not Enough Skill Points");
-                goto redoTurn;
-            }
             screenManager.ShowPopup(player->specialAttack(boss));
             break;
         case 2:

@@ -1,19 +1,12 @@
 #pragma once
-#include "include/Screens/ScreenManager.hpp"
 #include "include/Buttons/button.hpp"
-#include "include/Buttons/SolidButton.hpp"
-#include "IndefinitePopup.hpp"
+#include "ItemPopup.hpp"
 #include <string>
 #include <raylib.h>
 
 using std::string;
 
-class BuyItemPopup : public IndefinitePopup {
-    unsigned itemIndex;
-    ScreenManager& manager;
-    Button buyButton;
-    SolidButton icon;
-
+class BuyItemPopup : public ItemPopup {
     public:
         BuyItemPopup(Vector2 popupPosition, Vector2 popupSize, Vector2 buttonPosition, float buttonScale, const char *imagePath, 
             unsigned index, ScreenManager& sm);

@@ -16,9 +16,14 @@ public:
 
 private:
     string message;
+    string displayMsg[3];
+    int numberOfLines;
     float timer;
     float duration;
     bool visible;
     int fontSize;
     Color fontColor, backing;
+    int maxWidth;
+
+    void reshapeMsg();
 };
