@@ -1,5 +1,5 @@
 Explorangsion
-Increases ATK by 100% and CRIT Rate by 100%. Lasts 1 turn.
+Increases ATK by 100% and CRIT RATE by 100%.
 1
 1
 0

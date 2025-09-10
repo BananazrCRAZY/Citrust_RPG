@@ -1,5 +1,5 @@
 Arts Up Alpha
-Increases Arts ATK by 15%, and increases RES by 3.
+Increases ARTS by 15% and RES by 3%.
 -1
 1
 0

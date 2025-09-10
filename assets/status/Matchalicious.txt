@@ -1,5 +1,5 @@
 Matchalicious
-Increases ATK and Arts ATK by 5%, and increases Max HP by 5%.
+Increases MAX HP, ATK, and ARTS by 5%.
 -1
 0
 0

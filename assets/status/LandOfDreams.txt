@@ -1,5 +1,5 @@
 Land of Dreams
-Increases ATK and Arts ATK by 20%. Furthermore, Increases DEF by 15%. Lasts 2 turns.
+Increases ATK and ARTS by 20%, and DEF by 15%.
 2
 1
 0
