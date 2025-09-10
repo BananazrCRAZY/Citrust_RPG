@@ -1,5 +1,5 @@
 Berry Blast
-Increases ATK by 30%, but decreases DEF by 20% and RES by 5 (cannot go below 0). Lasts 2 turns.
+Increases ATK by 30%, but decreases DEF by 20% and RES by 5%.
 2
 1
 0

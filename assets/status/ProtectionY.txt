@@ -1,5 +1,5 @@
 Protection Gamma
-Increases Max HP by 20% and DEF by 20%. Furthermore, increases RES by 5.
+Increases MAX HP by 20%, DEF by 20%, and RES by 5%.
 -1
 1
 0

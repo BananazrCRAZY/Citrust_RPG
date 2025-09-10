@@ -1,5 +1,5 @@
-DoT
-This effect deals Damage over Time
+DoT Percent
+This effect deals damage to you at the end of your turn.
 2
 1
 -2

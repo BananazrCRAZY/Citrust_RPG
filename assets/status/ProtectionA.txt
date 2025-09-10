@@ -1,5 +1,5 @@
 Protection Alpha
-Increases Max HP by 10% and DEF by 5%.
+Increases MAX HP by 10% and DEF by 5%.
 -1
 1
 0

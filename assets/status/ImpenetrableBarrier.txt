@@ -1,5 +1,5 @@
 Impenetrable Barrier
-Decreases ATK and Arts ATK by 99%, but increases DEF by 100% and RES by 75. Lasts 1 turn.
+Decreases ATK and ARTS by 99%, but increases DEF by 100% and RES by 75%.
 1
 1
 0

@@ -1,5 +1,5 @@
 Chill
-Increases DEF by 15% and increases RES by 5. Furthermore, increases Arts ATK by 20%.
+Increases DEF by 15%, ARTS by 20%, and RES by 5%.
 -1
 1
 0

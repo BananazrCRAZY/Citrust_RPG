@@ -1,5 +1,5 @@
 Arts Up Beta
-Increases Arts ATK by 30%, and increases RES by 5.
+Increases ARTS by 30% and RES by 5%.
 -1
 1
 0
