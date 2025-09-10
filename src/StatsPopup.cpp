@@ -19,11 +19,8 @@ StatsPopup::StatsPopup(Vector2 popupPosition, Vector2 popupSize, Vector2 buttonP
     playerEffectsSize(0),
     bossEffectsSize(0),
     isShowingPlayerStats(true)
-    // playerXStart(position.x)
 {
     scrollPanel = {position.x + 35, yStarting - statusSpacingY + statusHeight, (float)statusWidth + 30, (float)maxVisibleRows * statusSpacingY + 5};
-
-    // bossXStart = 1600 - playerXStart - size.x;
 }
 
 StatsPopup::~StatsPopup() {
@@ -215,15 +212,6 @@ void StatsPopup::toggleVisible() {
         bossStatsButton.setColor(GRAY);
     }
 }
-
-// void StatsPopup::updatePosition(float newXPos) {
-//     position.x = newXPos;
-//     scrollPanel.x = newXPos+35;
-//     box.x = newXPos;
-//     cancelButton.setXPos(newXPos+5);
-//     playerStatsButton.setButtonXPos(cancelButton.getXPos() + cancelButton.getXSize() + (cancelButton.getXPos()-position.x));
-//     bossStatsButton.setButtonXPos(playerStatsButton.getXPos() + playerStatsButton.getXSize());
-// }
 
 void StatsPopup::deleteEffectArrays() {
     if (isShowingPlayerStats)
