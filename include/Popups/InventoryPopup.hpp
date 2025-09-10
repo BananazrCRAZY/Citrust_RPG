@@ -1,20 +1,14 @@
 #pragma once
 #include "include/Buttons/button.hpp"
-#include "IndefinitePopup.hpp"
+#include "ItemPopup.hpp"
 #include "include/Objects/Player.h"
-#include "include/Screens/ScreenManager.hpp"
-#include "include/Buttons/SolidButton.hpp"
 #include <string>
 #include <raylib.h>
 
 using std::string;
 
-class InventoryPopup : public IndefinitePopup {
-    unsigned itemIndex;
-    ScreenManager& manager;
+class InventoryPopup : public ItemPopup {
     Player* player;
-    Button useButton;
-    SolidButton icon;
     bool usable;
 
     void setUsable();

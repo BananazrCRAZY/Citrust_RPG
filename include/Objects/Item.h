@@ -33,6 +33,7 @@ class Item {
   int getCooldown() const;
   int getCooldownDefault() const;
   double getAppearanceProbabiity() const;
+  int getTurnsLast() const { return effect->getDefaultTurns(); }
   Status* getStatus() const { return effect; }
   string getIcon() const { return iconPath; }
   bool isConsumableTrue() const;

@@ -32,6 +32,7 @@ class Status {
   // Getters
   string getName() const;
   string getDescription() const;
+  int getDefaultTurns() const;
   int getTurns() const;
   double getHpChange() const;
   double getMaxHpChange() const;

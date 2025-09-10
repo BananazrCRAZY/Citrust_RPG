@@ -22,6 +22,7 @@ class StatsPopup : public IndefinitePopup {
     TextButton* playerEffects[20];
     TextButton* bossEffects[6];
     unsigned playerEffectsSize, bossEffectsSize;
+    int mainPopupFontSize = 30;
     // int playerXStart, bossXStart;
 
     float scrollOffset = 0.0f;

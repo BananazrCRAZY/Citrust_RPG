@@ -1,15 +1,9 @@
 #pragma once
 #include "include/Buttons/button.hpp"
-#include "IndefinitePopup.hpp"
+#include "ItemPopup.hpp"
 #include "include/Objects/Player.h"
-#include "include/Screens/ScreenManager.hpp"
-#include "include/Buttons/SolidButton.hpp"
 
-class EquipPopup : public IndefinitePopup {
-    unsigned itemIndex;
-    ScreenManager& manager;
-    Button equipButton;
-    SolidButton icon;
+class EquipPopup : public ItemPopup {
     Player* player;
     bool equipped;
 
@@ -21,5 +15,4 @@ class EquipPopup : public IndefinitePopup {
         void showItem(unsigned);
         void setEquipped(bool);
         bool isEquipped() const;
-        unsigned getIndex() const;
 };
