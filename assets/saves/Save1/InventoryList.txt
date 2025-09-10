@@ -1,3 +1,14 @@
 assets/items/SmallVitaminC.txt
 assets/bossItems/AppleCore.txt
+assets/items/PureVanillaExtract.txt
+assets/items/ZestGrenade.txt
+assets/items/IronChestplate.txt
+assets/items/PurpleQuill.txt
 unequipped
+assets/bossItems/PearStem.txt
+assets/bossItems/StrawberrySeed.txt
+assets/items/ColorPalette.txt
+assets/bossItems/Grapevine.txt
+assets/items/Cappucchino.txt
+assets/items/IcedMatchaLatte.txt
+assets/bossItems/Dekopeel.txt

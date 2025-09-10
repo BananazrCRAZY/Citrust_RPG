@@ -472,7 +472,8 @@ void Game::playerTurn(Boss* boss) {
 void Game::enemyTurn(Boss* boss) {
     string printThis = "";
     if (boss->getBossAbilityCharge() >= boss->getRequiredBossCharge()) {
-        printThis += boss->bossAbility() + '\n';   
+        printThis += boss->bossAbility() + '\n';
+        if (printThis == "\n") printThis = "";
     }
     
     if (boss->getRechargeCount() >= 1) {
