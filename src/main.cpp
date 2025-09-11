@@ -2,7 +2,6 @@
 #include <iostream>
 
 int main() {
-    // At the very beginning of main()
     ChangeDirectory(GetApplicationDirectory());
 
     Game* game = new Game();
