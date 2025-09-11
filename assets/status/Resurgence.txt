@@ -1,6 +1,6 @@
 Resurgence
 Grants the the player 1 extra TURN and SKILL POINT.
-1
+0
 0
 0
 0
@@ -12,3 +12,4 @@ Grants the the player 1 extra TURN and SKILL POINT.
 0
 2
 1
+0
