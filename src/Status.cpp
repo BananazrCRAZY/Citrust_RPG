@@ -45,6 +45,7 @@ void Status::resetStatusTurns() { turns = defaultTurns; }
 
 string Status::getName() const { return name; }
 string Status::getDescription() const { return description; }
+int Status::getDefaultTurns() const { return defaultTurns; }
 int Status::getTurns() const { return turns; }
 double Status::getHpChange() const { return hpChange; }
 double Status::getMaxHpChange() const { return maxHpChange; }
