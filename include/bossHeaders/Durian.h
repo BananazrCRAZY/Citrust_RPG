@@ -34,7 +34,7 @@ class Durian : public Boss {
             int change = maxHp->getBase() - hp - damageTaken;
             damageTaken = maxHp->getBase() - hp;
             if (change <= 0) return name + ": Waiting for a chance to counter.";
-            attack->add(static_cast<int>(change * .1));
+            attack->add(static_cast<int>(change * .03));
             return name + ": Getting angry.";
         }
 

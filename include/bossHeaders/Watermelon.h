@@ -8,7 +8,18 @@ class Watermelon : public Boss {
         Watermelon(const string& main, const string& item, int required, const string& proxy) : Boss(main, item, required, proxy) {}
         string specialAttack(Fruit* target) {
             string returnStr;
-            int damage = attack->getTotal() * 4 - target->getDefense();
+            int damage = attack->getTotal();
+            int artsDmg = arts->getTotal();
+            if (checkIfCrit()) {
+                returnStr += "CRIT!\n";
+                damage *= (critDmg->getTotal() / 100.0 + 1);
+                artsDmg *= (critDmg->getTotal() / 100.0 + 1);
+            }
+            damage -= target->getDefense();
+            if (damage <= 0) damage = 0;
+            artsDmg *= (1.0 - (target->getRes()/100.0));
+            if (artsDmg <= 0) artsDmg = 0;
+            damage += artsDmg;
             if (damage <= 0) returnStr = name + " did 0 damage.\n";
             target->setHp(-1*damage);
             returnStr = name + ": Dealt " + to_string(damage) + " damage.\n";

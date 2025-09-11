@@ -242,7 +242,7 @@ int Game::gameLoop() {
                 boss = new Grape("assets/bosses/Grape.txt", "assets/bossItems/Grapevine.txt", 4, "assets/status/BossProxyStatus/GrapeBurst.txt");
                 break;
             case 4:
-                boss = new Dekopon(playerFile, "assets/bossItems/Dekopeel.txt", 3, "assets/status/BossProxyStatus/Imposter.txt");
+                boss = new Dekopon(playerFile, "assets/bossItems/Dekopeel.txt", 2, "assets/status/BossProxyStatus/Imposter.txt");
                 break;
             case 5:
                 boss = new MangoGreen("assets/bosses/MangoGreen.txt", "assets/bossItems/DriedMango.txt", -1, "assets/status/BossProxyStatus/Rage.txt");

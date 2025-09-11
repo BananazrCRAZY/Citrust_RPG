@@ -60,6 +60,9 @@ void Shop::populateShop() {
       itemsInShop++;
     }
     allItems.clear();
+    for (unsigned i = itemsInShop - 1; i < 6; i++) {
+      itemsForSale[i] = nullptr;
+    }
   } else {
     while (itemsInShop != 6) {
       int randomIndex = getRandomIndex(allItems.size());

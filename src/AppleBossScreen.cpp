@@ -178,7 +178,9 @@ void AppleBossScreen::Draw() {
     inventoryButton.Draw();
     statsButton.Draw();
 
-    string hp = to_string(manager.getPlayer()->getHp()) + " / " + to_string(manager.getPlayer()->getMaxHp());
+    int playerHp = manager.getPlayer()->getHp();
+    if (playerHp < 0) playerHp = 0;
+    string hp = to_string(playerHp) + " / " + to_string(manager.getPlayer()->getMaxHp());
     DrawText(hp.c_str(), 620, 790, 30, BLACK);
     string playerLvl = "LVL " + to_string(manager.getPlayer()->getLevel());
     DrawText(playerLvl.c_str(), 612, 745, 27, BLACK);
