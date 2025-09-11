@@ -20,6 +20,7 @@ CenterPopup::CenterPopup(float duration)
 }
 
 void CenterPopup::show(const string& msg, int size, Color fontCol, Color backCol) {
+    timer = 0;
     message = msg;
     fontSize = size;
     reshapeMsg();
@@ -34,7 +35,6 @@ void CenterPopup::Update() {
     timer += GetFrameTime();
     if (timer >= duration) {
         visible = false;
-        timer = 0;
     }
 }
 

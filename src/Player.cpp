@@ -54,7 +54,9 @@ string Player::specialAttack(Fruit* target) {
         returnThis += "CRIT!\n";
     }
     physDmg -= target->getDefense();
+    if (physDmg <= 0) physDmg = 0;
     artsDmg *= (1.0 - (target->getRes()/100.0));
+    if (artsDmg <= 0) artsDmg = 0;
     int damageDealt = physDmg + artsDmg;
     if (damageDealt <= 0) return returnThis + name + ": Dealt 0 damage.";
     target->setHp(-1 * damageDealt);

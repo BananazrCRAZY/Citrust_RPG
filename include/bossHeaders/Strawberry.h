@@ -12,7 +12,7 @@ class Strawberry : public Boss {
             rechargeCount -= 2;
             int defenseLower = 0;
             string returnStatement = "";
-            int damage = attack->getTotal() - target->getDefense();
+            int damage = defense->getTotal() - target->getDefense();
             int randNum = (rand() % 5) + 1;
             for (int i = 0; i < randNum; i++) {
                 if (damage <= 0) returnStatement += (name + ": Attack " + to_string(i+1) + " did 0 damage.\n");
