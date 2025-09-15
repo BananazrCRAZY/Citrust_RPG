@@ -227,6 +227,12 @@ int Game::gameLoop() {
     Boss* boss = nullptr;
     player->endOfBattle();
     while (!exitGame) {
+        if (savePoint != 0) {
+            loadInterlude();
+            saveGame();
+            if (exitGame) break;
+        }
+
         battleCycle = 1;
         // need ui to show screen based on savePoint (dialogue)
         switch (savePoint) {
@@ -306,7 +312,6 @@ int Game::gameLoop() {
         screenManager.AddBossCount(1);
 
         // while player is still on victory screen
-        screenManager.setInput(-1);
         whileUiDrawLoop(-1);
 
         // end of game
@@ -315,7 +320,7 @@ int Game::gameLoop() {
             return loadEndOfGame();
         }
 
-        loadInterlude();
+        shop->resetShop();
         savePoint++;
         saveGame();
     }
@@ -323,12 +328,10 @@ int Game::gameLoop() {
 }
 
 void Game::loadInterlude() {
-    shop->resetShop();
     screenManager.setShopItems(shop->getItemsForSale());
     screenManager.ChangeScreen(make_unique<InterludeScreen>(screenManager, exitGame, player));
     string printThis;
     while (1) {
-        screenManager.setInput(-1);
         screenManager.setCalories(calories);
         // load interlude screen here
         whileUiDrawLoop(-1);
@@ -376,7 +379,6 @@ void Game::loadInterlude() {
 }
 
 int Game::loadEndOfGame() {
-    screenManager.setInput(-1);
     whileUiDrawLoop(-1);
     switch(screenManager.getInput()) {
         case 0:
@@ -431,7 +433,6 @@ int Game::battleLoop(Boss* boss) {
 
 void Game::playerTurn(Boss* boss) {
     redoTurn:
-    screenManager.setInput(-1);
     whileUiDrawLoop(-1);
     if (screenManager.getInput() > 0 && screenManager.getInput() < 8) {
         if (player->getRechargeCount() <= 0) {
@@ -529,6 +530,7 @@ string Game::checkBuyItem(int index) {
 }
 
 void Game::whileUiDrawLoop(int equal) {
+    screenManager.setInput(equal);
     while (screenManager.getInput() == equal) {
         uiDraw();
         closeGameCheck();
