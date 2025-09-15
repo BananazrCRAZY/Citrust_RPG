@@ -22,6 +22,7 @@ class Game {
     string shopFile;
     ScreenManager screenManager;
     bool exitGame;
+    unsigned battleCycle;
 
     void startGame(int input);
     int gameLoop();

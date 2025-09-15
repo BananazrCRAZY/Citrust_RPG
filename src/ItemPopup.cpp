@@ -13,7 +13,8 @@ ItemPopup::ItemPopup(Vector2 popupPosition, Vector2 popupSize, Vector2 buttonPos
     itemLines(0),
     effectLines(0),
     maxWidth(box.width - 50),
-    needToUpdateDesc(true)
+    needToUpdateDesc(true),
+    item(nullptr)
 {
     itemDesc[0] = "";
     itemDesc[1] = "";
@@ -27,6 +28,40 @@ void ItemPopup::Draw() {
     IndefinitePopup::Draw();
     secondButton.Draw();
     icon.Draw();
+
+    string name = item->getName();
+    int textWidthName = MeasureText(name.c_str(), 30);
+    DrawText(name.c_str(), box.x + (box.width - textWidthName)/2, box.y + 30, 30, BLACK);
+
+    if (needToUpdateDesc) {
+        string message = item->getDescription();
+        reshapeMsg(message, itemDesc, itemLines, 20);
+    }
+    for (unsigned i = 0; i < itemLines; i++) {
+        int textWidthDesc = MeasureText(itemDesc[i].c_str(), 20);
+        DrawText(itemDesc[i].c_str(), box.x + (box.width - textWidthDesc)/2, box.y + 340 + i * 23, 20, BLACK);
+    }
+
+    if (needToUpdateDesc) {
+        string effectDescMsg = item->getStatus()->getName() 
+            + ": " + item->getStatus()->getDescription();
+        reshapeMsg(effectDescMsg, effectDesc, effectLines, 20);
+        needToUpdateDesc = false;
+    }
+    for (unsigned i = 0; i < effectLines; i++) {
+        int effectDescWidth = MeasureText(effectDesc[i].c_str(), 20);
+        DrawText(effectDesc[i].c_str(), box.x + (box.width - effectDescWidth)/2, box.y + 415 + i * 23, 20, BLACK);
+    }
+
+    string consumableText = "Non-Consumable";
+    if (item->isConsumableTrue()) {
+        consumableText = "Consumable: Lasts ";
+        if (item->getTurnsLast() == 0)
+            consumableText += "1 Turn";
+        else consumableText += to_string(item->getTurnsLast()+1) + " Turns";
+    }
+    int consumableTextWidth = MeasureText(consumableText.c_str(), 20);
+    DrawText(consumableText.c_str(), box.x + (box.width - consumableTextWidth)/2, box.y + 655, 20, BLACK);
 }
 
 unsigned ItemPopup::getIndex() const {

@@ -2,7 +2,7 @@ Grapevine
 The vine of a cluster of grapes you recently defeated.
 0
 1
-0
+4
 0
 assets/status/Grapevine.txt
 1

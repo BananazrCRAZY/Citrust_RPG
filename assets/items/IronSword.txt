@@ -3,7 +3,7 @@ A basic sword made of iron.
 100
 0
 0
-80
+100
 assets/status/AttackUpA.txt
 0
 Graphics\Items\ironSword.png

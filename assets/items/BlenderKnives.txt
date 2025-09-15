@@ -1,6 +1,6 @@
 Blender Knives
 Extremely fast rotating knives meant to be put in a blender. No one knows who took them out.
-300
+450
 0
 0
 10

@@ -3,6 +3,7 @@
 #include "include/Buttons/button.hpp"
 #include "include/Popups/IndefinitePopup.hpp"
 #include "include/Screens/ScreenManager.hpp"
+#include "include/Objects/Item.h"
 #include <string>
 
 using std::string;
@@ -19,6 +20,7 @@ class ItemPopup : public IndefinitePopup {
         Button secondButton;
         int maxWidth;
         bool needToUpdateDesc;
+        Item* item;
 
         void reshapeMsg(string text, string (&arr)[3], int& lines, int fsize);
     

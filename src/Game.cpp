@@ -227,6 +227,7 @@ int Game::gameLoop() {
     Boss* boss = nullptr;
     player->endOfBattle();
     while (!exitGame) {
+        battleCycle = 1;
         // need ui to show screen based on savePoint (dialogue)
         switch (savePoint) {
             case 0:
@@ -254,7 +255,7 @@ int Game::gameLoop() {
                 boss = new Durian("assets/bosses/Durian.txt", "assets/bossItems/DurianThorn.txt", -1, "assets/status/BossProxyStatus/Thorns.txt");
                 break;
             case 9:
-                boss = new Watermelon("assets/bosses/Watermelon.txt", "assets/bossItems/DurianThorn.txt", 1000, "assets/status/BossProxyStatus/Shell.txt");
+                boss = new Watermelon("assets/bosses/Watermelon.txt", "assets/bossItems/DurianThorn.txt", -1, "assets/status/BossProxyStatus/Shell.txt");
                 break;
             default:
                 cerr << "Game loop input error" << endl;
@@ -276,9 +277,8 @@ int Game::gameLoop() {
                 screenManager.setBoss(boss);
                 screenManager.AddBossCount(1);
                 uiDraw();
-                int battleResult2 = battleLoop(boss);
-                if (battleResult2 == -1) goto lose;
-                battleResult += battleResult2;
+                battleResult = battleLoop(boss);
+                if (battleResult == -1) goto lose;
             }
         }
         if (battleResult == -1) {
@@ -293,7 +293,7 @@ int Game::gameLoop() {
         }
         player->newItem(boss->getItem());
 
-        int addCalories = player->getLevel() * 550 / battleResult;
+        int addCalories = player->getLevel() * 300 / battleCycle;
         if (addCalories < 75) addCalories = 75;
         calories += addCalories;
 
@@ -395,7 +395,6 @@ int Game::loadEndOfGame() {
 }
 
 int Game::battleLoop(Boss* boss) {
-    unsigned battleCycle = 1;
     screenManager.ChangeScreen(make_unique<AppleBossScreen>(screenManager, exitGame, battleCycle));
     while (battleCycle < 100) {
         screenManager.setInput(-1);

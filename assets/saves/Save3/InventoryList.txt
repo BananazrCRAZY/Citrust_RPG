@@ -1,1 +1,6 @@
+assets/items/IcedMatchaLatte.txt
+assets/bossItems/AppleCore.txt
+assets/items/PureVanillaExtract.txt
+assets/items/SmallVitaminC.txt
 unequipped
+assets/bossItems/PearStem.txt
