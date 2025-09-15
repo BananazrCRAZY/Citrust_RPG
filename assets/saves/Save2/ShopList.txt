@@ -1,3 +1,4 @@
+shop
 assets/items/IncrediblyHeavyMetalShield.txt
 assets/items/LargeVitaminC.txt
 assets/items/PeanutShell.txt

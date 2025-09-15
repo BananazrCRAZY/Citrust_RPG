@@ -1,1 +1,2 @@
+assets/bossItems/AppleCore.txt
 unequipped
