@@ -27,7 +27,11 @@ Shop::Shop(const string& file) : itemsInShop(0), shopFile(file), itemsForSale(ne
       inShop = false;
       continue;
     }
-    Item* newItem = new Item(itemFile);
+    
+    Item* newItem;
+    if (itemFile == "nullptr") newItem = nullptr;
+    else newItem = new Item(itemFile);
+    
     if (inShop) {
       itemsForSale[itemsInShop] = newItem;
       itemsInShop++;
