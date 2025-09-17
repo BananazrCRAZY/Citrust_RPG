@@ -1,15 +1,15 @@
 Grapevine
-Grants the player 1 extra TURN and SKILL POINT.
+Decreases MAX HP by 30%, but grants 2 extra TURNS.
+4
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
 2
-0
-0
-0
-0
-0
-0
-0
-0
-0
-1
-1
 0

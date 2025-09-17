@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "include/Objects/Stat.h"
+#include "Stat.h"
 
 TEST(StatTests, constuctorPositive) {
     Stat s(100);

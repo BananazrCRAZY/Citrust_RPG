@@ -126,7 +126,6 @@ void AppleBossScreen::Update(const Vector2& mousePos, bool mouseClicked) {
 
         if (index >= 5) index = 5;
         if (index <= 0) index = 0;
-        static int lastIndex = -1;
         if (index != lastIndex) {               // doesn't access array index out of bounds
             playerHPButton.SetTexture(playerHPTextures[index], 0.40f);
             lastIndex = index;
@@ -142,7 +141,6 @@ void AppleBossScreen::Update(const Vector2& mousePos, bool mouseClicked) {
 
         if (indexBossHp >= 5) indexBossHp = 5;
         if (indexBossHp <= 0) indexBossHp = 0;
-        static int lastBossIndex = -1;
         if (indexBossHp != lastBossIndex) {
             bossHPButton.SetTexture(bossHPTextures[indexBossHp], 0.50f);
             lastBossIndex = indexBossHp;
@@ -192,6 +190,10 @@ void AppleBossScreen::Draw() {
 
     string cycleCount = "CYCLE: " + to_string(battleCycle);
     DrawText(cycleCount.c_str(), 200, 80, 30, BLACK);
+
+    string turn = "Your Turn";
+    if (manager.getPlayer()->getTurn() <= 0) turn = "Boss Turn";
+    DrawText(turn.c_str(), 200, 117, 30, BLACK);
 
     if (manager.isPopup()) manager.getPopup()->Draw();
     if (menu.isVisible()) menu.Draw();

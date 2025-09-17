@@ -24,15 +24,13 @@ class Watermelon : public Boss {
             target->setHp(-1*damage);
             returnStr = name + ": Dealt " + to_string(damage) + " damage.\n";
 
-            attack->addBase(-30);
-            defense->addBase(50);
-            res->addBase(5);
             rechargeCount -= 2;
             return returnStr + name + ": DEF and RES increased.\n" + name + ": ATK decreased.\n";
         }
 
-        // doesn't use
         string bossAbility() {
-            return "";
+            attack->addBase(50);
+            defense->addBase(25);
+            return name + ": ATK and DEF increased.";
         }
 };

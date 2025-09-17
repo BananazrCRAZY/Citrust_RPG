@@ -21,9 +21,21 @@ Shop::Shop(const string& file) : itemsInShop(0), shopFile(file), itemsForSale(ne
   }
 
   string itemFile;
+  bool inShop = true;
   while(getline(iFile, itemFile)) {
-    Item* newItem = new Item(itemFile);
-    allItems.push_back(newItem);
+    if (itemFile == "shop") {
+      inShop = false;
+      continue;
+    }
+    
+    Item* newItem;
+    if (itemFile == "nullptr") newItem = nullptr;
+    else newItem = new Item(itemFile);
+    
+    if (inShop) {
+      itemsForSale[itemsInShop] = newItem;
+      itemsInShop++;
+    } else allItems.push_back(newItem);
   }
 }
 
@@ -82,15 +94,20 @@ void Shop::resetShop() {
 }
 
 void Shop::saveShop() {
-  for (unsigned i = 0; i < MAX_NUM_ITEMS_IN_SHOP; i++) if (itemsForSale[i] != nullptr) allItems.push_back(itemsForSale[i]);
-
   ofstream oFile(shopFile);
   if (!oFile.good()) {
     cerr << "Error: opening file, saveShop" << std::endl;
     exit(1);
   }
 
-  for (int i = 0; i < allItems.size(); i++) {
+  for (unsigned i = 0; i < itemsInShop; i++) {
+    if (itemsForSale[i] == nullptr) oFile << "nullptr\n";
+    else oFile << itemsForSale[i]->getFilePath() << '\n';
+  }
+
+  oFile << "shop\n";
+
+  for (unsigned i = 0; i < allItems.size(); i++) {
     oFile << allItems.at(i)->getFilePath() << '\n';
   }
   oFile.close();

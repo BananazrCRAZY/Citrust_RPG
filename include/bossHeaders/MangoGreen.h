@@ -19,12 +19,11 @@ class MangoGreen : public Boss {
             return returnStr + name + ": Decreased " + target->getName() + "'s ATK.";
         }
 
-        // increases attack if half hp
+        // checks to see if hp is below 50% to start 2nd half of fight
         string bossAbility() {
             if (hp < (maxHp->getTotal() / 2)) {
-                requiredBossCharge = 101;
-                attack->add(150);
-                return name + ": ATK increased.";
+                hp = 0;
+                return name + " Is Getting Furious!";
             }
             return "";
         }

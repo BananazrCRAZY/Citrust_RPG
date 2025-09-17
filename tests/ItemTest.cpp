@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
-#include "include/Objects/Item.h"
-#include "include/Objects/Status.h"
-#include "include/Objects/Player.h"
+#include "Item.h"
+#include "Status.h"
+#include "Player.h"
 
 TEST(ItemTests, constructorFailFile) {
     EXPECT_DEATH(Item item(""), ".*item file.*");

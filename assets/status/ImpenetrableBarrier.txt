@@ -1,13 +1,13 @@
 Impenetrable Barrier
-Decreases ATK and ARTS by 99%, but increases DEF by 100% and RES by 75%.
+Increases DEF by 200% and RES by 89%.
 1
 1
 0
 0
--99
-100
--99
-75
+0
+200
+0
+89
 0
 0
 0

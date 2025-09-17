@@ -1,5 +1,5 @@
 Shell
-DEF and RES increases while ATK decreases.
+ATK and DEF increases every turn.
 -1
 0
 0

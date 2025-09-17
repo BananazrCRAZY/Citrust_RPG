@@ -1,10 +1,1 @@
-assets/bossItems/AppleCore.txt
-assets/items/MagicWand.txt
-assets/items/PurpleQuill.txt
-assets/items/ParingKnife.txt
-assets/items/IronChestplate.txt
-assets/bossItems/Grapevine.txt
 unequipped
-assets/bossItems/PearStem.txt
-assets/bossItems/StrawberrySeed.txt
-assets/bossItems/Dekopeel.txt

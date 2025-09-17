@@ -31,6 +31,8 @@ class AppleBossScreen : public IScreen {
         Button inventoryButton;
         Button statsButton;
         StatsPopup menu;
+        int lastIndex = -1;
+        int lastBossIndex = -1;
 };
 
 #endif 
