@@ -330,10 +330,10 @@ int Game::gameLoop() {
 void Game::loadInterlude() {
     screenManager.setShopItems(shop->getItemsForSale());
     screenManager.ChangeScreen(make_unique<InterludeScreen>(screenManager, exitGame, player));
-    screenManager.setCalories(calories);
-    screenManager.setShop(shop);
     string printThis;
     while (1) {
+        screenManager.setCalories(calories);
+        screenManager.setShop(shop);
         // load interlude screen here
         whileUiDrawLoop(-1);
         int inputNum = screenManager.getInput();
@@ -346,33 +346,14 @@ void Game::loadInterlude() {
                 player->equipItem(inputNum-14);
             }
         } else {
-            switch (inputNum) {
-                case 0:
-                    exitGame = true;
-                    return;
-                case 1:
-                    printThis = checkBuyItem(0);
-                    break;
-                case 2:
-                    printThis = checkBuyItem(1);
-                    break;
-                case 3:
-                    printThis = checkBuyItem(2);
-                    break;
-                case 4:
-                    printThis = checkBuyItem(3);
-                    break;
-                case 5:
-                    printThis = checkBuyItem(4);
-                    break;
-                case 6:
-                    printThis = checkBuyItem(5);
-                    break;
-                case 7:
-                    return;
-                default:
-                    cerr << "Shop loop input error" << endl;
-                    exit(1);
+            if (inputNum == 0) {
+                exitGame = true;
+                return;
+            } else if (inputNum > 0 && inputNum < 7) printThis = checkBuyItem(inputNum-1);
+            else if (inputNum == 7) return;
+            else {
+                cerr << "Shop loop input error" << endl;
+                exit(1);
             }
         }
         mainPopup.show(printThis, 50, BLACK, LIGHTGRAY);
@@ -525,7 +506,7 @@ void Game::resetSave() {
 string Game::checkBuyItem(int index) {
     int cost = shop->getItemPrice(index);
     if (cost == -1) return "You have already purchased this item.";
-    if (cost > calories) return "You cannot buy this. You are missing " + std::to_string(shop->getItemPrice(index)-calories) + " calories.";
+    if (cost > calories) return "You are missing " + std::to_string(shop->getItemPrice(index)-calories) + " calories.";
     calories -= cost;
     return shop->purchaseItem(player, index);
 }
