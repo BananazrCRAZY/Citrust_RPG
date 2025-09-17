@@ -40,12 +40,16 @@ Features:
 
 ---
 
-## Installation/usage instructions
+## Installation Instructions
 
+<p align="center">
+<img width="700" alt="Screenshot 2025-09-16 213933" src="https://github.com/user-attachments/assets/f6ffcea6-8cb5-4a68-97ca-e6e03c0b9a93" />
+</p>
 
-- download and run raylib
-- clone this repository into vscode
-- click open any files in repository and press f5
+1. Click on the green code button.
+2. Download the zip.
+3. Extract the zip file.
+4. Open the folder and run Game.exe.
 
 ---
 
