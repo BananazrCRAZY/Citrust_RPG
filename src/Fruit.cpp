@@ -129,12 +129,12 @@ void Fruit::removeStats(Status* status) {
 
 void Fruit::addStats(Status* status) {
     if (status->isPercentBased()) {
-        setMaxHpAdd(status->getMaxHpChange()/100 * maxHp->getBase());
+        maxHp->add(status->getMaxHpChange()/100 * maxHp->getBase());
         attack->add(status->getAttackChange()/100 * attack->getBase());
         defense->add(status->getDefenseChange()/100 * defense->getBase());
         arts->add(status->getArtsChange()/100 * arts->getBase());
     } else {
-        setMaxHpAdd(status->getMaxHpChange());
+        maxHp->add(status->getMaxHpChange());
         attack->add(status->getAttackChange());
         defense->add(status->getDefenseChange());
         arts->add(status->getArtsChange());
