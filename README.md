@@ -23,32 +23,17 @@ Features:
 
 ---
 
-## How to Play 
+## How to Play
+### Battle
 - Players have three turn-based options:
   - **Basic Attack** – Gives a skill point and does damage based on your attack.  
   - **Skill Attack** – Requires one skill point and does damage based on your attack and arts.
   - **Inventory** - Use equipped consumable items for one skill point.
-- Reference the linked presentation above for the full tutorial
+- Bosses have two attacks and an ability:
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/8d433f8b-5e45-4f8b-bd16-21bda0eabc56" alt="Boss Fight Tutorial Diagram" width="700"/>
 </p>
-
----
-
-### Boss battle
-- General layout for all boss fights (template)  
-- Players have three turn-based options:
-  - **Basic Attack** – Requires no skill points  
-  - **Skill Attack** – Requires one skill point
-  - **Equipment** - Use equippable items purchased
-- Reference the linked presentation above for visuals with other boss types 
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/9a5b0f6d-819b-42be-a61f-018f9ca8effc" alt="Boss Fight Diagram" width="700"/>
-</p>
-
----
 
 ### Interlude
 - Players are given three choices:
