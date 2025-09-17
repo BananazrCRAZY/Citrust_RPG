@@ -1,9 +1,9 @@
 Grapevine
 Decreases MAX HP by 30%, but grants 2 extra TURNS.
 4
+1
 0
-0
-0
+-30
 0
 0
 0

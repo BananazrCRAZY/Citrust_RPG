@@ -22,6 +22,7 @@ class Shop {
   ~Shop();
   string purchaseItem(Player* player, unsigned itemIndex);
   void resetShop();
+  void returnItems();
   void saveShop();
   int getItemPrice(unsigned index);
   void resetShopSave();

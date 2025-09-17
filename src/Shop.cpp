@@ -88,8 +88,15 @@ void Shop::populateShop() {
   }
 }
 
-void Shop::resetShop() {
+void Shop::returnItems() {
+  for (unsigned i = 0; i < itemsInShop; i++) {
+    if (itemsForSale[i] != nullptr) allItems.push_back(itemsForSale[i]);
+  }
   itemsInShop = 0;
+}
+
+void Shop::resetShop() {
+  returnItems();
   populateShop();
 }
 

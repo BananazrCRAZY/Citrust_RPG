@@ -1,6 +1,0 @@
-assets/items/Cappucchino.txt
-assets/items/FirstAidKit.txt
-assets/items/CoolingFan.txt
-assets/items/ColorPalette.txt
-assets/items/ButterflyFlurry.txt
-assets/items/BlenderKnives.txt
