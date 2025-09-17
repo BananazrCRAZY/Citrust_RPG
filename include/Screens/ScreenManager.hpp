@@ -8,6 +8,7 @@
 #include "include/Objects/Player.h"
 #include "include/bossHeaders/Boss.h"
 #include "include/Objects/Item.h"
+#include "include/Objects/Shop.h"
 #include "include/Popups/CenterPopup.hpp"
 #include "include/Popups/Popup.hpp"
 #include <string>
@@ -35,10 +36,13 @@ public:
     Player* getPlayer() const { return player; }
     void setBoss(Boss* b) { boss = b;}
     Boss* getBoss() const { return boss; }
+    void setShop(Shop* s) { shop = s; }
+    Shop* getShop() { return shop; }
     void setShopItems(Item** arr) { shopItems = arr; }
     Item* getShopItem(unsigned i) const { return shopItems[i]; }
-    void setCalories(int cal) { calories = cal; }
+    void setCalories(int& cal) { calories = cal; }
     int getCalories() const { return calories; }
+    int& getCaloriesVar() {return calories; }
 
     std::shared_ptr<Popup> getPopup() const { return popup; }
     void ShowPopup(const std::string& msg); // convenience wrapper
@@ -53,10 +57,12 @@ private:
     int input = -1;
     Player* player = nullptr;
     Boss* boss = nullptr;
+    Shop* shop = nullptr;
     std::shared_ptr<Popup> popup;
     int bossCount = 0;
     Item** shopItems = nullptr;
-    int calories;
+    int defaultCalories = -10000;
+    int& calories;
 };
 
 #endif
