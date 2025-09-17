@@ -59,5 +59,7 @@ Features:
 * Github
 * Raylib and RayGUI
 
+---
+
 ### Special Thanks:
 * theverd1ct
