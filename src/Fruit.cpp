@@ -144,13 +144,7 @@ void Fruit::addStats(Status* status) {
     critDmg->add(status->getCritDamageChange());
     setRechargeCount(status->getRechargeCountChange());
     setTurn(status->getTurnChange());
-    if (hp >= getMaxHp()) hp = getMaxHp();
-    else {
-        if (status->isPercentBased()) setHp(status->getMaxHpChange()/100 * maxHp->getBase());
-        else setHp(status->getMaxHpChange());
-
-        if (hp > getMaxHp()) hp = getMaxHp();
-    }
+    if (hp > getMaxHp()) hp = getMaxHp();
 }
 
 void Fruit::removeEffect(Status* effect) {
