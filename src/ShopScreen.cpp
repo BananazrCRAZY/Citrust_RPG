@@ -7,22 +7,10 @@ ShopScreen::ShopScreen(ScreenManager& mgr, bool& exitFlag)
     : manager(mgr)
     , exitGame(exitFlag)
     , backButton("Graphics/Buttons/backButton.png", {50,750}, 0.8)
+    , refreshButton("Graphics/Buttons/refreshButton.png", {1400, 725}, .8)
     , menu({400, 100}, {800, 700}, {500, 600}, .7, "Graphics/Buttons/cancelButton.png", 0, manager)
 {
-    int xStart = 285;
-    int xSpacing = 350;
-    int yStart = 300;
-    int ySpacing = 220;
-    int buttonWidth = 332;
-    int buttonHeight = 195;
-    for (unsigned i = 0; i < 6; i++) {
-        int xPos = xStart + xSpacing * (i % 3);
-        int yPos = yStart + ySpacing * (i / 3);
-        if (manager.getShopItem(i) == nullptr) {
-            items[i] = new SolidButton("Graphics/Objects/soldOut.png", {(float)xPos, (float)yPos}, buttonWidth, buttonHeight);
-            items[i]->disableButton();
-        } else items[i] = new SolidButton(manager.getShopItem(i)->getIcon().c_str(), {(float)xPos, (float)yPos}, buttonWidth, buttonHeight);
-    }
+    resetItems();
 
     Image backgroundImage = LoadImage("Graphics/GeneralScreens/ShopScreen.png");
     ImageResize(&backgroundImage, 1600, 900);
@@ -37,6 +25,7 @@ ShopScreen::ShopScreen(ScreenManager& mgr, bool& exitFlag)
 
 ShopScreen::~ShopScreen() {
     UnloadTexture(background);
+    for (unsigned i = 0; i < 6; i++) delete items[i];
 }
 
 void ShopScreen::Update(const Vector2& mousePos, bool mouseClicked) {
@@ -54,6 +43,16 @@ void ShopScreen::Update(const Vector2& mousePos, bool mouseClicked) {
             goto inputCheck;
         }
         return;
+    }
+
+    if (refreshButton.isPressed(mousePos, mouseClicked)) {
+        if (manager.getCalories() >= 50) {
+            manager.getCaloriesVar() -= 50;
+            manager.getShop()->resetShop();
+            for (unsigned i = 0; i < 6; i++) delete items[i];
+            resetItems();
+            return;
+        }
     }
 
     for (unsigned i = 0; i < 6; i++) {
@@ -88,9 +87,27 @@ void ShopScreen::Draw() {
     // drawn in layers so menu needs to be bottom
     for (unsigned i = 0; i < 6; i++) items[i]->Draw();
     backButton.Draw();
+    refreshButton.Draw();
     menu.Draw();
     string calCount = "Calories: " + to_string(manager.getCalories());
     DrawText(calCount.c_str(), 1300, 100, 35, BLACK);
 
     mainPopup.Draw();
+}
+
+void ShopScreen::resetItems() {
+    int xStart = 285;
+    int xSpacing = 350;
+    int yStart = 300;
+    int ySpacing = 220;
+    int buttonWidth = 332;
+    int buttonHeight = 195;
+    for (unsigned i = 0; i < 6; i++) {
+        int xPos = xStart + xSpacing * (i % 3);
+        int yPos = yStart + ySpacing * (i / 3);
+        if (manager.getShopItem(i) == nullptr) {
+            items[i] = new SolidButton("Graphics/Objects/soldOut.png", {(float)xPos, (float)yPos}, buttonWidth, buttonHeight);
+            items[i]->disableButton();
+        } else items[i] = new SolidButton(manager.getShopItem(i)->getIcon().c_str(), {(float)xPos, (float)yPos}, buttonWidth, buttonHeight);
+    }
 }

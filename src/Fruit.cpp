@@ -110,12 +110,12 @@ bool Fruit::isDead() const {
 
 void Fruit::removeStats(Status* status) {
     if (status->isPercentBased()) {
-        setMaxHpAdd(-1 * status->getMaxHpChange()/100 * maxHp->getBase());
+        maxHp->add(-1 * status->getMaxHpChange()/100 * maxHp->getBase());
         attack->add(-1 * status->getAttackChange()/100 * attack->getBase());
         defense->add(-1 * status->getDefenseChange()/100 * defense->getBase());
         arts->add(-1 * status->getArtsChange()/100 * arts->getBase());
     } else {
-        setMaxHpAdd(-1 * status->getMaxHpChange());
+        maxHp->add(-1 * status->getMaxHpChange());
         attack->add(-1 * status->getAttackChange());
         defense->add(-1 * status->getDefenseChange());
         arts->add(-1 * status->getArtsChange());

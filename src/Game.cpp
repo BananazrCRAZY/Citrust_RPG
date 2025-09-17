@@ -330,9 +330,10 @@ int Game::gameLoop() {
 void Game::loadInterlude() {
     screenManager.setShopItems(shop->getItemsForSale());
     screenManager.ChangeScreen(make_unique<InterludeScreen>(screenManager, exitGame, player));
+    screenManager.setCalories(calories);
+    screenManager.setShop(shop);
     string printThis;
     while (1) {
-        screenManager.setCalories(calories);
         // load interlude screen here
         whileUiDrawLoop(-1);
         int inputNum = screenManager.getInput();
