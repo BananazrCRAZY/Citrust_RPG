@@ -21,75 +21,13 @@ Features:
 * Github
 * Raylib and RayGUI
 
-## Input/Output of Project:
-* Keyboard and mouse input, GUI output.
-* User .txt file input for character files, and option to output their character information to a .txt file as well
-
-## Navigation Diagram  
-<p align="center"><img src="https://github.com/user-attachments/assets/12a2ceaf-acd8-4d76-871e-ca21b2bbf826" width = "700"</p>
-
-
----
-## Screen Layouts
-- **Screen Layout:** [View Presentation](https://docs.google.com/presentation/d/113KIpqxjZn-ZylGX6MBx2rM3WvERidij8RLd5BcQcd8/edit?usp=sharing)
-## Screen Layout Description
-
-### Title Screen
-- **New Game** – Prompts to Orange Creation screen  
-- **Load** – Prompts user to pick a save file  
-- **Quit** – Exits the UI  
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/d25c9881-e3ee-4996-9ca8-7050b0adc859" alt="Title Screen Diagram" width="700"/>
-</p>
-
 ---
 
-### Orange Creation
-- Prompts user to enter name  
-- **Next** – Goes into story mode  
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/67d99450-23dc-4008-b240-787e83978087" alt="Orange Creation Diagram" width="700"/>
-</p>
-
----
-
-### Load Screen
-- Prompts user to pick one out of 3 save files  
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/cb4d35de-4223-4fb8-b763-8def18832c31" alt="Load Screen Diagram" width="700"/>
-</p>
-
----
-
-### Prologue 
-- Tells the story of Orange being bullied by the different Fruit Bosses  
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/b52301f8-b3c8-4777-838b-0dca3bb7111e" alt="Prologue Diagram 1" width="700"/>
-  <img src="https://github.com/user-attachments/assets/4e4d4a37-2d1b-4461-b387-5b1e8b4f48b5" alt="Prologue Diagram 2" width="700"/>
-</p>
-
-
----
-
-### Suspense
-- Filler story page
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/098ed379-30ba-4474-8f9a-7aa8a9ebf911" alt="Prologue Diagram 1" width="700"/>
-</p>
-
----
-
-### Tutorial in battle view
-- General layout for all boss fights (template)  
+## How to Play 
 - Players have three turn-based options:
-  - **Basic Attack** – Requires no skill points  
-  - **Skill Attack** – Requires one skill point
-  - **Inventory** - Use equippable items purchased
+  - **Basic Attack** – Gives a skill point and does damage based on your attack.  
+  - **Skill Attack** – Requires one skill point and does damage based on your attack and arts.
+  - **Inventory** - Use equipped consumable items for one skill point.
 - Reference the linked presentation above for the full tutorial
 
 <p align="center">
