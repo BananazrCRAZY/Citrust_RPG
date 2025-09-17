@@ -183,9 +183,13 @@ void Player::unequipItem(unsigned index) {
         cerr << "Error removeItem index problem" << std::endl;
         exit(1);
     }
-    if (!battleItems.at(index)->isConsumableTrue()) removeEffect(battleItems.at(index)->getStatus());
+    if (!battleItems.at(index)->isConsumableTrue()) {
+        removeEffect(battleItems.at(index)->getStatus());
+        rechargeCount += -1 * battleItems.at(index)->getStatus()->getRechargeCountChange();
+    }
     items.push_back(battleItems.at(index));
     battleItems.erase(battleItems.begin() + index);
+    hp = maxHp->getTotal();
 }
 
 void Player::equipItem(unsigned index) {
@@ -196,6 +200,7 @@ void Player::equipItem(unsigned index) {
     if (!items.at(index)->isConsumableTrue()) addEffect(items.at(index)->getStatus());
     battleItems.push_back(items.at(index));
     items.erase(items.begin() + index);
+    hp = maxHp->getTotal();
 }
 
 void Player::clearStats() {

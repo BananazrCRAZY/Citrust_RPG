@@ -1,1 +1,3 @@
+assets/bossItems/Grapevine.txt
 unequipped
+assets/bossItems/AppleCore.txt
