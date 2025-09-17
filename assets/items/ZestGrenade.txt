@@ -1,6 +1,6 @@
 Zest Grenade
 A throwable hand grenade that explodes with orange juice and leaves a cloud of the zest behind.
-200
+400
 1
 5
 10

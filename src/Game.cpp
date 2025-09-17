@@ -299,7 +299,7 @@ int Game::gameLoop() {
         }
         player->newItem(boss->getItem());
 
-        int addCalories = player->getLevel() * 300 / battleCycle;
+        int addCalories = player->getLevel() * 250 / battleCycle;
         if (addCalories < 75) addCalories = 75;
         calories += addCalories;
 
