@@ -16,7 +16,7 @@ class SolidButton {
         void setButtonXPos(float);
         void setButtonYPos(float);
     protected:
-        Texture2D texture;
+        Texture2D texture = {0};
         Vector2 position;           // Vector2 data type representing vector w/ x & y components
         float buttonWidth;
         float buttonHeight;

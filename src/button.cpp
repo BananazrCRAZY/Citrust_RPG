@@ -7,7 +7,7 @@ Button::Button (const char *imagePath, Vector2 imagePosition, float scale) : IBu
 
 // Destructor
 Button::~Button() {
-    UnloadTexture(texture);
+    if (texture.id != 0) UnloadTexture(texture);
 }
 
 // Creates button onto window

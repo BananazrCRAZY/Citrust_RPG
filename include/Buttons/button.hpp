@@ -10,5 +10,5 @@ class Button : public IButton {
 
         void SetTexture(const char* imagePath, float scale);        // for less button creations
     private:
-        Texture2D texture;
+        Texture2D texture = {0};
 };
