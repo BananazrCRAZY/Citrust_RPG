@@ -3,7 +3,7 @@ Decreases MAX HP by 40%, but restores 15% of MAX HP every turn and increases DEF
 -1
 1
 15
-0
+-40
 0
 20
 0
