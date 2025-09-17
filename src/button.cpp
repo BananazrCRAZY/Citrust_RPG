@@ -16,7 +16,8 @@ void Button::Draw() {
 }
 
 void Button::SetTexture(const char* imagePath, float scale) {
-    UnloadTexture(texture);  // unloads old texture first
+    // without if causes button textures to be messed up
+    if (texture.id != 0) UnloadTexture(texture);
 
     Image image = LoadImage(imagePath);
 

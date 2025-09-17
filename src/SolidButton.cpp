@@ -40,6 +40,9 @@ void SolidButton::updateImagePosition(float imageWidth, float imageHeight) {
 }
 
 void SolidButton::setTexture(const char* imagePath) {
+    // without if causes button textures to be messed up
+    if (texture.id != 0) UnloadTexture(texture);
+
     // Uses Image class first as it is resizeable to scale; Texture class is not
     Image image = LoadImage(imagePath);
 
