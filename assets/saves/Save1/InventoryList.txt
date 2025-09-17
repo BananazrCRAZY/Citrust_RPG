@@ -1,3 +1,11 @@
-unequipped
 assets/bossItems/AppleCore.txt
+assets/items/PurpleQuill.txt
+assets/items/SpinachPack.txt
+assets/bossItems/StrawberrySeed.txt
+assets/items/BlenderKnives.txt
+assets/bossItems/Grapevine.txt
+unequipped
+assets/bossItems/PearStem.txt
 assets/items/MagicWand.txt
+assets/bossItems/Dekopeel.txt
+assets/items/FirstAidKit.txt

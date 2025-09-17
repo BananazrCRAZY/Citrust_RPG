@@ -1,5 +1,5 @@
-1
-25
+5
+1625
 assets/saves/Save1/Player.txt
 assets/saves/Save1/InventoryList.txt
 assets/saves/Save1/ShopList.txt
