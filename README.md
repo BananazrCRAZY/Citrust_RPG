@@ -1,6 +1,6 @@
 # Citrust RPG
 
-Authors: [Annie Le](https://github.com/anniele2006), [Brandon Hatamoto](https://github.com/BananazrCRAZY), [Eva Bao](https://github.com/evabao007), [Sebastian Chou](https://github.com/stricker1), Richard Vu
+Authors: [Annie Le](https://github.com/anniele2006), [Brandon Hatamoto](https://github.com/BananazrCRAZY), [Eva Bao](https://github.com/evabao007), [Sebastian Chou](https://github.com/stricker1)
 
 ## What Is Citrust RPG?
 Description:
@@ -58,3 +58,6 @@ Features:
 * VSCode
 * Github
 * Raylib and RayGUI
+
+### Special Thanks:
+* theverd1ct
