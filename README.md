@@ -2,9 +2,18 @@
 
 Authors: [Annie Le](https://github.com/anniele2006), [Brandon Hatamoto](https://github.com/BananazrCRAZY), [Eva Bao](https://github.com/evabao007), [Sebastian Chou](https://github.com/stricker1)
 
-## Project Description
-Important/Interesting:
-* We are able to combine elements of storytelling, game design, and OOP into a personally loved project. We want to be able to think like programmers and game designers, taking into account the compelling narrative and a smoother gameplay, for our users!
+## What Is Citrust RPG?
+Description:
+* Citrust tells the story of a young orange getting bullied because they're sour.
+* Orange goes on a journey to fight each fruit to the death.
+* Orange level ups, obtain items, and strategically navigates through battles to become the best fruit!
+
+Features:
+* A variety of equippable and consumable items!
+* Difficult bosses with unique items!
+* Multiple status effects!
+* Turn based battle system featuring two types of damage!
+* An immersive story!
 
 ### Languages/Tools/Technologies:
 * C++
@@ -15,12 +24,6 @@ Important/Interesting:
 ## Input/Output of Project:
 * Keyboard and mouse input, GUI output.
 * User .txt file input for character files, and option to output their character information to a .txt file as well
-
-## Features:
-* Turn based battle system featuring two types of damage
-* A variety of equippable and consumable items to be purchased
-* Unique boss items
-* An immersive story
 
 ## Navigation Diagram  
 <p align="center"><img src="https://github.com/user-attachments/assets/12a2ceaf-acd8-4d76-871e-ca21b2bbf826" width = "700"</p>
