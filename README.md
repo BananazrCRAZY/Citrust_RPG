@@ -24,6 +24,7 @@ Features:
   - **Skill Attack** – Requires one skill point and does damage based on your attack and arts.
   - **Inventory** - Use equipped consumable items for one skill point.
 - Bosses have a basic attack, skill attack, and a special ability that can be seen in the stats page.
+- The stats page shows the player's and boss' stats and effects. Scroll through the effects and click on each one to learn more.
 
 <p align="center">
 <img width="700" alt="Screenshot 2025-09-16 213637" src="https://github.com/user-attachments/assets/bfaf742c-f198-4d9b-ad2c-cf2bce4525ff" />
@@ -61,5 +62,4 @@ Features:
 
 ---
 
-### Special Thanks:
-* theverd1ct
+Special thanks to theverd1ct
