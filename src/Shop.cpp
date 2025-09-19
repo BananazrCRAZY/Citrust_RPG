@@ -13,29 +13,42 @@ using std::cerr;
 using std::endl;
 using std::string;
 
-Shop::Shop(const string& file) : itemsInShop(0), shopFile(file), itemsForSale(new Item*[MAX_NUM_ITEMS_IN_SHOP]) {
+Shop::Shop(const string& file) : itemsInShop(0), shopFile(file), shopEnd(nullptr), itemsForSale(new Item*[MAX_NUM_ITEMS_IN_SHOP]) {
   ifstream iFile(shopFile);
   if(!iFile.good()) {
-    cerr << "Error with the Shop file stream" << endl;
+    cerr << "Error: Shop.cpp, Shop(), iFile not good" << endl;
     exit(1);
   }
+  json data;
+  iFile >> data;
 
-  string itemFile;
   bool inShop = true;
-  while(getline(iFile, itemFile)) {
-    if (itemFile == "shop") {
+  for (auto& it : data) {
+    int id = it["id"];
+    if (id == 0) {
       inShop = false;
+      shopEnd = new Item(0, "Shop End", "", 0, 0, 0, 0, "", 0, "");
       continue;
     }
-    
-    Item* newItem;
-    if (itemFile == "nullptr") newItem = nullptr;
-    else newItem = new Item(itemFile);
-    
+    string name = it["name"];
+
+    string desc = it.value("description", "");
+    int cost = it.value("cost", 0);
+    bool consumable = it.value("consumable", 0) != 0;
+    int cooldownDefault = it.value("cooldownDefault", 0);
+    int appearanceProb = it.value("appearanceProbability", 0);
+    string status = it.value("status", "");
+    bool useOnPlayer = it.value("useOnPlayer", 0) != 0;
+    string iconPath = it.value("iconPath", "");
+
     if (inShop) {
-      itemsForSale[itemsInShop] = newItem;
+      itemsForSale[itemsInShop] = new Item(
+        id, name, desc, cost, consumable, cooldownDefault, appearanceProb, status, useOnPlayer, iconPath
+      );
       itemsInShop++;
-    } else allItems.push_back(newItem);
+    } else allItems.push_back(new Item(
+        id, name, desc, cost, consumable, cooldownDefault, appearanceProb, status, useOnPlayer, iconPath
+      ));
   }
 }
 

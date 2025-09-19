@@ -1,4 +1,7 @@
 #pragma once
+#include <fstream>
+#include <iostream>
+#include "include/json.hpp"
 #include "Player.h"
 #include "Item.h"
 #include <string>
@@ -7,6 +10,7 @@
 
 using std::string;
 using std::vector;
+using json = nlohmann::json;
 
 class Shop {
  private:
@@ -14,6 +18,7 @@ class Shop {
   const unsigned MAX_NUM_ITEMS_IN_SHOP = 6;
   unsigned itemsInShop;
   string shopFile;
+  Item* shopEnd;
   vector<Item*> allItems;
   Item** itemsForSale;
 
