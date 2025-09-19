@@ -1,0 +1,272 @@
+[
+  {
+    "name": "Shop End"
+  },
+  {
+    "id": 1,
+    "name": "Blender Knives",
+    "description": "Extremely fast rotating knives meant to be put in a blender. No one knows who took them out.",
+    "cost": 500,
+    "appearanceProbability": 10,
+    "status": "ATK Up Y",
+    "iconPath": "Graphics\\Items\\blenderKnives.png"
+  },
+  {
+    "id": 2,
+    "name": "Butterfly Flurry",
+    "description": "Disappear among the sea of butterflies, Illusions of the past!",
+    "cost": 400,
+    "consumable": 1,
+    "cooldownDefault": 7,
+    "appearanceProbability": 15,
+    "status": "Amplification",
+    "useOnPlayer": 1,
+    "iconPath": "Graphics\\Items\\butterflyFlurry.png"
+  },
+  {
+    "id": 3,
+    "name": "Cappuccino",
+    "description": "Coffee made from the most delicious of espresso, steamed milk, and milk foam. Drinking it makes you feel incredibly hyper.",
+    "cost": 350,
+    "consumable": 1,
+    "cooldownDefault": 6,
+    "appearanceProbability": 25,
+    "status": "Caffeine Overload",
+    "useOnPlayer": 1,
+    "iconPath": "Graphics\\Items\\cappuccino.png"
+  },
+  {
+    "id": 4,
+    "name": "Color Palette",
+    "description": "Contains colors the naked eye is unable to see. However, holding it gives the eye the ability to see these unusual colors.",
+    "cost": 125,
+    "appearanceProbability": 50,
+    "status": "Arts Up B",
+    "iconPath": "Graphics\\Items\\colorPalette.png"
+  },
+  {
+    "id": 5,
+    "name": "Cooling Fan",
+    "description": "A tempting purchase on a hot day.",
+    "cost": 100,
+    "appearanceProbability": 50,
+    "status": "Chill",
+    "iconPath": "Graphics\\Items\\coolingFan.png"
+  },
+  {
+    "id": 6,
+    "name": "First-Aid Kit",
+    "description": "Health supplies to bring with you on the go. Includes bandages and food.",
+    "cost": 125,
+    "appearanceProbability": 20,
+    "status": "Protection Y",
+    "iconPath": "Graphics\\Items\\firstAidKit.png"
+  },
+  {
+    "id": 7,
+    "name": "Glintstone Staff",
+    "description": "Used to cast spells forgotten to time. Only a select few have succesfully been able to cast them.",
+    "cost": 250,
+    "appearanceProbability": 15,
+    "status": "Arts Up Y",
+    "iconPath": "Graphics\\Items\\glintstoneStaff.png"
+  },
+  {
+    "id": 8,
+    "name": "Honey Tea",
+    "description": "Hot tea made from water, honey, and a lemon.",
+    "cost": 150,
+    "appearanceProbability": 40,
+    "status": "Honey Goodness",
+    "iconPath": "Graphics\\Items\\honeyTea.png"
+  },
+  {
+    "id": 9,
+    "name": "Iced Matcha Latte",
+    "description": "Expensive matcha imports results in this heavenly drink.",
+    "cost": 50,
+    "appearanceProbability": 100,
+    "status": "Matchalicious",
+    "iconPath": "Graphics\\Items\\icedMatchaLatte.png"
+  },
+  {
+    "id": 10,
+    "name": "Incredibly Heavy Metal Shield",
+    "description": "Only able to be carried by the strongest of men.",
+    "cost": 450,
+    "consumable": 1,
+    "cooldownDefault": 10,
+    "appearanceProbability": 10,
+    "status": "Impenetrable Barrier",
+    "useOnPlayer": 1,
+    "iconPath": "Graphics\\Items\\incrediblyHeavyMetalShield.png"
+  },
+  {
+    "id": 11,
+    "name": "Iron Chestplate",
+    "description": "A basic chestplate made of iron.",
+    "cost": 50,
+    "appearanceProbability": 100,
+    "status": "Protection A",
+    "iconPath": "Graphics\\Items\\ironChestplate.png"
+  },
+  {
+    "id": 12,
+    "name": "Iron Sword",
+    "description": "A basic sword made of iron.",
+    "cost": 100,
+    "appearanceProbability": 100,
+    "status": "ATK Up A",
+    "iconPath": "Graphics\\Items\\ironSword.png"
+  },
+  {
+    "id": 13,
+    "name": "Large Vitamin C",
+    "description": "A chest of Vitamin C tablets. You can overcome any disease that comes your away with this.",
+    "cost": 225,
+    "consumable": 1,
+    "cooldownDefault": 3,
+    "appearanceProbability": 20,
+    "status": "Restoration Y",
+    "useOnPlayer": 1,
+    "iconPath": "Graphics\\Items\\largeVitaminC.png"
+  },
+  {
+    "id": 14,
+    "name": "Magic Wand",
+    "description": "Holding it gives you the feeling of some otherworldly energy",
+    "cost": 75,
+    "appearanceProbability": 90,
+    "status": "Arts Up A",
+    "iconPath": "Graphics\\Items\\magicWand.png"
+  },
+  {
+    "id": 15,
+    "name": "Medium Vitamin C",
+    "description": "A package of Vitamin C tablets. One tablet a day keeps the bad fruits away.",
+    "cost": 150,
+    "consumable": 1,
+    "cooldownDefault": 3,
+    "appearanceProbability": 75,
+    "status": "Restoration B",
+    "useOnPlayer": 1,
+    "iconPath": "Graphics\\Items\\mediumVitaminC.png"
+  },
+  {
+    "id": 16,
+    "name": "Orange Scented Perfume",
+    "description": "One spray will make you smell like oranges for at least 2 days.",
+    "cost": 100,
+    "appearanceProbability": 30,
+    "status": "Orange Scent",
+    "iconPath": "Graphics\\Items\\orangeScentedPerfume.png"
+  },
+  {
+    "id": 17,
+    "name": "Paring Knife",
+    "description": "A sharp knife ideal for cutting and peeling vegetables.",
+    "cost": 125,
+    "appearanceProbability": 40,
+    "status": "ATK Up B",
+    "iconPath": "Graphics\\Items\\paringKnife.png"
+  },
+  {
+    "id": 18,
+    "name": "Peanut Shell",
+    "description": "The shell of a peanut who passed away in battle eons ago.",
+    "cost": 75,
+    "appearanceProbability": 40,
+    "status": "Protection B",
+    "iconPath": "Graphics\\Items\\peanutShell.png"
+  },
+  {
+    "id": 19,
+    "name": "Plush Chair",
+    "description": "A place for you to sit down when you're vulnurable after a long day of work.",
+    "cost": 150,
+    "appearanceProbability": 30,
+    "status": "Comfort",
+    "iconPath": "Graphics\\Items\\plushChair.png"
+  },
+  {
+    "id": 20,
+    "name": "Pure Vanilla Extract",
+    "description": "The very ingredient that gives bakeries business. Too much, however, can be detrimental.",
+    "cost": 175,
+    "consumable": 1,
+    "cooldownDefault": 2,
+    "appearanceProbability": 40,
+    "status": "Sugar Rush",
+    "useOnPlayer": 1,
+    "iconPath": "Graphics\\Items\\pureVanillaExtract.png"
+  },
+  {
+    "id": 21,
+    "name": "Purple Quill",
+    "description": "A purple plume that reminds you of a certain underworld dweller.",
+    "cost": 300,
+    "consumable": 1,
+    "cooldownDefault": 4,
+    "appearanceProbability": 20,
+    "status": "Resurgence",
+    "useOnPlayer": 1,
+    "iconPath": "Graphics\\Items\\purpleQuill.png"
+  },
+  {
+    "id": 22,
+    "name": "Small Vitamin C",
+    "description": "A bottle of Vitamin C tablets. Makes your immune system stronger.",
+    "cost": 100,
+    "consumable": 1,
+    "cooldownDefault": 3,
+    "appearanceProbability": 100,
+    "status": "Restoration A",
+    "useOnPlayer": 1,
+    "iconPath": "Graphics\\Items\\smallVitaminC.png"
+  },
+  {
+    "id": 23,
+    "name": "SoulGlad",
+    "description": "Comes in three different flavors. Drinking it takes you to the land of dreams.",
+    "cost": 75,
+    "consumable": 1,
+    "cooldownDefault": 2,
+    "appearanceProbability": 75,
+    "status": "Land of Dreams",
+    "useOnPlayer": 1,
+    "iconPath": "Graphics\\Items\\soulGlad.png"
+  },
+  {
+    "id": 24,
+    "name": "Spinach Pack",
+    "description": "Although bitter, eating it makes you feel stronger",
+    "cost": 225,
+    "appearanceProbability": 25,
+    "status": "Leafy Green",
+    "iconPath": "Graphics\\Items\\spinachPack.png"
+  },
+  {
+    "id": 25,
+    "name": "Tropical Smoothie",
+    "description": "Refreshing and berry-flavored, one sip relaxes your entire body and takes you to the beach on a hot summer day.",
+    "cost": 150,
+    "consumable": 1,
+    "cooldownDefault": 3,
+    "appearanceProbability": 30,
+    "status": "Berry Blast",
+    "useOnPlayer": 1,
+    "iconPath": "Graphics\\Items\\tropicalSmoothie.png"
+  },
+  {
+    "id": 26,
+    "name": "Zest Grenade",
+    "description": "A throwable hand grenade that explodes with orange juice and leaves a cloud of the zest behind.",
+    "cost": 400,
+    "consumable": 1,
+    "cooldownDefault": 5,
+    "appearanceProbability": 10,
+    "status": "Explorangsion",
+    "useOnPlayer": 1,
+    "iconPath": "Graphics\\Items\\zestGrenade.png"
+  }
+]
