@@ -11,7 +11,7 @@ class Durian : public Boss {
     int damageTaken = 0;
 
     public:
-        Durian(const string& main, const string& item, int required, const string& proxy) : Boss(main, item, required, proxy) {
+        Durian(const string& main, int required, const string& proxy) : Boss(main, required, proxy) {
             addEffect(new Status("assets/status/BossProxyStatus/Berserk.txt"));
         }
 

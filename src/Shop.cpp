@@ -30,7 +30,7 @@ Shop::Shop(const string& file) : itemsInShop(0), shopFile(file), shopEnd(nullptr
       shopEnd = new Item(0, "Shop End", "", 0, 0, 0, 0, 0, "");
       continue;
     }
-    string name = it["name"];
+    string name = it.value("name", "Error name");
 
     string desc = it.value("description", "");
     int cost = it.value("cost", 0);
@@ -50,15 +50,18 @@ Shop::Shop(const string& file) : itemsInShop(0), shopFile(file), shopEnd(nullptr
       ));
   }
 
-  for(unsigned i = itemsInShop; i < 6; i++) itemsForSale[i] = nullptr;
+  for(unsigned i = itemsInShop; i < MAX_NUM_ITEMS_IN_SHOP; i++) itemsForSale[i] = nullptr;
+  iFile.close();
 }
 
 Shop::~Shop() {
   for (Item* item : allItems) delete item;
+  for (unsigned i = 0; i < itemsInShop; i++) delete itemsForSale[itemsInShop];
+  delete shopEnd;
 }
 
 string Shop::purchaseItem(Player* player, unsigned itemIndex) {
-  if (itemIndex > (itemsInShop-1)) {
+  if (itemIndex >= itemsInShop) {
     cerr << "Error: purchaseItem itemIndex is out of range" << endl;
     exit(1);
   }
@@ -69,7 +72,7 @@ string Shop::purchaseItem(Player* player, unsigned itemIndex) {
 }
 
 int Shop::getItemPrice(unsigned index) {
-  if (index > (itemsInShop-1)) {
+  if (index >= itemsInShop) {
     cerr << "Error: getItemPrice itemIndex is out of range" << endl;
     exit(1);
   }
@@ -141,10 +144,12 @@ void Shop::saveShop() {
     data.push_back(obj);
   }
 
-  json endMarker;
-  endMarker["id"] = shopEnd->getId();
-  endMarker["name"] = shopEnd->getName();
-  data.push_back(endMarker);
+  if (shopEnd != nullptr) {
+    json endMarker;
+    endMarker["id"] = shopEnd->getId();
+    endMarker["name"] = shopEnd->getName();
+    data.push_back(endMarker);
+  }
 
   for (Item* item : allItems) {
     json obj;
@@ -161,7 +166,7 @@ void Shop::saveShop() {
     data.push_back(obj);
   }
 
-  oFile << data.dump(2);  // make it look nice
+  oFile << data.dump(2);
   oFile.close();
 }
 

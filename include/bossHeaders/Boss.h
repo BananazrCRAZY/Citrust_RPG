@@ -8,14 +8,13 @@ using std::string;
 
 class Boss : public Fruit {
     protected:
-        Item* itemDrop;
+        Item* itemDrop = nullptr;
         int bossAbilityCharge;
         int requiredBossCharge;
 
     public:
-        Boss(const string& mainFile, const string& itemF, int requiredCharge, const string& proxyEffect) : 
-            Fruit(mainFile), 
-            itemDrop(new Item(itemF)), 
+        Boss(const string& mainFile, int requiredCharge, const string& proxyEffect) : 
+            Fruit(mainFile),
             requiredBossCharge(requiredCharge), 
             bossAbilityCharge(1)
         {

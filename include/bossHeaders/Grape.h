@@ -19,7 +19,7 @@ class Grape : public Boss {
     };
 
     public:
-        Grape(const string& main, const string& item, int required, const string& proxy) : Boss(main, item, required, proxy) {}
+        Grape(const string& main, int required, const string& proxy) : Boss(main, required, proxy) {}
 
         string specialAttack(Fruit* target) {
             rechargeCount -= 2;

@@ -1,35 +1,47 @@
+#include "include/json.hpp"
 #include "include/Objects/Player.h"
 #include <iostream>
 #include <fstream>
 #include <stdexcept>
 #include <string>
 
+using json = nlohmann::json;
 using std::string;
 using std::cerr;
 
-Player::Player(const string& file, const string& itemFile) : Fruit(file),  inventoryList(itemFile) {
+Player::Player(const string& file, const string& itemFile) : Fruit(file),  equippedEnd(nullptr), inventoryList(itemFile) {
     std::ifstream iFile(itemFile);
-    if (!iFile.good()) {
-        cerr << "Error with Inventory list file fstream" << std::endl;
+    if(!iFile.good()) {
+        cerr << "Error: Player.cpp, Player(), iFile not good";
         exit(1);
     }
+    json data;
+    iFile >> data;
 
-    string output = "";
-    bool unequipped = false;
-    Item* item;
-    while(iFile >> output) {
-        if (output == "unequipped") {
-            unequipped = true;
+    bool equipped = true;
+    for (auto& it : data) {
+        int id = it.value("id", -1);
+        if (id == 0) {
+            equipped = false;
+            equippedEnd = new Item(0, "equipped", "null", 0, false, 0, 0, false, "null");
             continue;
         }
+        string name = it.value("name", "Error name");
 
-        item = new Item(output);
-        if (unequipped) items.push_back(item);
-        else {
-            battleItems.push_back(item);
-            if (!battleItems.at(battleItems.size()-1)->isConsumableTrue()) 
-                addEffect(battleItems.at(battleItems.size()-1)->getStatus());
-        }
+        string desc = it.value("description", "");
+        int cost = it.value("cost", 0);
+        bool consumable = it.value("consumable", 0) != 0;
+        int cooldownDefault = it.value("cooldownDefault", 0);
+        int appearanceProb = it.value("appearanceProbability", 0);
+        bool useOnPlayer = it.value("useOnPlayer", 0) != 0;
+        string iconPath = it.value("iconPath", "");
+
+        if (equipped) battleItems.push_back(new Item(
+                id, name, desc, cost, consumable, cooldownDefault, appearanceProb, useOnPlayer, iconPath
+            ));
+        else items.push_back(new Item(
+                id, name, desc, cost, consumable, cooldownDefault, appearanceProb, useOnPlayer, iconPath
+            ));
     }
     iFile.close();
 }
@@ -41,6 +53,7 @@ Player::~Player() {
     battleItems.clear();
     for (unsigned i = 0; i < items.size(); i++) delete items.at(i);
     items.clear();
+    delete equippedEnd;
 }
 
 // Deals Physical DMG and Arts DMG equal to ATK and Arts ATK respectively. Damage dealt is counted as once instance of damage. However, each type of damage has its own chance to crit.
@@ -134,20 +147,20 @@ void Player::savePlayer() {
     oFile << critDmg->getBase() << '\n';
     oFile.close();
 
-    oFile.open(inventoryList, std::ios::trunc);
-    if (!oFile.good()) {
-        cerr << "Error with saving Inventory list file ostream" << std::endl;
-        exit(1);
-    }
+    // oFile.open(inventoryList, std::ios::trunc);
+    // if (!oFile.good()) {
+    //     cerr << "Error with saving Inventory list file ostream" << std::endl;
+    //     exit(1);
+    // }
 
-    for (int i = 0; i < battleItems.size(); i++) {
-        oFile << battleItems.at(i)->getFilePath() << '\n';
-    }
-    oFile << "unequipped\n";
-    for (int i = 0; i < items.size(); i++) {
-        oFile << items.at(i)->getFilePath() << '\n';
-    }
-    oFile.close();
+    // for (int i = 0; i < battleItems.size(); i++) {
+    //     oFile << battleItems.at(i)->getFilePath() << '\n';
+    // }
+    // oFile << "unequipped\n";
+    // for (int i = 0; i < items.size(); i++) {
+    //     oFile << items.at(i)->getFilePath() << '\n';
+    // }
+    // oFile.close();
 }
 
 void Player::resetPlayerSave() {

@@ -6,7 +6,7 @@
 using std::ifstream;
 using std::cerr;
 
-Item::Item(int id, string name, string decription, int cost, bool consumable, int cooldownDefault, int appearanceProb, bool useOnPlayer, string iconPath) :
+Item::Item(int id, string name, string description, int cost, bool consumable, int cooldownDefault, int appearanceProb, bool useOnPlayer, string iconPath) :
   id(id),
   name(name),
   description(description),

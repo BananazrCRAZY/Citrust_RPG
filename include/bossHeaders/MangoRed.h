@@ -5,7 +5,7 @@ using std::to_string;
 
 class MangoRed : public Boss {
     public:
-        MangoRed(const string& main, const string& item, int required, const string& proxy) : Boss(main, item, required, proxy) {
+        MangoRed(const string& main, int required, const string& proxy) : Boss(main, required, proxy) {
             hp = maxHp->getTotal() / 2;
         }
         string specialAttack(Fruit* target) {

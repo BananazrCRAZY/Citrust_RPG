@@ -3,7 +3,7 @@
 
 class Apple : public Boss {
     public:
-        Apple(const string& main, const string& item, int required, const string& proxy) : Boss(main, item, required, proxy) {}
+        Apple(const string& main, int required, const string& proxy) : Boss(main, required, proxy) {}
         string specialAttack(Fruit* target) {
             rechargeCount -= 2;
             int damage = attack->getTotal() * 2 - target->getDefense();

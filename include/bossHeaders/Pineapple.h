@@ -7,7 +7,7 @@ class Pineapple : public Boss {
     string dotFile = "assets/status/DoT.txt";
 
     public:
-        Pineapple(const string& main, const string& item, int required, const string& proxy) : Boss(main, item, required, proxy) {}
+        Pineapple(const string& main, int required, const string& proxy) : Boss(main, required, proxy) {}
         string specialAttack(Fruit* target) {
             rechargeCount -= 2;
             target->addEffect(new Status(dotFile));

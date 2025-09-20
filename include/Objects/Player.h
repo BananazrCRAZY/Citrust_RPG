@@ -8,6 +8,7 @@ using std::vector;
 using std::string;
 
 class Player : public Fruit {
+    Item* equippedEnd;
     vector<Item*> items;
     vector<Item*> battleItems;
     string inventoryList;

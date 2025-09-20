@@ -9,7 +9,7 @@
     "description": "Extremely fast rotating knives meant to be put in a blender. No one knows who took them out.",
     "cost": 500,
     "appearanceProbability": 10,
-    "iconPath": "Graphics\\Items\\blenderKnives.png"
+    "iconPath": "Graphics/Items/blenderKnives.png"
   },
   {
     "id": 2,
@@ -20,7 +20,7 @@
     "cooldownDefault": 7,
     "appearanceProbability": 15,
     "useOnPlayer": 1,
-    "iconPath": "Graphics\\Items\\butterflyFlurry.png"
+    "iconPath": "Graphics/Items/butterflyFlurry.png"
   },
   {
     "id": 3,
@@ -31,7 +31,7 @@
     "cooldownDefault": 6,
     "appearanceProbability": 25,
     "useOnPlayer": 1,
-    "iconPath": "Graphics\\Items\\cappuccino.png"
+    "iconPath": "Graphics/Items/cappuccino.png"
   },
   {
     "id": 4,
@@ -39,7 +39,7 @@
     "description": "Contains colors the naked eye is unable to see. However, holding it gives the eye the ability to see these unusual colors.",
     "cost": 125,
     "appearanceProbability": 50,
-    "iconPath": "Graphics\\Items\\colorPalette.png"
+    "iconPath": "Graphics/Items/colorPalette.png"
   },
   {
     "id": 5,
@@ -47,7 +47,7 @@
     "description": "A tempting purchase on a hot day.",
     "cost": 100,
     "appearanceProbability": 50,
-    "iconPath": "Graphics\\Items\\coolingFan.png"
+    "iconPath": "Graphics/Items/coolingFan.png"
   },
   {
     "id": 6,
@@ -55,7 +55,7 @@
     "description": "Health supplies to bring with you on the go. Includes bandages and food.",
     "cost": 125,
     "appearanceProbability": 20,
-    "iconPath": "Graphics\\Items\\firstAidKit.png"
+    "iconPath": "Graphics/Items/firstAidKit.png"
   },
   {
     "id": 7,
@@ -63,7 +63,7 @@
     "description": "Used to cast spells forgotten to time. Only a select few have succesfully been able to cast them.",
     "cost": 250,
     "appearanceProbability": 15,
-    "iconPath": "Graphics\\Items\\glintstoneStaff.png"
+    "iconPath": "Graphics/Items/glintstoneStaff.png"
   },
   {
     "id": 8,
@@ -71,7 +71,7 @@
     "description": "Hot tea made from water, honey, and a lemon.",
     "cost": 150,
     "appearanceProbability": 40,
-    "iconPath": "Graphics\\Items\\honeyTea.png"
+    "iconPath": "Graphics/Items/honeyTea.png"
   },
   {
     "id": 9,
@@ -79,7 +79,7 @@
     "description": "Expensive matcha imports results in this heavenly drink.",
     "cost": 50,
     "appearanceProbability": 100,
-    "iconPath": "Graphics\\Items\\icedMatchaLatte.png"
+    "iconPath": "Graphics/Items/icedMatchaLatte.png"
   },
   {
     "id": 10,
@@ -90,7 +90,7 @@
     "cooldownDefault": 10,
     "appearanceProbability": 10,
     "useOnPlayer": 1,
-    "iconPath": "Graphics\\Items\\incrediblyHeavyMetalShield.png"
+    "iconPath": "Graphics/Items/incrediblyHeavyMetalShield.png"
   },
   {
     "id": 11,
@@ -98,7 +98,7 @@
     "description": "A basic chestplate made of iron.",
     "cost": 50,
     "appearanceProbability": 100,
-    "iconPath": "Graphics\\Items\\ironChestplate.png"
+    "iconPath": "Graphics/Items/ironChestplate.png"
   },
   {
     "id": 12,
@@ -106,7 +106,7 @@
     "description": "A basic sword made of iron.",
     "cost": 100,
     "appearanceProbability": 100,
-    "iconPath": "Graphics\\Items\\ironSword.png"
+    "iconPath": "Graphics/Items/ironSword.png"
   },
   {
     "id": 13,
@@ -117,7 +117,7 @@
     "cooldownDefault": 3,
     "appearanceProbability": 20,
     "useOnPlayer": 1,
-    "iconPath": "Graphics\\Items\\largeVitaminC.png"
+    "iconPath": "Graphics/Items/largeVitaminC.png"
   },
   {
     "id": 14,
@@ -125,7 +125,7 @@
     "description": "Holding it gives you the feeling of some otherworldly energy",
     "cost": 75,
     "appearanceProbability": 90,
-    "iconPath": "Graphics\\Items\\magicWand.png"
+    "iconPath": "Graphics/Items/magicWand.png"
   },
   {
     "id": 15,
@@ -136,7 +136,7 @@
     "cooldownDefault": 3,
     "appearanceProbability": 75,
     "useOnPlayer": 1,
-    "iconPath": "Graphics\\Items\\mediumVitaminC.png"
+    "iconPath": "Graphics/Items/mediumVitaminC.png"
   },
   {
     "id": 16,
@@ -144,7 +144,7 @@
     "description": "One spray will make you smell like oranges for at least 2 days.",
     "cost": 100,
     "appearanceProbability": 30,
-    "iconPath": "Graphics\\Items\\orangeScentedPerfume.png"
+    "iconPath": "Graphics/Items/orangeScentedPerfume.png"
   },
   {
     "id": 17,
@@ -152,7 +152,7 @@
     "description": "A sharp knife ideal for cutting and peeling vegetables.",
     "cost": 125,
     "appearanceProbability": 40,
-    "iconPath": "Graphics\\Items\\paringKnife.png"
+    "iconPath": "Graphics/Items/paringKnife.png"
   },
   {
     "id": 18,
@@ -160,7 +160,7 @@
     "description": "The shell of a peanut who passed away in battle eons ago.",
     "cost": 75,
     "appearanceProbability": 40,
-    "iconPath": "Graphics\\Items\\peanutShell.png"
+    "iconPath": "Graphics/Items/peanutShell.png"
   },
   {
     "id": 19,
@@ -168,7 +168,7 @@
     "description": "A place for you to sit down when you're vulnurable after a long day of work.",
     "cost": 150,
     "appearanceProbability": 30,
-    "iconPath": "Graphics\\Items\\plushChair.png"
+    "iconPath": "Graphics/Items/plushChair.png"
   },
   {
     "id": 20,
@@ -179,7 +179,7 @@
     "cooldownDefault": 2,
     "appearanceProbability": 40,
     "useOnPlayer": 1,
-    "iconPath": "Graphics\\Items\\pureVanillaExtract.png"
+    "iconPath": "Graphics/Items/pureVanillaExtract.png"
   },
   {
     "id": 21,
@@ -190,7 +190,7 @@
     "cooldownDefault": 4,
     "appearanceProbability": 20,
     "useOnPlayer": 1,
-    "iconPath": "Graphics\\Items\\purpleQuill.png"
+    "iconPath": "Graphics/Items/purpleQuill.png"
   },
   {
     "id": 22,
@@ -201,7 +201,7 @@
     "cooldownDefault": 3,
     "appearanceProbability": 100,
     "useOnPlayer": 1,
-    "iconPath": "Graphics\\Items\\smallVitaminC.png"
+    "iconPath": "Graphics/Items/smallVitaminC.png"
   },
   {
     "id": 23,
@@ -212,7 +212,7 @@
     "cooldownDefault": 2,
     "appearanceProbability": 75,
     "useOnPlayer": 1,
-    "iconPath": "Graphics\\Items\\soulGlad.png"
+    "iconPath": "Graphics/Items/soulGlad.png"
   },
   {
     "id": 24,
@@ -220,7 +220,7 @@
     "description": "Although bitter, eating it makes you feel stronger",
     "cost": 225,
     "appearanceProbability": 25,
-    "iconPath": "Graphics\\Items\\spinachPack.png"
+    "iconPath": "Graphics/Items/spinachPack.png"
   },
   {
     "id": 25,
@@ -231,7 +231,7 @@
     "cooldownDefault": 3,
     "appearanceProbability": 30,
     "useOnPlayer": 1,
-    "iconPath": "Graphics\\Items\\tropicalSmoothie.png"
+    "iconPath": "Graphics/Items/tropicalSmoothie.png"
   },
   {
     "id": 26,
@@ -242,6 +242,6 @@
     "cooldownDefault": 5,
     "appearanceProbability": 10,
     "useOnPlayer": 1,
-    "iconPath": "Graphics\\Items\\zestGrenade.png"
+    "iconPath": "Graphics/Items/zestGrenade.png"
   }
 ]

@@ -5,7 +5,7 @@ using std::to_string;
 
 class Dekopon : public Boss {
     public:
-        Dekopon(const string& main, const string& item, int required, const string& proxy) : Boss(main, item, required, proxy) {
+        Dekopon(const string& main, int required, const string& proxy) : Boss(main, required, proxy) {
             name = "Dekopon";
             level = 50;
             maxHp->addBase(2000);
