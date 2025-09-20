@@ -27,7 +27,7 @@ Shop::Shop(const string& file) : itemsInShop(0), shopFile(file), shopEnd(nullptr
     int id = it["id"];
     if (id == 0) {
       inShop = false;
-      shopEnd = new Item(0, "Shop End", "", 0, 0, 0, 0, "", 0, "");
+      shopEnd = new Item(0, "Shop End", "", 0, 0, 0, 0, 0, "");
       continue;
     }
     string name = it["name"];
@@ -37,19 +37,20 @@ Shop::Shop(const string& file) : itemsInShop(0), shopFile(file), shopEnd(nullptr
     bool consumable = it.value("consumable", 0) != 0;
     int cooldownDefault = it.value("cooldownDefault", 0);
     int appearanceProb = it.value("appearanceProbability", 0);
-    string status = it.value("status", "");
     bool useOnPlayer = it.value("useOnPlayer", 0) != 0;
     string iconPath = it.value("iconPath", "");
 
     if (inShop) {
       itemsForSale[itemsInShop] = new Item(
-        id, name, desc, cost, consumable, cooldownDefault, appearanceProb, status, useOnPlayer, iconPath
+        id, name, desc, cost, consumable, cooldownDefault, appearanceProb, useOnPlayer, iconPath
       );
       itemsInShop++;
     } else allItems.push_back(new Item(
-        id, name, desc, cost, consumable, cooldownDefault, appearanceProb, status, useOnPlayer, iconPath
+        id, name, desc, cost, consumable, cooldownDefault, appearanceProb, useOnPlayer, iconPath
       ));
   }
+
+  for(unsigned i = itemsInShop; i < 6; i++) itemsForSale[i] = nullptr;
 }
 
 Shop::~Shop() {
@@ -57,7 +58,7 @@ Shop::~Shop() {
 }
 
 string Shop::purchaseItem(Player* player, unsigned itemIndex) {
-  if (itemIndex > (MAX_NUM_ITEMS_IN_SHOP-1)) {
+  if (itemIndex > (itemsInShop-1)) {
     cerr << "Error: purchaseItem itemIndex is out of range" << endl;
     exit(1);
   }
@@ -68,7 +69,7 @@ string Shop::purchaseItem(Player* player, unsigned itemIndex) {
 }
 
 int Shop::getItemPrice(unsigned index) {
-  if (index > (MAX_NUM_ITEMS_IN_SHOP-1)) {
+  if (index > (itemsInShop-1)) {
     cerr << "Error: getItemPrice itemIndex is out of range" << endl;
     exit(1);
   }
@@ -79,17 +80,17 @@ int Shop::getItemPrice(unsigned index) {
 void Shop::populateShop() {
   assert(itemsInShop == 0);  // Shop must be empty beforehand
 
-  if (allItems.size() < 6) {  // if there are less than 6 items left to buy
+  if (allItems.size() < MAX_NUM_ITEMS_IN_SHOP) {  // if there are less than 6 items left to buy
     for (unsigned i = 0; i < allItems.size(); i++) {
       itemsForSale[i] = allItems.at(i);
       itemsInShop++;
     }
     allItems.clear();
-    for (unsigned i = itemsInShop - 1; i < 6; i++) {
+    for (unsigned i = itemsInShop - 1; i < MAX_NUM_ITEMS_IN_SHOP; i++) {
       itemsForSale[i] = nullptr;
     }
   } else {
-    while (itemsInShop != 6) {
+    while (itemsInShop != MAX_NUM_ITEMS_IN_SHOP) {
       int randomIndex = getRandomIndex(allItems.size());
       Item* selectedItem = allItems.at(randomIndex);  // Select a random item from allItems
       if (getRandomNumber(100) <= selectedItem->getAppearanceProbabiity()) {  // RNG to see if that selected item makes it in the shop
@@ -120,21 +121,52 @@ void Shop::saveShop() {
     exit(1);
   }
 
+  json data = json::array();
+
   for (unsigned i = 0; i < itemsInShop; i++) {
-    if (itemsForSale[i] == nullptr) oFile << "nullptr\n";
-    else oFile << itemsForSale[i]->getFilePath() << '\n';
+    Item* item = itemsForSale[i];
+    if (item == nullptr) continue;
+
+    json obj;
+    obj["id"] = item->getId();
+    obj["name"] = item->getName();
+    obj["description"] = item->getDescription();
+    obj["cost"] = item->getCost();
+    obj["consumable"] = item->isConsumableTrue() ? 1 : 0;
+    obj["cooldownDefault"] = item->getCooldownDefault();
+    obj["appearanceProbability"] = item->getAppearanceProbabiity();
+    obj["useOnPlayer"] = item->isUseOnPlayer() ? 1 : 0;
+    obj["iconPath"] = item->getIcon();
+
+    data.push_back(obj);
   }
 
-  oFile << "shop\n";
+  json endMarker;
+  endMarker["id"] = shopEnd->getId();
+  endMarker["name"] = shopEnd->getName();
+  data.push_back(endMarker);
 
-  for (unsigned i = 0; i < allItems.size(); i++) {
-    oFile << allItems.at(i)->getFilePath() << '\n';
+  for (Item* item : allItems) {
+    json obj;
+    obj["id"] = item->getId();
+    obj["name"] = item->getName();
+    obj["description"] = item->getDescription();
+    obj["cost"] = item->getCost();
+    obj["consumable"] = item->isConsumableTrue() ? 1 : 0;
+    obj["cooldownDefault"] = item->getCooldownDefault();
+    obj["appearanceProbability"] = item->getAppearanceProbabiity();
+    obj["useOnPlayer"] = item->isUseOnPlayer() ? 1 : 0;
+    obj["iconPath"] = item->getIcon();
+
+    data.push_back(obj);
   }
+
+  oFile << data.dump(2);  // make it look nice
   oFile.close();
 }
 
 void Shop::resetShopSave() {
-  ifstream iFile("assets/lists/ItemList.txt");
+  ifstream iFile("assets/lists/items.json");
   if (!iFile.good()) {
     cerr << "Error: opening original items list, resetShopSave" << std::endl;
     exit(1);

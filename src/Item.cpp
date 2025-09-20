@@ -6,14 +6,14 @@
 using std::ifstream;
 using std::cerr;
 
-Item::Item(int id, string name, int cost, bool consumable, int cooldownDefault, int appearanceProb, string status, bool useOnPlayer, string iconPath) :
+Item::Item(int id, string name, string decription, int cost, bool consumable, int cooldownDefault, int appearanceProb, bool useOnPlayer, string iconPath) :
   id(id),
   name(name),
+  description(description),
   cost(cost),
   consumable(consumable),
   cooldownDefault(cooldownDefault),
   appearanceProbability(appearanceProb),
-  status(status),
   useOnPlayer(useOnPlayer),
   iconPath(iconPath),
   cooldown(0),

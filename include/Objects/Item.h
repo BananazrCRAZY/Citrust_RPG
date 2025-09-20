@@ -14,7 +14,6 @@ class Item {
   bool consumable;
   int cooldownDefault;
   int appearanceProbability;
-  string status;
   bool useOnPlayer;
   string iconPath;
 
@@ -22,7 +21,7 @@ class Item {
   Status* effect;
 
  public:
-  Item(int id, string name, string decription, int cost, bool consumable, int cooldownDefault, int appearanceProb, string status, bool useOnPlayer, string iconPath);
+  Item(int id, string name, string decription, int cost, bool consumable, int cooldownDefault, int appearanceProb, bool useOnPlayer, string iconPath);
   void use(Fruit* target);
   void decreaseCooldown();
   void resetCooldown();
