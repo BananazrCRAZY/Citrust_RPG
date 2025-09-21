@@ -1,5 +1,5 @@
-1
-83
+0
+0
 assets/saves/Save1/Player.txt
-assets/saves/Save1/InventoryList.json
-assets/saves/Save1/shoplist.json
+assets/saves/Save1/inventory_list.json
+assets/saves/Save1/shop_list.json

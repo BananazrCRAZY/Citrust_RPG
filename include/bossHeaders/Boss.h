@@ -8,7 +8,6 @@ using std::string;
 
 class Boss : public Fruit {
     protected:
-        Item* itemDrop = nullptr;
         int bossAbilityCharge;
         int requiredBossCharge;
 
@@ -27,7 +26,6 @@ class Boss : public Fruit {
         virtual string specialAttack(Fruit*) = 0;
         virtual string bossAbility() = 0;
         int getBossAbilityCharge() { return bossAbilityCharge; }
-        Item* getItem() { return itemDrop; }
         int getRequiredBossCharge() { return requiredBossCharge; }
         void endOfTurn() {
             Fruit::endOfTurn();

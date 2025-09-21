@@ -23,7 +23,7 @@ Player::Player(const string& file, const string& itemFile) : Fruit(file),  equip
         int id = it.value("id", -1);
         if (id == 0) {
             equipped = false;
-            equippedEnd = new Item(0, "equipped", "null", 0, false, 0, 0, false, "null");
+            equippedEnd = new Item(0, "equipped", "", 0, false, 0, 0, false, "");
             continue;
         }
         string name = it.value("name", "Error name");
@@ -147,20 +147,53 @@ void Player::savePlayer() {
     oFile << critDmg->getBase() << '\n';
     oFile.close();
 
-    // oFile.open(inventoryList, std::ios::trunc);
-    // if (!oFile.good()) {
-    //     cerr << "Error with saving Inventory list file ostream" << std::endl;
-    //     exit(1);
-    // }
+    oFile.open(inventoryList);
+    if (!oFile.good()) {
+        cerr << "Error: Player.cpp, savePlayer(), inventoryList open !good\n";
+        exit(1);
+    }
 
-    // for (int i = 0; i < battleItems.size(); i++) {
-    //     oFile << battleItems.at(i)->getFilePath() << '\n';
-    // }
-    // oFile << "unequipped\n";
-    // for (int i = 0; i < items.size(); i++) {
-    //     oFile << items.at(i)->getFilePath() << '\n';
-    // }
-    // oFile.close();
+    json data = json::array();
+
+    for (Item* item : battleItems) {
+        json obj;
+        obj["id"] = item->getId();
+        obj["name"] = item->getName();
+        obj["description"] = item->getDescription();
+        obj["cost"] = item->getCost();
+        obj["consumable"] = item->isConsumableTrue() ? 1 : 0;
+        obj["cooldownDefault"] = item->getCooldownDefault();
+        obj["appearanceProbability"] = item->getAppearanceProbabiity();
+        obj["useOnPlayer"] = item->isUseOnPlayer() ? 1 : 0;
+        obj["iconPath"] = item->getIcon();
+
+        data.push_back(obj);
+    }
+
+    if (equippedEnd != nullptr) {
+        json endMarker;
+        endMarker["id"] = equippedEnd->getId();
+        endMarker["name"] = equippedEnd->getName();
+        data.push_back(endMarker);
+    }
+
+    for (Item* item : items) {
+        json obj;
+        obj["id"] = item->getId();
+        obj["name"] = item->getName();
+        obj["description"] = item->getDescription();
+        obj["cost"] = item->getCost();
+        obj["consumable"] = item->isConsumableTrue() ? 1 : 0;
+        obj["cooldownDefault"] = item->getCooldownDefault();
+        obj["appearanceProbability"] = item->getAppearanceProbabiity();
+        obj["useOnPlayer"] = item->isUseOnPlayer() ? 1 : 0;
+        obj["iconPath"] = item->getIcon();
+
+        data.push_back(obj);
+    }
+
+    oFile << data.dump(2);
+    oFile.close();
 }
 
 void Player::resetPlayerSave() {

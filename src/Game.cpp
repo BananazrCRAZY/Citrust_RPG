@@ -254,13 +254,13 @@ int Game::gameLoop() {
             case 5:
                 boss = new MangoGreen("assets/bosses/MangoGreen.txt", -1, "assets/status/BossProxyStatus/Rage.txt");
                 break;
-            case 7:
+            case 6:
                 boss = new Pineapple("assets/bosses/Pineapple.txt", 1000, "assets/status/BossProxyStatus/Thorns.txt");
                 break;
-            case 8:
+            case 7:
                 boss = new Durian("assets/bosses/Durian.txt", -1, "assets/status/BossProxyStatus/Thorns.txt");
                 break;
-            case 9:
+            case 8:
                 boss = new Watermelon("assets/bosses/Watermelon.txt", -1, "assets/status/BossProxyStatus/Shell.txt");
                 break;
             default:
@@ -276,25 +276,18 @@ int Game::gameLoop() {
             if (battleResult != -1) {
                 // if player used special attack to defeat phase 1
                 if (screenManager.getInput() == 1) player->setRechargeCount(1);
-                delete boss->getItem();
                 delete boss;
-                savePoint++;
                 boss = new MangoRed("assets/bosses/MangoRed.txt", -1, "assets/status/BossProxyStatus/Rage.txt");
                 screenManager.setBoss(boss);
                 screenManager.AddBossCount(1);
                 uiDraw();
                 battleResult = battleLoop(boss);
-                if (battleResult == -1) goto lose;
             }
         }
         if (battleResult == -1) {
-            lose:
-            if (savePoint != 5) delete boss->getItem();
-
             screenManager.ChangeScreen(make_unique<LoseScreen>(screenManager));
             delete boss;
             boss = nullptr;
-
             return loadEndOfGame();
         }
         player->newItem(boss->getItem());
@@ -405,7 +398,6 @@ int Game::battleLoop(Boss* boss) {
         }
         uiDraw();
         if (WindowShouldClose()) {
-            delete boss->getItem();
             delete boss;
             closeGameCheck();
         }
