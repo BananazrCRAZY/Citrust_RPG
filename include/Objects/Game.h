@@ -8,6 +8,7 @@
 #include "include/Objects/Player.h"
 #include "include/bossHeaders/Boss.h"
 #include "include/Objects/Shop.h"
+#include "include/Objects/StatusManager.h"
 
 using std::string;
 
@@ -21,6 +22,7 @@ class Game {
     string playerItemsFile;
     string shopFile;
     ScreenManager screenManager;
+    StatusManager statusMgr;
     bool exitGame;
     unsigned battleCycle;
 

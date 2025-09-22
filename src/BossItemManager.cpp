@@ -8,7 +8,7 @@ using json = nlohmann::json;
 using std::ifstream;
 
 
-BossItemManager::BossItemManager() {
+BossItemManager::BossItemManager(StatusManager& statusMgr) {
     ifstream iFile("assets/lists/boss_items.json");
     if(!iFile.good()) {
         std::cerr << "Error: BossItemManager.cpp, BossItemManager(), iFile !good\n";
@@ -29,7 +29,7 @@ BossItemManager::BossItemManager() {
         bool useOnPlayer = it.value("useOnPlayer", 0) != 0;
         string iconPath = it.value("iconPath", "");
 
-        items[i++] = new Item(id, name, desc, cost, consumable, cooldownDefault, appearanceProb, useOnPlayer, iconPath);
+        items[i++] = new Item(statusMgr, id, name, desc, cost, consumable, cooldownDefault, appearanceProb, useOnPlayer, iconPath);
     }
     iFile.close();
 }

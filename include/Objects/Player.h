@@ -1,6 +1,7 @@
 #pragma once
 #include "Fruit.h"
 #include "Item.h"
+#include "StatusManager.h"
 #include <vector>
 #include <string>
 
@@ -16,7 +17,7 @@ class Player : public Fruit {
     void reAddStats();
 
     public:
-        Player(const string&, const string&);
+        Player(const string&, const string&, StatusManager& statusMgr);
         ~Player();
         Player(const Player&) = delete;
         Player& operator=(const Player&) = delete;

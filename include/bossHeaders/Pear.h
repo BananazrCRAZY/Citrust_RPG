@@ -3,7 +3,7 @@
 
 class Pear : public Boss {
     public:
-        Pear(const string& main, int required, const string& proxy) : Boss(main, required, proxy) {}
+        Pear(const string& main, int required, int proxy, StatusManager& statusMgr) : Boss(main, required, proxy, statusMgr) {}
         string specialAttack(Fruit* target) {
             string returnThis = "";
             rechargeCount -= 2;

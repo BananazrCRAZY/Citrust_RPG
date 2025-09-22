@@ -1,47 +1,47 @@
 [
   {
-    "appearanceProbability": 100.0,
-    "consumable": 1,
-    "cooldownDefault": 3,
-    "cost": 100,
-    "description": "A bottle of Vitamin C tablets. Makes your immune system stronger.",
-    "iconPath": "Graphics\\Items\\smallVitaminC.png",
-    "id": 22,
-    "name": "Small Vitamin C",
-    "useOnPlayer": 1
+    "appearanceProbability": 20.0,
+    "consumable": 0,
+    "cooldownDefault": 0,
+    "cost": 125,
+    "description": "Health supplies to bring with you on the go. Includes bandages and food.",
+    "iconPath": "Graphics\\Items\\firstAidKit.png",
+    "id": 6,
+    "name": "First-Aid Kit",
+    "useOnPlayer": 0
   },
   {
     "appearanceProbability": 100.0,
     "consumable": 0,
     "cooldownDefault": 0,
-    "cost": 100,
-    "description": "A basic sword made of iron.",
-    "iconPath": "Graphics\\Items\\ironSword.png",
-    "id": 12,
-    "name": "Iron Sword",
+    "cost": 50,
+    "description": "A basic chestplate made of iron.",
+    "iconPath": "Graphics\\Items\\ironChestplate.png",
+    "id": 11,
+    "name": "Iron Chestplate",
     "useOnPlayer": 0
+  },
+  {
+    "appearanceProbability": 20.0,
+    "consumable": 1,
+    "cooldownDefault": 4,
+    "cost": 300,
+    "description": "A purple plume that reminds you of a certain underworld dweller.",
+    "iconPath": "Graphics\\Items\\purpleQuill.png",
+    "id": 21,
+    "name": "Purple Quill",
+    "useOnPlayer": 1
   },
   {
     "appearanceProbability": 40.0,
     "consumable": 0,
     "cooldownDefault": 0,
-    "cost": 125,
-    "description": "A sharp knife ideal for cutting and peeling vegetables.",
-    "iconPath": "Graphics\\Items\\paringKnife.png",
-    "id": 17,
-    "name": "Paring Knife",
-    "useOnPlayer": 0
-  },
-  {
-    "appearanceProbability": 75.0,
-    "consumable": 1,
-    "cooldownDefault": 3,
     "cost": 150,
-    "description": "A package of Vitamin C tablets. One tablet a day keeps the bad fruits away.",
-    "iconPath": "Graphics\\Items\\mediumVitaminC.png",
-    "id": 15,
-    "name": "Medium Vitamin C",
-    "useOnPlayer": 1
+    "description": "Hot tea made from water, honey, and a lemon.",
+    "iconPath": "Graphics\\Items\\honeyTea.png",
+    "id": 8,
+    "name": "Honey Tea",
+    "useOnPlayer": 0
   },
   {
     "appearanceProbability": 90.0,
@@ -55,14 +55,14 @@
     "useOnPlayer": 0
   },
   {
-    "appearanceProbability": 50.0,
+    "appearanceProbability": 100.0,
     "consumable": 0,
     "cooldownDefault": 0,
-    "cost": 100,
-    "description": "A tempting purchase on a hot day.",
-    "iconPath": "Graphics\\Items\\coolingFan.png",
-    "id": 5,
-    "name": "Cooling Fan",
+    "cost": 50,
+    "description": "Expensive matcha imports results in this heavenly drink.",
+    "iconPath": "Graphics\\Items\\icedMatchaLatte.png",
+    "id": 9,
+    "name": "Iced Matcha Latte",
     "useOnPlayer": 0
   },
   {
@@ -114,17 +114,6 @@
     "useOnPlayer": 1
   },
   {
-    "appearanceProbability": 100.0,
-    "consumable": 0,
-    "cooldownDefault": 0,
-    "cost": 50,
-    "description": "A basic chestplate made of iron.",
-    "iconPath": "Graphics\\Items\\ironChestplate.png",
-    "id": 11,
-    "name": "Iron Chestplate",
-    "useOnPlayer": 0
-  },
-  {
     "appearanceProbability": 20.0,
     "consumable": 1,
     "cooldownDefault": 3,
@@ -145,17 +134,6 @@
     "id": 19,
     "name": "Plush Chair",
     "useOnPlayer": 0
-  },
-  {
-    "appearanceProbability": 20.0,
-    "consumable": 1,
-    "cooldownDefault": 4,
-    "cost": 300,
-    "description": "A purple plume that reminds you of a certain underworld dweller.",
-    "iconPath": "Graphics\\Items\\purpleQuill.png",
-    "id": 21,
-    "name": "Purple Quill",
-    "useOnPlayer": 1
   },
   {
     "appearanceProbability": 25.0,
@@ -199,39 +177,6 @@
     "iconPath": "Graphics\\Items\\colorPalette.png",
     "id": 4,
     "name": "Color Palette",
-    "useOnPlayer": 0
-  },
-  {
-    "appearanceProbability": 20.0,
-    "consumable": 0,
-    "cooldownDefault": 0,
-    "cost": 125,
-    "description": "Health supplies to bring with you on the go. Includes bandages and food.",
-    "iconPath": "Graphics\\Items\\firstAidKit.png",
-    "id": 6,
-    "name": "First-Aid Kit",
-    "useOnPlayer": 0
-  },
-  {
-    "appearanceProbability": 100.0,
-    "consumable": 0,
-    "cooldownDefault": 0,
-    "cost": 50,
-    "description": "Expensive matcha imports results in this heavenly drink.",
-    "iconPath": "Graphics\\Items\\icedMatchaLatte.png",
-    "id": 9,
-    "name": "Iced Matcha Latte",
-    "useOnPlayer": 0
-  },
-  {
-    "appearanceProbability": 40.0,
-    "consumable": 0,
-    "cooldownDefault": 0,
-    "cost": 150,
-    "description": "Hot tea made from water, honey, and a lemon.",
-    "iconPath": "Graphics\\Items\\honeyTea.png",
-    "id": 8,
-    "name": "Honey Tea",
     "useOnPlayer": 0
   },
   {
@@ -288,5 +233,49 @@
     "id": 3,
     "name": "Cappuccino",
     "useOnPlayer": 1
+  },
+  {
+    "appearanceProbability": 100.0,
+    "consumable": 1,
+    "cooldownDefault": 3,
+    "cost": 100,
+    "description": "A bottle of Vitamin C tablets. Makes your immune system stronger.",
+    "iconPath": "Graphics\\Items\\smallVitaminC.png",
+    "id": 22,
+    "name": "Small Vitamin C",
+    "useOnPlayer": 1
+  },
+  {
+    "appearanceProbability": 40.0,
+    "consumable": 0,
+    "cooldownDefault": 0,
+    "cost": 125,
+    "description": "A sharp knife ideal for cutting and peeling vegetables.",
+    "iconPath": "Graphics\\Items\\paringKnife.png",
+    "id": 17,
+    "name": "Paring Knife",
+    "useOnPlayer": 0
+  },
+  {
+    "appearanceProbability": 75.0,
+    "consumable": 1,
+    "cooldownDefault": 3,
+    "cost": 150,
+    "description": "A package of Vitamin C tablets. One tablet a day keeps the bad fruits away.",
+    "iconPath": "Graphics\\Items\\mediumVitaminC.png",
+    "id": 15,
+    "name": "Medium Vitamin C",
+    "useOnPlayer": 1
+  },
+  {
+    "appearanceProbability": 50.0,
+    "consumable": 0,
+    "cooldownDefault": 0,
+    "cost": 100,
+    "description": "A tempting purchase on a hot day.",
+    "iconPath": "Graphics\\Items\\coolingFan.png",
+    "id": 5,
+    "name": "Cooling Fan",
+    "useOnPlayer": 0
   }
 ]

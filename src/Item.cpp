@@ -6,7 +6,7 @@
 using std::ifstream;
 using std::cerr;
 
-Item::Item(int id, string name, string description, int cost, bool consumable, int cooldownDefault, int appearanceProb, bool useOnPlayer, string iconPath) :
+Item::Item(StatusManager& statusMgr, int id, string name, string description, int cost, bool consumable, int cooldownDefault, int appearanceProb, bool useOnPlayer, string iconPath) :
   id(id),
   name(name),
   description(description),
@@ -19,7 +19,7 @@ Item::Item(int id, string name, string description, int cost, bool consumable, i
   cooldown(0),
   effect(nullptr)
 {
-  // search for status
+  effect = statusMgr.getStatus(id);
 }
 
 string Item::getName() const { return name; }

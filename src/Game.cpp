@@ -177,9 +177,9 @@ void Game::openFile(string file) {
     iFile >> calories;
     iFile >> playerFile;
     iFile >> playerItemsFile;
-    player = new Player(playerFile, playerItemsFile);
+    player = new Player(playerFile, playerItemsFile, statusMgr);
     iFile >> shopFile;
-    shop = new Shop(shopFile);
+    shop = new Shop(shopFile, statusMgr);
 }
 
 bool Game::isNewSave(string file) {
@@ -227,7 +227,7 @@ void Game::startGame(int input) {
 int Game::gameLoop() {
     Boss* boss = nullptr;
     player->endOfBattle();
-    BossItemManager bossItemMgr;
+    BossItemManager bossItemMgr(statusMgr);
     while (!exitGame) {
         if (savePoint != 0) {
             loadInterlude();
@@ -239,31 +239,31 @@ int Game::gameLoop() {
         // need ui to show screen based on savePoint (dialogue)
         switch (savePoint) {
             case 0:
-                boss = new Apple("assets/bosses/Apple.txt", -1, "assets/status/BossProxyStatus/AppleHeal.txt");
+                boss = new Apple("assets/bosses/Apple.txt", -1, savePoint+201, statusMgr);
                 break;
             case 1:
-                boss = new Pear("assets/bosses/Pear.txt", -1, "assets/status/BossProxyStatus/Crispy.txt");
+                boss = new Pear("assets/bosses/Pear.txt", -1, savePoint+201, statusMgr);
                 break;
             case 2:
-                boss = new Strawberry("assets/bosses/Strawberry.txt", 3, "assets/status/BossProxyStatus/Seedless.txt");
+                boss = new Strawberry("assets/bosses/Strawberry.txt", 3, savePoint+201, statusMgr);
                 break;
             case 3:
-                boss = new Grape("assets/bosses/Grape.txt", 4, "assets/status/BossProxyStatus/GrapeBurst.txt");
+                boss = new Grape("assets/bosses/Grape.txt", 4, savePoint+201, statusMgr);
                 break;
             case 4:
-                boss = new Dekopon(playerFile, 2, "assets/status/BossProxyStatus/Imposter.txt");
+                boss = new Dekopon(playerFile, 2, savePoint+201, statusMgr);
                 break;
             case 5:
-                boss = new MangoGreen("assets/bosses/MangoGreen.txt", -1, "assets/status/BossProxyStatus/Rage.txt");
+                boss = new MangoGreen("assets/bosses/MangoGreen.txt", -1, savePoint+201, statusMgr);
                 break;
             case 6:
-                boss = new Pineapple("assets/bosses/Pineapple.txt", 1000, "assets/status/BossProxyStatus/Thorns.txt");
+                boss = new Pineapple("assets/bosses/Pineapple.txt", 1000, savePoint+201, statusMgr);
                 break;
             case 7:
-                boss = new Durian("assets/bosses/Durian.txt", -1, "assets/status/BossProxyStatus/Thorns.txt");
+                boss = new Durian("assets/bosses/Durian.txt", -1, savePoint+201, statusMgr);
                 break;
             case 8:
-                boss = new Watermelon("assets/bosses/Watermelon.txt", -1, "assets/status/BossProxyStatus/Shell.txt");
+                boss = new Watermelon("assets/bosses/Watermelon.txt", -1, savePoint+201, statusMgr);
                 break;
             default:
                 cerr << "Game loop input error" << endl;
@@ -279,7 +279,7 @@ int Game::gameLoop() {
                 // if player used special attack to defeat phase 1
                 if (screenManager.getInput() == 1) player->setRechargeCount(1);
                 delete boss;
-                boss = new MangoRed("assets/bosses/MangoRed.txt", -1, "assets/status/BossProxyStatus/Rage.txt");
+                boss = new MangoRed("assets/bosses/MangoRed.txt", -1, savePoint+201, statusMgr);
                 screenManager.setBoss(boss);
                 screenManager.AddBossCount(1);
                 uiDraw();

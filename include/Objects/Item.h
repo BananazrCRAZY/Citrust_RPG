@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "Status.h"
+#include "StatusManager.h"
 #include "Fruit.h"
 
 using std::string;
@@ -21,7 +22,7 @@ class Item {
   Status* effect;
 
  public:
-  Item(int id, string name, string description, int cost, bool consumable, int cooldownDefault, int appearanceProb, bool useOnPlayer, string iconPath);
+  Item(StatusManager& statusMgr, int id, string name, string description, int cost, bool consumable, int cooldownDefault, int appearanceProb, bool useOnPlayer, string iconPath);
   void use(Fruit* target);
   void decreaseCooldown();
   void resetCooldown();

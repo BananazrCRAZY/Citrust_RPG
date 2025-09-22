@@ -55,15 +55,16 @@ StatusManager::~StatusManager() {
     for (Status* status : deleteThisEffects) delete status;
 }
 
-const Status* StatusManager::getStatus(int id) {
+Status* StatusManager::getStatus(int id) {
     if (effects.back()->getId() < id) {
         cerr << "Error: StatusManager, getStatus(), id too large\n";
         exit(1);
     }
+    if (id == 0) return nullptr;
     return getStatusSearch(id, 0, effects.size()-1);
 }
 
-const Status* StatusManager::getStatusSearch(int id, unsigned lower, unsigned upper) {
+Status* StatusManager::getStatusSearch(int id, unsigned lower, unsigned upper) {
     if (lower > upper) {
         cerr << "Error: StatusManager.cpp, getStatusSearch(), cannot find id: " << id << '\n';
         exit(1);

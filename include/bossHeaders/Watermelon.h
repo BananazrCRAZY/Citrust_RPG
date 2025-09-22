@@ -5,7 +5,7 @@ using std::to_string;
 
 class Watermelon : public Boss {
     public:
-        Watermelon(const string& main, int required, const string& proxy) : Boss(main, required, proxy) {}
+        Watermelon(const string& main, int required, int proxy, StatusManager& statusMgr) : Boss(main, required, proxy, statusMgr) {}
         string specialAttack(Fruit* target) {
             string returnStr;
             int damage = attack->getTotal();

@@ -8,12 +8,12 @@ class StatusManager {
     vector<Status*> effects;
     vector<Status*> deleteThisEffects;
 
-    const Status* getStatusSearch(int id, unsigned lower, unsigned upper);
-    
+    Status* getStatusSearch(int id, unsigned lower, unsigned upper);
+
     public:
         StatusManager();
         ~StatusManager();
         StatusManager(const StatusManager&) = delete;
         StatusManager& operator=(const StatusManager&) = delete;
-        const Status* getStatus(int id);
+        Status* getStatus(int id);
 };

@@ -1,6 +1,7 @@
 #pragma once
 #include "Boss.h"
 #include "include/Objects/Status.h"
+#include "include/Objects/StatusManager.h"
 #include <string>
 #include <vector>
 
@@ -9,17 +10,10 @@ using std::string;
 using std::to_string;
 
 class Grape : public Boss {
-    string effects[6] = {
-        "assets/status/GrapeStatus/DecreaseArts.txt",
-        "assets/status/GrapeStatus/DecreaseAttack.txt",
-        "assets/status/GrapeStatus/DecreaseCritDmg.txt",
-        "assets/status/GrapeStatus/DecreaseCritRate.txt",
-        "assets/status/GrapeStatus/DecreaseDefense.txt",
-        "assets/status/GrapeStatus/DecreaseRes.txt"
-    };
+    StatusManager& statusMgr;
 
     public:
-        Grape(const string& main, int required, const string& proxy) : Boss(main, required, proxy) {}
+        Grape(const string& main, int required, int proxy, StatusManager& statusMgr) : Boss(main, required, proxy, statusMgr), statusMgr(statusMgr) {}
 
         string specialAttack(Fruit* target) {
             rechargeCount -= 2;
@@ -30,7 +24,7 @@ class Grape : public Boss {
                 returnStatement += (name + ": Attack " + to_string(i) + " did " + to_string(damage) + " damage.\n");
                 if ((rand() % 5) > 2) {
                     int effectIndex = rand() % 6;
-                    target->addEffect(new Status(effects[effectIndex]));
+                    target->addEffect(statusMgr.getStatus(effectIndex + 301));
                     returnStatement += (name + ": Gave " + target->getName() + " a random effect.\n");
                 }
             }

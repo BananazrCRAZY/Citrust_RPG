@@ -2,6 +2,7 @@
 #include "include/json.hpp"
 #include "Player.h"
 #include "Item.h"
+#include "StatusManager.h"
 #include <string>
 #include <vector>
 #include <unordered_set>
@@ -21,7 +22,7 @@ class Shop {
   Item** itemsForSale;
 
  public:
-  Shop(const string& pathToItemsList);
+  Shop(const string& pathToItemsList, StatusManager& statusMgr);
   ~Shop();
   string purchaseItem(Player* player, unsigned itemIndex);
   void resetShop();

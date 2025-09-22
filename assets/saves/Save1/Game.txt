@@ -1,5 +1,5 @@
-1
-250
+2
+900
 assets/saves/Save1/Player.txt
 assets/saves/Save1/inventory_list.json
 assets/saves/Save1/shop_list.json

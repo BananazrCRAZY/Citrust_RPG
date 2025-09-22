@@ -1,17 +1,20 @@
 #pragma once
 #include "Boss.h"
+#include "include/Objects/StatusManager.h"
 
 using std::to_string;
 
 class Pineapple : public Boss {
-    string dotFile = "assets/status/DoT.txt";
+    StatusManager& statusMgr;
 
     public:
-        Pineapple(const string& main, int required, const string& proxy) : Boss(main, required, proxy) {}
+        Pineapple(const string& main, int required, int proxy, StatusManager& statusMgr) : Boss(main, required, proxy, statusMgr),
+            statusMgr(statusMgr)
+        {}
         string specialAttack(Fruit* target) {
             rechargeCount -= 2;
-            target->addEffect(new Status(dotFile));
-            target->addEffect(new Status(dotFile));
+            target->addEffect(statusMgr.getStatus(307));
+            target->addEffect(statusMgr.getStatus(307));
             return name + ": Wounded " + target->getName() + ".";
         }
 
@@ -32,7 +35,7 @@ class Pineapple : public Boss {
             target->setHp(-1*damage);
             returnStr = name + ": Dealt " + std::to_string(damage) + " damage.\n";
 
-            target->addEffect(new Status(dotFile));
+            target->addEffect(statusMgr.getStatus(307));
             return returnStr + name + ": Wounded " + target->getName() + ".";
         }
 };

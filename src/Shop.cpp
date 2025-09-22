@@ -13,7 +13,7 @@ using std::cerr;
 using std::endl;
 using std::string;
 
-Shop::Shop(const string& file) : itemsInShop(0), shopFile(file), shopEnd(nullptr), itemsForSale(new Item*[MAX_NUM_ITEMS_IN_SHOP]) {
+Shop::Shop(const string& file, StatusManager& statusMgr) : itemsInShop(0), shopFile(file), shopEnd(nullptr), itemsForSale(new Item*[MAX_NUM_ITEMS_IN_SHOP]) {
   ifstream iFile(shopFile);
   if(!iFile.good()) {
     cerr << "Error: Shop.cpp, Shop(), iFile not good" << endl;
@@ -27,7 +27,7 @@ Shop::Shop(const string& file) : itemsInShop(0), shopFile(file), shopEnd(nullptr
     int id = it["id"];
     if (id == 0) {
       inShop = false;
-      shopEnd = new Item(0, "Shop End", "", 0, 0, 0, 0, 0, "");
+      shopEnd = new Item(statusMgr, 0, "Shop End", "", 0, 0, 0, 0, 0, "");
       continue;
     }
     string name = it.value("name", "Error name");
@@ -42,11 +42,11 @@ Shop::Shop(const string& file) : itemsInShop(0), shopFile(file), shopEnd(nullptr
 
     if (inShop) {
       itemsForSale[itemsInShop] = new Item(
-        id, name, desc, cost, consumable, cooldownDefault, appearanceProb, useOnPlayer, iconPath
+        statusMgr, id, name, desc, cost, consumable, cooldownDefault, appearanceProb, useOnPlayer, iconPath
       );
       itemsInShop++;
     } else allItems.push_back(new Item(
-        id, name, desc, cost, consumable, cooldownDefault, appearanceProb, useOnPlayer, iconPath
+        statusMgr, id, name, desc, cost, consumable, cooldownDefault, appearanceProb, useOnPlayer, iconPath
       ));
   }
 

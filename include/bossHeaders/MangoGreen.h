@@ -5,7 +5,7 @@ using std::to_string;
 
 class MangoGreen : public Boss {
     public:
-        MangoGreen(const string& main, int required, const string& proxy) : Boss(main, required, proxy) {}
+        MangoGreen(const string& main, int required, int proxy, StatusManager& statusMgr) : Boss(main, required, proxy, statusMgr) {}
         string specialAttack(Fruit* target) {
             rechargeCount -= 2;
             string returnStr = "";

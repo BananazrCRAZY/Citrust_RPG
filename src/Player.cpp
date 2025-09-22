@@ -9,7 +9,7 @@ using json = nlohmann::json;
 using std::string;
 using std::cerr;
 
-Player::Player(const string& file, const string& itemFile) : Fruit(file),  equippedEnd(nullptr), inventoryList(itemFile) {
+Player::Player(const string& file, const string& itemFile, StatusManager& statusMgr) : Fruit(file),  equippedEnd(nullptr), inventoryList(itemFile) {
     std::ifstream iFile(itemFile);
     if(!iFile.good()) {
         cerr << "Error: Player.cpp, Player(), iFile not good";
@@ -23,7 +23,7 @@ Player::Player(const string& file, const string& itemFile) : Fruit(file),  equip
         int id = it.value("id", -1);
         if (id == 0) {
             equipped = false;
-            equippedEnd = new Item(0, "equipped", "", 0, false, 0, 0, false, "");
+            equippedEnd = new Item(statusMgr, 0, "equipped", "", 0, false, 0, 0, false, "");
             continue;
         }
         string name = it.value("name", "Error name");
@@ -37,10 +37,10 @@ Player::Player(const string& file, const string& itemFile) : Fruit(file),  equip
         string iconPath = it.value("iconPath", "");
 
         if (equipped) battleItems.push_back(new Item(
-                id, name, desc, cost, consumable, cooldownDefault, appearanceProb, useOnPlayer, iconPath
+                statusMgr, id, name, desc, cost, consumable, cooldownDefault, appearanceProb, useOnPlayer, iconPath
             ));
         else items.push_back(new Item(
-                id, name, desc, cost, consumable, cooldownDefault, appearanceProb, useOnPlayer, iconPath
+                statusMgr, id, name, desc, cost, consumable, cooldownDefault, appearanceProb, useOnPlayer, iconPath
             ));
     }
     iFile.close();

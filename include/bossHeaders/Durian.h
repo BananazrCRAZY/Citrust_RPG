@@ -1,18 +1,19 @@
 #pragma once
 #include "Boss.h"
 #include "include/Objects/Status.h"
+#include "include/Objects/StatusManager.h"
 #include <string>
 
 using std::string;
 using std::to_string;
 
 class Durian : public Boss {
-    string effectFile = "assets/status/DoTPercent.txt";
+    StatusManager& statusMgr;
     int damageTaken = 0;
 
     public:
-        Durian(const string& main, int required, const string& proxy) : Boss(main, required, proxy) {
-            addEffect(new Status("assets/status/BossProxyStatus/Berserk.txt"));
+        Durian(const string& main, int required, int proxy, StatusManager& statusMgr) : Boss(main, required, proxy, statusMgr), statusMgr(statusMgr) {
+            addEffect(statusMgr.getStatus(208));
         }
 
         string specialAttack(Fruit* target) {
@@ -41,7 +42,7 @@ class Durian : public Boss {
         string basicAttack(Fruit* target) override {
             string returnStr = Fruit::basicAttack(target) + '\n';
 
-            target->addEffect(new Status(effectFile));
+            target->addEffect(statusMgr.getStatus(308));
             return returnStr + name + ": Wounded " + target->getName() + ".";
         }
 };
