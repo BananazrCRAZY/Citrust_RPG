@@ -1,6 +1,4 @@
 #pragma once
-#include <fstream>
-#include <iostream>
 #include "include/json.hpp"
 #include "Player.h"
 #include "Item.h"

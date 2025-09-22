@@ -18,6 +18,8 @@ class Player : public Fruit {
     public:
         Player(const string&, const string&);
         ~Player();
+        Player(const Player&) = delete;
+        Player& operator=(const Player&) = delete;
         string specialAttack(Fruit*);
         string useItem(Fruit*, unsigned);
         void savePlayer();

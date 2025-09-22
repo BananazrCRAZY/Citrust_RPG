@@ -1,9 +1,0 @@
-Paring Knife
-A sharp knife ideal for cutting and peeling vegetables.
-125
-0
-0
-40
-assets/status/AttackUpB.txt
-0
-Graphics\Items\paringKnife.png

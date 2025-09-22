@@ -1,9 +1,0 @@
-Glintstone Staff
-Used to cast spells forgotten to time. Only a select few have succesfully been able to cast them.
-250
-0
-0
-15
-assets/status/ArtsUpY.txt
-0
-Graphics\Items\glintstoneStaff.png

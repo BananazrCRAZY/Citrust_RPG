@@ -66,16 +66,6 @@ Fruit::~Fruit() {
     // need to call clearEffectsVector in derived classes
 }
 
-void Fruit::clearEffectsVector() {
-    for (int i = 0; i < effects.size(); i++) {
-        if (effects.at(i)->isDeleteThisStatus()) {
-            delete effects.at(i);
-            effects.erase(effects.begin()+i);
-            i--;
-        }
-    }
-}
-
 void Fruit::setMaxHpAdd(int change) {
     maxHp->add(change);
     if (change > 0) setHp(change);
@@ -166,8 +156,7 @@ void Fruit::endOfTurn() {
 
         if (effects.at(i)->getTurns() == 0) {
             removeStats(effects.at(i));
-            if (effects.at(i)->isDeleteThisStatus()) delete effects.at(i);
-            else effects.at(i)->resetStatusTurns();
+            if (!effects.at(i)->isDeleteThisStatus()) effects.at(i)->resetStatusTurns();
             effects.erase(effects.begin()+i);
             i--;
         } else effects.at(i)->decreaseTurn();

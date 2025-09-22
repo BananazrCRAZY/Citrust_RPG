@@ -26,7 +26,6 @@ class Item {
   void decreaseCooldown();
   void resetCooldown();
 
-  //string getFilePath() const { return filePath; }
   int getId() const { return id; }
   string getName() const;
   string getDescription() const;

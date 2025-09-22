@@ -1,9 +1,0 @@
-Iron Chestplate
-A basic chestplate made of iron.
-50
-0
-0
-100
-assets/status/ProtectionA.txt
-0
-Graphics\Items\ironChestplate.png

@@ -1,46 +1,46 @@
 [
   {
-    "appearanceProbability": 30.0,
+    "appearanceProbability": 100.0,
+    "consumable": 1,
+    "cooldownDefault": 3,
+    "cost": 100,
+    "description": "A bottle of Vitamin C tablets. Makes your immune system stronger.",
+    "iconPath": "Graphics\\Items\\smallVitaminC.png",
+    "id": 22,
+    "name": "Small Vitamin C",
+    "useOnPlayer": 1
+  },
+  {
+    "appearanceProbability": 100.0,
     "consumable": 0,
     "cooldownDefault": 0,
     "cost": 100,
-    "description": "One spray will make you smell like oranges for at least 2 days.",
-    "iconPath": "Graphics\\Items\\orangeScentedPerfume.png",
-    "id": 16,
-    "name": "Orange Scented Perfume",
+    "description": "A basic sword made of iron.",
+    "iconPath": "Graphics\\Items\\ironSword.png",
+    "id": 12,
+    "name": "Iron Sword",
     "useOnPlayer": 0
   },
   {
     "appearanceProbability": 40.0,
     "consumable": 0,
     "cooldownDefault": 0,
-    "cost": 75,
-    "description": "The shell of a peanut who passed away in battle eons ago.",
-    "iconPath": "Graphics\\Items\\peanutShell.png",
-    "id": 18,
-    "name": "Peanut Shell",
+    "cost": 125,
+    "description": "A sharp knife ideal for cutting and peeling vegetables.",
+    "iconPath": "Graphics\\Items\\paringKnife.png",
+    "id": 17,
+    "name": "Paring Knife",
     "useOnPlayer": 0
-  },
-  {
-    "appearanceProbability": 40.0,
-    "consumable": 1,
-    "cooldownDefault": 2,
-    "cost": 175,
-    "description": "The very ingredient that gives bakeries business. Too much, however, can be detrimental.",
-    "iconPath": "Graphics\\Items\\pureVanillaExtract.png",
-    "id": 20,
-    "name": "Pure Vanilla Extract",
-    "useOnPlayer": 1
   },
   {
     "appearanceProbability": 75.0,
     "consumable": 1,
-    "cooldownDefault": 2,
-    "cost": 75,
-    "description": "Comes in three different flavors. Drinking it takes you to the land of dreams.",
-    "iconPath": "Graphics\\Items\\soulGlad.png",
-    "id": 23,
-    "name": "SoulGlad",
+    "cooldownDefault": 3,
+    "cost": 150,
+    "description": "A package of Vitamin C tablets. One tablet a day keeps the bad fruits away.",
+    "iconPath": "Graphics\\Items\\mediumVitaminC.png",
+    "id": 15,
+    "name": "Medium Vitamin C",
     "useOnPlayer": 1
   },
   {
@@ -55,15 +55,15 @@
     "useOnPlayer": 0
   },
   {
-    "appearanceProbability": 25.0,
-    "consumable": 1,
-    "cooldownDefault": 6,
-    "cost": 350,
-    "description": "Coffee made from the most delicious of espresso, steamed milk, and milk foam. Drinking it makes you feel incredibly hyper.",
-    "iconPath": "Graphics\\Items\\cappuccino.png",
-    "id": 3,
-    "name": "Cappuccino",
-    "useOnPlayer": 1
+    "appearanceProbability": 50.0,
+    "consumable": 0,
+    "cooldownDefault": 0,
+    "cost": 100,
+    "description": "A tempting purchase on a hot day.",
+    "iconPath": "Graphics\\Items\\coolingFan.png",
+    "id": 5,
+    "name": "Cooling Fan",
+    "useOnPlayer": 0
   },
   {
     "id": 0,
@@ -125,17 +125,6 @@
     "useOnPlayer": 0
   },
   {
-    "appearanceProbability": 100.0,
-    "consumable": 0,
-    "cooldownDefault": 0,
-    "cost": 100,
-    "description": "A basic sword made of iron.",
-    "iconPath": "Graphics\\Items\\ironSword.png",
-    "id": 12,
-    "name": "Iron Sword",
-    "useOnPlayer": 0
-  },
-  {
     "appearanceProbability": 20.0,
     "consumable": 1,
     "cooldownDefault": 3,
@@ -145,28 +134,6 @@
     "id": 13,
     "name": "Large Vitamin C",
     "useOnPlayer": 1
-  },
-  {
-    "appearanceProbability": 75.0,
-    "consumable": 1,
-    "cooldownDefault": 3,
-    "cost": 150,
-    "description": "A package of Vitamin C tablets. One tablet a day keeps the bad fruits away.",
-    "iconPath": "Graphics\\Items\\mediumVitaminC.png",
-    "id": 15,
-    "name": "Medium Vitamin C",
-    "useOnPlayer": 1
-  },
-  {
-    "appearanceProbability": 40.0,
-    "consumable": 0,
-    "cooldownDefault": 0,
-    "cost": 125,
-    "description": "A sharp knife ideal for cutting and peeling vegetables.",
-    "iconPath": "Graphics\\Items\\paringKnife.png",
-    "id": 17,
-    "name": "Paring Knife",
-    "useOnPlayer": 0
   },
   {
     "appearanceProbability": 30.0,
@@ -188,17 +155,6 @@
     "iconPath": "Graphics\\Items\\purpleQuill.png",
     "id": 21,
     "name": "Purple Quill",
-    "useOnPlayer": 1
-  },
-  {
-    "appearanceProbability": 100.0,
-    "consumable": 1,
-    "cooldownDefault": 3,
-    "cost": 100,
-    "description": "A bottle of Vitamin C tablets. Makes your immune system stronger.",
-    "iconPath": "Graphics\\Items\\smallVitaminC.png",
-    "id": 22,
-    "name": "Small Vitamin C",
     "useOnPlayer": 1
   },
   {
@@ -279,14 +235,58 @@
     "useOnPlayer": 0
   },
   {
-    "appearanceProbability": 50.0,
+    "appearanceProbability": 30.0,
     "consumable": 0,
     "cooldownDefault": 0,
     "cost": 100,
-    "description": "A tempting purchase on a hot day.",
-    "iconPath": "Graphics\\Items\\coolingFan.png",
-    "id": 5,
-    "name": "Cooling Fan",
+    "description": "One spray will make you smell like oranges for at least 2 days.",
+    "iconPath": "Graphics\\Items\\orangeScentedPerfume.png",
+    "id": 16,
+    "name": "Orange Scented Perfume",
     "useOnPlayer": 0
+  },
+  {
+    "appearanceProbability": 40.0,
+    "consumable": 0,
+    "cooldownDefault": 0,
+    "cost": 75,
+    "description": "The shell of a peanut who passed away in battle eons ago.",
+    "iconPath": "Graphics\\Items\\peanutShell.png",
+    "id": 18,
+    "name": "Peanut Shell",
+    "useOnPlayer": 0
+  },
+  {
+    "appearanceProbability": 40.0,
+    "consumable": 1,
+    "cooldownDefault": 2,
+    "cost": 175,
+    "description": "The very ingredient that gives bakeries business. Too much, however, can be detrimental.",
+    "iconPath": "Graphics\\Items\\pureVanillaExtract.png",
+    "id": 20,
+    "name": "Pure Vanilla Extract",
+    "useOnPlayer": 1
+  },
+  {
+    "appearanceProbability": 75.0,
+    "consumable": 1,
+    "cooldownDefault": 2,
+    "cost": 75,
+    "description": "Comes in three different flavors. Drinking it takes you to the land of dreams.",
+    "iconPath": "Graphics\\Items\\soulGlad.png",
+    "id": 23,
+    "name": "SoulGlad",
+    "useOnPlayer": 1
+  },
+  {
+    "appearanceProbability": 25.0,
+    "consumable": 1,
+    "cooldownDefault": 6,
+    "cost": 350,
+    "description": "Coffee made from the most delicious of espresso, steamed milk, and milk foam. Drinking it makes you feel incredibly hyper.",
+    "iconPath": "Graphics\\Items\\cappuccino.png",
+    "id": 3,
+    "name": "Cappuccino",
+    "useOnPlayer": 1
   }
 ]

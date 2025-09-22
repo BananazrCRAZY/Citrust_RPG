@@ -47,7 +47,6 @@ Player::Player(const string& file, const string& itemFile) : Fruit(file),  equip
 }
 
 Player::~Player() {
-    clearEffectsVector();
     effects.clear();
     for (unsigned i = 0; i < battleItems.size(); i++) delete battleItems.at(i);
     battleItems.clear();
@@ -250,7 +249,6 @@ void Player::equipItem(unsigned index) {
 }
 
 void Player::clearStats() {
-    clearEffectsVector();
     effects.clear();
     maxHp->removeAdd();
     attack->removeAdd();

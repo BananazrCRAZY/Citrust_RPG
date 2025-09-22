@@ -1,6 +1,17 @@
 [
-    {
-        "id": 0,
-        "name": "equipped"
-    }
+  {
+    "id": 0,
+    "name": "equipped"
+  },
+  {
+    "appearanceProbability": 0.0,
+    "consumable": 0,
+    "cooldownDefault": 0,
+    "cost": 0,
+    "description": "The core of an apple you recently defeated.",
+    "iconPath": "Graphics\\Items\\appleCore.png",
+    "id": 1,
+    "name": "Apple Core",
+    "useOnPlayer": 0
+  }
 ]

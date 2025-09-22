@@ -10,6 +10,7 @@
 #include "include/bossHeaders/Pineapple.h"
 #include "include/bossHeaders/Durian.h"
 #include "include/bossHeaders/Watermelon.h"
+#include "include/Objects/BossItemManager.h"
 #include "include/Objects/Shop.h"
 #include "include/Buttons/button.hpp"
 #include "include/Screens/AppleBossScreen.hpp"
@@ -226,6 +227,7 @@ void Game::startGame(int input) {
 int Game::gameLoop() {
     Boss* boss = nullptr;
     player->endOfBattle();
+    BossItemManager bossItemMgr;
     while (!exitGame) {
         if (savePoint != 0) {
             loadInterlude();
@@ -290,7 +292,6 @@ int Game::gameLoop() {
             boss = nullptr;
             return loadEndOfGame();
         }
-        player->newItem(boss->getItem());
 
         int addCalories = player->getLevel() * 250 / battleCycle;
         if (addCalories < 75) addCalories = 75;
@@ -314,6 +315,7 @@ int Game::gameLoop() {
         }
 
         shop->resetShop();
+        player->newItem(bossItemMgr.getBossItem(savePoint));
         savePoint++;
         saveGame();
     }

@@ -1,24 +1,24 @@
 [
   {
-    "id": 1,
+    "id": 101,
     "name": "Apple Core",
     "description": "The core of an apple you recently defeated.",
     "iconPath": "Graphics\\Items\\appleCore.png"
   },
   {
-    "id": 2,
+    "id": 102,
     "name": "Pear Stem",
     "description": "The stem of an apple you recently defeated.",
     "iconPath": "Graphics\\Items\\pearStem.png"
   },
   {
-    "id": 3,
+    "id": 103,
     "name": "Strawberry Seed",
     "description": "The seeds of a strawberry you recently defeated.",
     "iconPath": "Graphics\\Items\\strawberrySeed.png"
   },
   {
-    "id": 4,
+    "id": 104,
     "name": "Grapevine",
     "description": "The vine of a cluster of grapes you recently defeated.",
     "consumable": 1,
@@ -27,25 +27,25 @@
     "iconPath": "Graphics\\Items\\grapevine.png"
   },
   {
-    "id": 5,
+    "id": 105,
     "name": "Dekopeel",
     "description": "The peel of a dekopon you recently defeated.",
     "iconPath": "Graphics\\Items\\dekopeel.png"
   },
   {
-    "id": 6,
+    "id": 106,
     "name": "Dried Mango",
     "description": "The remains of a mango you recently defeated.",
     "iconPath": "Graphics\\Items\\driedMango.png"
   },
   {
-    "id": 7,
+    "id": 107,
     "name": "Pineapple Crown",
     "description": "The crown of a pineapple you recently defeated.",
     "iconPath": "Graphics\\Items\\pineappleCrown.png"
   },
   {
-    "id": 8,
+    "id": 108,
     "name": "Durian Thorn",
     "description": "The thorn of a durian you recently defeated.",
     "iconPath": "Graphics\\Items\\durianThorn.png"

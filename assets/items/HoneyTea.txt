@@ -1,9 +1,0 @@
-Honey Tea
-Hot tea made from water, honey, and a lemon.
-150
-0
-0
-40
-assets/status/HoneyGoodness.txt
-0
-Graphics\Items\honeyTea.png
