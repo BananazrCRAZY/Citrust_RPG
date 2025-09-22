@@ -137,13 +137,11 @@ void Player::savePlayer() {
     oFile << name << '\n';
     oFile << level << '\n';
     oFile << hp << '\n';
-    oFile << maxHp->getBase() << '\n';
-    oFile << attack->getBase() << '\n';
-    oFile << defense->getBase() << '\n';
-    oFile << arts->getBase() << '\n';
-    oFile << res->getBase() << '\n';
-    oFile << critRate->getBase() << '\n';
-    oFile << critDmg->getBase() << '\n';
+    oFile << stats.at(0)->getBase() << '\n';
+    oFile << stats.at(1)->getBase() << '\n';
+    oFile << stats.at(2)->getBase() << '\n';
+    oFile << stats.at(3)->getBase() << '\n';
+    oFile << "10\n10\n50\n0\n95\n0\n0\n0\n0\n0";
     oFile.close();
 
     oFile.open(inventoryList);

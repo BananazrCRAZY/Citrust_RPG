@@ -61,16 +61,18 @@ int Fruit::getStat(unsigned index) const {
 }
 
 string Fruit::basicAttack(Fruit* target) {
+    if (!checkIfHit(target)) return name + ": Missed!";
+    checkIfAdditionRecharge();
     string returnThis = "";
     int damage = getStat(1);
     if (checkIfCrit()) {
         damage = damage * (getStat(6)/100.0 + 1);
         returnThis += "CRIT!\n";
     }
-    // damage = (damage * basicDmg - def) * (1 + (dmgAmp - weakness) / 100)
+    // damage = (damage * basicDmg - target->def) * (1 + (dmgAmp - weakness) / 100) * (1 + target->vulnerability / 100)
     double dmgMultiplier = (getStat(11) - getStat(12)) / 100.0;
     if (dmgMultiplier < 0) dmgMultiplier = 0;
-    damage = (damage * getStat(9) - target->getStat(2)) * (1 + dmgMultiplier);
+    damage = (damage * getStat(9) - target->getStat(2)) * (1 + dmgMultiplier) * (1 + target->getStat(13) / 100.0);
 
     if (damage <= 0) return returnThis + name + ": Dealt 0 damage.";
     target->setHp(-1*damage);
@@ -80,6 +82,16 @@ string Fruit::basicAttack(Fruit* target) {
 bool Fruit::checkIfCrit() {
     // crit rate + intellect / 2
     return ((rand() % 100) + 1) <= (getStat(5) + getStat(8) / 2);
+}
+
+bool Fruit::checkIfHit(Fruit* target) {
+    // intellect - evasion
+    return ((rand() % 100) + 1) <= (getStat(8) - target->getStat(7));
+}
+
+void Fruit::checkIfAdditionRecharge() {
+    // intellect - 100 - weakness
+    if (((rand() % 100) + 1) <= (getStat(8) - 100 - getStat(12))) rechargeCount++;
 }
 
 bool Fruit::isDead() const {

@@ -18,6 +18,8 @@ class Fruit {
         int turn;
         vector<Status*> effects;
         bool checkIfCrit();
+        bool checkIfHit(Fruit*);
+        void checkIfAdditionRecharge();
         void removeStats(Status*);
         void addStats(Status*);
         
