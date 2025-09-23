@@ -5,22 +5,12 @@ class Pear : public Boss {
     public:
         Pear(const string& main, int required, int proxy, StatusManager& statusMgr) : Boss(main, required, proxy, statusMgr) {}
         string specialAttack(Fruit* target) {
-            string returnThis = "";
             rechargeCount -= 2;
-            int damage = attack->getTotal() * 2;
-            if (checkIfCrit()) {
-                returnThis += "CRIT!\n";
-                damage *= (critDmg->getTotal() / 100.0 + 1);
-            }
-            damage -= target->getDefense();
-            if (damage <= 0) return returnThis + name + ": Dealt 0 damage.";
-            target->setHp(-1*damage);
-            
-            return returnThis + name + ": Dealt " + std::to_string(damage) + " damage.";
+            return calcDamage(target, true, false);
         }
 
         string bossAbility() {
-            critDmg->add(25);
+            setStatAdd(25, 6);
             return name + ": CRIT DMG Increased.";
         }
 };

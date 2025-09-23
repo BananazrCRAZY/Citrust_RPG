@@ -17,32 +17,27 @@ class Durian : public Boss {
         }
 
         string specialAttack(Fruit* target) {
-            string returnThis = "";
-            int damage = attack->getTotal() * 3;
-            if (checkIfCrit()) {
-                returnThis += "CRIT!\n";
-                damage *= (critDmg->getTotal() / 100.0 + 1);
-            }
-            damage = damage - (target->getDefense() * .5);
-            if (damage <= 0) return returnThis + name + " did 0 damage.";
-            target->setHp(-1*damage);
+            if (!checkIfHit(target)) return name + ": Missed!";
             rechargeCount -= 2;
-            return returnThis + name + ": Dealt " + to_string(damage) + " damage.";
+            return calcDamage(target, true, false);
         }
 
         string bossAbility() {
             // really simplistic calculation that doesn't take into account if boss hp/max changes
-            int change = maxHp->getBase() - hp - damageTaken;
-            damageTaken = maxHp->getBase() - hp;
+            int change = getStat(0) - hp - damageTaken;
+            damageTaken = getStat(0) - hp;
             if (change <= 0) return name + ": Waiting for a chance to counter.";
-            attack->add(static_cast<int>(change * .03));
+            setStatAdd(static_cast<int>(change * .03), 1);
             return name + ": Getting angry.";
         }
 
         string basicAttack(Fruit* target) override {
-            string returnStr = Fruit::basicAttack(target) + '\n';
+            if (!checkIfHit(target)) return name + ": Missed!";
+            string returnThis = "";
+            if(checkIfAdditionRecharge()) returnThis += name + ": Obtained another SKILL POINT!\n";
+            returnThis += Fruit::basicAttack(target) + '\n';
 
             target->addEffect(statusMgr.getStatus(308));
-            return returnStr + name + ": Wounded " + target->getName() + ".";
+            return returnThis + name + ": Wounded " + target->getName() + ".";
         }
 };

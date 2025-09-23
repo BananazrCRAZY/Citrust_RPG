@@ -8,6 +8,7 @@
 
 using std::cerr;
 using std::srand;
+using std::to_string;
 using std::rand;
 using std::time;
 
@@ -27,12 +28,8 @@ Fruit::Fruit(const string& file) :
         iFile >> hp;
         int output = 0;
         while (iFile >> output) stats.push_back(new Stat(output));
-
-        if (!iFile.good()) {
-            cerr << "Error with Fruit file format fstream" << std::endl;
-            exit(1);
-        }
         iFile.close();
+        std::cout << stats.size() << " stats: " << name << '\n';
     }
 
 Fruit::~Fruit() {
@@ -46,7 +43,7 @@ void Fruit::setHp(int change) {
 
 void Fruit::setStatAdd(int change, unsigned index) {
     if (index >= stats.size()) {
-        cerr << "Error: Fruit.cpp, setStat(), index is too large\n";
+        cerr << "Error: Fruit.cpp, setStatAdd(), index is too large, " << name << '\n';
         exit(1);
     }
     stats.at(index)->add(change);
@@ -60,23 +57,40 @@ int Fruit::getStat(unsigned index) const {
     return stats.at(index)->getTotal();
 }
 
-string Fruit::basicAttack(Fruit* target) {
-    if (!checkIfHit(target)) return name + ": Missed!";
-    checkIfAdditionRecharge();
+string Fruit::calcDamage(Fruit* target, bool isAtk, bool isBasic) {
+    // damage = (damage * (basic/skillDmg / 100 + 1) - target->def/res) * (1 + (dmgAmp - weakness) / 100) * (1 + target->vulnerability / 100)
     string returnThis = "";
-    int damage = getStat(1);
-    if (checkIfCrit()) {
-        damage = damage * (getStat(6)/100.0 + 1);
-        returnThis += "CRIT!\n";
+    int damage;
+    if (isAtk) {
+        damage = getStat(1);
+        if (checkIfCrit()) {
+            damage = damage * (getStat(6)/100.0 + 1);
+            returnThis += "ATK CRIT!\n";
+        }
+    } else {
+        damage = getStat(3);
+        if (checkIfCrit()) {
+            damage = damage * (getStat(6)/100.0 + 1);
+            returnThis += "ARTS CRIT!\n";
+        }
     }
-    // damage = (damage * basicDmg - target->def) * (1 + (dmgAmp - weakness) / 100) * (1 + target->vulnerability / 100)
+    if (isBasic) damage *= (getStat(9) / 100.0 + 1);
+    else damage *= (getStat(10) / 100.0 + 1);
+    if (isAtk) damage -= getStat(2);
+    else damage *= (1 - getStat(4) / 100.0);
     double dmgMultiplier = (getStat(11) - getStat(12)) / 100.0;
-    if (dmgMultiplier < 0) dmgMultiplier = 0;
-    damage = (damage * getStat(9) - target->getStat(2)) * (1 + dmgMultiplier) * (1 + target->getStat(13) / 100.0);
-
+    if (dmgMultiplier < -1) dmgMultiplier = -1;
+    damage *= (1 + dmgMultiplier) * (1 + target->getStat(13) / 100.0);
     if (damage <= 0) return returnThis + name + ": Dealt 0 damage.";
     target->setHp(-1*damage);
-    return returnThis + name + ": Dealt " + std::to_string(damage) + " damage.";
+    return returnThis + name + ": Dealt " + to_string(damage) + " damage.";
+}
+
+string Fruit::basicAttack(Fruit* target) {
+    if (!checkIfHit(target)) return name + ": Missed!";
+    string returnThis = "";
+    if(checkIfAdditionRecharge()) returnThis += name + ": Obtained another SKILL POINT!\n";
+    return returnThis += calcDamage(target, true, true);
 }
 
 bool Fruit::checkIfCrit() {
@@ -89,9 +103,13 @@ bool Fruit::checkIfHit(Fruit* target) {
     return ((rand() % 100) + 1) <= (getStat(8) - target->getStat(7));
 }
 
-void Fruit::checkIfAdditionRecharge() {
+bool Fruit::checkIfAdditionRecharge() {
     // intellect - 100 - weakness
-    if (((rand() % 100) + 1) <= (getStat(8) - 100 - getStat(12))) rechargeCount++;
+    if (((rand() % 100) + 1) <= (getStat(8) - 100 - getStat(12))) {
+        rechargeCount++;
+        return true;
+    }
+    return false;
 }
 
 bool Fruit::isDead() const {

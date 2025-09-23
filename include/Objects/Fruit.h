@@ -19,9 +19,10 @@ class Fruit {
         vector<Status*> effects;
         bool checkIfCrit();
         bool checkIfHit(Fruit*);
-        void checkIfAdditionRecharge();
+        bool checkIfAdditionRecharge();
         void removeStats(Status*);
         void addStats(Status*);
+        string calcDamage(Fruit*, bool, bool);
         
         void clearStats();
         void reAddStats();  // called by levelUp()

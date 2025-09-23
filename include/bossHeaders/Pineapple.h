@@ -24,17 +24,7 @@ class Pineapple : public Boss {
         }
 
         string basicAttack(Fruit* target) override {
-            string returnStr;
-            int damage = arts->getTotal();
-            if (checkIfCrit()) {
-                damage = damage * (critDmg->getTotal()/100.0 + 1);
-                returnStr += "CRIT!\n";
-            }
-            damage *= (1 - (target->getRes()/100.0));
-            if (damage <= 0) returnStr = name + " did 0 damage.\n";
-            target->setHp(-1*damage);
-            returnStr = name + ": Dealt " + std::to_string(damage) + " damage.\n";
-
+            string returnStr = calcDamage(target, false, true);
             target->addEffect(statusMgr.getStatus(307));
             return returnStr + name + ": Wounded " + target->getName() + ".";
         }

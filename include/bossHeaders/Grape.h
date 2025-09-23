@@ -18,10 +18,8 @@ class Grape : public Boss {
         string specialAttack(Fruit* target) {
             rechargeCount -= 2;
             string returnStatement = "";
-            int damage = arts->getTotal() * (1-(target->getRes()/100.0));
             for (int i = 1; i < 4; i++) {
-                target->setHp(-1 * damage);
-                returnStatement += (name + ": Attack " + to_string(i) + " did " + to_string(damage) + " damage.\n");
+                returnStatement += "Attack " + to_string(i) + ": " + calcDamage(target, false, false);
                 if ((rand() % 5) > 2) {
                     int effectIndex = rand() % 6;
                     target->addEffect(statusMgr.getStatus(effectIndex + 301));

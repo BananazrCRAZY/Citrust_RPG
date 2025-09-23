@@ -55,41 +55,28 @@ Player::~Player() {
     delete equippedEnd;
 }
 
-// Deals Physical DMG and Arts DMG equal to ATK and Arts ATK respectively. Damage dealt is counted as once instance of damage. However, each type of damage has its own chance to crit.
+// Deals Physical DMG and Arts DMG equal to ATK and Arts ATK respectively.
+// Damage dealt is counted as once instance of damage. 
+// Each type of damage has its own chance to crit.
 string Player::specialAttack(Fruit* target) {
-    string returnThis = "";
-    int physDmg = attack->getTotal();
-    int artsDmg = arts->getTotal();
-    if (checkIfCrit()) {
-        physDmg *= (critDmg->getTotal()/100.0 + 1);
-        artsDmg *= (critDmg->getTotal()/100.0 + 1);
-        returnThis += "CRIT!\n";
-    }
-    physDmg -= target->getDefense();
-    if (physDmg <= 0) physDmg = 0;
-    artsDmg *= (1.0 - (target->getRes()/100.0));
-    if (artsDmg <= 0) artsDmg = 0;
-    int damageDealt = physDmg + artsDmg;
-    if (damageDealt <= 0) return returnThis + name + ": Dealt 0 damage.";
-    target->setHp(-1 * damageDealt);
-
+    if (!checkIfHit(target)) return name + ": Missed!";
     rechargeCount -= 2;
-    return returnThis + name + ": Dealt " + std::to_string(damageDealt) + " damage.";
+    string returnThis = calcDamage(target, true, false) + '\n';
+    return returnThis + calcDamage(target, false, false);
 }
 
 void Player::levelUp() {
     // Remove added stats and then re-add them because of percent-based items
     clearStats();
     level++;
-    maxHp->addBase(275);
-    attack->addBase(140);
-    defense->addBase(60);
-    arts->addBase(130);
+    stats.at(0)->addBase(275);
+    stats.at(1)->addBase(140);
+    stats.at(2)->addBase(60);
+    stats.at(3)->addBase(130);
     reAddStats();
 }
 
 void Player::endOfBattle() {
-    hp = maxHp->getTotal();
     rechargeCount = 2;
     turn = 1;
     clearStats();
@@ -97,6 +84,7 @@ void Player::endOfBattle() {
     for (unsigned i = 0; i < battleItems.size(); i++) {
         if (battleItems.at(i)->isConsumableTrue()) battleItems.at(i)->resetCooldown();
     }
+    hp = getStat(0);
 }
 
 void Player::endOfTurn() {
@@ -232,7 +220,7 @@ void Player::unequipItem(unsigned index) {
     }
     items.push_back(battleItems.at(index));
     battleItems.erase(battleItems.begin() + index);
-    hp = maxHp->getTotal();
+    hp = getStat(0);
 }
 
 void Player::equipItem(unsigned index) {
@@ -243,19 +231,13 @@ void Player::equipItem(unsigned index) {
     if (!items.at(index)->isConsumableTrue()) addEffect(items.at(index)->getStatus());
     battleItems.push_back(items.at(index));
     items.erase(items.begin() + index);
-    hp = maxHp->getTotal();
+    hp = getStat(0);
 }
 
 void Player::clearStats() {
     effects.clear();
-    maxHp->removeAdd();
-    attack->removeAdd();
-    defense->removeAdd();
-    arts->removeAdd();
-    res->removeAdd();
-    critRate->removeAdd();
-    critDmg->removeAdd();
-    if (hp > maxHp->getTotal()) hp = maxHp->getTotal();
+    for (Stat* stat : stats) stat->removeAdd();
+    if (hp > getStat(0)) hp = getStat(0);
 }
 
 void Player::reAddStats() {

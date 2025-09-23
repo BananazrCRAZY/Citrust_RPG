@@ -106,7 +106,6 @@ AppleBossScreen::~AppleBossScreen() {
 void AppleBossScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     mainPopup.Update();
     if (manager.isPopup()) manager.getPopup()->Update();
-    if (statsButton.isPressed(mousePos, mouseClicked)) menu.toggleVisible();
 
     if (menu.isVisible()) {
         menu.Update(mousePos, mouseClicked, manager);
@@ -118,9 +117,9 @@ void AppleBossScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     if (boss == nullptr) exit(1);
 
     int index;
-    if (player->getMaxHp() == 0 || player->getHp() == 0) index = 0;
+    if (player->getStat(0) == 0 || player->getHp() == 0) index = 0;
     else {
-        double check = 5.0 * player->getHp() / player->getMaxHp();
+        double check = 5.0 * player->getHp() / player->getStat(0);
         if (check <= 1 && check > 0) index = 1;
         else index = check;
 
@@ -133,9 +132,9 @@ void AppleBossScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     }
     
     int indexBossHp;
-    if (boss->getMaxHp() == 0 || boss->getHp() == 0) indexBossHp = 0;
+    if (boss->getStat(0) == 0 || boss->getHp() == 0) indexBossHp = 0;
     else {
-        double check = 5.0 * boss->getHp() / boss->getMaxHp();
+        double check = 5.0 * boss->getHp() / boss->getStat(0);
         if (check <= 1 && check > 0) indexBossHp = 1;
         else indexBossHp = check;
 
@@ -152,7 +151,10 @@ void AppleBossScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     if (skillPts < 0) skillPts = 0;
     spCounterButton.SetTexture(spTextures[skillPts], 0.35f);
 
+    if (player->getTurn() <= 0) return;
     // player buttons
+    if (statsButton.isPressed(mousePos, mouseClicked)) menu.toggleVisible();
+
     if (attackButton.isPressed(mousePos, mouseClicked)) {
         manager.setInput(0);
     }
@@ -178,7 +180,7 @@ void AppleBossScreen::Draw() {
 
     int playerHp = manager.getPlayer()->getHp();
     if (playerHp < 0) playerHp = 0;
-    string hp = to_string(playerHp) + " / " + to_string(manager.getPlayer()->getMaxHp());
+    string hp = to_string(playerHp) + " / " + to_string(manager.getPlayer()->getStat(0));
     DrawText(hp.c_str(), 620, 790, 30, BLACK);
     string playerLvl = "LVL " + to_string(manager.getPlayer()->getLevel());
     DrawText(playerLvl.c_str(), 612, 745, 27, BLACK);
