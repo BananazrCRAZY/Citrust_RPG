@@ -3,8 +3,10 @@
 #include "StatusManager.h"
 
 class BossItemManager {
+    StatusManager& statusMgr;
     Item* items[8];
-    unsigned recentItem;
+    void addItems();
+    void deleteItems();
 
     public:
         BossItemManager(StatusManager&);

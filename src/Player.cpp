@@ -182,6 +182,7 @@ void Player::savePlayer() {
 }
 
 void Player::resetPlayerSave() {
+    // Player.txt
     std::ofstream oFile(fileName, std::ios::trunc);
     if (!oFile.good()) {
         cerr << "Error with reseting player file ostream" << std::endl;
@@ -198,14 +199,25 @@ void Player::resetPlayerSave() {
     oFile << 10 << '\n';  // res
     oFile << 10 << '\n';  // crit rate
     oFile << 50 << '\n';  // crit dmg
+    oFile << "0\n95\n0\n0\n0\n0\n0";
     oFile.close();
 
+    // inventory_list.json
     oFile.open(inventoryList, std::ios::trunc);
     if (!oFile.good()) {
-        cerr << "Error with reset Inventory list file ostream" << std::endl;
+        cerr << "Error: Player.cpp, resetPlayerSave(), opening inventoryList\n";
         exit(1);
     }
-    oFile << "unequipped\n";
+    
+    json data = json::array();
+    if (equippedEnd != nullptr) {
+        json endMarker;
+        endMarker["id"] = equippedEnd->getId();
+        endMarker["name"] = equippedEnd->getName();
+        data.push_back(endMarker);
+    }
+
+    oFile << data.dump(2);
     oFile.close();
 }
 

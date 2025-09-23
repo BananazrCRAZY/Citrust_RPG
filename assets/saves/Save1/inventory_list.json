@@ -1,16 +1,5 @@
 [
   {
-    "appearanceProbability": 40.0,
-    "consumable": 1,
-    "cooldownDefault": 2,
-    "cost": 175,
-    "description": "The very ingredient that gives bakeries business. Too much, however, can be detrimental.",
-    "iconPath": "Graphics\\Items\\pureVanillaExtract.png",
-    "id": 20,
-    "name": "Pure Vanilla Extract",
-    "useOnPlayer": 1
-  },
-  {
     "appearanceProbability": 0.0,
     "consumable": 0,
     "cooldownDefault": 0,
@@ -22,40 +11,7 @@
     "useOnPlayer": 0
   },
   {
-    "appearanceProbability": 15.0,
-    "consumable": 1,
-    "cooldownDefault": 7,
-    "cost": 400,
-    "description": "Disappear among the sea of butterflies, Illusions of the past!",
-    "iconPath": "Graphics\\Items\\butterflyFlurry.png",
-    "id": 2,
-    "name": "Butterfly Flurry",
-    "useOnPlayer": 1
-  },
-  {
     "id": 0,
     "name": "equipped"
-  },
-  {
-    "appearanceProbability": 0.0,
-    "consumable": 0,
-    "cooldownDefault": 0,
-    "cost": 0,
-    "description": "The stem of an apple you recently defeated.",
-    "iconPath": "Graphics\\Items\\pearStem.png",
-    "id": 102,
-    "name": "Pear Stem",
-    "useOnPlayer": 0
-  },
-  {
-    "appearanceProbability": 0.0,
-    "consumable": 0,
-    "cooldownDefault": 0,
-    "cost": 0,
-    "description": "The seeds of a strawberry you recently defeated.",
-    "iconPath": "Graphics\\Items\\strawberrySeed.png",
-    "id": 103,
-    "name": "Strawberry Seed",
-    "useOnPlayer": 0
   }
 ]

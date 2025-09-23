@@ -29,7 +29,9 @@ Fruit::Fruit(const string& file) :
         int output = 0;
         while (iFile >> output) stats.push_back(new Stat(output));
         iFile.close();
-        std::cout << stats.size() << " stats: " << name << '\n';
+
+        std::cout << name << '\n';
+        for (Stat* stat : stats) std::cout << stat->getTotal() << '\n';
     }
 
 Fruit::~Fruit() {
@@ -76,8 +78,8 @@ string Fruit::calcDamage(Fruit* target, bool isAtk, bool isBasic) {
     }
     if (isBasic) damage *= (getStat(9) / 100.0 + 1);
     else damage *= (getStat(10) / 100.0 + 1);
-    if (isAtk) damage -= getStat(2);
-    else damage *= (1 - getStat(4) / 100.0);
+    if (isAtk) damage -= target->getStat(2);
+    else damage *= (1 - target->getStat(4) / 100.0);
     double dmgMultiplier = (getStat(11) - getStat(12)) / 100.0;
     if (dmgMultiplier < -1) dmgMultiplier = -1;
     damage *= (1 + dmgMultiplier) * (1 + target->getStat(13) / 100.0);
@@ -95,7 +97,7 @@ string Fruit::basicAttack(Fruit* target) {
 
 bool Fruit::checkIfCrit() {
     // crit rate + intellect / 2
-    return ((rand() % 100) + 1) <= (getStat(5) + getStat(8) / 2);
+    return ((rand() % 100) + 1) <= (getStat(5) + (getStat(8)-95) / 2);
 }
 
 bool Fruit::checkIfHit(Fruit* target) {

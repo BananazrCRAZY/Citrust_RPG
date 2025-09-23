@@ -173,19 +173,21 @@ void Shop::saveShop() {
 void Shop::resetShopSave() {
   ifstream iFile("assets/lists/items.json");
   if (!iFile.good()) {
-    cerr << "Error: opening original items list, resetShopSave" << std::endl;
-    exit(1);
-  }
-  ofstream oFile(shopFile);
-  if (!oFile.good()) {
-    cerr << "Error: opening shop file, resetShopSave" << std::endl;
+    cerr << "Error: Shop.cpp, resetShopSave(), iFile opening lists/items\n";
     exit(1);
   }
 
-  string output = "";
-  while(iFile >> output) oFile << output << '\n';
-
+  json originalJson;
+  iFile >> originalJson;
   iFile.close();
+
+  ofstream oFile(shopFile, std::ios::trunc);
+  if (!oFile.good()) {
+    cerr << "Error: Shop.cpp, resetShopSave(), oFile opening shopFile\n";
+    exit(1);
+  }
+
+  oFile << originalJson.dump(4);
   oFile.close();
 }
 

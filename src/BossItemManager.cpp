@@ -8,7 +8,21 @@ using json = nlohmann::json;
 using std::ifstream;
 
 
-BossItemManager::BossItemManager(StatusManager& statusMgr) {
+BossItemManager::BossItemManager(StatusManager& statusMgr) : statusMgr(statusMgr) {
+    addItems();
+}
+
+BossItemManager::~BossItemManager() {
+    deleteItems();
+}
+
+Item* BossItemManager::getBossItem(unsigned index) {
+    Item* holder = items[index];
+    items[index] = nullptr;
+    return holder;
+}
+
+void BossItemManager::addItems() {
     ifstream iFile("assets/lists/boss_items.json");
     if(!iFile.good()) {
         std::cerr << "Error: BossItemManager.cpp, BossItemManager(), iFile !good\n";
@@ -34,11 +48,6 @@ BossItemManager::BossItemManager(StatusManager& statusMgr) {
     iFile.close();
 }
 
-BossItemManager::~BossItemManager() {
-    for (unsigned i = recentItem+1; i < 8; i++) delete items[i];
-}
-
-Item* BossItemManager::getBossItem(unsigned index) {
-    recentItem = index;
-    return items[index];
+void BossItemManager::deleteItems() {
+    for (unsigned i = 0; i < 8; i++) delete items[i];
 }
