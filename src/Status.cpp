@@ -1,59 +1,31 @@
 #include "include/Objects/Status.h"
-#include <fstream>
 #include <iostream>
 #include <stdexcept>
 
 using std::ifstream;
 using std::cerr;
 
-Status::Status(string file) {
-  ifstream iFile(file);
-  if (!iFile.good()) {
-    cerr << "Error with status file fstream" << std::endl;
-    exit(1);
-  }
+Status::Status(int id, string name, string desc, int dTurns, bool percent,
+  int hp, int maxHp, int atk, int def, int arts, int res, int critR, int critD, int recharge, int turnChange,
+  int evasion, int intellect, int basicDmg, int skillDmg, int dmgAmp, int weakness, int vuln, bool delThis) :
+  id(id), name(name), description(desc), defaultTurns(dTurns), percentBased(percent), hpChange(hp), maxHpChange(maxHp),
+  attackChange(atk), defenseChange(def), artsChange(arts), resChange(res), critRateChange(critR), critDamageChange(critD),
+  rechargeCountChange(recharge), turnChange(turnChange), evasionChange(evasion), intellectChange(intellect),
+  basicDmgChange(basicDmg), skillDmgChange(skillDmg), dmgAmpChange(dmgAmp), weaknessChange(weakness),
+  vulnerabilityChange(vuln), deleteThisStatus(delThis), turns(defaultTurns)
+{}
 
-  getline(iFile, name);
-  getline(iFile, description);
-  iFile >> defaultTurns;
-  turns = defaultTurns;
-  iFile >> percentBased;
-  iFile >> hpChange;
-  iFile >> maxHpChange;
-  iFile >> attackChange;
-  iFile >> defenseChange;
-  iFile >> artsChange;
-  iFile >> resChange;
-  iFile >> critRateChange;
-  iFile >> critDamageChange;
-  iFile >> rechargeCountChange;
-  iFile >> turnChange;
-  if (!iFile.good()) {
-    cerr << "Error with status file format fstream" << std::endl;
-    exit(1);
-  }
-
-  iFile >> deleteThisStatus;
-  if (!iFile.good()) deleteThisStatus = false;
-
-  iFile.close();
-}
+Status::Status(const Status& effect) :
+  id(effect.getId()), name(effect.getName()), description(effect.getDescription()), defaultTurns(effect.getDefaultTurns()),
+  percentBased(effect.isPercentBased()), hpChange(effect.getHpChange()), maxHpChange(effect.getMaxHpChange()),
+  attackChange(effect.getAttackChange()), defenseChange(effect.getDefenseChange()), artsChange(effect.getArtsChange()),
+  resChange(effect.getResChange()), critRateChange(effect.getCritRateChange()), critDamageChange(effect.getCritDamageChange()),
+  rechargeCountChange(effect.getRechargeCountChange()), turnChange(effect.getTurnChange()), evasionChange(effect.getEvasionChange()),
+  intellectChange(effect.getIntellectChange()), basicDmgChange(effect.getBasicDmgChange()), skillDmgChange(effect.getSkillDmgChange()),
+  dmgAmpChange(effect.getDmgAmpChange()), weaknessChange(effect.getWeaknessChange()),
+  vulnerabilityChange(effect.getVulnerabilityChange()), deleteThisStatus(effect.isDeleteThisStatus())
+{}
 
 void Status::decreaseTurn() { --turns; }
 
 void Status::resetStatusTurns() { turns = defaultTurns; }
-
-string Status::getName() const { return name; }
-string Status::getDescription() const { return description; }
-int Status::getDefaultTurns() const { return defaultTurns; }
-int Status::getTurns() const { return turns; }
-double Status::getHpChange() const { return hpChange; }
-double Status::getMaxHpChange() const { return maxHpChange; }
-double Status::getAttackChange() const { return attackChange; }
-double Status::getDefenseChange() const { return defenseChange; }
-double Status::getArtsChange() const { return artsChange; }
-double Status::getResChange() const { return resChange; }
-double Status::getCritRateChange() const { return critRateChange; }
-double Status::getCritDamageChange() const { return critDamageChange; }
-int Status::getRechargeCountChange() const { return rechargeCountChange; }
-int Status::getTurnChange() const { return turnChange; }

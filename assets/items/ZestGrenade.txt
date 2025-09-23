@@ -1,9 +1,0 @@
-Zest Grenade
-A throwable hand grenade that explodes with orange juice and leaves a cloud of the zest behind.
-200
-1
-5
-10
-assets/status/Explorangsion.txt
-1
-Graphics\Items\zestGrenade.png

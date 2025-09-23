@@ -1,9 +1,0 @@
-First-Aid Kit
-Health supplies to bring with you on the go. Includes bandages and food.
-125
-0
-0
-20
-assets/status/ProtectionY.txt
-0
-Graphics\Items\firstAidKit.png

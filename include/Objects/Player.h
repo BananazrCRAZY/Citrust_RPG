@@ -1,13 +1,19 @@
 #pragma once
+#include "BossItemManager.h"
 #include "Fruit.h"
 #include "Item.h"
+#include "Shop.h"
+#include "StatusManager.h"
 #include <vector>
 #include <string>
 
 using std::vector;
 using std::string;
 
+class Shop;  // forward declartion
+
 class Player : public Fruit {
+    Item* equippedEnd;
     vector<Item*> items;
     vector<Item*> battleItems;
     string inventoryList;
@@ -15,8 +21,10 @@ class Player : public Fruit {
     void reAddStats();
 
     public:
-        Player(const string&, const string&);
+        Player(const string&, const string&, Shop*, BossItemManager&);
         ~Player();
+        Player(const Player&) = delete;
+        Player& operator=(const Player&) = delete;
         string specialAttack(Fruit*);
         string useItem(Fruit*, unsigned);
         void savePlayer();

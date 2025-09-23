@@ -1,9 +1,0 @@
-Spinach Pack
-Although bitter, eating it makes you feel stronger
-225
-0
-0
-25
-assets/status/LeafyGreen.txt
-0
-Graphics\Items\spinachPack.png

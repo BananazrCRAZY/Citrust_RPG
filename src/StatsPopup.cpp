@@ -139,40 +139,40 @@ void StatsPopup::Draw() {
     DrawText(name.c_str(), box.x + (box.width - textWidthName)/2, box.y + 110, 40, BLACK);
 
     string hp = "HP: ";
-    if (isShowingPlayerStats) hp += to_string(player->getHp()) + " / " + to_string(player->getMaxHp());
+    if (isShowingPlayerStats) hp += to_string(player->getHp()) + " / " + to_string(player->getStat(0));
     else hp += "??? / ???";
     DrawText(hp.c_str(), box.x + 25, box.y + 180, 20, BLACK);
 
     string atk = "ATK: ";
-    if (isShowingPlayerStats) atk += to_string(player->getAttack());
-    else atk += to_string(boss->getAttack());
+    if (isShowingPlayerStats) atk += to_string(player->getStat(1));
+    else atk += to_string(boss->getStat(1));
     DrawText(atk.c_str(), box.x + 25, box.y + 220, 20, BLACK);
 
     string def = "DEF: ";
-    if (isShowingPlayerStats) def += to_string(player->getDefense());
-    else def += to_string(boss->getDefense());
+    if (isShowingPlayerStats) def += to_string(player->getStat(2));
+    else def += to_string(boss->getStat(2));
     DrawText(def.c_str(), box.x + (box.width / 2), box.y + 220, 20, BLACK);
 
     string arts = "ARTS: ";
-    if (isShowingPlayerStats) arts += to_string(player->getArts());
-    else arts += to_string(boss->getArts());
+    if (isShowingPlayerStats) arts += to_string(player->getStat(3));
+    else arts += to_string(boss->getStat(3));
     DrawText(arts.c_str(), box.x + 25, box.y + 260, 20, BLACK);
 
     string res = "RES: ";
-    if (isShowingPlayerStats) res += to_string(player->getRes());
-    else res += to_string(boss->getRes());
+    if (isShowingPlayerStats) res += to_string(player->getStat(4));
+    else res += to_string(boss->getStat(4));
     res += "%";
     DrawText(res.c_str(), box.x + (box.width / 2), box.y + 260, 20, BLACK);
 
     string critR = "CRT RT: ";
-    if (isShowingPlayerStats) critR += to_string(player->getCritRate());
-    else critR += to_string(boss->getCritRate());
+    if (isShowingPlayerStats) critR += to_string(player->getStat(5));
+    else critR += to_string(boss->getStat(5));
     critR += "%";
     DrawText(critR.c_str(), box.x + 25, box.y + 300, 20, BLACK);
 
     string critD = "CRT DMG: ";
-    if (isShowingPlayerStats) critD += to_string(player->getCritDmg());
-    else critD += to_string(boss->getCritDmg());
+    if (isShowingPlayerStats) critD += to_string(player->getStat(6));
+    else critD += to_string(boss->getStat(6));
     critD += "%";
     DrawText(critD.c_str(), box.x + (box.width / 2), box.y + 300, 20, BLACK);   
 

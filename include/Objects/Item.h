@@ -1,32 +1,33 @@
 #pragma once
 #include <string>
 #include "Status.h"
+#include "StatusManager.h"
 #include "Fruit.h"
 
 using std::string;
 
 class Item {
  private:
-  string filePath;
+  int id;
   string name;
   string description;
   int cost;
+  bool consumable;
   int cooldownDefault;
-  int cooldown;
-  Status* effect;
-  double appearanceProbability;
-  bool isConsumable;
+  int appearanceProbability;
   bool useOnPlayer;
   string iconPath;
 
+  int cooldown;
+  Status* effect;
+
  public:
-  Item(const string&);
-  ~Item();
+  Item(StatusManager& statusMgr, int id, string name, string description, int cost, bool consumable, int cooldownDefault, int appearanceProb, bool useOnPlayer, string iconPath);
   void use(Fruit* target);
   void decreaseCooldown();
   void resetCooldown();
 
-  string getFilePath() const { return filePath; }
+  int getId() const { return id; }
   string getName() const;
   string getDescription() const;
   int getCost() const;

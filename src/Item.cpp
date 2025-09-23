@@ -6,38 +6,20 @@
 using std::ifstream;
 using std::cerr;
 
-Item::Item(const string& file) : filePath(file), cooldown(0) {
-  ifstream iFile(file);
-  if (!iFile.good()) {
-    cerr << "Error with item file fstream" << std::endl;
-    exit(1);
-  }
-
-  getline(iFile, name);
-  getline(iFile, description);
-  iFile >> cost;
-  iFile >> isConsumable;
-  iFile >> cooldownDefault;
-  iFile >> appearanceProbability;
-  string statusFile;
-  iFile >> statusFile;
-  if (!iFile.good()) {
-    cerr << "Error: Item file format fstream at status file" << std::endl;
-    exit(1);
-  }
-  effect = new Status(statusFile);
-  
-  iFile >> useOnPlayer;
-  iFile >> iconPath;
-  if (!iFile.good()) {
-    cerr << "Error: Item file format fstream" << std::endl;
-    exit(1);
-  }
-  iFile.close();
-}
-
-Item::~Item() {
-  delete effect;
+Item::Item(StatusManager& statusMgr, int id, string name, string description, int cost, bool consumable, int cooldownDefault, int appearanceProb, bool useOnPlayer, string iconPath) :
+  id(id),
+  name(name),
+  description(description),
+  cost(cost),
+  consumable(consumable),
+  cooldownDefault(cooldownDefault),
+  appearanceProbability(appearanceProb),
+  useOnPlayer(useOnPlayer),
+  iconPath(iconPath),
+  cooldown(0),
+  effect(nullptr)
+{
+  effect = statusMgr.getStatus(id);
 }
 
 string Item::getName() const { return name; }
@@ -58,4 +40,4 @@ void Item::decreaseCooldown() {
 
 void Item::resetCooldown() { cooldown = 0; }
 
-bool Item::isConsumableTrue() const { return isConsumable; }
+bool Item::isConsumableTrue() const { return consumable; }

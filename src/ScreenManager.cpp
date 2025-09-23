@@ -2,7 +2,7 @@
 
 using namespace std;
 
-ScreenManager::ScreenManager() {
+ScreenManager::ScreenManager() : calories(defaultCalories) {
     popup = std::make_shared<Popup>();
 }
 

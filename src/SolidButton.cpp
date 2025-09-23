@@ -12,7 +12,7 @@ SolidButton::SolidButton (const char *imagePath, Vector2 buttonPosition, float b
 
 // Destructor
 SolidButton::~SolidButton() {
-    UnloadTexture(texture);
+    if (texture.id != 0) UnloadTexture(texture);
 }
 
 // Creates button onto window

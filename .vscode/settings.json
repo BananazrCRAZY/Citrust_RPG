@@ -78,6 +78,9 @@
 		"text_encoding": "cpp",
 		"thread": "cpp",
 		"cinttypes": "cpp",
-		"typeinfo": "cpp"
+		"typeinfo": "cpp",
+		"codecvt": "cpp",
+		"ranges": "cpp",
+		"valarray": "cpp"
 	}
 }

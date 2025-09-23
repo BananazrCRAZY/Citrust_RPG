@@ -1,0 +1,461 @@
+[
+  {
+    "id": 1,
+    "name": "ATK Up Y",
+    "description": "Increases ATK by 40%, CRIT RATE by 40%, and CRIT DMG by 20%.",
+    "defaultTurns": -1,
+    "percentBased": 1,
+    "attackChange": 40,
+    "critRateChange": 40,
+    "critDmgChange": 20
+  },
+  {
+    "id": 2,
+    "name": "Amplification",
+    "description": "Increases ATK and ARTS by 100%. Additional grants the user 1 extra TURN.",
+    "defaultTurns": 2,
+    "percentBased": 1,
+    "attackChange": 100,
+    "artsChange": 100,
+    "turnChange": 1
+  },
+  {
+    "id": 3,
+    "name": "Caffeine Overload",
+    "description": "Decreases MAX HP and DEF by 30% and RES by 10%, but grants the user 2 extra TURNS and SKILL POINTS.",
+    "defaultTurns": 3,
+    "percentBased": 1,
+    "maxHpChange": -30,
+    "defenseChange": -30,
+    "resChange": -10,
+    "rechargeCountChange": 2,
+    "turnChange": 2
+  },
+  {
+    "id": 4,
+    "name": "Arts Up B",
+    "description": "Increases ARTS by 30% and RES by 5%.",
+    "defaultTurns": -1,
+    "percentBased": 1,
+    "artsChange": 30,
+    "resChange": 5
+  },
+  {
+    "id": 5,
+    "name": "Chill",
+    "description": "Increases DEF by 15%, ARTS by 20%, and RES by 5%.",
+    "defaultTurns": -1,
+    "percentBased": 1,
+    "defenseChange": 15,
+    "artsChange": 20,
+    "resChange": 5
+  },
+  {
+    "id": 6,
+    "name": "Protection Y",
+    "description": "Increases MAX HP by 20%, DEF by 20%, and RES by 5%.",
+    "defaultTurns": -1,
+    "percentBased": 1,
+    "maxHpChange": 20,
+    "defenseChange": 15,
+    "resChange": 5
+  },
+  {
+    "id": 7,
+    "name": "Arts Up Y",
+    "description": "Increases ARTS by 45%, RES by 10%, and CRIT RATE by 20%.",
+    "defaultTurns": -1,
+    "percentBased": 1,
+    "artsChange": 45,
+    "resChange": 10,
+    "critRateChange": 20
+  },
+  {
+    "id": 8,
+    "name": "Honey Goodness",
+    "description": "Increases ARTS by 30% and RES by 15%.",
+    "defaultTurns": -1,
+    "percentBased": 1,
+    "artsChange": 30,
+    "resChange": 15
+  },
+  {
+    "id": 9,
+    "name": "Matchalicious",
+    "description": "Increases MAX HP, ATK, and ARTS by 5%.",
+    "defaultTurns": -1,
+    "maxHpChange": 5,
+    "attackChange": 5,
+    "artsChange": 5
+  },
+  {
+    "id": 10,
+    "name": "Impenetrable Barrier",
+    "description": "Increases DEF by 200% and RES by 89%.",
+    "defaultTurns": 1,
+    "percentBased": 1,
+    "defenseChange": 200,
+    "resChange": 89
+  },
+  {
+    "id": 11,
+    "name": "Protection A",
+    "description": "Increases MAX HP by 10% and DEF by 5%.",
+    "defaultTurns": -1,
+    "percentBased": 1,
+    "maxHpChange": 10,
+    "defenseChange": 5
+  },
+  {
+    "id": 12,
+    "name": "ATK Up A",
+    "description": "Increases ATK by 10% and CRIT RATE by 20%.",
+    "defaultTurns": -1,
+    "percentBased": 1,
+    "attackChange": 10,
+    "critRateChange": 20
+  },
+  {
+    "id": 13,
+    "name": "Restoration Y",
+    "description": "Heals 5% of MAX HP and Increases MAX HP by 10%.",
+    "defaultTurns": 2,
+    "percentBased": 1,
+    "hpChange": 35,
+    "maxHpChange": 10
+  },
+  {
+    "id": 14,
+    "name": "Arts Up A",
+    "description": "Increases ARTS by 15% and RES by 3%.",
+    "defaultTurns": -1,
+    "percentBased": 1,
+    "artsChange": 15,
+    "resChange": 3
+  },
+  {
+    "id": 15,
+    "name": "Restoration B",
+    "description": "Heals 25% of MAX HP.",
+    "percentBased": 1,
+    "hpChange": 25
+  },
+  {
+    "id": 16,
+    "name": "Orange Scent",
+    "description": "Increases ARTS by 10% and RES by 5%.",
+    "defaultTurns": -1,
+    "percentBased": 1,
+    "artsChange": 10,
+    "resChange": 5
+  },
+  {
+    "id": 17,
+    "name": "ATK Up B",
+    "description": "Increases ATK by 25% and CRIT RATE by 30%.",
+    "defaultTurns": -1,
+    "percentBased": 1,
+    "attackChange": 25,
+    "critRateChange": 30
+  },
+  {
+    "id": 18,
+    "name": "Protection B",
+    "description": "Increases MAX HP by 15% and DEF by 10%.",
+    "defaultTurns": -1,
+    "percentBased": 1,
+    "maxHpChange": 15,
+    "defenseChange": 10
+  },
+  {
+    "id": 19,
+    "name": "Comfort",
+    "description": "Decreases MAX HP by 20%, but increases CRIT RATE by 20% and CRIT DMG by 40%.",
+    "defaultTurns": -1,
+    "maxHpChange": -20,
+    "critRateChange": 20,
+    "critDmgChange": 40
+  },
+  {
+    "id": 20,
+    "name": "Sugar Rush",
+    "description": "Increases ATK and ARTS by 20%. Furthermore, increases CRIT RATE by 20%, but decreases CRIT DMG by 40%.",
+    "defaultTurns": 1,
+    "percentBased": 1,
+    "attackChange": 20,
+    "artsChange": 20,
+    "critRateChange": 20,
+    "critDmgChange": -40
+  },
+  {
+    "id": 21,
+    "name": "Resurgence",
+    "description": "Grants the the player 1 extra TURN and SKILL POINT.",
+    "rechargeCountChange": 2,
+    "turnChange": 1
+  },
+  {
+    "id": 22,
+    "name": "Restoration A",
+    "description": "Heals 15% of MAX HP.",
+    "percentBased": 1,
+    "hpChange": 15
+  },
+  {
+    "id": 23,
+    "name": "Land of Dreams",
+    "description": "Increases ATK and ARTS by 20%, and DEF by 15%.",
+    "defaultTurns": 2,
+    "percentBased": 1,
+    "attackChange": 20,
+    "defenseChange": 15,
+    "artsChange": 20
+  },
+  {
+    "id": 24,
+    "name": "Leafy Green",
+    "description": "Increases CRIT RATE by 30% and CRIT DMG by 50%.",
+    "defaultTurns": -1,
+    "percentBased": 1,
+    "critRateChange": 30,
+    "critDmgChange": 50
+  },
+  {
+    "id": 25,
+    "name": "Berry Blast",
+    "description": "Increases ATK by 30%, but decreases DEF by 20% and RES by 5%.",
+    "defaultTurns": 2,
+    "percentBased": 1,
+    "attackChange": 30,
+    "defenseChange": -20,
+    "resChange": -10
+  },
+  {
+    "id": 26,
+    "name": "Explorangsion",
+    "description": "Increases ATK by 100% and CRIT RATE by 100%.",
+    "defaultTurns": 1,
+    "percentBased": 1,
+    "attackChange": 100,
+    "critRateChange": 100
+  },
+  {
+    "id": 101,
+    "name": "Apple Core",
+    "description": "Increases MAX HP by 10% and heals 2% of MAX HP every turn.",
+    "defaultTurns": -1,
+    "percentBased": 1,
+    "hpChange": 2,
+    "maxHpChange": 10
+  },
+  {
+    "id": 102,
+    "name": "Pear Stem",
+    "description": "Decreases starting SKILL POINTS by 2, but increases DEF by 13%, ARTS by 7%, and CRIT DMG by 40%.",
+    "defaultTurns": -1,
+    "percentBased": 1,
+    "defenseChange": 13,
+    "artsChange": 7,
+    "critDmgChange": 20,
+    "rechargeCountChange": -2
+  },
+  {
+    "id": 103,
+    "name": "Strawberry Seed",
+    "description": "Increases DEF by 30% and CRIT Rate by 35%, but decreases ATK by 5%.",
+    "defaultTurns": -1,
+    "percentBased": 1,
+    "attackChange": -5,
+    "defenseChange": 30,
+    "critRateChange": 35
+  },
+  {
+    "id": 104,
+    "name": "Grapevine",
+    "description": "Decreases MAX HP by 30%, but grants 2 extra TURNS and an increase of 20 intellect.",
+    "defaultTurns": 4,
+    "percentBased": 1,
+    "maxHpChange": -30,
+    "turnChange": 2,
+    "intellectChange": 20
+  },
+  {
+    "id": 105,
+    "name": "Dekopeel",
+    "description": "Decreases MAX HP by 40%, but restores 15% of MAX HP every turn and increases DEF by 20% and RES by 5%.",
+    "defaultTurns": -1,
+    "percentBased": 1,
+    "hpChange": 15,
+    "maxHpChange": -40,
+    "defenseChange": 20,
+    "resChange": 5
+  },
+  {
+    "id": 106,
+    "name": "Dried Mango",
+    "description": "Increases ATK and ARTS by 8%, CRIT RATE by 5%, and CRIT DMG by 15%, but consumes 3% of MAX HP every turn.",
+    "defaultTurns": -1,
+    "percentBased": 1,
+    "hpChange": -3,
+    "attackChange": 8,
+    "artsChange": 8,
+    "critRateChange": 5,
+    "critDmgChange": 15
+  },
+  {
+    "id": 107,
+    "name": "Pineapple Crown",
+    "description": "Increases MAX HP and CRIT RATE by 15%, but decreases CRIT DMG by 15%. Consumes 4% of MAX HP every turn.",
+    "defaultTurns": -1,
+    "percentBased": 1,
+    "hpChange": -4,
+    "maxHpChange": 15,
+    "critRateChange": 15,
+    "critDmgChange": 15
+  },
+  {
+    "id": 108,
+    "name": "Durian Thorn",
+    "description": "Increases ARTS by 50%, but decreases ATK by 30%, DEF by 20%, and CRIT DMG by 20%.",
+    "defaultTurns": -1,
+    "percentBased": 1,
+    "attackChange": -30,
+    "defenseChange": -20,
+    "artsChange": 50,
+    "critDmgChange": -20
+  },
+  {
+    "id": 201,
+    "name": "Apple a Day keeps the Doctor Away",
+    "description": "Heals 5% of MAX HP every turn.",
+    "defaultTurns": -1,
+    "deleteThisStatus": 1
+  },
+  {
+    "id": 202,
+    "name": "Crispy",
+    "description": "Increases CRIT DMG by 25% every turn.",
+    "defaultTurns": -1,
+    "deleteThisStatus": 1
+  },
+  {
+    "id": 203,
+    "name": "Seedless",
+    "description": "Decreases DEF for every attack.",
+    "defaultTurns": -1,
+    "deleteThisStatus": 1
+  },
+  {
+    "id": 204,
+    "name": "Grape Burst",
+    "description": "Every 4 attacks gain an additional TURN.",
+    "defaultTurns": -1,
+    "deleteThisStatus": 1
+  },
+  {
+    "id": 205,
+    "name": "Imposter",
+    "description": "Copies enemy's base stats.",
+    "defaultTurns": -1,
+    "deleteThisStatus": 1
+  },
+  {
+    "id": 206,
+    "name": "Rage",
+    "description": "If HP is lowered below 50% ATK is increased every turn.",
+    "defaultTurns": -1,
+    "deleteThisStatus": 1
+  },
+  {
+    "id": 207,
+    "name": "Thorns",
+    "description": "Every attack inflicts the enemy with a DoT effect.",
+    "defaultTurns": -1,
+    "deleteThisStatus": 1
+  },
+  {
+    "id": 208,
+    "name": "Berserk",
+    "description": "Increases ATK by 3% of damage taken.",
+    "defaultTurns": -1,
+    "deleteThisStatus": 1
+  },
+  {
+    "id": 209,
+    "name": "Shell",
+    "description": "ATK and DEF increases every turn.",
+    "defaultTurns": -1,
+    "deleteThisStatus": 1
+  },
+  {
+    "id": 301,
+    "name": "Attack Down",
+    "description": "Decrease ATK by 10%.",
+    "defaultTurns": 2,
+    "percentBased": 1,
+    "attackChange": -10,
+    "deleteThisStatus": 1
+  },
+  {
+    "id": 302,
+    "name": "Arts Down",
+    "description": "Decrease ARTS by 10%.",
+    "defaultTurns": 2,
+    "percentBased": 1,
+    "artsChange": -10,
+    "deleteThisStatus": 1
+  },
+  {
+    "id": 303,
+    "name": "Crit Damage Down",
+    "description": "Decrease CRIT DMG by 10%.",
+    "defaultTurns": 2,
+    "percentBased": 1,
+    "critDmgChange": -10,
+    "deleteThisStatus": 1
+  },
+  {
+    "id": 304,
+    "name": "Crit Rate Down",
+    "description": "Decrease CRIT RATE by 10%.",
+    "defaultTurns": 2,
+    "percentBased": 1,
+    "critRateChange": -10,
+    "deleteThisStatus": 1
+  },
+  {
+    "id": 305,
+    "name": "Defense Down",
+    "description": "Decrease DEF by 10%.",
+    "defaultTurns": 2,
+    "percentBased": 1,
+    "defenseChange": -10,
+    "deleteThisStatus": 1
+  },
+  {
+    "id": 306,
+    "name": "Resistance Down",
+    "description": "Decrease RES by 10%.",
+    "defaultTurns": 2,
+    "percentBased": 1,
+    "resChange": -10,
+    "deleteThisStatus": 1
+  },
+  {
+    "id": 307,
+    "name": "Sting",
+    "description": "This effect deals a base amount of damage to you at the end of your turn.",
+    "defaultTurns": 2,
+    "hpChange": -30,
+    "deleteThisStatus": 1
+  },
+  {
+    "id": 308,
+    "name": "Bleed",
+    "description": "This effect deals a percent amount of damage to you at the end of your turn.",
+    "defaultTurns": 2,
+    "percentBased": 1,
+    "hpChange": -2,
+    "deleteThisStatus": 1
+  }
+]

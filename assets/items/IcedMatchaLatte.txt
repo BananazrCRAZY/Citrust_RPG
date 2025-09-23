@@ -1,9 +1,0 @@
-Iced Matcha Latte
-Expensive matcha imports results in this heavenly drink.
-50
-0
-0
-100
-assets/status/Matchalicious.txt
-0
-Graphics\Items\icedMatchaLatte.png

@@ -1,17 +1,21 @@
 #pragma once
 #include "Boss.h"
+#include "include/Objects/StatusManager.h"
 
 using std::to_string;
 
 class Pineapple : public Boss {
-    string dotFile = "assets/status/DoT.txt";
+    StatusManager& statusMgr;
 
     public:
-        Pineapple(const string& main, const string& item, int required, const string& proxy) : Boss(main, item, required, proxy) {}
+        Pineapple(const string& main, int required, int proxy, StatusManager& statusMgr) : Boss(main, required, proxy, statusMgr),
+            statusMgr(statusMgr)
+        {}
         string specialAttack(Fruit* target) {
             rechargeCount -= 2;
-            target->addEffect(new Status(dotFile));
-            target->addEffect(new Status(dotFile));
+            if (!checkIfHit(target)) return name + ": Missed!";
+            target->addEffect(statusMgr.getStatus(307));
+            target->addEffect(statusMgr.getStatus(307));
             return name + ": Wounded " + target->getName() + ".";
         }
 
@@ -21,18 +25,11 @@ class Pineapple : public Boss {
         }
 
         string basicAttack(Fruit* target) override {
-            string returnStr;
-            int damage = arts->getTotal();
-            if (checkIfCrit()) {
-                damage = damage * (critDmg->getTotal()/100.0 + 1);
-                returnStr += "CRIT!\n";
-            }
-            damage *= (1 - (target->getRes()/100.0));
-            if (damage <= 0) returnStr = name + " did 0 damage.\n";
-            target->setHp(-1*damage);
-            returnStr = name + ": Dealt " + std::to_string(damage) + " damage.\n";
-
-            target->addEffect(new Status(dotFile));
+            if (!checkIfHit(target)) return name + ": Missed!";
+            string returnStr = "";
+            if (checkIfAdditionRecharge()) returnStr += name + ": Obtained another SKILL POINT!\n";
+            returnStr += calcDamage(target, false, true) + '\n';
+            target->addEffect(statusMgr.getStatus(307));
             return returnStr + name + ": Wounded " + target->getName() + ".";
         }
 };

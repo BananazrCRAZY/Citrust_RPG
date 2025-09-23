@@ -10,6 +10,7 @@
 #include "include/bossHeaders/Pineapple.h"
 #include "include/bossHeaders/Durian.h"
 #include "include/bossHeaders/Watermelon.h"
+#include "include/Objects/BossItemManager.h"
 #include "include/Objects/Shop.h"
 #include "include/Buttons/button.hpp"
 #include "include/Screens/AppleBossScreen.hpp"
@@ -33,7 +34,7 @@ using std::string;
 using std::ifstream;
 using std::endl;
 
-Game::Game() : savePoint(-10000), player(nullptr), shop(nullptr), exitGame(false) {
+Game::Game() : savePoint(-10000), player(nullptr), shop(nullptr), exitGame(false), bossItemMgr(statusMgr) {
     // Setup!
     InitWindow(1600, 900, "Citrust RPG");          // window length 1920 x 1080
     SetTargetFPS(60);
@@ -161,6 +162,7 @@ void Game::resetGame() {
     shop = nullptr;
     savePoint = -10000000;
     screenManager.SetPlayerName("");
+    bossItemMgr.resetManager();
 }
 
 void Game::openFile(string file) {
@@ -174,11 +176,11 @@ void Game::openFile(string file) {
 
     iFile >> savePoint;
     iFile >> calories;
+    iFile >> shopFile;
     iFile >> playerFile;
     iFile >> playerItemsFile;
-    player = new Player(playerFile, playerItemsFile);
-    iFile >> shopFile;
-    shop = new Shop(shopFile);
+    shop = new Shop(statusMgr, shopFile);
+    player = new Player(playerFile, playerItemsFile, shop, bossItemMgr);
 }
 
 bool Game::isNewSave(string file) {
@@ -226,6 +228,7 @@ void Game::startGame(int input) {
 int Game::gameLoop() {
     Boss* boss = nullptr;
     player->endOfBattle();
+    BossItemManager bossItemMgr(statusMgr);
     while (!exitGame) {
         if (savePoint != 0) {
             loadInterlude();
@@ -237,31 +240,32 @@ int Game::gameLoop() {
         // need ui to show screen based on savePoint (dialogue)
         switch (savePoint) {
             case 0:
-                boss = new Apple("assets/bosses/Apple.txt", "assets/bossItems/AppleCore.txt", -1, "assets/status/BossProxyStatus/AppleHeal.txt");
+                boss = new Apple("assets/bosses/Apple.txt", -1, savePoint+201, statusMgr);
                 break;
             case 1:
-                boss = new Pear("assets/bosses/Pear.txt", "assets/bossItems/PearStem.txt", -1, "assets/status/BossProxyStatus/Crispy.txt");
+                boss = new Pear("assets/bosses/Pear.txt", -1, savePoint+201, statusMgr);
                 break;
             case 2:
-                boss = new Strawberry("assets/bosses/Strawberry.txt", "assets/bossItems/StrawberrySeed.txt", 3, "assets/status/BossProxyStatus/Seedless.txt");
+                boss = new Strawberry("assets/bosses/Strawberry.txt", 3, savePoint+201, statusMgr);
                 break;
             case 3:
-                boss = new Grape("assets/bosses/Grape.txt", "assets/bossItems/Grapevine.txt", 4, "assets/status/BossProxyStatus/GrapeBurst.txt");
+                boss = new Grape("assets/bosses/Grape.txt", 4, savePoint+201, statusMgr);
                 break;
             case 4:
-                boss = new Dekopon(playerFile, "assets/bossItems/Dekopeel.txt", 2, "assets/status/BossProxyStatus/Imposter.txt");
+                boss = new Dekopon(playerFile, 2, savePoint+201, statusMgr);
                 break;
             case 5:
-                boss = new MangoGreen("assets/bosses/MangoGreen.txt", "assets/bossItems/DriedMango.txt", -1, "assets/status/BossProxyStatus/Rage.txt");
+                boss = new MangoGreen("assets/bosses/MangoGreen.txt", -1, savePoint+201, statusMgr);
+                screenManager.setBossCount(savePoint);
+                break;
+            case 6:
+                boss = new Pineapple("assets/bosses/Pineapple.txt", 1000, savePoint+201, statusMgr);
                 break;
             case 7:
-                boss = new Pineapple("assets/bosses/Pineapple.txt", "assets/bossItems/PineappleCrown.txt", 1000, "assets/status/BossProxyStatus/Thorns.txt");
+                boss = new Durian("assets/bosses/Durian.txt", -1, savePoint+201, statusMgr);
                 break;
             case 8:
-                boss = new Durian("assets/bosses/Durian.txt", "assets/bossItems/DurianThorn.txt", -1, "assets/status/BossProxyStatus/Thorns.txt");
-                break;
-            case 9:
-                boss = new Watermelon("assets/bosses/Watermelon.txt", "assets/bossItems/DurianThorn.txt", -1, "assets/status/BossProxyStatus/Shell.txt");
+                boss = new Watermelon("assets/bosses/Watermelon.txt", -1, savePoint+201, statusMgr);
                 break;
             default:
                 cerr << "Game loop input error" << endl;
@@ -276,30 +280,22 @@ int Game::gameLoop() {
             if (battleResult != -1) {
                 // if player used special attack to defeat phase 1
                 if (screenManager.getInput() == 1) player->setRechargeCount(1);
-                delete boss->getItem();
                 delete boss;
-                savePoint++;
-                boss = new MangoRed("assets/bosses/MangoRed.txt", "assets/bossItems/DriedMango.txt", -1, "assets/status/BossProxyStatus/Rage.txt");
+                boss = new MangoRed("assets/bosses/MangoRed.txt", -1, savePoint+201, statusMgr);
                 screenManager.setBoss(boss);
                 screenManager.AddBossCount(1);
                 uiDraw();
                 battleResult = battleLoop(boss);
-                if (battleResult == -1) goto lose;
             }
         }
         if (battleResult == -1) {
-            lose:
-            if (savePoint != 5) delete boss->getItem();
-
             screenManager.ChangeScreen(make_unique<LoseScreen>(screenManager));
             delete boss;
             boss = nullptr;
-
             return loadEndOfGame();
         }
-        player->newItem(boss->getItem());
 
-        int addCalories = player->getLevel() * 300 / battleCycle;
+        int addCalories = player->getLevel() * 175 / battleCycle;
         if (addCalories < 75) addCalories = 75;
         calories += addCalories;
 
@@ -321,6 +317,7 @@ int Game::gameLoop() {
         }
 
         shop->resetShop();
+        player->newItem(bossItemMgr.getBossItem(savePoint));
         savePoint++;
         saveGame();
     }
@@ -333,6 +330,7 @@ void Game::loadInterlude() {
     string printThis;
     while (1) {
         screenManager.setCalories(calories);
+        screenManager.setShop(shop);
         // load interlude screen here
         whileUiDrawLoop(-1);
         int inputNum = screenManager.getInput();
@@ -345,33 +343,14 @@ void Game::loadInterlude() {
                 player->equipItem(inputNum-14);
             }
         } else {
-            switch (inputNum) {
-                case 0:
-                    exitGame = true;
-                    return;
-                case 1:
-                    printThis = checkBuyItem(0);
-                    break;
-                case 2:
-                    printThis = checkBuyItem(1);
-                    break;
-                case 3:
-                    printThis = checkBuyItem(2);
-                    break;
-                case 4:
-                    printThis = checkBuyItem(3);
-                    break;
-                case 5:
-                    printThis = checkBuyItem(4);
-                    break;
-                case 6:
-                    printThis = checkBuyItem(5);
-                    break;
-                case 7:
-                    return;
-                default:
-                    cerr << "Shop loop input error" << endl;
-                    exit(1);
+            if (inputNum == 0) {
+                exitGame = true;
+                return;
+            } else if (inputNum > 0 && inputNum < 7) printThis = checkBuyItem(inputNum-1);
+            else if (inputNum == 7) return;
+            else {
+                cerr << "Shop loop input error" << endl;
+                exit(1);
             }
         }
         mainPopup.show(printThis, 50, BLACK, LIGHTGRAY);
@@ -423,7 +402,6 @@ int Game::battleLoop(Boss* boss) {
         }
         uiDraw();
         if (WindowShouldClose()) {
-            delete boss->getItem();
             delete boss;
             closeGameCheck();
         }
@@ -495,9 +473,9 @@ void Game::saveGame() {
 
     oFile << savePoint << '\n';
     oFile << calories << '\n';
+    oFile << shopFile << '\n';
     oFile << playerFile << '\n';
     oFile << playerItemsFile << '\n';
-    oFile << shopFile << '\n';
 
     shop->saveShop();
     player->savePlayer();
@@ -511,9 +489,9 @@ void Game::resetSave() {
     }
 
     oFile << "0\n0\n";
+    oFile << shopFile << '\n';
     oFile << playerFile << '\n';
     oFile << playerItemsFile << '\n';
-    oFile << shopFile << '\n';
 
     shop->resetShopSave();
     player->resetPlayerSave();
@@ -524,7 +502,7 @@ void Game::resetSave() {
 string Game::checkBuyItem(int index) {
     int cost = shop->getItemPrice(index);
     if (cost == -1) return "You have already purchased this item.";
-    if (cost > calories) return "You cannot buy this. You are missing " + std::to_string(shop->getItemPrice(index)-calories) + " calories.";
+    if (cost > calories) return "You are missing " + std::to_string(shop->getItemPrice(index)-calories) + " calories.";
     calories -= cost;
     return shop->purchaseItem(player, index);
 }
