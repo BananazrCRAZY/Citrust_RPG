@@ -8,7 +8,8 @@ class MangoGreen : public Boss {
         MangoGreen(const string& main, int required, int proxy, StatusManager& statusMgr) : Boss(main, required, proxy, statusMgr) {}
         string specialAttack(Fruit* target) {
             rechargeCount -= 2;
-            string returnStr = calcDamage(target, true, false);
+            if (!checkIfHit(target)) return name + ": Missed!";
+            string returnStr = calcDamage(target, true, false) + '\n';
             target->setStatAdd(-20, 1);
             return returnStr + name + ": Decreased " + target->getName() + "'s ATK.";
         }

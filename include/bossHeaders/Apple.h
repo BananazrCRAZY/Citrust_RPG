@@ -5,8 +5,8 @@ class Apple : public Boss {
     public:
         Apple(const string& main, int required, int proxy, StatusManager& statusMgr) : Boss(main, required, proxy, statusMgr) {}
         string specialAttack(Fruit* target) {
-            if (!checkIfHit(target)) return name + ": Missed!";
             rechargeCount -= 2;
+            if (!checkIfHit(target)) return name + ": Missed!";
             return calcDamage(target, true, false);
         }
 

@@ -10,7 +10,8 @@ class MangoRed : public Boss {
         }
         string specialAttack(Fruit* target) {
             rechargeCount -= 2;
-            string returnStr = calcDamage(target, false, false);
+            if (!checkIfHit(target)) return name + ": Missed!";
+            string returnStr = calcDamage(target, false, false) + '\n';
             target->setStatAdd(-30, 1);
             return returnStr + name + ": Decreased " + target->getName() + "'s ATK.";
         }

@@ -12,8 +12,8 @@ class Dekopon : public Boss {
             hp += 2000;
         }
         string specialAttack(Fruit* target) {
-            if (!checkIfHit(target)) return name + ": Missed!";
             rechargeCount -= 2;
+            if (!checkIfHit(target)) return name + ": Missed!";
             string returnThis = calcDamage(target, true, false) + '\n';
             returnThis += calcDamage(target, false, false) + '\n';
             

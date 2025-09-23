@@ -13,6 +13,7 @@ class Pineapple : public Boss {
         {}
         string specialAttack(Fruit* target) {
             rechargeCount -= 2;
+            if (!checkIfHit(target)) return name + ": Missed!";
             target->addEffect(statusMgr.getStatus(307));
             target->addEffect(statusMgr.getStatus(307));
             return name + ": Wounded " + target->getName() + ".";
@@ -24,7 +25,10 @@ class Pineapple : public Boss {
         }
 
         string basicAttack(Fruit* target) override {
-            string returnStr = calcDamage(target, false, true);
+            if (!checkIfHit(target)) return name + ": Missed!";
+            string returnStr = "";
+            if (checkIfAdditionRecharge()) returnStr += name + ": Obtained another SKILL POINT!\n";
+            returnStr += calcDamage(target, false, true) + '\n';
             target->addEffect(statusMgr.getStatus(307));
             return returnStr + name + ": Wounded " + target->getName() + ".";
         }

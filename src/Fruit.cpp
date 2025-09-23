@@ -120,12 +120,12 @@ bool Fruit::isDead() const {
 
 void Fruit::removeStats(Status* status) {
     if (status->isPercentBased()) {
-        setStatAdd(-1 * status->getMaxHpChange()/100 * stats.at(0)->getBase(), 0);
-        setStatAdd(-1 * status->getAttackChange()/100 * stats.at(1)->getBase(), 1);
-        setStatAdd(-1 * status->getDefenseChange()/100 * stats.at(2)->getBase(), 2);
-        setStatAdd(-1 * status->getArtsChange()/100 * stats.at(3)->getBase(), 3);
+        stats.at(0)->add(-1 * status->getMaxHpChange()/100.0 * stats.at(0)->getBase());
+        setStatAdd(-1 * status->getAttackChange()/100.0 * stats.at(1)->getBase(), 1);
+        setStatAdd(-1 * status->getDefenseChange()/100.0 * stats.at(2)->getBase(), 2);
+        setStatAdd(-1 * status->getArtsChange()/100.0 * stats.at(3)->getBase(), 3);
     } else {
-        setStatAdd(-1 * status->getMaxHpChange(), 0);
+        stats.at(0)->add(-1 * status->getMaxHpChange());
         setStatAdd(-1 * status->getAttackChange(), 1);
         setStatAdd(-1 * status->getDefenseChange(), 2);
         setStatAdd(-1 * status->getArtsChange(), 3);
@@ -146,12 +146,12 @@ void Fruit::removeStats(Status* status) {
 
 void Fruit::addStats(Status* status) {
     if (status->isPercentBased()) {
-        setStatAdd(status->getMaxHpChange()/100 * stats.at(0)->getBase(), 0);
-        setStatAdd(status->getAttackChange()/100 * stats.at(1)->getBase(), 1);
-        setStatAdd(status->getDefenseChange()/100 * stats.at(2)->getBase(), 2);
-        setStatAdd(status->getArtsChange()/100 * stats.at(3)->getBase(), 3);
+        stats.at(0)->add(status->getMaxHpChange()/100.0 * stats.at(0)->getBase());
+        setStatAdd(status->getAttackChange()/100.0 * stats.at(1)->getBase(), 1);
+        setStatAdd(status->getDefenseChange()/100.0 * stats.at(2)->getBase(), 2);
+        setStatAdd(status->getArtsChange()/100.0 * stats.at(3)->getBase(), 3);
     } else {
-        setStatAdd(status->getMaxHpChange(), 0);
+        stats.at(0)->add(status->getMaxHpChange());
         setStatAdd(status->getAttackChange(), 1);
         setStatAdd(status->getDefenseChange(), 2);
         setStatAdd(status->getArtsChange(), 3);

@@ -17,8 +17,8 @@ class Durian : public Boss {
         }
 
         string specialAttack(Fruit* target) {
-            if (!checkIfHit(target)) return name + ": Missed!";
             rechargeCount -= 2;
+            if (!checkIfHit(target)) return name + ": Missed!";
             return calcDamage(target, true, false);
         }
 

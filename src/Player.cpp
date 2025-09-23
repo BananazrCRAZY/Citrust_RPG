@@ -49,8 +49,8 @@ Player::~Player() {
 // Damage dealt is counted as once instance of damage. 
 // Each type of damage has its own chance to crit.
 string Player::specialAttack(Fruit* target) {
-    if (!checkIfHit(target)) return name + ": Missed!";
     rechargeCount -= 2;
+    if (!checkIfHit(target)) return name + ": Missed!";
     string returnThis = calcDamage(target, true, false) + '\n';
     return returnThis + calcDamage(target, false, false);
 }

@@ -256,6 +256,7 @@ int Game::gameLoop() {
                 break;
             case 5:
                 boss = new MangoGreen("assets/bosses/MangoGreen.txt", -1, savePoint+201, statusMgr);
+                screenManager.setBossCount(savePoint);
                 break;
             case 6:
                 boss = new Pineapple("assets/bosses/Pineapple.txt", 1000, savePoint+201, statusMgr);

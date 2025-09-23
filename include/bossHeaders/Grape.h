@@ -19,13 +19,14 @@ class Grape : public Boss {
             rechargeCount -= 2;
             string returnStatement = "";
             for (int i = 1; i < 4; i++) {
-                returnStatement += "Attack " + to_string(i) + ": " + calcDamage(target, false, false);
+                returnStatement += "Attack " + to_string(i) + ": " + calcDamage(target, false, false) + '\n';
                 if ((rand() % 5) > 2) {
                     int effectIndex = rand() % 6;
                     target->addEffect(statusMgr.getStatus(effectIndex + 301));
                     returnStatement += (name + ": Gave " + target->getName() + " a random effect.\n");
                 }
             }
+            if (returnStatement.back() == '\n') returnStatement.pop_back();
             return returnStatement;
         }
 
