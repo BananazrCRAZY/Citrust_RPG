@@ -14,4 +14,5 @@ class BossItemManager {
         BossItemManager(const BossItemManager&) = delete;
         BossItemManager& operator=(const BossItemManager&) = delete;
         Item* getBossItem(unsigned);
+        void resetManager();
 };

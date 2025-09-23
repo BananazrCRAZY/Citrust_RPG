@@ -1,5 +1,5 @@
 0
 0
+assets/saves/Save3/Shop.txt
 assets/saves/Save3/Player.txt
-assets/saves/Save3/inventory_list.json
-assets/saves/Save3/shop_list.json
+assets/saves/Save3/Inventory.txt

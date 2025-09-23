@@ -13,25 +13,18 @@ using std::cerr;
 using std::endl;
 using std::string;
 
-Shop::Shop(const string& file, StatusManager& statusMgr) : itemsInShop(0), shopFile(file), shopEnd(nullptr), itemsForSale(new Item*[MAX_NUM_ITEMS_IN_SHOP]) {
+Shop::Shop(StatusManager& statusMgr, string inShop) : itemsInShop(0), itemsInShopFile(inShop), itemsForSale(new Item*[MAX_NUM_ITEMS_IN_SHOP]) {
   ifstream iFile(shopFile);
   if(!iFile.good()) {
-    cerr << "Error: Shop.cpp, Shop(), iFile not good" << endl;
+    cerr << "Error: Shop.cpp, Shop(), iFile opening shopFile" << endl;
     exit(1);
   }
   json data;
   iFile >> data;
 
-  bool inShop = true;
   for (auto& it : data) {
     int id = it["id"];
-    if (id == 0) {
-      inShop = false;
-      shopEnd = new Item(statusMgr, 0, "Shop End", "", 0, 0, 0, 0, 0, "");
-      continue;
-    }
     string name = it.value("name", "Error name");
-
     string desc = it.value("description", "");
     int cost = it.value("cost", 0);
     bool consumable = it.value("consumable", 0) != 0;
@@ -40,24 +33,34 @@ Shop::Shop(const string& file, StatusManager& statusMgr) : itemsInShop(0), shopF
     bool useOnPlayer = it.value("useOnPlayer", 0) != 0;
     string iconPath = it.value("iconPath", "");
 
-    if (inShop) {
-      itemsForSale[itemsInShop] = new Item(
-        statusMgr, id, name, desc, cost, consumable, cooldownDefault, appearanceProb, useOnPlayer, iconPath
-      );
-      itemsInShop++;
-    } else allItems.push_back(new Item(
-        statusMgr, id, name, desc, cost, consumable, cooldownDefault, appearanceProb, useOnPlayer, iconPath
-      ));
+    allItems.push_back(new Item(
+      statusMgr, id, name, desc, cost, consumable, cooldownDefault, appearanceProb, useOnPlayer, iconPath
+    ));
+  }
+  iFile.close();
+
+  iFile.open(inShop);
+  if(!iFile.good()) {
+    cerr << "Error: Shop.cpp, Shop(), iFile opening inShop" << endl;
+    exit(1);
   }
 
-  for(unsigned i = itemsInShop; i < MAX_NUM_ITEMS_IN_SHOP; i++) itemsForSale[i] = nullptr;
+  int output;
+  while (iFile >> output) {
+    if (output == -1) itemsForSale[itemsInShop] = nullptr;
+    else itemsForSale[itemsInShop] = getItemById(output);
+    itemsInShop++;
+  }
+  if (itemsInShop > MAX_NUM_ITEMS_IN_SHOP) {
+    cerr << "Error: Shop.cpp, Shop(), inShop contains too many item ids" << endl;
+    exit(1);
+  }
   iFile.close();
 }
 
 Shop::~Shop() {
   for (Item* item : allItems) delete item;
-  for (unsigned i = 0; i < itemsInShop; i++) delete itemsForSale[itemsInShop];
-  delete shopEnd;
+  for (unsigned i = 0; i < itemsInShop; i++) delete itemsForSale[i];
 }
 
 string Shop::purchaseItem(Player* player, unsigned itemIndex) {
@@ -118,76 +121,29 @@ void Shop::resetShop() {
 }
 
 void Shop::saveShop() {
-  ofstream oFile(shopFile);
+  ofstream oFile(itemsInShopFile);
   if (!oFile.good()) {
-    cerr << "Error: opening file, saveShop" << std::endl;
+    cerr << "Error: Shop.cpp, saveShop(), opening itemsInShopFile" << std::endl;
     exit(1);
   }
 
-  json data = json::array();
-
   for (unsigned i = 0; i < itemsInShop; i++) {
-    Item* item = itemsForSale[i];
-    if (item == nullptr) continue;
-
-    json obj;
-    obj["id"] = item->getId();
-    obj["name"] = item->getName();
-    obj["description"] = item->getDescription();
-    obj["cost"] = item->getCost();
-    obj["consumable"] = item->isConsumableTrue() ? 1 : 0;
-    obj["cooldownDefault"] = item->getCooldownDefault();
-    obj["appearanceProbability"] = item->getAppearanceProbabiity();
-    obj["useOnPlayer"] = item->isUseOnPlayer() ? 1 : 0;
-    obj["iconPath"] = item->getIcon();
-
-    data.push_back(obj);
+    if (itemsForSale[i] == nullptr) oFile << "-1\n";
+    else oFile << itemsForSale[i]->getId() << '\n';
   }
 
-  if (shopEnd != nullptr) {
-    json endMarker;
-    endMarker["id"] = shopEnd->getId();
-    endMarker["name"] = shopEnd->getName();
-    data.push_back(endMarker);
-  }
-
-  for (Item* item : allItems) {
-    json obj;
-    obj["id"] = item->getId();
-    obj["name"] = item->getName();
-    obj["description"] = item->getDescription();
-    obj["cost"] = item->getCost();
-    obj["consumable"] = item->isConsumableTrue() ? 1 : 0;
-    obj["cooldownDefault"] = item->getCooldownDefault();
-    obj["appearanceProbability"] = item->getAppearanceProbabiity();
-    obj["useOnPlayer"] = item->isUseOnPlayer() ? 1 : 0;
-    obj["iconPath"] = item->getIcon();
-
-    data.push_back(obj);
-  }
-
-  oFile << data.dump(2);
   oFile.close();
 }
 
 void Shop::resetShopSave() {
-  ifstream iFile("assets/lists/items.json");
-  if (!iFile.good()) {
-    cerr << "Error: Shop.cpp, resetShopSave(), iFile opening lists/items\n";
-    exit(1);
-  }
-
-  json originalJson;
-  iFile >> originalJson;
-  iFile.close();
-
-  ofstream oFile(shopFile, std::ios::trunc);
+  ofstream oFile(itemsInShopFile);
   if (!oFile.good()) {
-    cerr << "Error: Shop.cpp, resetShopSave(), oFile opening shopFile\n";
+    cerr << "Error: Shop.cpp, resetShopSave(), oFile opening itemsInShopFile\n";
     exit(1);
   }
 
-  oFile << originalJson.dump(4);
+  for (unsigned i = 0; i < MAX_NUM_ITEMS_IN_SHOP; i++) oFile << "-1\n";
+  
   oFile.close();
 }
 
@@ -207,4 +163,28 @@ int Shop::getRandomNumber(int max) const {
   int random_number = dist(gen);
 
   return random_number;
+}
+
+Item* Shop::getItemById(int id) {
+    if (allItems.back()->getId() < id) {
+        cerr << "Error: Shop.cpp, getItemById(), id too large\n";
+        exit(1);
+    }
+    if (id == 0) return nullptr;
+    return getItemById(id, 0, allItems.size()-1);
+}
+
+Item* Shop::getItemById(int id, unsigned lower, unsigned upper) {
+    if (lower > upper) {
+        cerr << "Error: Error: Shop.cpp, getItemById(), cannot find id: " << id << '\n';
+        exit(1);
+    }
+    unsigned middle = lower + (upper-lower) / 2;
+    int middleId = allItems.at(middle)->getId();
+    if (id == middleId) {
+        Item* holder = allItems.at(middle);
+        allItems.erase(allItems.begin()+middle);
+        return holder;
+    } else if (id < middleId) return getItemById(id, lower, middle-1);
+    else return getItemById(id, middle+1, upper);
 }

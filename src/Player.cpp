@@ -9,40 +9,30 @@ using json = nlohmann::json;
 using std::string;
 using std::cerr;
 
-Player::Player(const string& file, const string& itemFile, StatusManager& statusMgr) : Fruit(file),  equippedEnd(nullptr), inventoryList(itemFile) {
+Player::Player(const string& file, const string& itemFile, Shop* shop, BossItemManager& bossItemMgr) : Fruit(file),  equippedEnd(nullptr), inventoryList(itemFile) {
     std::ifstream iFile(itemFile);
     if(!iFile.good()) {
-        cerr << "Error: Player.cpp, Player(), iFile not good";
+        cerr << "Error: Player.cpp, Player(), iFile opening itemFile\n";
         exit(1);
     }
-    json data;
-    iFile >> data;
-
-    bool equipped = true;
-    for (auto& it : data) {
-        int id = it.value("id", -1);
-        if (id == 0) {
-            equipped = false;
-            equippedEnd = new Item(statusMgr, 0, "equipped", "", 0, false, 0, 0, false, "");
+    
+    bool isEquipped = true;
+    int output;
+    while (iFile >> output) {
+        if (output == -1) {
+            isEquipped = false;
             continue;
         }
-        string name = it.value("name", "Error name");
 
-        string desc = it.value("description", "");
-        int cost = it.value("cost", 0);
-        bool consumable = it.value("consumable", 0) != 0;
-        int cooldownDefault = it.value("cooldownDefault", 0);
-        int appearanceProb = it.value("appearanceProbability", 0);
-        bool useOnPlayer = it.value("useOnPlayer", 0) != 0;
-        string iconPath = it.value("iconPath", "");
-
-        if (equipped) battleItems.push_back(new Item(
-                statusMgr, id, name, desc, cost, consumable, cooldownDefault, appearanceProb, useOnPlayer, iconPath
-            ));
-        else items.push_back(new Item(
-                statusMgr, id, name, desc, cost, consumable, cooldownDefault, appearanceProb, useOnPlayer, iconPath
-            ));
+        if (output > 100) {
+            if (isEquipped) battleItems.push_back(bossItemMgr.getBossItem(output-101));
+            else items.push_back(bossItemMgr.getBossItem(output-101));
+        } else {
+            if (isEquipped) battleItems.push_back(shop->getItemById(output));
+            else items.push_back(shop->getItemById(output));
+        }
     }
+
     iFile.close();
 }
 
@@ -138,51 +128,15 @@ void Player::savePlayer() {
         exit(1);
     }
 
-    json data = json::array();
+    for (Item* item : battleItems) oFile << item->getId() << '\n';
+    oFile << "-1\n";
+    for (Item* item : items) oFile << item->getId() << '\n';
 
-    for (Item* item : battleItems) {
-        json obj;
-        obj["id"] = item->getId();
-        obj["name"] = item->getName();
-        obj["description"] = item->getDescription();
-        obj["cost"] = item->getCost();
-        obj["consumable"] = item->isConsumableTrue() ? 1 : 0;
-        obj["cooldownDefault"] = item->getCooldownDefault();
-        obj["appearanceProbability"] = item->getAppearanceProbabiity();
-        obj["useOnPlayer"] = item->isUseOnPlayer() ? 1 : 0;
-        obj["iconPath"] = item->getIcon();
-
-        data.push_back(obj);
-    }
-
-    if (equippedEnd != nullptr) {
-        json endMarker;
-        endMarker["id"] = equippedEnd->getId();
-        endMarker["name"] = equippedEnd->getName();
-        data.push_back(endMarker);
-    }
-
-    for (Item* item : items) {
-        json obj;
-        obj["id"] = item->getId();
-        obj["name"] = item->getName();
-        obj["description"] = item->getDescription();
-        obj["cost"] = item->getCost();
-        obj["consumable"] = item->isConsumableTrue() ? 1 : 0;
-        obj["cooldownDefault"] = item->getCooldownDefault();
-        obj["appearanceProbability"] = item->getAppearanceProbabiity();
-        obj["useOnPlayer"] = item->isUseOnPlayer() ? 1 : 0;
-        obj["iconPath"] = item->getIcon();
-
-        data.push_back(obj);
-    }
-
-    oFile << data.dump(2);
     oFile.close();
 }
 
 void Player::resetPlayerSave() {
-    // Player.txt
+    // Player
     std::ofstream oFile(fileName, std::ios::trunc);
     if (!oFile.good()) {
         cerr << "Error with reseting player file ostream" << std::endl;
@@ -202,22 +156,15 @@ void Player::resetPlayerSave() {
     oFile << "0\n95\n0\n0\n0\n0\n0";
     oFile.close();
 
-    // inventory_list.json
+    // inventory
     oFile.open(inventoryList, std::ios::trunc);
     if (!oFile.good()) {
         cerr << "Error: Player.cpp, resetPlayerSave(), opening inventoryList\n";
         exit(1);
     }
     
-    json data = json::array();
-    if (equippedEnd != nullptr) {
-        json endMarker;
-        endMarker["id"] = equippedEnd->getId();
-        endMarker["name"] = equippedEnd->getName();
-        data.push_back(endMarker);
-    }
+    oFile << "-1\n";
 
-    oFile << data.dump(2);
     oFile.close();
 }
 

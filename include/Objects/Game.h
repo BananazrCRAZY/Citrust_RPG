@@ -23,6 +23,7 @@ class Game {
     string shopFile;
     ScreenManager screenManager;
     StatusManager statusMgr;
+    BossItemManager bossItemMgr;
     bool exitGame;
     unsigned battleCycle;
 

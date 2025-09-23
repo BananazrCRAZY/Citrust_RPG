@@ -51,3 +51,8 @@ void BossItemManager::addItems() {
 void BossItemManager::deleteItems() {
     for (unsigned i = 0; i < 8; i++) delete items[i];
 }
+
+void BossItemManager::resetManager() {
+    deleteItems();
+    addItems();
+}

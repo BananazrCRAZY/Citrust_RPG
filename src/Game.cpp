@@ -34,7 +34,7 @@ using std::string;
 using std::ifstream;
 using std::endl;
 
-Game::Game() : savePoint(-10000), player(nullptr), shop(nullptr), exitGame(false) {
+Game::Game() : savePoint(-10000), player(nullptr), shop(nullptr), exitGame(false), bossItemMgr(statusMgr) {
     // Setup!
     InitWindow(1600, 900, "Citrust RPG");          // window length 1920 x 1080
     SetTargetFPS(60);
@@ -162,6 +162,7 @@ void Game::resetGame() {
     shop = nullptr;
     savePoint = -10000000;
     screenManager.SetPlayerName("");
+    bossItemMgr.resetManager();
 }
 
 void Game::openFile(string file) {
@@ -175,11 +176,11 @@ void Game::openFile(string file) {
 
     iFile >> savePoint;
     iFile >> calories;
+    iFile >> shopFile;
     iFile >> playerFile;
     iFile >> playerItemsFile;
-    player = new Player(playerFile, playerItemsFile, statusMgr);
-    iFile >> shopFile;
-    shop = new Shop(shopFile, statusMgr);
+    shop = new Shop(statusMgr, shopFile);
+    player = new Player(playerFile, playerItemsFile, shop, bossItemMgr);
 }
 
 bool Game::isNewSave(string file) {
@@ -293,7 +294,7 @@ int Game::gameLoop() {
             return loadEndOfGame();
         }
 
-        int addCalories = player->getLevel() * 250 / battleCycle;
+        int addCalories = player->getLevel() * 175 / battleCycle;
         if (addCalories < 75) addCalories = 75;
         calories += addCalories;
 
@@ -471,9 +472,9 @@ void Game::saveGame() {
 
     oFile << savePoint << '\n';
     oFile << calories << '\n';
+    oFile << shopFile << '\n';
     oFile << playerFile << '\n';
     oFile << playerItemsFile << '\n';
-    oFile << shopFile << '\n';
 
     shop->saveShop();
     player->savePlayer();
@@ -487,9 +488,9 @@ void Game::resetSave() {
     }
 
     oFile << "0\n0\n";
+    oFile << shopFile << '\n';
     oFile << playerFile << '\n';
     oFile << playerItemsFile << '\n';
-    oFile << shopFile << '\n';
 
     shop->resetShopSave();
     player->resetPlayerSave();
