@@ -12,7 +12,7 @@ Status::Status(int id, string name, string desc, int dTurns, bool percent,
   attackChange(atk), defenseChange(def), artsChange(arts), resChange(res), critRateChange(critR), critDamageChange(critD),
   rechargeCountChange(recharge), turnChange(turnChange), evasionChange(evasion), intellectChange(intellect),
   basicDmgChange(basicDmg), skillDmgChange(skillDmg), dmgAmpChange(dmgAmp), weaknessChange(weakness),
-  vulnerabilityChange(vuln), deleteThisStatus(delThis)
+  vulnerabilityChange(vuln), deleteThisStatus(delThis), turns(defaultTurns)
 {}
 
 Status::Status(const Status& effect) :
