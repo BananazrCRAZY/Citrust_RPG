@@ -33,6 +33,14 @@ class StatsPopup : public IndefinitePopup {
     const float yStarting = 460;
     Rectangle scrollPanel;
 
+    float statsScrollOffset = 0.0f;
+    const int statsMaxVisibleRows = 4;
+    const float statsHeight = 20;
+    const int statsSpacingY = 40;
+    float statsYStarting;
+    const int numberOfStatRows = 8;
+    Rectangle statsScrollPanel;
+
     void updatePosition(float newXPos);
     void deleteEffectArrays();
 

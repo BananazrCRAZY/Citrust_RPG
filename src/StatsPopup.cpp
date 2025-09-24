@@ -20,6 +20,8 @@ StatsPopup::StatsPopup(Vector2 popupPosition, Vector2 popupSize, Vector2 buttonP
     bossEffectsSize(0),
     isShowingPlayerStats(true)
 {
+    statsYStarting = box.y + 180;
+    statsScrollPanel = {position.x + 35, statsYStarting - 5, box.width - 35, (float)statsMaxVisibleRows * statsSpacingY + 5};
     scrollPanel = {position.x + 35, yStarting - statusSpacingY + statusHeight, (float)statusWidth + 30, (float)maxVisibleRows * statusSpacingY + 5};
 }
 
@@ -110,6 +112,19 @@ void StatsPopup::Update(const Vector2& mousePos, bool mouseClicked, ScreenManage
     }
 
     // Scroll only when mouse is inside the unequipped panel
+    if (CheckCollisionPointRec(mousePos, statsScrollPanel)) {
+        statsScrollOffset += GetMouseWheelMove() * 30.0f; // scroll speed
+    }
+
+    // compute total rows
+    float statsMaxScroll = numberOfStatRows * statsSpacingY - statsMaxVisibleRows * statsSpacingY;
+    if (statsMaxScroll < 0) statsMaxScroll = 0;
+
+    // clamp
+    if (statsScrollOffset > 0) statsScrollOffset = 0;
+    if (statsScrollOffset < -statsMaxScroll) statsScrollOffset = -statsMaxScroll;
+
+    // Scroll only when mouse is inside the unequipped panel
     if (CheckCollisionPointRec(mousePos, scrollPanel)) {
         scrollOffset += GetMouseWheelMove() * 30.0f; // scroll speed
     }
@@ -132,6 +147,9 @@ void StatsPopup::Draw() {
     playerStatsButton.Draw();
     bossStatsButton.Draw();
 
+    DrawRectangleLinesEx(statsScrollPanel, 3, DARKGRAY);
+    BeginScissorMode(statsScrollPanel.x, statsScrollPanel.y, statsScrollPanel.width, statsScrollPanel.height);
+
     string name;
     if (isShowingPlayerStats) name = player->getName();
     else name = boss->getName();
@@ -141,46 +159,47 @@ void StatsPopup::Draw() {
     string hp = "HP: ";
     if (isShowingPlayerStats) hp += to_string(player->getHp()) + " / " + to_string(player->getStat(0));
     else hp += "??? / ???";
-    DrawText(hp.c_str(), box.x + 25, box.y + 180, 20, BLACK);
+    DrawText(hp.c_str(), box.x + 25, statsYStarting + statsScrollOffset, 20, BLACK);
 
     string atk = "ATK: ";
     if (isShowingPlayerStats) atk += to_string(player->getStat(1));
     else atk += to_string(boss->getStat(1));
-    DrawText(atk.c_str(), box.x + 25, box.y + 220, 20, BLACK);
+    DrawText(atk.c_str(), box.x + 25, statsYStarting + statsSpacingY + statsScrollOffset, 20, BLACK);
 
     string def = "DEF: ";
     if (isShowingPlayerStats) def += to_string(player->getStat(2));
     else def += to_string(boss->getStat(2));
-    DrawText(def.c_str(), box.x + (box.width / 2), box.y + 220, 20, BLACK);
+    DrawText(def.c_str(), box.x + (box.width / 2), statsYStarting + statsSpacingY + statsScrollOffset, 20, BLACK);
 
     string arts = "ARTS: ";
     if (isShowingPlayerStats) arts += to_string(player->getStat(3));
     else arts += to_string(boss->getStat(3));
-    DrawText(arts.c_str(), box.x + 25, box.y + 260, 20, BLACK);
+    DrawText(arts.c_str(), box.x + 25, statsYStarting + 2 * statsSpacingY + statsScrollOffset, 20, BLACK);
 
     string res = "RES: ";
     if (isShowingPlayerStats) res += to_string(player->getStat(4));
     else res += to_string(boss->getStat(4));
     res += "%";
-    DrawText(res.c_str(), box.x + (box.width / 2), box.y + 260, 20, BLACK);
+    DrawText(res.c_str(), box.x + (box.width / 2), statsYStarting + 2 * statsSpacingY + statsScrollOffset, 20, BLACK);
 
     string critR = "CRT RT: ";
     if (isShowingPlayerStats) critR += to_string(player->getStat(5));
     else critR += to_string(boss->getStat(5));
     critR += "%";
-    DrawText(critR.c_str(), box.x + 25, box.y + 300, 20, BLACK);
+    DrawText(critR.c_str(), box.x + 25, statsYStarting + 3 * statsSpacingY + statsScrollOffset, 20, BLACK);
 
     string critD = "CRT DMG: ";
     if (isShowingPlayerStats) critD += to_string(player->getStat(6));
     else critD += to_string(boss->getStat(6));
     critD += "%";
-    DrawText(critD.c_str(), box.x + (box.width / 2), box.y + 300, 20, BLACK);   
+    DrawText(critD.c_str(), box.x + (box.width / 2), statsYStarting + 3 * statsSpacingY + statsScrollOffset, 20, BLACK);
+    
+    EndScissorMode();
 
     string effects = "EFFECTS:";
     DrawText(effects.c_str(), box.x + 25, box.y + 350, 20, BLACK);
 
     DrawRectangleLinesEx(scrollPanel, 3, DARKGRAY);
-
     if (!needToUpdateEffects) {
         BeginScissorMode(scrollPanel.x, scrollPanel.y, scrollPanel.width, scrollPanel.height);
 
