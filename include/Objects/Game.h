@@ -46,6 +46,8 @@ class Game {
     public:
         Game();
         ~Game() { resetGame(); }
+        Game(const Game&) = delete;
+        Game& operator=(const Game&) = delete;
         void runGame();
         void openFile(string);
 };

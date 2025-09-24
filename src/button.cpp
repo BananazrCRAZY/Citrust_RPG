@@ -1,7 +1,7 @@
 #include "include/Buttons/button.hpp"
 
 // Button Constructor
-Button::Button (const char *imagePath, Vector2 imagePosition, float scale) : IButton::IButton(imagePosition) {
+Button::Button (const char *imagePath, Vector2 imagePosition, float scale) : IButton::IButton(imagePosition, {0, 0}) {
     SetTexture(imagePath, scale);
 }
 
@@ -12,7 +12,7 @@ Button::~Button() {
 
 // Creates button onto window
 void Button::Draw() {
-    DrawTextureV(texture, position, WHITE);
+    DrawTextureV(texture, {buttonArea.x, buttonArea.y}, WHITE);
 }
 
 void Button::SetTexture(const char* imagePath, float scale) {
@@ -24,7 +24,8 @@ void Button::SetTexture(const char* imagePath, float scale) {
     // scaling & resizing
     float newWidth = static_cast<int>(image.width * scale);
     float newHeight = static_cast<int>(image.height * scale);
-    size = {newWidth, newHeight};
+    buttonArea.width = newWidth;
+    buttonArea.height = newHeight;
     ImageResize(&image, newWidth, newHeight);
     texture = LoadTextureFromImage(image);
     UnloadImage(image);

@@ -10,9 +10,11 @@ EquipmentScreen::EquipmentScreen(ScreenManager& mgr, bool& exitFlag, Player* p)
     , player(p)
     , equipped(new InventoryButton*[6])
     , unequipped(new InventoryButton*[50])
-    , unequippedSize(0)
+    , unequippedSize(0) 
     , backButton("Graphics/Buttons/backButton.png", {50,750}, 0.8)
     , equipMenu({400, 100}, {800, 700}, {500, 600}, .7, "Graphics/Buttons/cancelButton.png", 0, manager, p)
+    , statsButton("Graphics/Buttons/statsButton.png", {75, 350}, .8)
+    , statsMenu({800, 75}, {500, 750}, {805, 80}, .5, "Graphics/Buttons/xCloseButton.png", manager.getBoss(), manager.getPlayer(), false)
 {
     Image backgroundImage = LoadImage("Graphics/GeneralScreens/EquippingScreen.png");
     ImageResize(&backgroundImage, 1600, 900);
@@ -64,6 +66,13 @@ void EquipmentScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     if (backButton.isPressed(mousePos, mouseClicked)) {
         manager.PopScreen();
         //need to go back to same screen as before, the interlude
+        return;
+    }
+
+    if (statsButton.isPressed(mousePos, mouseClicked)) statsMenu.toggleVisible();
+
+    if (statsMenu.isVisible()) {
+        statsMenu.Update(mousePos, mouseClicked, manager);
         return;
     }
 
@@ -164,6 +173,7 @@ void EquipmentScreen::Update(const Vector2& mousePos, bool mouseClicked) {
 
 void EquipmentScreen::Draw() {
     DrawTexture(background, 0, 0, WHITE);
+    statsButton.Draw();
 
     for (unsigned i = 0; i < 6; i++) equipped[i]->Draw();
 
@@ -181,6 +191,7 @@ void EquipmentScreen::Draw() {
     EndScissorMode();
 
     mainPopup.Draw();
+    statsMenu.Draw();
 
     if (equipMenu.isVisible()) equipMenu.Draw();
     backButton.Draw();

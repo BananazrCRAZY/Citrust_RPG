@@ -2,6 +2,7 @@
 #define EQUIPMENTSCREEN_HPP
 
 #include "include/Popups/EquipPopup.hpp"
+#include "include/Popups/StatsPopup.hpp"
 #include "include/Buttons/InventoryButton.hpp"
 #include "IScreen.hpp"
 #include "include/Objects/Player.h"
@@ -29,6 +30,8 @@ class EquipmentScreen : public IScreen {
         Button backButton;
         Texture2D background;
         EquipPopup equipMenu;
+        Button statsButton;
+        StatsPopup statsMenu;
 
         // variables for scroll feature
         float scrollOffset = 0.0f;
