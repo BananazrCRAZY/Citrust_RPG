@@ -21,8 +21,8 @@ StatsPopup::StatsPopup(Vector2 popupPosition, Vector2 popupSize, Vector2 buttonP
     isShowingPlayerStats(true)
 {
     statsYStarting = box.y + 180;
-    statsScrollPanel = {position.x + 35, statsYStarting - 5, box.width - 35, (float)statsMaxVisibleRows * statsSpacingY + 5};
-    scrollPanel = {position.x + 35, yStarting - statusSpacingY + statusHeight, (float)statusWidth + 30, (float)maxVisibleRows * statusSpacingY + 5};
+    statsScrollPanel = {position.x + statsXOffset, statsYStarting - 10, box.width - statsXOffset * 2, (float)statsMaxVisibleRows * statsSpacingY};
+    scrollPanel = {position.x + statsXOffset, yStarting - statusSpacingY + statusHeight, (float)statusWidth + 30, (float)maxVisibleRows * statusSpacingY + 5};
 }
 
 StatsPopup::~StatsPopup() {
@@ -147,52 +147,96 @@ void StatsPopup::Draw() {
     playerStatsButton.Draw();
     bossStatsButton.Draw();
 
-    DrawRectangleLinesEx(statsScrollPanel, 3, DARKGRAY);
-    BeginScissorMode(statsScrollPanel.x, statsScrollPanel.y, statsScrollPanel.width, statsScrollPanel.height);
-
     string name;
     if (isShowingPlayerStats) name = player->getName();
     else name = boss->getName();
     int textWidthName = MeasureText(name.c_str(), 30);
-    DrawText(name.c_str(), box.x + (box.width - textWidthName)/2, box.y + 110, 40, BLACK);
+    DrawText(name.c_str(), box.x + (box.width - textWidthName) / 2,
+        ((playerStatsButton.getYPos() + playerStatsButton.getYSize()) + (statsScrollPanel.y - 30)) / 2 - 45 / 2, 45, BLACK);
+
+    string stats = "STATS:";
+    DrawText(stats.c_str(), box.x + 25, statsScrollPanel.y - 30, 20, BLACK);
+
+    DrawRectangleLinesEx(statsScrollPanel, 3, DARKGRAY);
+    BeginScissorMode(statsScrollPanel.x, statsScrollPanel.y, statsScrollPanel.width, statsScrollPanel.height);
 
     string hp = "HP: ";
     if (isShowingPlayerStats) hp += to_string(player->getHp()) + " / " + to_string(player->getStat(0));
     else hp += "??? / ???";
-    DrawText(hp.c_str(), box.x + 25, statsYStarting + statsScrollOffset, 20, BLACK);
+    DrawText(hp.c_str(), box.x + statsXOffset + statsDistanceFromBorder, statsYStarting + statsScrollOffset, 20, BLACK);
 
     string atk = "ATK: ";
     if (isShowingPlayerStats) atk += to_string(player->getStat(1));
     else atk += to_string(boss->getStat(1));
-    DrawText(atk.c_str(), box.x + 25, statsYStarting + statsSpacingY + statsScrollOffset, 20, BLACK);
+    DrawText(atk.c_str(), box.x + statsXOffset + statsDistanceFromBorder, statsYStarting + statsSpacingY + statsScrollOffset, 20, BLACK);
 
     string def = "DEF: ";
     if (isShowingPlayerStats) def += to_string(player->getStat(2));
     else def += to_string(boss->getStat(2));
-    DrawText(def.c_str(), box.x + (box.width / 2), statsYStarting + statsSpacingY + statsScrollOffset, 20, BLACK);
+    DrawText(def.c_str(), box.x + (box.width / 2) + statsDistanceFromBorder, statsYStarting + statsSpacingY + statsScrollOffset, 20, BLACK);
 
     string arts = "ARTS: ";
     if (isShowingPlayerStats) arts += to_string(player->getStat(3));
     else arts += to_string(boss->getStat(3));
-    DrawText(arts.c_str(), box.x + 25, statsYStarting + 2 * statsSpacingY + statsScrollOffset, 20, BLACK);
+    DrawText(arts.c_str(), box.x + statsXOffset + statsDistanceFromBorder, statsYStarting + 2 * statsSpacingY + statsScrollOffset, 20, BLACK);
 
     string res = "RES: ";
     if (isShowingPlayerStats) res += to_string(player->getStat(4));
     else res += to_string(boss->getStat(4));
     res += "%";
-    DrawText(res.c_str(), box.x + (box.width / 2), statsYStarting + 2 * statsSpacingY + statsScrollOffset, 20, BLACK);
+    DrawText(res.c_str(), box.x + (box.width / 2) + statsDistanceFromBorder, statsYStarting + 2 * statsSpacingY + statsScrollOffset, 20, BLACK);
 
     string critR = "CRT RT: ";
     if (isShowingPlayerStats) critR += to_string(player->getStat(5));
     else critR += to_string(boss->getStat(5));
     critR += "%";
-    DrawText(critR.c_str(), box.x + 25, statsYStarting + 3 * statsSpacingY + statsScrollOffset, 20, BLACK);
+    DrawText(critR.c_str(), box.x + statsXOffset + statsDistanceFromBorder, statsYStarting + 3 * statsSpacingY + statsScrollOffset, 20, BLACK);
 
     string critD = "CRT DMG: ";
     if (isShowingPlayerStats) critD += to_string(player->getStat(6));
     else critD += to_string(boss->getStat(6));
     critD += "%";
-    DrawText(critD.c_str(), box.x + (box.width / 2), statsYStarting + 3 * statsSpacingY + statsScrollOffset, 20, BLACK);
+    DrawText(critD.c_str(), box.x + (box.width / 2) + statsDistanceFromBorder, statsYStarting + 3 * statsSpacingY + statsScrollOffset, 20, BLACK);
+
+    string eva = "EVA: ";
+    if (isShowingPlayerStats) eva += to_string(player->getStat(7));
+    else eva += to_string(boss->getStat(7));
+    DrawText(eva.c_str(), box.x + statsXOffset + statsDistanceFromBorder, statsYStarting + 4 * statsSpacingY + statsScrollOffset, 20, BLACK);
+
+    string intel = "INTEL: ";
+    if (isShowingPlayerStats) intel += to_string(player->getStat(8));
+    else intel += to_string(boss->getStat(8));
+    DrawText(intel.c_str(), box.x + (box.width / 2) + statsDistanceFromBorder, statsYStarting + 4 * statsSpacingY + statsScrollOffset, 20, BLACK);
+
+    string basic = "BASIC DMG: ";
+    if (isShowingPlayerStats) basic += to_string(player->getStat(9));
+    else basic += to_string(boss->getStat(9));
+    basic += "%";
+    DrawText(basic.c_str(), box.x + statsXOffset + statsDistanceFromBorder, statsYStarting + 5 * statsSpacingY + statsScrollOffset, 20, BLACK);
+
+    string skill = "SKILL DMG: ";
+    if (isShowingPlayerStats) skill += to_string(player->getStat(10));
+    else skill += to_string(boss->getStat(10));
+    skill += "%";
+    DrawText(skill.c_str(), box.x + (box.width / 2) + statsDistanceFromBorder, statsYStarting + 5 * statsSpacingY + statsScrollOffset, 20, BLACK);
+
+    string amp = "DMG AMP: ";
+    if (isShowingPlayerStats) amp += to_string(player->getStat(11));
+    else amp += to_string(boss->getStat(11));
+    amp += "%";
+    DrawText(amp.c_str(), box.x + statsXOffset + statsDistanceFromBorder, statsYStarting + 6 * statsSpacingY + statsScrollOffset, 20, BLACK);
+
+    string weak = "WEAK: ";
+    if (isShowingPlayerStats) weak += to_string(player->getStat(12));
+    else weak += to_string(boss->getStat(12));
+    weak += "%";
+    DrawText(weak.c_str(), box.x + (box.width / 2) + statsDistanceFromBorder, statsYStarting + 6 * statsSpacingY + statsScrollOffset, 20, BLACK);
+
+    string vuln = "VULN: ";
+    if (isShowingPlayerStats) vuln += to_string(player->getStat(13));
+    else vuln += to_string(boss->getStat(13));
+    vuln += "%";
+    DrawText(vuln.c_str(), box.x + statsXOffset + statsDistanceFromBorder, statsYStarting + 7 * statsSpacingY + statsScrollOffset, 20, BLACK);
     
     EndScissorMode();
 

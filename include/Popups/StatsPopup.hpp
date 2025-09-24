@@ -37,6 +37,8 @@ class StatsPopup : public IndefinitePopup {
     const int statsMaxVisibleRows = 4;
     const float statsHeight = 20;
     const int statsSpacingY = 40;
+    const int statsXOffset = 35;
+    const int statsDistanceFromBorder = 10;
     float statsYStarting;
     const int numberOfStatRows = 8;
     Rectangle statsScrollPanel;
