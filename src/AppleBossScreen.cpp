@@ -51,7 +51,7 @@ AppleBossScreen::AppleBossScreen(ScreenManager& mgr, bool& exitFlag, unsigned& c
     , attackButton("Graphics/Buttons/attackButton.png", {1068,710}, 0.31)
     , inventoryButton("Graphics/Buttons/inventoryButton.png", {1270,550}, 0.25)
     , statsButton("Graphics/Buttons/statsButton.png", {180, 275}, .8)
-    , menu({800, 75}, {500, 750}, {805, 80}, .5, "Graphics/Buttons/xCloseButton.png", manager.getBoss(), manager.getPlayer())
+    , menu({800, 75}, {500, 750}, {805, 80}, .5, "Graphics/Buttons/xCloseButton.png", manager.getBoss(), manager.getPlayer(), true)
 {
     Image backgroundImage;
     switch (manager.GetBossCount()) {

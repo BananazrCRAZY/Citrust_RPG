@@ -207,3 +207,12 @@ void Player::reAddStats() {
         }
     }
 }
+
+void Player::newItem(Item* item) {
+    items.push_back(item);
+    checkIfCanEquipItem();
+}
+
+void Player::checkIfCanEquipItem() {
+    if (battleItems.size() < MAX_INVENTORY_SPACE) equipItem(items.size()-1);
+}
