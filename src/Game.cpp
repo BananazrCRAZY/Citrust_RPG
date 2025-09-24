@@ -233,7 +233,7 @@ int Game::gameLoop() {
         if (savePoint != 0) {
             loadInterlude();
             saveGame();
-            if (exitGame) break;
+            if (screenManager.getInput() == 77) return 0;
         }
 
         battleCycle = 1;
@@ -344,7 +344,7 @@ void Game::loadInterlude() {
             }
         } else {
             if (inputNum == 0) {
-                exitGame = true;
+                screenManager.setInput(77);
                 return;
             } else if (inputNum > 0 && inputNum < 7) printThis = checkBuyItem(inputNum-1);
             else if (inputNum == 7) return;

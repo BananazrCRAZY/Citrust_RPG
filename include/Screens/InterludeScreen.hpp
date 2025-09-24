@@ -25,7 +25,7 @@ class InterludeScreen : public IScreen {
         Button shopButton;
         Button inventoryButton;
         Button bossButton;
-        Button quitButton;
+        Button titleButton;
         Texture2D background;
 };
 
