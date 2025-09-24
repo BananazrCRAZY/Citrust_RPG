@@ -13,12 +13,14 @@ using std::string;
 class Shop;  // forward declartion
 
 class Player : public Fruit {
+    const int MAX_INVENTORY_SPACE = 6;
     Item* equippedEnd;
     vector<Item*> items;
     vector<Item*> battleItems;
     string inventoryList;
     void clearStats();
     void reAddStats();
+    void checkIfCanEquipItem();
 
     public:
         Player(const string&, const string&, Shop*, BossItemManager&);
@@ -35,7 +37,7 @@ class Player : public Fruit {
         Item* getBattleItem(int i) const { return battleItems.at(i); }
         unsigned getNumberInventoryItems() const { return items.size(); }
         Item* getInventoryItem(int i) const { return items.at(i); }
-        void newItem(Item* item) { items.push_back(item); }
+        void newItem(Item* item);
         void levelUp();
         void endOfBattle();
         void endOfTurn();

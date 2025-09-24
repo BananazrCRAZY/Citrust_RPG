@@ -190,9 +190,8 @@ void EquipmentScreen::Draw() {
 
     EndScissorMode();
 
-    mainPopup.Draw();
     statsMenu.Draw();
-
-    if (equipMenu.isVisible()) equipMenu.Draw();
+    equipMenu.Draw();
     backButton.Draw();
+    mainPopup.Draw();
 }
