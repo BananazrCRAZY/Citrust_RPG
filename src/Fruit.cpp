@@ -29,9 +29,6 @@ Fruit::Fruit(const string& file) :
         int output = 0;
         while (iFile >> output) stats.push_back(new Stat(output));
         iFile.close();
-
-        std::cout << name << '\n';
-        for (Stat* stat : stats) std::cout << stat->getTotal() << '\n';
     }
 
 Fruit::~Fruit() {
