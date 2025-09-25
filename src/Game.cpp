@@ -64,13 +64,16 @@ void Game::closeGameCheck() {
 }
 
 void Game::runGame() {
+    bool gotFile, setName, gameLoopReady;
+    int winGame;
+
+    reRunGame:
     resetGame();
     screenManager.ChangeScreen(make_unique<TitleScreen>(screenManager, exitGame));
-
-    bool gotFile = false;
-    bool setName = true;
-    bool gameLoopReady = false;
-    int winGame = -10000;
+    gotFile = false;
+    setName = true;
+    gameLoopReady = false;
+    winGame = -10000;
     screenManager.setInput(-1);
 
     // Game Loop: keep running while window isn't closed and exitGame bool isn't flagged
@@ -123,7 +126,7 @@ void Game::runGame() {
             if (screenManager.GetPlayerName() != "") {
                 player->setName(screenManager.GetPlayerName());
                 setName = true;
-            }
+            } else if (screenManager.getInput() == 10) goto reRunGame;
         }
         if (screenManager.getInput() == 1) gameLoopReady = true;
         if (gameLoopReady || savePoint > 0) {
@@ -135,13 +138,7 @@ void Game::runGame() {
                     break;
                 case 0:
                     // return to main menu
-                    resetGame();
-                    gotFile = false;
-                    setName = true;
-                    gameLoopReady = false;
-                    screenManager.ChangeScreen(make_unique<TitleScreen>(screenManager, exitGame));
-                    screenManager.setInput(-1);
-                    break;
+                    goto reRunGame;
                 case 1:
                     // try again
                     break;

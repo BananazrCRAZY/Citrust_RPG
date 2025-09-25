@@ -24,6 +24,7 @@ class NameScreen : public IScreen {
         bool& exitGame;
         Texture2D background;
         Button nextButton;
+        Button titleButton;
 
         string inputText;
         Rectangle textBox;

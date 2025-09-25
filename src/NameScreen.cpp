@@ -7,7 +7,7 @@
 using namespace std;
 
 NameScreen::NameScreen(ScreenManager& mgr, bool& exitFlag) : manager(mgr), exitGame(exitFlag), nextButton("Graphics/Buttons/nextButton.png",{1200,680}, 1.6)
-, inputText(""), textBox({1000, 270, 250, 60}), textBoxActive(false), letterCount(0) {
+, inputText(""), textBox({1000, 270, 250, 60}), textBoxActive(false), letterCount(0), titleButton("Graphics/Buttons/titleScreenButton.png", {60, 70}, 1) {
 
     Image backgroundImage = LoadImage("Graphics/GeneralScreens/NameScreen.png");
     ImageResize(&backgroundImage, 1600, 900);
@@ -51,14 +51,19 @@ void NameScreen::Update(const Vector2& mousePos, bool mouseClicked) {
     }
 
     if (nextButton.isPressed(mousePos, mouseClicked)) {
-        manager.SetPlayerName(inputText);
-        manager.ChangeScreen(make_unique<PrologueScreen1>(manager, exitGame));
+        if (inputText != "") {
+            manager.SetPlayerName(inputText);
+            manager.ChangeScreen(make_unique<PrologueScreen1>(manager, exitGame));
+        }
     }
+
+    if (titleButton.isPressed(mousePos, mouseClicked)) manager.setInput(10);
 }
 
 void NameScreen::Draw() {
     DrawTexture(background, 0, 0, WHITE);
     nextButton.Draw();
+    titleButton.Draw();
 
     Color borderColor;
     if (textBoxActive) {
