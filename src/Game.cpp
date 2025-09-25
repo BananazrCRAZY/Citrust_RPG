@@ -126,9 +126,9 @@ void Game::runGame() {
             if (screenManager.GetPlayerName() != "") {
                 player->setName(screenManager.GetPlayerName());
                 setName = true;
-            } else if (screenManager.getInput() == 10) goto reRunGame;
+            } else if (screenManager.getInput() == 10) goto reRunGame;  // from NameScreen, titleButton
         }
-        if (screenManager.getInput() == 1) gameLoopReady = true;
+        if (screenManager.getInput() == 1) gameLoopReady = true;  // from TutorialScreen
         if (gameLoopReady || savePoint > 0) {
             winGame = gameLoop();
             switch (winGame) {
