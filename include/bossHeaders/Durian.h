@@ -10,6 +10,7 @@ using std::to_string;
 class Durian : public Boss {
     StatusManager& statusMgr;
     int damageTaken = 0;
+    int dotIndex = 312;
 
     public:
         Durian(const string& main, int required, int proxy, StatusManager& statusMgr) : Boss(main, required, proxy, statusMgr), statusMgr(statusMgr) {
@@ -37,7 +38,7 @@ class Durian : public Boss {
             if(checkIfAdditionRecharge()) returnThis += name + ": Obtained another SKILL POINT!\n";
             returnThis += Fruit::basicAttack(target) + '\n';
 
-            target->addEffect(statusMgr.getStatus(308));
+            target->addEffect(statusMgr.getStatus(dotIndex));
             return returnThis + name + ": Wounded " + target->getName() + ".";
         }
 };
