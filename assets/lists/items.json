@@ -11,10 +11,10 @@
     "id": 2,
     "name": "Butterfly Flurry",
     "description": "Disappear among the sea of butterflies, Illusions of the past!",
-    "cost": 400,
+    "cost": 450,
     "consumable": 1,
-    "cooldownDefault": 7,
-    "appearanceProbability": 15,
+    "cooldownDefault": 8,
+    "appearanceProbability": 10,
     "useOnPlayer": 1,
     "iconPath": "Graphics\\Items\\butterflyFlurry.png"
   },
@@ -22,10 +22,10 @@
     "id": 3,
     "name": "Cappuccino",
     "description": "Coffee made from the most delicious of espresso, steamed milk, and milk foam. Drinking it makes you feel incredibly hyper.",
-    "cost": 350,
+    "cost": 375,
     "consumable": 1,
     "cooldownDefault": 6,
-    "appearanceProbability": 25,
+    "appearanceProbability": 15,
     "useOnPlayer": 1,
     "iconPath": "Graphics\\Items\\cappuccino.png"
   },
@@ -41,7 +41,7 @@
     "id": 5,
     "name": "Cooling Fan",
     "description": "A tempting purchase on a hot day.",
-    "cost": 100,
+    "cost": 150,
     "appearanceProbability": 50,
     "iconPath": "Graphics\\Items\\coolingFan.png"
   },
@@ -110,7 +110,7 @@
     "description": "A chest of Vitamin C tablets. You can overcome any disease that comes your away with this.",
     "cost": 225,
     "consumable": 1,
-    "cooldownDefault": 3,
+    "cooldownDefault": 5,
     "appearanceProbability": 20,
     "useOnPlayer": 1,
     "iconPath": "Graphics\\Items\\largeVitaminC.png"
@@ -129,7 +129,7 @@
     "description": "A package of Vitamin C tablets. One tablet a day keeps the bad fruits away.",
     "cost": 150,
     "consumable": 1,
-    "cooldownDefault": 3,
+    "cooldownDefault": 5,
     "appearanceProbability": 75,
     "useOnPlayer": 1,
     "iconPath": "Graphics\\Items\\mediumVitaminC.png"
@@ -194,7 +194,7 @@
     "description": "A bottle of Vitamin C tablets. Makes your immune system stronger.",
     "cost": 100,
     "consumable": 1,
-    "cooldownDefault": 3,
+    "cooldownDefault": 4,
     "appearanceProbability": 100,
     "useOnPlayer": 1,
     "iconPath": "Graphics\\Items\\smallVitaminC.png"
