@@ -82,6 +82,10 @@ Features:
   - Increases damage taken.
 
 ### Damage Calculation
+- ATK Scaled Damage
+  - (ATK * BASIC/SKILL DMG - ENEMY'S DEF) * (DMG AMP - WEAK) * ENEMY'S VULN
+- ARTS Scaled Damage
+  - ARTS * BASIC/SKILL DMG * (100% - ENEMY'S RES) * (DMG AMP - WEAK) * ENEMY'S VULN
 
 ---
 
