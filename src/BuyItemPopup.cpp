@@ -24,7 +24,7 @@ void BuyItemPopup::Draw() {
 
     string costText = "Cost: " + to_string(item->getCost());
     int costTextWidth = MeasureText(costText.c_str(), 20);
-    DrawText(costText.c_str(), box.x + (box.width - costTextWidth)/2, box.y + 480, 20, BLACK);
+    DrawText(costText.c_str(), box.x + (box.width - costTextWidth)/2, box.y + 500, 20, BLACK);
 
     if (item->isConsumableTrue()) {
         string cooldownText;

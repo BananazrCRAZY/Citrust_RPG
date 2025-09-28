@@ -12,14 +12,14 @@
   {
     "id": 2,
     "name": "Amplification",
-    "description": "Increases ATK, ARTS, SKILL DMG, and DMG AMP by 100%. Additional grants the user 1 extra TURN.",
-    "defaultTurns": 2,
+    "description": "Increases ATK and ARTS by 100% and SKILL DMG and DMG AMP by 25%. Additional grants the user 1 extra TURN.",
+    "defaultTurns": 1,
     "percentBased": 1,
     "attackChange": 100,
     "artsChange": 100,
     "turnChange": 1,
-    "skillDmgChange": 100,
-    "dmgAmpChange": 100
+    "skillDmgChange": 25,
+    "dmgAmpChange": 25
   },
   {
     "id": 3,
@@ -202,10 +202,9 @@
   {
     "id": 21,
     "name": "Resurgence",
-    "description": "Grants the the player 1 extra TURN and SKILL POINT and increases INTEL by 20.",
-    "rechargeCountChange": 2,
+    "description": "Grants the the player 1 extra TURN and increases INTEL by 80.",
     "turnChange": 1,
-    "intellectChange": 20
+    "intellectChange": 80
   },
   {
     "id": 22,
@@ -340,28 +339,28 @@
   {
     "id": 201,
     "name": "Apple a Day keeps the Doctor Away",
-    "description": "Heals 5% of MAX HP every turn.",
+    "description": "Heals a portion of MAX HP every turn.",
     "defaultTurns": -1,
     "deleteThisStatus": 1
   },
   {
     "id": 202,
     "name": "Crispy",
-    "description": "Increases CRIT DMG by 25% every turn.",
+    "description": "Increases CRIT DMG every turn.",
     "defaultTurns": -1,
     "deleteThisStatus": 1
   },
   {
     "id": 203,
     "name": "Seedless",
-    "description": "Decreases DEF for every attack.",
+    "description": "Loses DEF for every attack.",
     "defaultTurns": -1,
     "deleteThisStatus": 1
   },
   {
     "id": 204,
     "name": "Grape Burst",
-    "description": "Every 4 attacks gain an additional TURN.",
+    "description": "Every couple attacks gets another TURN.",
     "defaultTurns": -1,
     "deleteThisStatus": 1
   },
@@ -389,7 +388,7 @@
   {
     "id": 208,
     "name": "Berserk",
-    "description": "Increases ATK by 3% of damage taken.",
+    "description": "Increases ATK based on damage taken.",
     "defaultTurns": -1,
     "deleteThisStatus": 1
   },

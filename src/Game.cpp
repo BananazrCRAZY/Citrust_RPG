@@ -234,6 +234,7 @@ int Game::gameLoop() {
         }
 
         battleCycle = 1;
+        if (savePoint > 5) screenManager.AddBossCount(1);
         // need ui to show screen based on savePoint (dialogue)
         switch (savePoint) {
             case 0:
@@ -243,17 +244,17 @@ int Game::gameLoop() {
                 boss = new Pear("assets/bosses/Pear.txt", -1, savePoint+201, statusMgr);
                 break;
             case 2:
-                boss = new Strawberry("assets/bosses/Strawberry.txt", 3, savePoint+201, statusMgr);
+                boss = new Strawberry("assets/bosses/Strawberry.txt", 5, savePoint+201, statusMgr);
                 break;
             case 3:
-                boss = new Grape("assets/bosses/Grape.txt", 4, savePoint+201, statusMgr);
+                boss = new Grape("assets/bosses/Grape.txt", 7, savePoint+201, statusMgr);
                 break;
             case 4:
                 boss = new Dekopon(playerFile, 2, savePoint+201, statusMgr);
                 break;
             case 5:
-                boss = new MangoGreen("assets/bosses/MangoGreen.txt", -1, savePoint+201, statusMgr);
                 screenManager.setBossCount(savePoint);
+                boss = new MangoGreen("assets/bosses/MangoGreen.txt", -1, savePoint+201, statusMgr);
                 break;
             case 6:
                 boss = new Pineapple("assets/bosses/Pineapple.txt", 1000, savePoint+201, statusMgr);
@@ -292,7 +293,7 @@ int Game::gameLoop() {
             return loadEndOfGame();
         }
 
-        int addCalories = player->getLevel() * 175 / battleCycle;
+        int addCalories = player->getLevel() * 200 / battleCycle;
         if (addCalories < 75) addCalories = 75;
         calories += addCalories;
 
@@ -302,13 +303,12 @@ int Game::gameLoop() {
         boss = nullptr;
         player->levelUp();
         player->endOfBattle();
-        screenManager.AddBossCount(1);
 
         // while player is still on victory screen
         whileUiDrawLoop(-1);
 
         // end of game
-        if (savePoint == 9) {
+        if (savePoint == 8) {
             screenManager.ChangeScreen(make_unique<WinScreen>(screenManager));
             return loadEndOfGame();
         }
@@ -410,6 +410,10 @@ void Game::playerTurn(Boss* boss) {
     redoTurn:
     whileUiDrawLoop(-1);
     if (screenManager.getInput() > 0 && screenManager.getInput() < 8) {
+        while (screenManager.isPopup()) {
+            uiDraw();
+            closeGameCheck();
+        }
         if (player->getRechargeCount() <= 0) {
             screenManager.ShowPopup("Not Enough Skill Points");
             goto redoTurn;

@@ -183,7 +183,7 @@
     "description": "A purple plume that reminds you of a certain underworld dweller.",
     "cost": 300,
     "consumable": 1,
-    "cooldownDefault": 4,
+    "cooldownDefault": 6,
     "appearanceProbability": 20,
     "useOnPlayer": 1,
     "iconPath": "Graphics\\Items\\purpleQuill.png"

@@ -73,15 +73,13 @@ void CenterPopup::reshapeMsg() {
         int widthOfChar = msgWidth / message.size();
         int charCount = 0;
         for (int i = 0; i < message.length(); i++) {
-            if ((charCount * widthOfChar) > (maxWidth - 50)) {
-                if (message[i] == ' ') {
-                    numberOfLines++;
-                    charCount = 0;
-                }
+            if ((charCount * widthOfChar) >= (maxWidth - 50) && message[i] == ' ') {
+                numberOfLines++;
+                charCount = 0;
             } else {
                 displayMsg[numberOfLines] += message[i];
+                charCount++;
             }
-            charCount++;
         }
     } else displayMsg[0] = message;
 

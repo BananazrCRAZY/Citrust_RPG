@@ -84,8 +84,8 @@ void ItemPopup::reshapeMsg(string text, string (&arr)[3], int& lines, int fsize)
                 charCount = 0;
             } else {
                 arr[lines] += text[i];
+                charCount++;
             }
-            charCount++;
         }
     } else arr[0] = text;
 

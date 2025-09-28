@@ -80,9 +80,13 @@ string Fruit::calcDamage(Fruit* target, bool isAtk, bool isBasic) {
     double dmgMultiplier = (getStat(11) - getStat(12)) / 100.0;
     if (dmgMultiplier < -1) dmgMultiplier = -1;
     damage *= (1 + dmgMultiplier) * (1 + target->getStat(13) / 100.0);
-    if (damage <= 0) return returnThis + name + ": Dealt 0 damage.";
+    if (damage <= 0) {
+        if (isAtk) return returnThis + name + ": Dealt 0 ATK damage.";
+        else return returnThis + name + ": Dealt 0 ARTS damage.";
+    }
     target->setHp(-1*damage);
-    return returnThis + name + ": Dealt " + to_string(damage) + " damage.";
+    if (isAtk) return returnThis + name + ": Dealt " + to_string(damage) + " ATK damage.";
+    else return returnThis + name + ": Dealt " + to_string(damage) + " ARTS damage.";
 }
 
 string Fruit::basicAttack(Fruit* target) {
@@ -93,8 +97,8 @@ string Fruit::basicAttack(Fruit* target) {
 }
 
 bool Fruit::checkIfCrit() {
-    // crit rate + intellect / 2
-    return ((rand() % 100) + 1) <= (getStat(5) + (getStat(8)-95) / 2);
+    // crit rate + intellect / 4
+    return ((rand() % 100) + 1) <= (getStat(5) + (getStat(8)-95) / 4);
 }
 
 bool Fruit::checkIfHit(Fruit* target) {

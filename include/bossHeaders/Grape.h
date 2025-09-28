@@ -11,22 +11,33 @@ using std::to_string;
 
 class Grape : public Boss {
     StatusManager& statusMgr;
+    int multiAttackCount;
 
     public:
-        Grape(const string& main, int required, int proxy, StatusManager& statusMgr) : Boss(main, required, proxy, statusMgr), statusMgr(statusMgr) {}
+        Grape(const string& main, int required, int proxy, StatusManager& statusMgr) :
+            Boss(main, required, proxy, statusMgr), statusMgr(statusMgr),
+            multiAttackCount(0)
+        {}
 
         string specialAttack(Fruit* target) {
-            rechargeCount -= 2;
             string returnStatement = "";
-            for (int i = 1; i < 4; i++) {
-                returnStatement += "Attack " + to_string(i) + ": " + calcDamage(target, false, false) + '\n';
-                if ((rand() % 5) > 2) {
-                    int effectIndex = rand() % 10;
-                    target->addEffect(statusMgr.getStatus(effectIndex + 301));
-                    returnStatement += (name + ": Gave " + target->getName() + " a random effect.\n");
-                }
+            rechargeCount--;
+
+            if (multiAttackCount == 0) {
+                multiAttackCount = (rand() % 4) + 1;
+                turn += (multiAttackCount - 1);
+                returnStatement += name + " is ready to burst " + to_string(multiAttackCount) + " times!\n";
             }
-            if (returnStatement.back() == '\n') returnStatement.pop_back();
+            if (multiAttackCount == 1) rechargeCount--;
+
+            returnStatement += calcDamage(target, false, false);
+            if ((rand() % 5) > 2) {
+                int effectIndex = rand() % 10;
+                target->addEffect(statusMgr.getStatus(effectIndex + 301));
+                returnStatement += '\n' + name + ": Gave " + target->getName() + " a random effect.";
+            }
+
+            multiAttackCount--;
             return returnStatement;
         }
 
