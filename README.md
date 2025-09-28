@@ -68,6 +68,7 @@ Features:
   - The greater the INTEL the more likely the attack is to hit.
   - Base INTEL is 95, so base chance of landing an attack (enemy with 0 EVA) is 95%.
   - Every additional 4 INTEL on top of the base increases crit chance by 1%.
+  - Every additional INTEL over the base increases chance of gaining another SKILL POINT on basic attack by 1%.
 - BASIC DMG (Basic Attack Damage)
   - Increases basic attack damage by a percent.
 - SKILL DMG (Skill Attack Damage)
