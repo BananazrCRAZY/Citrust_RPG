@@ -1,6 +1,8 @@
 # Citrust RPG
 
-Authors: [Annie Le](https://github.com/anniele2006), [Brandon Hatamoto](https://github.com/BananazrCRAZY), [Eva Bao](https://github.com/evabao007), [Sebastian Chou](https://github.com/stricker1)
+<p align="center">
+  <img width="700" alt="Screenshot 2025-09-27 234145" src="https://github.com/user-attachments/assets/80dc3679-59de-4530-9d31-d93304fc462c" />
+</p>
 
 ## What Is Citrust RPG?
 Description:
@@ -34,10 +36,52 @@ Features:
 - **Shop** – Purchase item to aid you in battle.
 - **Inventory** – Equip, unequip, and view your items.
 - **Boss** - Go onto the next battle.
+- **Title Screen** - Return to the title screen.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/56a40d4a-a109-46be-b57f-8664a6184009" alt="Boss Fight Diagram" width="700"/>
+  <img width="700" alt="Screenshot 2025-09-27 234351" src="https://github.com/user-attachments/assets/5820a583-5cc3-4452-a2fb-4efd5686f9d7" />
 </p>
+
+---
+
+## Guide
+### Stats
+- HP/MAX HP (Hit Points)
+  - HP determines how much damage you can take. If your hits 0 you lose!
+- ATK (Attack)
+  - Used to determine damage of basic and skill attacks.
+- DEF (Defense)
+  - Reduces ATK damage.
+- ARTS
+  - Used to determine damage of skill attacks.
+- RES (Resistance)
+  - Reduces ARTS damage by a percent.
+- CRIT RT (Critical Rate)
+  - Every attack has a chance to crit. CRIT RT is the percent chance the attack crits.
+- CRIT DMG (Critical Damage)
+  - If an attack crits, increases damage by the CRIT DMG percent.
+- EVA (Evasion)
+  - Determines if an attack is dodged.
+  - The greater the EVA the less likely the opponent is to land their attack.
+- INTEL (Intelligence)
+  - Determines if an attack hits.
+  - The greater the INTEL the more likely the attack is to hit.
+  - Base INTEL is 95, so base chance of landing an attack (enemy with 0 EVA) is 95%.
+  - Every additional 4 INTEL on top of the base increases crit chance by 1%.
+- BASIC DMG (Basic Attack Damage)
+  - Increases basic attack damage by a percent.
+- SKILL DMG (Skill Attack Damage)
+  - Increases skill attack damage by a percent.
+- DMG AMP (Damage Amplification)
+  - Increases attack damage by a percent.
+  - Is reduced by WEAK.
+- WEAK (Weakness)
+  - Decreases attack damage by a percent.
+  - Is reduced by DMG AMP. 
+- VULN (Vulnerability)
+  - Increases damage taken.
+
+### Damage Calculation
 
 ---
 
@@ -61,5 +105,7 @@ Features:
 * Raylib and RayGUI
 
 ---
+
+Authors: [Annie Le](https://github.com/anniele2006), [Brandon Hatamoto](https://github.com/BananazrCRAZY), [Eva Bao](https://github.com/evabao007), [Sebastian Chou](https://github.com/stricker1)
 
 Special thanks to theverd1ct
