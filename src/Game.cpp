@@ -234,7 +234,8 @@ int Game::gameLoop() {
         }
 
         battleCycle = 1;
-        if (savePoint > 5) screenManager.AddBossCount(1);
+        if (savePoint > 5) screenManager.setBossCount(savePoint+1);
+        else screenManager.setBossCount(savePoint);
         // need ui to show screen based on savePoint (dialogue)
         switch (savePoint) {
             case 0:
@@ -253,7 +254,6 @@ int Game::gameLoop() {
                 boss = new Dekopon(playerFile, 2, savePoint+201, statusMgr);
                 break;
             case 5:
-                screenManager.setBossCount(savePoint);
                 boss = new MangoGreen("assets/bosses/MangoGreen.txt", -1, savePoint+201, statusMgr);
                 break;
             case 6:
