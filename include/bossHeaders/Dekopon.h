@@ -8,7 +8,7 @@ class Dekopon : public Boss {
         Dekopon(const string& main, int required, int proxy, StatusManager& statusMgr) : Boss(main, required, proxy, statusMgr) {
             name = "Dekopon";
             level = 50;
-            stats.at(0)->addBase(2000);
+            stats.at(0)->addBase(3500);
             hp += 2000;
         }
         string specialAttack(Fruit* target) {

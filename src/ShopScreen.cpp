@@ -8,6 +8,7 @@ ShopScreen::ShopScreen(ScreenManager& mgr, bool& exitFlag)
     , exitGame(exitFlag)
     , backButton("Graphics/Buttons/backButton.png", {50,750}, 0.8)
     , refreshButton("Graphics/Buttons/refreshButton.png", {1400, 725}, .8)
+    , refresh({400, 100}, {800, 700}, {500, 600}, .7, "Graphics/Buttons/cancelButton.png", manager)
     , menu({400, 100}, {800, 700}, {500, 600}, .7, "Graphics/Buttons/cancelButton.png", 0, manager)
 {
     resetItems();
@@ -45,14 +46,18 @@ void ShopScreen::Update(const Vector2& mousePos, bool mouseClicked) {
         return;
     }
 
-    if (refreshButton.isPressed(mousePos, mouseClicked)) {
-        if (manager.getCalories() >= 50) {
-            manager.getCaloriesVar() -= 50;
-            manager.getShop()->resetShop();
+    if (refresh.isVisible()) {
+        refresh.Update(mousePos, mouseClicked);
+        if (!refresh.isVisible()) {
             for (unsigned i = 0; i < 6; i++) delete items[i];
             resetItems();
-            return;
         }
+        return;
+    }
+
+    if (refreshButton.isPressed(mousePos, mouseClicked)) {
+        refresh.showPopup();
+        return;
     }
 
     for (unsigned i = 0; i < 6; i++) {
@@ -89,6 +94,7 @@ void ShopScreen::Draw() {
     backButton.Draw();
     refreshButton.Draw();
     menu.Draw();
+    refresh.Draw();
     string calCount = "Calories: " + to_string(manager.getCalories());
     DrawText(calCount.c_str(), 1300, 100, 35, BLACK);
 

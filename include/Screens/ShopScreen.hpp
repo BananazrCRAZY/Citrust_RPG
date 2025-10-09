@@ -7,6 +7,7 @@
 #include "include/Buttons/SolidButton.hpp"
 #include "include/Objects/Shop.h"
 #include "include/Popups/BuyItemPopup.hpp"
+#include "include/Popups/RefreshPopup.hpp"
 #include <raylib.h>
 #include <memory>
 
@@ -28,6 +29,7 @@ class ShopScreen : public IScreen {
         Button refreshButton;
         Texture2D background;
         BuyItemPopup menu;
+        RefreshPopup refresh;
         Shop* shop;
 
         void resetItems();
